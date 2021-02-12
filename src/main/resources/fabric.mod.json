@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "id": "llamamod",
+  "version": "${version}",
+
+  "name": "Llama Mod",
+  "description": "General improvements to llamas gone insane!!!",
+  "authors": [
+    "ArshiaDPG",
+    "PeterGamesGR",
+    "Cosmic-0022",
+    "KaloyanKYS"
+  ],
+  "contact": {
+    "homepage": "https://github.com/ArshiaDPG/LlamaMod",
+    "sources": "https://github.com/ArshiaDPG/LlamaMod"
+  },
+
+  "license": "CC0-1.0",
+  "icon": "assets/llamamod/icon.png",
+
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "com.github.llamamod.team.LlamaMod"
+    ],
+    "client": [
+      "com.github.llamamod.team.LlamaModClient"
+    ]
+  },
+  "mixins": [
+    "llamamod.mixins.json"
+  ],
+
+  "depends": {
+    "fabricloader": ">=0.7.4",
+    "fabric": "*",
+    "minecraft": "1.16.x"
+  },
+  "suggests": {
+    "another-mod": "*"
+  }
+}
