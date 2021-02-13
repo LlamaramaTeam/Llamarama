@@ -1,7 +1,9 @@
 package com.github.llamamod.team.block;
 
 import com.github.llamamod.team.LlamaMod;
+import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
+import net.minecraft.block.Blocks;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 
@@ -23,9 +25,8 @@ public final class ModBlocks {
 
     private static final List<CustomBlock> REGISTRY = new ArrayList<>();
 
-
     //Instantiate Blocks Here!!!
-    //public static final Block LLAMA_BLOCK = new CustomBlock("llama_block", AbstractBlock.Settings.copy(Blocks.WHITE_WOOL));
+    public static final CustomBlock LLAMA_WOOL = new CustomBlock("llama_wool", AbstractBlock.Settings.copy(Blocks.WHITE_WOOL));
 
 
     private ModBlocks() {
