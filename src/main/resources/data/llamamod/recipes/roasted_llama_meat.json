@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "item": "llamamod:raw_llama_meat"
+  },
+  "result": "llamamod:roasted_llama_meat",
+  "experience": 0.2,
+  "cookingtime": 200
+}
