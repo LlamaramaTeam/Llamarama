@@ -4,6 +4,6 @@
     "item": "llamamod:raw_llama_meat"
   },
   "result": "llamamod:roasted_llama_meat",
-  "experience": 0,
+  "experience": 0.1,
   "cookingtime": 100
 }
