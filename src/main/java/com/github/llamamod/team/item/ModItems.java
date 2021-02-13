@@ -33,7 +33,7 @@ public final class ModItems {
 
     }
 
-    public static <T extends CustomItem> void addToRegistry(T item) {
+    public static <ITEM extends CustomItem> void addToRegistry(ITEM item) {
         REGISTRY.add(item);
     }
 

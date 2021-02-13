@@ -1,5 +1,6 @@
 package com.github.llamamod.team;
 
+import com.github.llamamod.team.block.ModBlocks;
 import com.github.llamamod.team.item.ModItems;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
@@ -17,6 +18,7 @@ public class LlamaMod implements ModInitializer {
     public void onInitialize() {
         System.out.println("Welcome to the world of llamas!!!");
         ModItems.init();
+        ModBlocks.init();
     }
 
 }
