@@ -2,5 +2,6 @@
   "item.llamamod.raw_llama_meat": "Raw Llama Meat",
   "item.llamamod.roasted_llama_meat": "Roasted Llama Meat",
   "block.llamamod.llama_wool": "Llama Wool",
-  "itemGroup.llamamod.llama_item_group": "LlamaMod"
+  "itemGroup.llamamod.llama_item_group": "LlamaMod",
+  "block.llamamod.rug": "Rug"
 }

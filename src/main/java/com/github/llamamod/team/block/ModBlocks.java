@@ -27,6 +27,7 @@ public final class ModBlocks {
 
     //Instantiate Blocks Here!!!
     public static final CustomBlock LLAMA_WOOL = new CustomBlock("llama_wool", AbstractBlock.Settings.copy(Blocks.WHITE_WOOL));
+    public static final CustomBlock RUG = new CustomBlock("rug", AbstractBlock.Settings.copy(Blocks.WHITE_CARPET));
 
 
     private ModBlocks() {
