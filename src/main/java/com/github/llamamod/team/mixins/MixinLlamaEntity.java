@@ -30,5 +30,6 @@ public abstract class MixinLlamaEntity extends AbstractDonkeyEntity implements R
 
         return ActionResult.PASS;
     }
+    
 
 }

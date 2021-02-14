@@ -4,11 +4,10 @@
   "package": "com.github.llamamod.team.mixins",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
+    "AccessorLlamaEntity",
     "MixinLlamaEntity"
   ],
   "client": [
-    "MixinLlamaEntityModel",
-    "MixinLlamaEntityRenderer"
   ],
   "injectors": {
     "defaultRequire": 1
