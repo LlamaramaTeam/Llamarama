@@ -9,5 +9,5 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 public interface AccessorLlamaEntity {
 
     @Accessor("STRENGTH")
-    public TrackedData<Integer> getStrength();
+    TrackedData<Integer> getStrength();
 }
