@@ -2,10 +2,8 @@ package com.github.llamamod.team.block;
 
 import com.github.llamamod.team.LlamaMod;
 import net.minecraft.block.AbstractBlock;
-import net.minecraft.block.BedBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
-import net.minecraft.util.DyeColor;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 

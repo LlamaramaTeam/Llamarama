@@ -10,4 +10,8 @@ public interface AccessorLlamaEntity {
 
     @Accessor("STRENGTH")
     TrackedData<Integer> getStrength();
+
+    @Accessor("spit")
+    boolean spit();
+
 }
