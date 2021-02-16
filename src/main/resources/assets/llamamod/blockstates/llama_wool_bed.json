@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "llamamod:block/llama_wool_bed"
+    }
+  }
+}

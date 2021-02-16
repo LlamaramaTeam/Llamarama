@@ -2,7 +2,6 @@ package com.github.llamamod.team.entity.ai.goal;
 
 import com.github.llamamod.team.entity.woolyllama.WoollyLlamaEntity;
 import com.github.llamamod.team.mixins.AccessorLlamaEntity;
-import com.github.llamamod.team.mixins.InvokerLlamaEntity;
 import net.minecraft.entity.ai.goal.RevengeGoal;
 import net.minecraft.entity.mob.PathAwareEntity;
 import net.minecraft.entity.passive.LlamaEntity;
@@ -18,7 +17,7 @@ public class SpitRevengeGoal extends RevengeGoal {
         if (this.mob instanceof LlamaEntity) {
             WoollyLlamaEntity llamaEntity = (WoollyLlamaEntity) this.mob;
             if (((AccessorLlamaEntity)llamaEntity).spit()) {
-                ((InvokerLlamaEntity)llamaEntity).spit(false);
+                ((AccessorLlamaEntity)llamaEntity).invokeSetSpit(false);
                 return false;
             }
         }

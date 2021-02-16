@@ -2,10 +2,9 @@ package com.github.llamamod.team.entity.woolyllama;
 
 import com.github.llamamod.team.block.ModBlocks;
 import com.github.llamamod.team.entity.ModEntityTypes;
+import com.github.llamamod.team.entity.ai.goal.CaravanGoal;
 import com.github.llamamod.team.entity.ai.goal.MobChaseGoal;
-import com.github.llamamod.team.entity.ai.goal.MoveToBlockGoal;
 import com.github.llamamod.team.entity.ai.goal.SpitRevengeGoal;
-import com.github.llamamod.team.item.ModItems;
 import com.github.llamamod.team.mixins.AccessorLlamaEntity;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.EntityType;
@@ -34,23 +33,25 @@ import net.minecraft.world.World;
 public class WoollyLlamaEntity extends LlamaEntity implements Shearable {
 
     private static final TrackedData<Boolean> SHEARED;
-    private static final TrackedData<Integer> WOOL_TIMER;
 
     static {
         SHEARED = DataTracker.registerData(WoollyLlamaEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
-        WOOL_TIMER = DataTracker.registerData(WoollyLlamaEntity.class, TrackedDataHandlerRegistry.INTEGER);
     }
+
+    private int WOOL_TIMER;
 
 
     public WoollyLlamaEntity(EntityType<? extends WoollyLlamaEntity> entityType, World world) {
         super(entityType, world);
+        this.WOOL_TIMER = 20 * 60 * 5;
     }
 
     @Override
     protected void initGoals() {
         this.goalSelector.add(0, new SwimGoal(this));
+        /*this.goalSelector.add(1, new MoveToBlockGoal(this, Blocks.GRASS_BLOCK.getDefaultState(), this.getMovementSpeed(), 16));*/
         this.goalSelector.add(1, new HorseBondWithPlayerGoal(this, 1.2D));
-        this.goalSelector.add(2, new FormCaravanGoal(this, 2.0999999046325684D));
+        this.goalSelector.add(2, new CaravanGoal<>(this, 2.0999999046325684D));
         this.goalSelector.add(3, new ProjectileAttackGoal(this, 1.25D, 40, 20.0F));
         this.goalSelector.add(3, new EscapeDangerGoal(this, 1.2D));
         this.goalSelector.add(4, new AnimalMateGoal(this, 1.0D));
@@ -60,15 +61,12 @@ public class WoollyLlamaEntity extends LlamaEntity implements Shearable {
         this.goalSelector.add(8, new LookAroundGoal(this));
         this.targetSelector.add(1, new SpitRevengeGoal(this));
         this.targetSelector.add(2, new MobChaseGoal<>(this, WolfEntity.class));
-        this.goalSelector.add(4, new MoveToBlockGoal(this, Blocks.GRASS_BLOCK.getDefaultState(),
-                this.getMovementSpeed(), 16));
     }
 
     @Override
     protected void initDataTracker() {
         super.initDataTracker();
         this.dataTracker.startTracking(SHEARED, false);
-        this.dataTracker.startTracking(WOOL_TIMER, 100);
     }
 
     @Override
@@ -93,7 +91,7 @@ public class WoollyLlamaEntity extends LlamaEntity implements Shearable {
 
             this.world.playSoundFromEntity(null, this, SoundEvents.BLOCK_BEEHIVE_SHEAR, SoundCategory.NEUTRAL, 1.0f, 1.0f);
 
-            this.dropItem(ModBlocks.LLAMA_WOOL.getItem());
+            this.dropItem(ModBlocks.LLAMA_WOOL.asItem());
         }
     }
 
@@ -117,11 +115,6 @@ public class WoollyLlamaEntity extends LlamaEntity implements Shearable {
 
     protected WoollyLlamaEntity getChild() {
         return ModEntityTypes.WOOLLY_LLAMA.create(this.world);
-    }
-
-    @Override
-    public boolean isBreedingItem(ItemStack stack) {
-        return stack.getItem() == Items.GOLDEN_APPLE;
     }
 
     @Override
@@ -152,11 +145,11 @@ public class WoollyLlamaEntity extends LlamaEntity implements Shearable {
     }
 
     public int getWoolTimer() {
-        return this.dataTracker.get(WOOL_TIMER);
+        return this.WOOL_TIMER;
     }
 
     protected void setWoolTimer(int newVal) {
-        this.dataTracker.set(WOOL_TIMER, newVal);
+        this.WOOL_TIMER = newVal;
     }
 
     @Override
@@ -226,7 +219,7 @@ public class WoollyLlamaEntity extends LlamaEntity implements Shearable {
     public void onDeath(DamageSource source) {
         if (!this.getSheared()) {
             for (int i = 0; i < this.random.nextInt(3); i++) {
-                this.dropItem(ModBlocks.LLAMA_WOOL.getItem());
+                this.dropItem(ModBlocks.LLAMA_WOOL.asItem());
             }
         }
 

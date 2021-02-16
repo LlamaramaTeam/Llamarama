@@ -22,4 +22,5 @@ public class LlamaMod implements ModInitializer {
         ModBlocks.init();
         ModEntityTypes.init();
     }
+
 }

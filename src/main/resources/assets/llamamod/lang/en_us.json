@@ -4,5 +4,6 @@
   "block.llamamod.llama_wool": "Llama Wool",
   "itemGroup.llamamod.llama_item_group": "LlamaMod",
   "block.llamamod.rug": "Rug",
-  "entity.llamamid.woolly_llama": "Woolly Llama"
+  "entity.llamamod.woolly_llama": "Woolly Llama",
+  "block.llamamod.llama_wool_bed": "Llama Wool Bed"
 }
