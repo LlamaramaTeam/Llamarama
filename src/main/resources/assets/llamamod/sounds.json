@@ -4,5 +4,13 @@
     "sounds": [
       "llamamod:llamarama"
     ]
+  },
+  "llamajama": {
+    "subtitle": "subtitle.llamamod.llamajama",
+    "sounds": [
+      "llamamod:llamajama"
+    ]
   }
+
+
 }

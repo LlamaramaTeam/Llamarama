@@ -32,6 +32,7 @@ public final class ModBlocks {
             AbstractBlock.Settings.copy(Blocks.WHITE_BED));
 
 
+
     private ModBlocks() {
         register(LLAMA_WOOL, "llama_wool");
         register(RUG, "rug");

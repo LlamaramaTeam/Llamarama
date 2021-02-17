@@ -27,6 +27,7 @@ public final class ModItems {
     public static final Item ROASTED_LLAMA_MEAT = new Item(NORMAL_SETTINGS.food(ModFoodComponents.ROASTED_LLAMA_MEAT));
     public static final Item WOOLLY_LLAMA_SPAWN_EGG = new SpawnEggItem(ModEntityTypes.WOOLLY_LLAMA, 0xFDD185, 0xE9AE48, NORMAL_SETTINGS);
     public static final Item LLAMARAMA = new MusicDiscItem(5, ModSoundEvents.LLAMARAMA_DISC, NORMAL_SETTINGS.maxCount(1).rarity(Rarity.RARE));
+    public static final Item LLAMAJAMA = new MusicDiscItem(5, ModSoundEvents.LLAMAJAMA_DISC, NORMAL_SETTINGS.maxCount(1).rarity(Rarity.RARE));
     private static ModItems instance;
 
 
@@ -35,6 +36,7 @@ public final class ModItems {
         register(ROASTED_LLAMA_MEAT, "roasted_llama_meat");
         register(WOOLLY_LLAMA_SPAWN_EGG, "woolly_llama_spawn_egg");
         register(LLAMARAMA, "llamarama_disc");
+        register(LLAMAJAMA, "llamajama_disc");
     }
 
     public static void init() {

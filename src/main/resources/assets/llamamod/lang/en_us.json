@@ -9,5 +9,8 @@
   "item.llamamod.woolly_llama_spawn_egg": "Woolly Llama Spawn Egg",
   "item.llamamod.llamarama_disc": "Music Disc",
   "item.llamamod.llamarama_disc.desc": "Llamarama - Calypso Robobobert",
-  "subtitle.llamamod.llamarama": "Llamarama playing..."
+  "subtitle.llamamod.llamarama": "Llamarama playing...",
+  "item.llamamod.llamajama_disc": "Music Disc",
+  "item.llamamod.llamajama_disc.desc": "Llamajama - KaloyanKYS",
+  "subtitle.llamamod.llamajama": "Llamajama playing..."
 }
