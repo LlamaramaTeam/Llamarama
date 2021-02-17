@@ -4,6 +4,7 @@ import com.github.llamamod.team.block.ModBlocks;
 import com.github.llamamod.team.entity.ModEntityTypes;
 import com.github.llamamod.team.entity.ai.goal.CaravanGoal;
 import com.github.llamamod.team.entity.ai.goal.MobChaseGoal;
+import com.github.llamamod.team.entity.ai.goal.MoveToBlockGoal;
 import com.github.llamamod.team.entity.ai.goal.SpitRevengeGoal;
 import com.github.llamamod.team.mixins.AccessorLlamaEntity;
 import net.minecraft.block.Blocks;
@@ -49,11 +50,12 @@ public class WoollyLlamaEntity extends LlamaEntity implements Shearable {
     @Override
     protected void initGoals() {
         this.goalSelector.add(0, new SwimGoal(this));
-        /*this.goalSelector.add(1, new MoveToBlockGoal(this, Blocks.GRASS_BLOCK.getDefaultState(), this.getMovementSpeed(), 16));*/
         this.goalSelector.add(1, new HorseBondWithPlayerGoal(this, 1.2D));
-        this.goalSelector.add(2, new CaravanGoal<>(this, 2.0999999046325684D));
+        //this.goalSelector.add(2, new CaravanGoal<>(this, 2.0999999046325684D));
         this.goalSelector.add(3, new ProjectileAttackGoal(this, 1.25D, 40, 20.0F));
         this.goalSelector.add(3, new EscapeDangerGoal(this, 1.2D));
+        this.targetSelector.add(3, new MoveToBlockGoal(this, Blocks.GRASS_BLOCK.getDefaultState(),
+                this.getMovementSpeed() + 0.25d, 16));
         this.goalSelector.add(4, new AnimalMateGoal(this, 1.0D));
         this.goalSelector.add(5, new FollowParentGoal(this, 1.0D));
         this.goalSelector.add(6, new WanderAroundFarGoal(this, 0.7D));
@@ -102,19 +104,28 @@ public class WoollyLlamaEntity extends LlamaEntity implements Shearable {
 
     @Override
     public ActionResult interactMob(PlayerEntity player, Hand hand) {
-        if (player.getStackInHand(hand).getItem() != Items.SHEARS) {
-            return super.interactMob(player, hand);
-        } else if (!this.getSheared()) {
-            this.sheared(SoundCategory.NEUTRAL);
+        if (!this.world.isClient()) {
+            if (player.getStackInHand(hand).getItem() != Items.SHEARS) {
 
-            player.getStackInHand(hand).damage(1, player, (playerEntity -> playerEntity.sendToolBreakStatus(hand)));
+                if (this.isBreedingItem(player.getStackInHand(hand))) {
+                    this.world.playSoundFromEntity(null, this, SoundEvents.ENTITY_LLAMA_EAT, SoundCategory.NEUTRAL, 1.0f, 2.0f);
+                }
 
-            return ActionResult.success(this.world.isClient());
-        } else { return ActionResult.PASS; }
+                return super.interactMob(player, hand);
+            } else if (this.isShearable()) {
+                this.sheared(SoundCategory.NEUTRAL);
+
+                player.getStackInHand(hand).damage(1, player, (playerEntity -> playerEntity.sendToolBreakStatus(hand)));
+
+                return ActionResult.SUCCESS;
+            } else { return ActionResult.PASS; }
+        }
+
+        return ActionResult.FAIL;
     }
 
     protected WoollyLlamaEntity getChild() {
-        return ModEntityTypes.WOOLLY_LLAMA.create(this.world);
+        return !this.world.isClient() ? ModEntityTypes.WOOLLY_LLAMA.create(this.world) : null;
     }
 
     @Override
@@ -157,7 +168,7 @@ public class WoollyLlamaEntity extends LlamaEntity implements Shearable {
         super.tick();
 
         if (this.getWoolTimer() > 0 && this.getSheared() && this.world.getBlockState(this.getBlockPos().down()) == Blocks.GRASS_BLOCK.getDefaultState()) {
-            this.setWoolTimer(this.getWoolTimer() - 1);
+            this.WOOL_TIMER--;
         } else if (this.getWoolTimer() == 0 && this.getSheared()) {
             this.setSheared(false);
             this.world.playSoundFromEntity(null, this, SoundEvents.BLOCK_WOOL_PLACE, SoundCategory.NEUTRAL, 1.0F, 1.0F);

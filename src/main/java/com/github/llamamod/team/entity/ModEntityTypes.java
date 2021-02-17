@@ -12,19 +12,16 @@ import net.minecraft.util.registry.Registry;
 
 public final class ModEntityTypes {
 
-    public static final EntityType<WoollyLlamaEntity> WOOLLY_LLAMA = Registry.register(Registry.ENTITY_TYPE,
-            new Identifier(LlamaMod.MOD_ID, "woolly_llama"),
-            FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, WoollyLlamaEntity::new)
-                    .dimensions(new EntityDimensions(0.9f, 1.87f, true))
-                    .trackRangeBlocks(10)
-                    .build());
+    public static final EntityType<WoollyLlamaEntity> WOOLLY_LLAMA = Registry.register(Registry.ENTITY_TYPE, new Identifier(LlamaMod.MOD_ID, "woolly_llama"), FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, WoollyLlamaEntity::new).dimensions(new EntityDimensions(0.9f, 1.87f, false)).trackRangeBlocks(10).build());
+    private static ModEntityTypes instance;
 
 
     private ModEntityTypes() {
-
+        FabricDefaultAttributeRegistry.register(WOOLLY_LLAMA, WoollyLlamaEntity.createLlamaAttributes());
     }
 
     public static void init() {
-        FabricDefaultAttributeRegistry.register(WOOLLY_LLAMA, WoollyLlamaEntity.createLlamaAttributes());
+        if (instance == null) instance = new ModEntityTypes();
     }
+
 }

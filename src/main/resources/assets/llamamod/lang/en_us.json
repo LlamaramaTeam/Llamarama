@@ -5,5 +5,9 @@
   "itemGroup.llamamod.llama_item_group": "LlamaMod",
   "block.llamamod.rug": "Rug",
   "entity.llamamod.woolly_llama": "Woolly Llama",
-  "block.llamamod.llama_wool_bed": "Llama Wool Bed"
+  "block.llamamod.llama_wool_bed": "Llama Wool Bed",
+  "item.llamamod.woolly_llama_spawn_egg": "Woolly Llama Spawn Egg",
+  "item.llamamod.llamarama_disc": "Music Disc",
+  "item.llamamod.llamarama_disc.desc": "Llamarama - Calypso Robobobert",
+  "subtitle.llamamod.llamarama": "Llamarama playing..."
 }

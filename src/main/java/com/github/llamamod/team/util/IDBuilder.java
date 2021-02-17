@@ -8,4 +8,8 @@ public interface IDBuilder {
     static Identifier of(String path){
         return new Identifier(LlamaMod.MOD_ID, path);
     }
+
+    static Identifier fullPath(String path){
+        return new Identifier(path);
+    }
 }
