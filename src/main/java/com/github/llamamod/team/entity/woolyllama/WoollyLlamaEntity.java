@@ -2,6 +2,7 @@ package com.github.llamamod.team.entity.woolyllama;
 
 import com.github.llamamod.team.block.ModBlocks;
 import com.github.llamamod.team.entity.ModEntityTypes;
+import com.github.llamamod.team.entity.ai.goal.CaravanGoal;
 import com.github.llamamod.team.entity.ai.goal.MobChaseGoal;
 import com.github.llamamod.team.entity.ai.goal.MoveToBlockGoal;
 import com.github.llamamod.team.entity.ai.goal.SpitRevengeGoal;
@@ -50,7 +51,7 @@ public class WoollyLlamaEntity extends LlamaEntity implements Shearable {
     protected void initGoals() {
         this.goalSelector.add(0, new SwimGoal(this));
         this.goalSelector.add(1, new HorseBondWithPlayerGoal(this, 1.2D));
-        //this.goalSelector.add(2, new CaravanGoal<>(this, 2.0999999046325684D));
+        this.goalSelector.add(2, new CaravanGoal<>(this, 2.0999999046325684D));
         this.goalSelector.add(3, new ProjectileAttackGoal(this, 1.25D, 40, 20.0F));
         this.goalSelector.add(3, new EscapeDangerGoal(this, 1.2D));
         this.targetSelector.add(3, new MoveToBlockGoal(this, Blocks.GRASS_BLOCK.getDefaultState(), this.getMovementSpeed() + 0.25d, 16));
@@ -102,24 +103,25 @@ public class WoollyLlamaEntity extends LlamaEntity implements Shearable {
 
     @Override
     public ActionResult interactMob(PlayerEntity player, Hand hand) {
-        if (!this.world.isClient()) {
-            if (player.getStackInHand(hand).getItem() != Items.SHEARS) {
 
-                if (this.isBreedingItem(player.getStackInHand(hand))) {
-                    this.world.playSoundFromEntity(null, this, SoundEvents.ENTITY_LLAMA_EAT, SoundCategory.NEUTRAL, 1.0f, 2.0f);
-                }
+        if (player.getStackInHand(hand).getItem() != Items.SHEARS) {
 
-                return super.interactMob(player, hand);
-            } else if (this.isShearable()) {
-                this.sheared(SoundCategory.NEUTRAL);
+            if (this.isBreedingItem(player.getStackInHand(hand))) {
+                this.world.playSoundFromEntity(null, this, SoundEvents.ENTITY_LLAMA_EAT, SoundCategory.NEUTRAL, 1.0f, 2.0f);
+            }
 
-                player.getStackInHand(hand).damage(1, player, (playerEntity -> playerEntity.sendToolBreakStatus(hand)));
+            return super.interactMob(player, hand);
 
-                return ActionResult.SUCCESS;
-            } else { return ActionResult.PASS; }
-        }
+        } else if (this.isShearable()) {
 
-        return ActionResult.FAIL;
+            this.sheared(SoundCategory.NEUTRAL);
+
+            player.getStackInHand(hand).damage(1, player, (playerEntity -> playerEntity.sendToolBreakStatus(hand)));
+
+            return ActionResult.success(this.world.isClient());
+
+        } else { return ActionResult.PASS; }
+
     }
 
     protected WoollyLlamaEntity getChild() {
