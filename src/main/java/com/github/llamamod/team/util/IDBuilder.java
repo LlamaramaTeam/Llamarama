@@ -5,11 +5,16 @@ import net.minecraft.util.Identifier;
 
 public interface IDBuilder {
 
-    static Identifier of(String path){
+    static Identifier of(String path) {
         return new Identifier(LlamaMod.MOD_ID, path);
     }
 
-    static Identifier fullPath(String path){
+    static Identifier fullPath(String path) {
         return new Identifier(path);
     }
+
+    static Identifier vanillaOf(String id){
+        return new Identifier("minecraft", id);
+    }
+
 }

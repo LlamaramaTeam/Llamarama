@@ -21,7 +21,7 @@ public final class ModEntityTypes {
     }
 
     public static void init() {
-        if (instance == null) instance = new ModEntityTypes();
+        if (instance == null) { instance = new ModEntityTypes(); }
     }
 
 }

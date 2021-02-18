@@ -13,4 +13,5 @@ public abstract class MixinLlamaEntity extends AbstractDonkeyEntity implements R
     protected MixinLlamaEntity(EntityType<? extends AbstractDonkeyEntity> entityType, World world) {
         super(entityType, world);
     }
+
 }

@@ -24,12 +24,10 @@ import net.minecraft.util.registry.Registry;
  */
 public final class ModBlocks {
 
-    private static ModBlocks instance;
-
     public static final Block LLAMA_WOOL = new Block(AbstractBlock.Settings.copy(Blocks.WHITE_WOOL));
     public static final Block RUG = new RugBlock(AbstractBlock.Settings.copy(Blocks.WHITE_CARPET));
-    public static final Block LLAMA_WOOL_BED = new BedBlock(DyeColor.WHITE,
-            AbstractBlock.Settings.copy(Blocks.WHITE_BED));
+    public static final Block LLAMA_WOOL_BED = new BedBlock(DyeColor.WHITE, AbstractBlock.Settings.copy(Blocks.WHITE_BED));
+    private static ModBlocks instance;
 
 
 
@@ -41,7 +39,7 @@ public final class ModBlocks {
 
 
     public static void init() {
-        if (instance == null) instance = new ModBlocks();
+        if (instance == null) { instance = new ModBlocks(); }
     }
 
     private void register(Block block, String id) {

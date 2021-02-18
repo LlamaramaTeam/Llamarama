@@ -5,6 +5,7 @@ import com.github.llamamod.team.entity.ModEntityTypes;
 import com.github.llamamod.team.item.ModItems;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
+import net.fabricmc.fabric.api.loot.v1.event.LootTableLoadingCallback;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
@@ -25,6 +26,9 @@ public class LlamaMod implements ModInitializer {
         ModItems.init();
         ModBlocks.init();
         ModEntityTypes.init();
+
+        // Callback registers.
+        LootTableLoadingCallback.EVENT.register(EventHandler.getInstance()::lootTableListener);
     }
 
 }

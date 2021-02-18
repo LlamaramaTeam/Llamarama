@@ -8,9 +8,9 @@ import net.minecraft.entity.passive.WolfEntity;
 public class MobChaseGoal<T extends MobEntity, E extends LivingEntity> extends FollowTargetGoal<E> {
 
     public MobChaseGoal(T llama, Class<E> entityClass) {
-        super(llama, entityClass, 16, false, true, (livingEntity) ->{
+        super(llama, entityClass, 16, false, true, (livingEntity) -> {
             if (livingEntity instanceof WolfEntity) {
-                return !((WolfEntity)livingEntity).isTamed();
+                return !((WolfEntity) livingEntity).isTamed();
             } else {
                 return true;
             }

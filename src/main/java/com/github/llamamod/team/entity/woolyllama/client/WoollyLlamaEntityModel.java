@@ -96,9 +96,7 @@ public class WoollyLlamaEntityModel<T extends WoollyLlamaEntity> extends EntityM
             matrices.push();
             matrices.scale(0.45454544F, 0.41322312F, 0.45454544F);
             matrices.translate(0.0D, 2.0625D, 0.0D);
-            ImmutableList.of(this.rightBackLeg, this.leftBackLeg, this.rightFrontLeg, this.leftFrontLeg,
-                    this.rightChest, this.leftChest).forEach(modelPart -> modelPart.render(matrices, vertices, light,
-                    overlay));
+            ImmutableList.of(this.rightBackLeg, this.leftBackLeg, this.rightFrontLeg, this.leftFrontLeg, this.rightChest, this.leftChest).forEach(modelPart -> modelPart.render(matrices, vertices, light, overlay));
             matrices.pop();
         } else {
             ImmutableList.of(this.head, this.torso, this.rightBackLeg, this.leftBackLeg, this.rightFrontLeg, this.leftFrontLeg, this.rightChest, this.leftChest).forEach((modelPart) -> modelPart.render(matrices, vertices, light, overlay, red, green, blue, alpha));

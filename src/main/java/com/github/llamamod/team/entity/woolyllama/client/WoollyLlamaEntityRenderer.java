@@ -52,9 +52,7 @@ public class WoollyLlamaEntityRenderer extends MobEntityRenderer<WoollyLlamaEnti
             // Mostly Copied from LlamaFeatureDecorRenderer.
             DyeColor dyeColor = entity.getCarpetColor();
             Identifier carpetId;
-            if (dyeColor != null)
-                carpetId = LLAMA_DECOR[dyeColor.getId()];
-            else return;
+            if (dyeColor != null) { carpetId = LLAMA_DECOR[dyeColor.getId()]; } else { return; }
 
             this.getContextModel().copyStateTo(this.model);
             this.model.setAngles(entity, limbAngle, limbDistance, animationProgress, headYaw, headPitch);
