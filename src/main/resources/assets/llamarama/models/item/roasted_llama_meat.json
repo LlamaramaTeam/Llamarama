@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "llamarama:item/roasted_llama_meat"
+  }
+}

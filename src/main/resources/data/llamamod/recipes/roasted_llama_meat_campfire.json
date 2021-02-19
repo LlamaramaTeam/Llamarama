@@ -1,8 +1,0 @@
-{
-  "type": "minecraft:campfire_cooking",
-  "ingredient": {
-    "item": "llamamod:raw_llama_meat"
-  },
-  "result": "llamamod:roasted_llama_meat",
-  "cookingtime": 600
-}

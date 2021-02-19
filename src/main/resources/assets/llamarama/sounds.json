@@ -1,0 +1,16 @@
+{
+  "llamarama": {
+    "subtitle": "subtitle.llamarama.llamarama",
+    "sounds": [
+      "llamarama:llamarama"
+    ]
+  },
+  "llamajama": {
+    "subtitle": "subtitle.llamarama.llamajama",
+    "sounds": [
+      "llamarama:llamajama"
+    ]
+  }
+
+
+}

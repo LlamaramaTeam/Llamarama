@@ -1,0 +1,16 @@
+{
+  "item.llamarama.raw_llama_meat": "Raw Llama Meat",
+  "item.llamarama.roasted_llama_meat": "Roasted Llama Meat",
+  "block.llamarama.llama_wool": "Llama Wool",
+  "itemGroup.llamarama.llama_item_group": "LlamaMod",
+  "block.llamarama.rug": "Rug",
+  "entity.llamarama.woolly_llama": "Woolly Llama",
+  "block.llamarama.llama_wool_bed": "Llama Wool Bed",
+  "item.llamarama.woolly_llama_spawn_egg": "Woolly Llama Spawn Egg",
+  "item.llamarama.llamarama_disc": "Music Disc",
+  "item.llamarama.llamarama_disc.desc": "Llamarama - Calypso Robobobert",
+  "subtitle.llamarama.llamarama": "Llamarama playing...",
+  "item.llamarama.llamajama_disc": "Music Disc",
+  "item.llamarama.llamajama_disc.desc": "Llamajama - KaloyanKYS",
+  "subtitle.llamarama.llamajama": "Llamajama playing..."
+}

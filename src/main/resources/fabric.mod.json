@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "id": "llamamod",
+  "id": "llamarama",
   "version": "${version}",
   "name": "Llama Mod",
   "description": "General improvements to llamas gone insane!!!",
@@ -16,18 +16,18 @@
     "sources": "https://github.com/ArshiaDPG/LlamaMod"
   },
   "license": "CC0-1.0",
-  "icon": "assets/llamamod/icon.png",
+  "icon": "assets/llamarama/icon.png",
   "environment": "*",
   "entrypoints": {
     "main": [
-      "com.github.llamamod.team.LlamaMod"
+      "com.github.llamarama.team.Llamarama"
     ],
     "client": [
-      "com.github.llamamod.team.LlamaModClient"
+      "com.github.llamarama.team.LlamaramaClient"
     ]
   },
   "mixins": [
-    "llamamod.mixins.json"
+    "llamarama.mixins.json"
   ],
   "depends": {
     "fabricloader": ">=0.7.4",
