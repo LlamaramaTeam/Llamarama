@@ -2,10 +2,7 @@ package com.github.llamarama.team.entity.woolyllama;
 
 import com.github.llamarama.team.block.ModBlocks;
 import com.github.llamarama.team.entity.ModEntityTypes;
-import com.github.llamarama.team.entity.ai.goal.CaravanGoal;
-import com.github.llamarama.team.entity.ai.goal.MobChaseGoal;
-import com.github.llamarama.team.entity.ai.goal.MoveToBlockGoal;
-import com.github.llamarama.team.entity.ai.goal.SpitRevengeGoal;
+import com.github.llamarama.team.entity.ai.goal.*;
 import com.github.llamarama.team.mixins.AccessorLlamaEntity;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.EntityType;
@@ -51,6 +48,7 @@ public class WoollyLlamaEntity extends LlamaEntity implements Shearable {
     protected void initGoals() {
         this.goalSelector.add(0, new SwimGoal(this));
         this.goalSelector.add(1, new HorseBondWithPlayerGoal(this, 1.2D));
+        this.goalSelector.add(1, new VibeGoal(this));
         this.goalSelector.add(2, new CaravanGoal<>(this, 2.0999999046325684D));
         this.goalSelector.add(3, new ProjectileAttackGoal(this, 1.25D, 40, 20.0F));
         this.goalSelector.add(3, new EscapeDangerGoal(this, 1.2D));
