@@ -70,13 +70,14 @@ public class CaravanGoal<T extends LlamaEntity> extends Goal {
     }
 
     public boolean canFollow(T reference, int length) {
-        if (length >= 8) {
+        if (length > 8) {
             return false;
         } else if (reference.isFollowing()) {
             if (reference.getFollowing() != null && reference.getFollowing().isLeashed()) {
                 return true;
             } else {
-                return this.canFollow((T) reference.getFollowing(), ++length);
+                length++;
+                return this.canFollow((T) reference.getFollowing(), length);
             }
         } else {
             return false;

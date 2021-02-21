@@ -2,6 +2,7 @@ package com.github.llamarama.team.entity.ai.goal;
 
 import com.github.llamarama.team.Llamarama;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.block.JukeboxBlock;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.JukeboxBlockEntity;
@@ -19,7 +20,7 @@ public class VibeGoal extends Goal {
 
     public VibeGoal(MobEntity entity) {
         this.entity = entity;
-        this.setControls(EnumSet.of(Control.LOOK));
+        this.setControls(EnumSet.of(Control.LOOK, Control.MOVE));
     }
 
     @Override
@@ -37,21 +38,21 @@ public class VibeGoal extends Goal {
     @Override
     public boolean canStart() {
 
-        BlockPos.Mutable mutable = new BlockPos.Mutable();
+        BlockPos currentPos;
 
         BlockState currentBlock;
 
         for (int i = (int) this.entity.getPos().getX() - 4; i <= 4; i++) {
             for (int j = (int) this.entity.getPos().getY() - 4; j <= 4; j++) {
                 for (int k = (int) this.entity.getPos().getZ() - 4; k <= 4; k++) {
-                    currentBlock = this.entity.getEntityWorld().getBlockState(mutable.set(i, j, k));
+                    currentBlock = this.entity.world.getBlockState(currentPos = new BlockPos(i, k, j));
 
                     /*Llamarama.LOGGER.info("Spam");*/
 
-                    if (currentBlock.getBlock() instanceof JukeboxBlock) {
-                        this.targetPos = new BlockPos(i, j, k);
+                    if (currentBlock.getBlock() == Blocks.JUKEBOX) {
+                        this.targetPos = currentPos;
 
-                        Llamarama.LOGGER.info("Returned from canStart!");
+                        Llamarama.LOGGER.info("Returned from canStart! Found jukebox at " + this.targetPos.toShortString());
                         return true;
                     }
                 }

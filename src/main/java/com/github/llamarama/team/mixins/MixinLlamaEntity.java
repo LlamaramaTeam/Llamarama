@@ -1,7 +1,9 @@
 package com.github.llamarama.team.mixins;
 
+import com.github.llamarama.team.entity.ai.goal.CaravanGoal;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ai.RangedAttackMob;
+import net.minecraft.entity.ai.goal.FormCaravanGoal;
 import net.minecraft.entity.passive.AbstractDonkeyEntity;
 import net.minecraft.entity.passive.LlamaEntity;
 import net.minecraft.world.World;
@@ -19,6 +21,8 @@ public abstract class MixinLlamaEntity extends AbstractDonkeyEntity implements R
 
     @Inject(method = "initGoals", at = @At("TAIL"))
     public void onInitGoals(CallbackInfo ci) {
+        this.goalSelector.remove(new FormCaravanGoal(((LlamaEntity) (Object) this), 2.0999999046325684d));
+        this.goalSelector.add(2, new CaravanGoal<>(((LlamaEntity) (Object) this), 2.99d));
     }
 
 }
