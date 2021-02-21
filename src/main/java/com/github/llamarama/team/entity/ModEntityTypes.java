@@ -10,6 +10,7 @@ import net.minecraft.entity.SpawnGroup;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 
+@SuppressWarnings("InstantiationOfUtilityClass")
 public final class ModEntityTypes {
 
     public static final EntityType<WoollyLlamaEntity> WOOLLY_LLAMA = Registry.register(Registry.ENTITY_TYPE, new Identifier(Llamarama.MOD_ID, "woolly_llama"), FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, WoollyLlamaEntity::new).dimensions(new EntityDimensions(0.9f, 1.87f, false)).trackRangeBlocks(10).build());
@@ -21,7 +22,9 @@ public final class ModEntityTypes {
     }
 
     public static void init() {
-        if (instance == null) { instance = new ModEntityTypes(); }
+        if (instance == null) {
+            instance = new ModEntityTypes();
+        }
     }
 
 }

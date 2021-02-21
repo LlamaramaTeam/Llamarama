@@ -13,7 +13,7 @@ public interface IDBuilder {
         return new Identifier(path);
     }
 
-    static Identifier vanillaOf(String id){
+    static Identifier vanillaOf(String id) {
         return new Identifier("minecraft", id);
     }
 

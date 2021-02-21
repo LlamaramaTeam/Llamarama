@@ -1,6 +1,7 @@
 package com.github.llamarama.team;
 
 import com.github.llamarama.team.block.ModBlocks;
+import com.github.llamarama.team.client.ModSoundEvents;
 import com.github.llamarama.team.entity.ModEntityTypes;
 import com.github.llamarama.team.item.ModItems;
 import net.fabricmc.api.ModInitializer;
@@ -25,6 +26,7 @@ public class Llamarama implements ModInitializer {
     @Override
     public void onInitialize() {
         LOGGER.info("Welcome to the world of Llamas!!!");
+        ModSoundEvents.init();
         ModItems.init();
         ModBlocks.init();
         ModEntityTypes.init();
