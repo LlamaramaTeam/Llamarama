@@ -48,8 +48,8 @@ public class WoollyLlamaEntity extends LlamaEntity implements Shearable {
     protected void initGoals() {
         this.goalSelector.add(0, new SwimGoal(this));
         this.goalSelector.add(1, new HorseBondWithPlayerGoal(this, 1.2D));
-        this.goalSelector.add(1, new VibeGoal(this));
         this.goalSelector.add(2, new CaravanGoal<>(this, 2.0999999046325684D));
+        this.goalSelector.add(3, new VibeGoal(this));
         this.goalSelector.add(3, new ProjectileAttackGoal(this, 1.25D, 40, 20.0F));
         this.goalSelector.add(3, new EscapeDangerGoal(this, 1.2D));
         this.goalSelector.add(3, new MoveToBlockGoal(this, Blocks.GRASS_BLOCK.getDefaultState(), this.getMovementSpeed() + 0.25d, 16));
@@ -90,13 +90,19 @@ public class WoollyLlamaEntity extends LlamaEntity implements Shearable {
 
             this.world.playSoundFromEntity(null, this, SoundEvents.BLOCK_BEEHIVE_SHEAR, SoundCategory.NEUTRAL, 1.0f, 1.0f);
 
-            this.dropItem(ModBlocks.LLAMA_WOOL.asItem());
+            for (int i = 0; i < this.getShearedItem().getCount(); i++) {
+                this.dropItem(this.getShearedItem().getItem());
+            }
         }
     }
 
     @Override
     public boolean isShearable() {
         return !this.getSheared() && !this.isBaby();
+    }
+
+    protected ItemStack getShearedItem() {
+        return new ItemStack(ModBlocks.LLAMA_WOOL.asItem(), this.world.random.nextInt(3) + 1);
     }
 
     @Override
