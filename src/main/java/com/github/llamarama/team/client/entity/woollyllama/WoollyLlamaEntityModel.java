@@ -1,4 +1,4 @@
-package com.github.llamarama.team.entity.woolyllama.client;
+package com.github.llamarama.team.client.entity.woollyllama;
 
 import com.github.llamarama.team.entity.woolyllama.WoollyLlamaEntity;
 import com.google.common.collect.ImmutableList;

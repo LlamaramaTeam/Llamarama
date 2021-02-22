@@ -1,6 +1,7 @@
 package com.github.llamarama.team;
 
 import com.github.llamarama.team.block.ModBlocks;
+import com.github.llamarama.team.block.blockentity.ModBlockEntityTypes;
 import com.github.llamarama.team.client.ModSoundEvents;
 import com.github.llamarama.team.entity.ModEntityTypes;
 import com.github.llamarama.team.item.ModItems;
@@ -30,6 +31,7 @@ public class Llamarama implements ModInitializer {
         ModItems.init();
         ModBlocks.init();
         ModEntityTypes.init();
+        ModBlockEntityTypes.init();
 
         // Callback registers.
         EventHandler.getInstance().addSpawnsListener(BiomeModifications::addSpawn);

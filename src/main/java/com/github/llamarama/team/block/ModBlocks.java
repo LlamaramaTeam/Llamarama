@@ -25,14 +25,14 @@ public final class ModBlocks {
 
     public static final Block LLAMA_WOOL = new Block(AbstractBlock.Settings.copy(Blocks.WHITE_WOOL));
     public static final Block RUG = new RugBlock(AbstractBlock.Settings.copy(Blocks.WHITE_CARPET));
-    //  public static final Block LLAMA_WOOL_BED = new BedBlock(DyeColor.WHITE, AbstractBlock.Settings.copy(Blocks.WHITE_BED));
+    public static final Block LLAMA_WOOL_BED = new LlamaWoolBedBlock(AbstractBlock.Settings.copy(Blocks.WHITE_BED));
     private static ModBlocks instance = null;
 
 
     private ModBlocks() {
         register(LLAMA_WOOL, "llama_wool");
         register(RUG, "rug");
-//      register(LLAMA_WOOL_BED, "llama_wool_bed");
+        register(LLAMA_WOOL_BED, "llama_wool_bed");
     }
 
 

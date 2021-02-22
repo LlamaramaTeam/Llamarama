@@ -30,18 +30,14 @@ import net.minecraft.world.World;
 
 public class WoollyLlamaEntity extends LlamaEntity implements Shearable {
 
-    private static final TrackedData<Boolean> SHEARED;
-
-    static {
-        SHEARED = DataTracker.registerData(WoollyLlamaEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
-    }
-
+    private final TrackedData<Boolean> SHEARED;
     private int WOOL_TIMER;
 
 
     public WoollyLlamaEntity(EntityType<? extends WoollyLlamaEntity> entityType, World world) {
         super(entityType, world);
         this.WOOL_TIMER = 20 * 60 * 5;
+        SHEARED = DataTracker.registerData(WoollyLlamaEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
     }
 
     @Override

@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "llamarama:item/hay_on_a_stick"
+  }
+}

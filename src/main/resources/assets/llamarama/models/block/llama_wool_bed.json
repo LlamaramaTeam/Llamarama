@@ -7,6 +7,7 @@
   "textures": {
     "1": "llamarama:block/llama_wool_bed"
   },
+  "particles": "llamarama:block/llama_wool_bed",
   "elements": [
     {
       "name": "bed",
