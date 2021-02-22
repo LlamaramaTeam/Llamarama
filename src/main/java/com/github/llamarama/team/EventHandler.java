@@ -1,13 +1,21 @@
 package com.github.llamarama.team;
 
+import com.github.llamarama.team.block.blockentity.ModBlockEntityTypes;
+import com.github.llamarama.team.client.blockentity.LlamaWoolBedBlockEntityRenderer;
+import com.github.llamarama.team.client.entity.woollyllama.WoollyLlamaEntityRenderer;
 import com.github.llamarama.team.entity.ModEntityTypes;
 import com.github.llamarama.team.item.ModItems;
 import com.github.llamarama.team.util.IDBuilder;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectionContext;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
+import net.fabricmc.fabric.api.client.rendereregistry.v1.EntityRendererRegistry;
 import net.fabricmc.fabric.api.loot.v1.FabricLootPoolBuilder;
 import net.fabricmc.fabric.api.loot.v1.FabricLootSupplierBuilder;
 import net.fabricmc.fabric.api.loot.v1.event.LootTableLoadingCallback;
+import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.client.render.block.entity.BlockEntityRenderDispatcher;
+import net.minecraft.client.render.block.entity.BlockEntityRenderer;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;
 import net.minecraft.loot.ConstantLootTableRange;
@@ -22,6 +30,7 @@ import net.minecraft.resource.ResourceManager;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.biome.BiomeKeys;
 
+import java.util.function.Function;
 import java.util.function.Predicate;
 
 @SuppressWarnings({"deprecation", "unused"})
@@ -53,10 +62,32 @@ public final class EventHandler {
         listener.addSpawns(biomeSelectionContext -> BiomeSelectors.includeByKey(BiomeKeys.MOUNTAINS, BiomeKeys.MOUNTAIN_EDGE, BiomeKeys.GRAVELLY_MOUNTAINS, BiomeKeys.MODIFIED_GRAVELLY_MOUNTAINS, BiomeKeys.SNOWY_MOUNTAINS, BiomeKeys.SNOWY_TAIGA_MOUNTAINS, BiomeKeys.TAIGA_MOUNTAINS, BiomeKeys.WOODED_MOUNTAINS).test(biomeSelectionContext), SpawnGroup.CREATURE, ModEntityTypes.WOOLLY_LLAMA, 5, 3, 6);
     }
 
+    public void addBlockEntityRegisterListener(BlockEntityRendererRegistryListener listener) {
+        listener.registerRenderer(ModBlockEntityTypes.LLAMA_WOOL_BED_BLOCK_ENTITY_BLOCK_ENTITY_TYPE, LlamaWoolBedBlockEntityRenderer::new);
+    }
+
+    public void addEntityRendererListener(EntityRendererListener listener) {
+        listener.registerRenderer(ModEntityTypes.WOOLLY_LLAMA, WoollyLlamaEntityRenderer::new);
+    }
+
     @FunctionalInterface
-    public interface SpawnEventListener {
+    interface SpawnEventListener {
 
         void addSpawns(Predicate<BiomeSelectionContext> biomeSelector, SpawnGroup spawnGroup, EntityType<?> entityType, int weight, int minGroupSize, int maxGroupSize);
+
+    }
+
+    @FunctionalInterface
+    interface BlockEntityRendererRegistryListener {
+
+        <E extends BlockEntity> void registerRenderer(BlockEntityType<E> blockEntityType, Function<BlockEntityRenderDispatcher, BlockEntityRenderer<E>> function);
+
+    }
+
+    @FunctionalInterface
+    interface EntityRendererListener {
+
+        void registerRenderer(EntityType<?> entityType, EntityRendererRegistry.Factory factory);
 
     }
 

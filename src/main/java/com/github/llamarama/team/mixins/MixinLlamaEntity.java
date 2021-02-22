@@ -1,6 +1,7 @@
 package com.github.llamarama.team.mixins;
 
 import com.github.llamarama.team.entity.ai.goal.CaravanGoal;
+import com.github.llamarama.team.entity.ai.goal.VibeGoal;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ai.RangedAttackMob;
 import net.minecraft.entity.ai.goal.FormCaravanGoal;
@@ -23,6 +24,7 @@ public abstract class MixinLlamaEntity extends AbstractDonkeyEntity implements R
     public void onInitGoals(CallbackInfo ci) {
         this.goalSelector.remove(new FormCaravanGoal(((LlamaEntity) (Object) this), 2.0999999046325684d));
         this.goalSelector.add(2, new CaravanGoal<>(((LlamaEntity) (Object) this), 2.99d));
+        this.goalSelector.add(3, new VibeGoal(((LlamaEntity) (Object) this)));
     }
 
 }
