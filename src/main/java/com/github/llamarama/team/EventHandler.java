@@ -28,15 +28,21 @@ import net.minecraft.predicate.entity.EntityFlagsPredicate;
 import net.minecraft.predicate.entity.EntityPredicate;
 import net.minecraft.resource.ResourceManager;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.registry.RegistryKey;
+import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BiomeKeys;
 
+import java.util.Collection;
 import java.util.function.Function;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @SuppressWarnings({"deprecation", "unused"})
 public final class EventHandler {
 
     private static EventHandler eventHandler;
+    private final Collection<RegistryKey<Biome>> MOUNTAIN_KEYS = Stream.of(BiomeKeys.MOUNTAINS, BiomeKeys.MOUNTAIN_EDGE, BiomeKeys.GRAVELLY_MOUNTAINS, BiomeKeys.MODIFIED_GRAVELLY_MOUNTAINS, BiomeKeys.SNOWY_MOUNTAINS, BiomeKeys.SNOWY_TAIGA_MOUNTAINS, BiomeKeys.TAIGA_MOUNTAINS, BiomeKeys.WOODED_MOUNTAINS).collect(Collectors.toList());
 
     private EventHandler() {
 
@@ -59,7 +65,7 @@ public final class EventHandler {
     }
 
     public void addSpawnsListener(SpawnEventListener listener) {
-        listener.addSpawns(biomeSelectionContext -> BiomeSelectors.includeByKey(BiomeKeys.MOUNTAINS, BiomeKeys.MOUNTAIN_EDGE, BiomeKeys.GRAVELLY_MOUNTAINS, BiomeKeys.MODIFIED_GRAVELLY_MOUNTAINS, BiomeKeys.SNOWY_MOUNTAINS, BiomeKeys.SNOWY_TAIGA_MOUNTAINS, BiomeKeys.TAIGA_MOUNTAINS, BiomeKeys.WOODED_MOUNTAINS).test(biomeSelectionContext), SpawnGroup.CREATURE, ModEntityTypes.WOOLLY_LLAMA, 5, 3, 6);
+        listener.addSpawns(biomeSelectionContext -> BiomeSelectors.includeByKey(this.MOUNTAIN_KEYS).test(biomeSelectionContext), SpawnGroup.CREATURE, ModEntityTypes.WOOLLY_LLAMA, 5, 3, 6);
     }
 
     public void addBlockEntityRegisterListener(BlockEntityRendererRegistryListener listener) {
