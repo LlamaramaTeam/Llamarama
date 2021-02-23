@@ -6,14 +6,13 @@ import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.util.registry.Registry;
 
 
-@SuppressWarnings("InstantiationOfUtilityClass")
 public final class ModBlockEntityTypes {
 
-    public static final BlockEntityType<LlamaWoolBedBlockEntity> LLAMA_WOOL_BED_BLOCK_ENTITY_BLOCK_ENTITY_TYPE = BlockEntityType.Builder.create(LlamaWoolBedBlockEntity::new, ModBlocks.LLAMA_WOOL_BED).build(null);
+    public static final BlockEntityType<LlamaWoolBedBlockEntity> LLAMA_WOOL_BED = BlockEntityType.Builder.create(LlamaWoolBedBlockEntity::new, ModBlocks.LLAMA_WOOL_BED).build(null);
     private static ModBlockEntityTypes instance;
 
     private ModBlockEntityTypes() {
-        Registry.register(Registry.BLOCK_ENTITY_TYPE, IDBuilder.of("llama_wool_bed"), LLAMA_WOOL_BED_BLOCK_ENTITY_BLOCK_ENTITY_TYPE);
+        register("llama_wool_bed", LLAMA_WOOL_BED);
     }
 
 
@@ -21,6 +20,10 @@ public final class ModBlockEntityTypes {
         if (instance == null) {
             instance = new ModBlockEntityTypes();
         }
+    }
+
+    private void register(String id, BlockEntityType<?> blockEntityType) {
+        Registry.register(Registry.BLOCK_ENTITY_TYPE, IDBuilder.of(id), blockEntityType);
     }
 
 }

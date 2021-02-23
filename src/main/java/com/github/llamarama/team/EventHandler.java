@@ -69,7 +69,7 @@ public final class EventHandler {
     }
 
     public void addBlockEntityRegisterListener(BlockEntityRendererRegistryListener listener) {
-        listener.registerRenderer(ModBlockEntityTypes.LLAMA_WOOL_BED_BLOCK_ENTITY_BLOCK_ENTITY_TYPE, LlamaWoolBedBlockEntityRenderer::new);
+        listener.registerRenderer(ModBlockEntityTypes.LLAMA_WOOL_BED, LlamaWoolBedBlockEntityRenderer::new);
     }
 
     public void addEntityRendererListener(EntityRendererListener listener) {

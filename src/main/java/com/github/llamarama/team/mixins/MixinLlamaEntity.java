@@ -20,7 +20,7 @@ public abstract class MixinLlamaEntity extends AbstractDonkeyEntity implements R
         super(entityType, world);
     }
 
-    @Inject(method = "initGoals", at = @At("TAIL"))
+    @Inject(method = "initGoals()V", at = @At("TAIL"))
     public void onInitGoals(CallbackInfo ci) {
         this.goalSelector.remove(new FormCaravanGoal(((LlamaEntity) (Object) this), 2.0999999046325684d));
         this.goalSelector.add(2, new CaravanGoal<>(((LlamaEntity) (Object) this), 2.99d));

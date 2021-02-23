@@ -7,7 +7,7 @@ import org.jetbrains.annotations.Nullable;
 public class LlamaWoolBedBlockEntity extends BlockEntity {
 
     public LlamaWoolBedBlockEntity() {
-        super(ModBlockEntityTypes.LLAMA_WOOL_BED_BLOCK_ENTITY_BLOCK_ENTITY_TYPE);
+        super(ModBlockEntityTypes.LLAMA_WOOL_BED);
     }
 
     @Nullable

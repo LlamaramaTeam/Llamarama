@@ -5,7 +5,6 @@ import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 
-@SuppressWarnings("InstantiationOfUtilityClass")
 public final class ModSoundEvents {
 
     private static final Identifier LLAMARAMA_ID = IDBuilder.of("llamarama");
@@ -15,14 +14,18 @@ public final class ModSoundEvents {
     private static ModSoundEvents instance = null;
 
     private ModSoundEvents() {
-        Registry.register(Registry.SOUND_EVENT, LLAMARAMA_ID, LLAMARAMA_DISC);
-        Registry.register(Registry.SOUND_EVENT, LLAMAJAMA_ID, LLAMAJAMA_DISC);
+        register(LLAMAJAMA_ID, LLAMAJAMA_DISC);
+        register(LLAMARAMA_ID, LLAMARAMA_DISC);
     }
 
     public static void init() {
         if (instance == null) {
             instance = new ModSoundEvents();
         }
+    }
+
+    private void register(Identifier id, SoundEvent event) {
+        Registry.register(Registry.SOUND_EVENT, id, event);
     }
 
 }

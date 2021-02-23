@@ -15,7 +15,6 @@ public class LlamaramaClient implements ClientModInitializer {
         // Block Entity Renderers
         EventHandler.getInstance().addBlockEntityRegisterListener(BlockEntityRendererRegistry.INSTANCE::register);
 
-
         // Entity Renderers
         EventHandler.getInstance().addEntityRendererListener(EntityRendererRegistry.INSTANCE::register);
     }
