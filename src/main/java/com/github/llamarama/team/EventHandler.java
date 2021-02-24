@@ -6,17 +6,13 @@ import com.github.llamarama.team.client.entity.woollyllama.WoollyLlamaEntityRend
 import com.github.llamarama.team.entity.ModEntityTypes;
 import com.github.llamarama.team.item.ModItems;
 import com.github.llamarama.team.util.IDBuilder;
-import net.fabricmc.fabric.api.biome.v1.BiomeSelectionContext;
+import com.github.llamarama.team.util.events.BlockEntityRendererRegistryListener;
+import com.github.llamarama.team.util.events.EntityRendererListener;
+import com.github.llamarama.team.util.events.SpawnEventListener;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
-import net.fabricmc.fabric.api.client.rendereregistry.v1.EntityRendererRegistry;
 import net.fabricmc.fabric.api.loot.v1.FabricLootPoolBuilder;
 import net.fabricmc.fabric.api.loot.v1.FabricLootSupplierBuilder;
 import net.fabricmc.fabric.api.loot.v1.event.LootTableLoadingCallback;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.client.render.block.entity.BlockEntityRenderDispatcher;
-import net.minecraft.client.render.block.entity.BlockEntityRenderer;
-import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;
 import net.minecraft.loot.ConstantLootTableRange;
 import net.minecraft.loot.LootManager;
@@ -33,8 +29,6 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BiomeKeys;
 
 import java.util.Collection;
-import java.util.function.Function;
-import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -76,25 +70,5 @@ public final class EventHandler {
         listener.registerRenderer(ModEntityTypes.WOOLLY_LLAMA, WoollyLlamaEntityRenderer::new);
     }
 
-    @FunctionalInterface
-    interface SpawnEventListener {
-
-        void addSpawns(Predicate<BiomeSelectionContext> biomeSelector, SpawnGroup spawnGroup, EntityType<?> entityType, int weight, int minGroupSize, int maxGroupSize);
-
-    }
-
-    @FunctionalInterface
-    interface BlockEntityRendererRegistryListener {
-
-        <E extends BlockEntity> void registerRenderer(BlockEntityType<E> blockEntityType, Function<BlockEntityRenderDispatcher, BlockEntityRenderer<E>> function);
-
-    }
-
-    @FunctionalInterface
-    interface EntityRendererListener {
-
-        void registerRenderer(EntityType<?> entityType, EntityRendererRegistry.Factory factory);
-
-    }
 
 }
