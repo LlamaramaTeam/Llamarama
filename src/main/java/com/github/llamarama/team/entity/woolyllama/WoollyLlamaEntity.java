@@ -78,7 +78,7 @@ public class WoollyLlamaEntity extends LlamaEntity implements Shearable, ItemSte
         super.writeCustomDataToTag(tag);
         tag.putBoolean("Sheared", this.getSheared());
         tag.putInt("WoolTimer", this.getWoolTimer());
-        tag.putBoolean("Carpeted", this.isSaddled());
+        this.saddledComponent.toTag(tag);
     }
 
     @Override
@@ -86,11 +86,7 @@ public class WoollyLlamaEntity extends LlamaEntity implements Shearable, ItemSte
         super.readCustomDataFromTag(tag);
         this.setSheared(tag.getBoolean("Sheared"));
         this.setWoolTimer(tag.getInt("WoolTimer"));
-        this.setCarpeted(tag.getBoolean("Carpeted"));
-    }
-
-    protected void setCarpeted(boolean newVal) {
-        this.dataTracker.set(CARPETED, newVal);
+        this.saddledComponent.fromTag(tag);
     }
 
     @Override
@@ -124,7 +120,7 @@ public class WoollyLlamaEntity extends LlamaEntity implements Shearable, ItemSte
                 this.world.playSoundFromEntity(null, this, SoundEvents.ENTITY_LLAMA_EAT, SoundCategory.NEUTRAL, 1.0f, 2.0f);
             }
 
-            return ActionResult.SUCCESS;
+            return super.interactMob(player, hand);
 
         } else if (this.isShearable()) {
 
@@ -134,7 +130,9 @@ public class WoollyLlamaEntity extends LlamaEntity implements Shearable, ItemSte
 
             return ActionResult.success(this.world.isClient());
 
-        } else { return ActionResult.PASS; }
+        } else {
+            return ActionResult.PASS;
+        }
 
     }
 
@@ -258,7 +256,7 @@ public class WoollyLlamaEntity extends LlamaEntity implements Shearable, ItemSte
 
     @Override
     public void setMovementInput(Vec3d movementInput) {
-        this.travel(this, this.saddledComponent, movementInput);
+        super.travel(movementInput);
     }
 
     @Override
@@ -276,6 +274,20 @@ public class WoollyLlamaEntity extends LlamaEntity implements Shearable, ItemSte
         LivingEntity rider = (LivingEntity) this.getPrimaryPassenger();
 
         return rider != null && (this.isSaddled() && rider.getStackInHand(Hand.MAIN_HAND).getItem() == ModItems.HAY_ON_A_STICK || rider.getStackInHand(Hand.OFF_HAND).getItem() == ModItems.HAY_ON_A_STICK);
+    }
+
+    @Override
+    public void onTrackedDataSet(TrackedData<?> data) {
+        if (BOOST_TIME.equals(data)) {
+            this.saddledComponent.boost();
+        }
+
+        super.onTrackedDataSet(data);
+    }
+
+    @Override
+    public void travel(Vec3d movementInput) {
+        this.travel(this, this.saddledComponent, movementInput);
     }
 
 }

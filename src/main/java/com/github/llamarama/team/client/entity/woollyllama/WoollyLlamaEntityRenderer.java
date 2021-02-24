@@ -18,6 +18,7 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.Identifier;
 
+@SuppressWarnings("unused")
 @Environment(EnvType.CLIENT)
 public class WoollyLlamaEntityRenderer extends MobEntityRenderer<WoollyLlamaEntity, WoollyLlamaEntityModel<WoollyLlamaEntity>> {
 

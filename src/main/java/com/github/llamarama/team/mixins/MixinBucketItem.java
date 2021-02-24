@@ -1,5 +1,6 @@
 package com.github.llamarama.team.mixins;
 
+import com.github.llamarama.team.Llamarama;
 import com.github.llamarama.team.item.ModItems;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.passive.LlamaEntity;
@@ -20,21 +21,28 @@ public abstract class MixinBucketItem extends Item {
 
     @Override
     public ActionResult useOnEntity(ItemStack stack, PlayerEntity user, LivingEntity entity, Hand hand) {
+        Llamarama.LOGGER.info(stack.toString());
+
+        ItemStack out;
+
         if (entity instanceof LlamaEntity) {
-            ItemStack out = new ItemStack(ModItems.LLAMA_MILK);
+
+            out = ModItems.LLAMA_MILK.getDefaultStack();
 
             if (!user.abilities.creativeMode) {
-                user.getStackInHand(hand).decrement(1);
-            }
-
-            if (!user.abilities.creativeMode || !user.inventory.contains(out)) {
+                user.giveItemStack(out);
+            } else if (!user.inventory.contains(out)) {
                 user.giveItemStack(out);
             }
 
-            return ActionResult.SUCCESS;
+            if (!user.abilities.creativeMode) {
+                stack.decrement(1);
+            }
 
+
+            return ActionResult.success(user.getEntityWorld().isClient);
         } else {
-            return ActionResult.PASS;
+            return super.useOnEntity(stack, user, entity, hand);
         }
     }
 

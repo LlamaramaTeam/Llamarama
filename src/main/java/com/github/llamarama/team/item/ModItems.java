@@ -22,7 +22,7 @@ import net.minecraft.util.registry.Registry;
  */
 public final class ModItems {
 
-    private static final Item.Settings NORMAL_SETTINGS = new Item.Settings().group(Llamarama.LLAMA_ITEM_GROUP);
+    private static final Item.Settings NORMAL_SETTINGS = new Item.Settings().group(Llamarama.LLAMA_ITEM_GROUP).rarity(Rarity.COMMON);
 
     // Instantiate Items Here!!!
     public static final Item RAW_LLAMA_MEAT = new Item(NORMAL_SETTINGS.food(ModFoodComponents.RAW_LLAMA_MEAT));
@@ -32,7 +32,7 @@ public final class ModItems {
     public static final Item LLAMAJAMA = new MusicDiscItem(5, ModSoundEvents.LLAMAJAMA_DISC, NORMAL_SETTINGS.maxCount(1).rarity(Rarity.RARE).fireproof());
     public static final Item HAY_ON_A_STICK = new OnAStickItem<>(NORMAL_SETTINGS, ModEntityTypes.WOOLLY_LLAMA, 5);
     public static final Item LLAMA_MILK = new LlamaMilkItem(NORMAL_SETTINGS);
-    public static final Item LLAMA_CHEESE = new Item(NORMAL_SETTINGS.food(ModFoodComponents.LLAMA_CHEESE).maxCount(64).rarity(Rarity.COMMON));
+    public static final Item LLAMA_CHEESE = new Item(NORMAL_SETTINGS.food(ModFoodComponents.LLAMA_CHEESE));
 
     private static ModItems instance;
 
