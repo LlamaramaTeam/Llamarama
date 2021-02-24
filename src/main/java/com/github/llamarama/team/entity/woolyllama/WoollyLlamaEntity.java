@@ -97,7 +97,7 @@ public class WoollyLlamaEntity extends LlamaEntity implements Shearable, ItemSte
     public void sheared(SoundCategory shearedSoundCategory) {
         if (!this.world.isClient()) {
             this.setSheared(true);
-            this.setWoolTimer(this.random.nextInt(5 * 60 * 20));
+            this.setWoolTimer(this.random.nextInt(20 * 60 * 20));
 
             this.world.playSoundFromEntity(null, this, SoundEvents.BLOCK_BEEHIVE_SHEAR, SoundCategory.NEUTRAL, 1.0f, 1.0f);
 
@@ -120,12 +120,11 @@ public class WoollyLlamaEntity extends LlamaEntity implements Shearable, ItemSte
     public ActionResult interactMob(PlayerEntity player, Hand hand) {
 
         if (player.getStackInHand(hand).getItem() != Items.SHEARS) {
-
             if (this.isBreedingItem(player.getStackInHand(hand))) {
                 this.world.playSoundFromEntity(null, this, SoundEvents.ENTITY_LLAMA_EAT, SoundCategory.NEUTRAL, 1.0f, 2.0f);
             }
 
-            return super.interactMob(player, hand);
+            return ActionResult.SUCCESS;
 
         } else if (this.isShearable()) {
 
