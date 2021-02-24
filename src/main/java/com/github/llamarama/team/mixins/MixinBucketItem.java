@@ -2,6 +2,8 @@ package com.github.llamarama.team.mixins;
 
 import com.github.llamarama.team.item.ModItems;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.passive.LlamaEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BucketItem;

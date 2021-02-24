@@ -28,10 +28,11 @@ public final class ModItems {
     public static final Item RAW_LLAMA_MEAT = new Item(NORMAL_SETTINGS.food(ModFoodComponents.RAW_LLAMA_MEAT));
     public static final Item ROASTED_LLAMA_MEAT = new Item(NORMAL_SETTINGS.food(ModFoodComponents.ROASTED_LLAMA_MEAT));
     public static final Item WOOLLY_LLAMA_SPAWN_EGG = new SpawnEggItem(ModEntityTypes.WOOLLY_LLAMA, 0xFDD185, 0xE9AE48, NORMAL_SETTINGS);
-    public static final Item LLAMARAMA = new MusicDiscItem(5, ModSoundEvents.LLAMARAMA_DISC, NORMAL_SETTINGS.maxCount(1).rarity(Rarity.RARE));
-    public static final Item LLAMAJAMA = new MusicDiscItem(5, ModSoundEvents.LLAMAJAMA_DISC, NORMAL_SETTINGS.maxCount(1).rarity(Rarity.RARE));
+    public static final Item LLAMARAMA = new MusicDiscItem(5, ModSoundEvents.LLAMARAMA_DISC, NORMAL_SETTINGS.maxCount(1).rarity(Rarity.RARE).fireproof());
+    public static final Item LLAMAJAMA = new MusicDiscItem(5, ModSoundEvents.LLAMAJAMA_DISC, NORMAL_SETTINGS.maxCount(1).rarity(Rarity.RARE).fireproof());
     public static final Item HAY_ON_A_STICK = new OnAStickItem<>(NORMAL_SETTINGS, ModEntityTypes.WOOLLY_LLAMA, 5);
     public static final Item LLAMA_MILK = new LlamaMilkItem(NORMAL_SETTINGS);
+    public static final Item LLAMA_CHEESE = new Item(NORMAL_SETTINGS.food(ModFoodComponents.LLAMA_CHEESE).maxCount(64).rarity(Rarity.COMMON));
 
     private static ModItems instance;
 
@@ -44,6 +45,7 @@ public final class ModItems {
         register(LLAMAJAMA, "llamajama_disc");
         register(HAY_ON_A_STICK, "hay_on_a_stick");
         register(LLAMA_MILK, "llama_milk");
+        register(LLAMA_CHEESE, "llama_cheese");
     }
 
     public static void init() {
