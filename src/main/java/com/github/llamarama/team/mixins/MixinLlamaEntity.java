@@ -3,6 +3,7 @@ package com.github.llamarama.team.mixins;
 import com.github.llamarama.team.entity.ai.goal.CaravanGoal;
 import com.github.llamarama.team.entity.ai.goal.VibeGoal;
 import com.github.llamarama.team.item.ModItems;
+import com.github.llamarama.team.util.annotation.InterfaceImplementation;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ItemSteerable;
 import net.minecraft.entity.LivingEntity;
@@ -24,6 +25,8 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
+import org.spongepowered.asm.mixin.Implements;
+import org.spongepowered.asm.mixin.Interface;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -33,8 +36,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.stream.Stream;
 
-@SuppressWarnings("UnresolvedMixinReference")
 @Mixin(LlamaEntity.class)
+@Implements(@Interface(iface = ItemSteerable.class, prefix = "impl$"))
 public abstract class MixinLlamaEntity extends AbstractDonkeyEntity implements RangedAttackMob, ItemSteerable {
 
     private static TrackedData<Boolean> CARPETED;
@@ -51,7 +54,7 @@ public abstract class MixinLlamaEntity extends AbstractDonkeyEntity implements R
         CARPETED = DataTracker.registerData(LlamaEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
     }
 
-    @Inject(method = "<init>", at = @At("TAIL"))
+    @Inject(method = "<init>(Lnet/minecraft/entity/EntityType;Lnet/minecraft/world/World;)V", at = @At("TAIL"))
     public void onInit(EntityType<? extends LlamaEntity> entityType, World world, CallbackInfo ci) {
         this.saddledComponent = new SaddledComponent(this.getDataTracker(), BOOST_TIME, CARPETED);
     }
@@ -92,27 +95,26 @@ public abstract class MixinLlamaEntity extends AbstractDonkeyEntity implements R
         }
     }
 
-    @Override
     public void travel(Vec3d movementInput) {
         this.travel(this, this.saddledComponent, movementInput);
     }
 
-    @Override
-    public boolean consumeOnAStickItem() {
+    @InterfaceImplementation
+    public boolean impl$consumeOnAStickItem() {
         return this.saddledComponent.boost(this.getRandom());
     }
 
-    @Override
-    public void setMovementInput(Vec3d movementInput) {
+    @InterfaceImplementation
+    public void impl$setMovementInput(Vec3d movementInput) {
         super.travel(movementInput);
     }
 
-    @Override
-    public float getSaddledSpeed() {
+    @InterfaceImplementation
+    public float impl$getSaddledSpeed() {
         return ((float) (EntityAttributes.GENERIC_MOVEMENT_SPEED.getDefaultValue()) * 2.5f);
     }
 
-    @Inject(method = "canBeControlledByRider", at = @At("HEAD"), cancellable = true)
+    @Inject(method = "canBeControlledByRider()Z", at = @At("HEAD"), cancellable = true)
     public void onCanBeControlledByRider(CallbackInfoReturnable<Boolean> returnValue) {
         LivingEntity rider = (LivingEntity) this.getPrimaryPassenger();
 

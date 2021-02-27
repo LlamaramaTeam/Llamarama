@@ -5,7 +5,7 @@ import com.github.llamarama.team.util.IDBuilder;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.util.registry.Registry;
 
-
+@SuppressWarnings("SameParameterValue")
 public final class ModBlockEntityTypes {
 
     public static final BlockEntityType<LlamaWoolBedBlockEntity> LLAMA_WOOL_BED = BlockEntityType.Builder.create(LlamaWoolBedBlockEntity::new, ModBlocks.LLAMA_WOOL_BED).build(null);

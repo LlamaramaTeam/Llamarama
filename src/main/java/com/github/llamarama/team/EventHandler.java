@@ -70,5 +70,4 @@ public final class EventHandler {
         listener.registerRenderer(ModEntityTypes.WOOLLY_LLAMA, WoollyLlamaEntityRenderer::new);
     }
 
-
 }
