@@ -17,8 +17,11 @@ import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.passive.AbstractDonkeyEntity;
 import net.minecraft.entity.passive.LlamaEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.Hand;
@@ -90,6 +93,16 @@ public abstract class MixinLlamaEntity extends AbstractDonkeyEntity implements R
     public ActionResult interactMob(PlayerEntity player, Hand hand) {
         if (player.getStackInHand(hand).getItem() == Items.BUCKET) {
             return ActionResult.PASS;
+        } else if (player.getStackInHand(hand).getItem() == Items.NETHERITE_INGOT) {
+            Item[] discs = new Item[]{ModItems.LLAMARAMA, ModItems.LLAMAJAMA};
+
+            player.giveItemStack(discs[this.random.nextInt(2)].getDefaultStack());
+
+            player.getStackInHand(hand).decrement(1);
+
+            this.world.playSoundFromEntity(null, this, SoundEvents.ENTITY_LLAMA_EAT, SoundCategory.NEUTRAL, 1.0f, 1.0f);
+
+            return ActionResult.success(player.getEntityWorld().isClient());
         } else {
             return super.interactMob(player, hand);
         }
