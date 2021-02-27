@@ -16,10 +16,12 @@ import net.fabricmc.fabric.api.loot.v1.event.LootTableLoadingCallback;
 import net.minecraft.entity.SpawnGroup;
 import net.minecraft.loot.ConstantLootTableRange;
 import net.minecraft.loot.LootManager;
+import net.minecraft.loot.UniformLootTableRange;
 import net.minecraft.loot.condition.EntityPropertiesLootCondition;
 import net.minecraft.loot.context.LootContext;
 import net.minecraft.loot.entry.ItemEntry;
 import net.minecraft.loot.function.FurnaceSmeltLootFunction;
+import net.minecraft.loot.function.LootingEnchantLootFunction;
 import net.minecraft.predicate.entity.EntityFlagsPredicate;
 import net.minecraft.predicate.entity.EntityPredicate;
 import net.minecraft.resource.ResourceManager;
@@ -52,7 +54,7 @@ public final class EventHandler {
     public void lootTableListener(ResourceManager resourceManager, LootManager lootManager, Identifier identifier, FabricLootSupplierBuilder fabricLootSupplierBuilder, LootTableLoadingCallback.LootTableSetter lootTableSetter) {
         if (IDBuilder.vanillaOf("entities/llama").equals(identifier)) {
 
-            FabricLootPoolBuilder pool = FabricLootPoolBuilder.builder().rolls(ConstantLootTableRange.create(1)).withEntry(ItemEntry.builder(ModItems.RAW_LLAMA_MEAT).build()).withFunction(FurnaceSmeltLootFunction.builder().conditionally(EntityPropertiesLootCondition.builder(LootContext.EntityTarget.THIS, EntityPredicate.Builder.create().flags(EntityFlagsPredicate.Builder.create().onFire(true).build()))).build());
+            FabricLootPoolBuilder pool = FabricLootPoolBuilder.builder().rolls(ConstantLootTableRange.create(1)).withEntry(ItemEntry.builder(ModItems.RAW_LLAMA_MEAT).build()).withFunction(FurnaceSmeltLootFunction.builder().conditionally(EntityPropertiesLootCondition.builder(LootContext.EntityTarget.THIS, EntityPredicate.Builder.create().flags(EntityFlagsPredicate.Builder.create().onFire(true).build()))).build()).withFunction(LootingEnchantLootFunction.builder(UniformLootTableRange.between(1, 2)).build());
 
             fabricLootSupplierBuilder.withPool(pool.build());
         }
