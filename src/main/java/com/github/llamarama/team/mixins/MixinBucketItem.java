@@ -1,6 +1,5 @@
 package com.github.llamarama.team.mixins;
 
-import com.github.llamarama.team.Llamarama;
 import com.github.llamarama.team.item.ModItems;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.passive.LlamaEntity;
@@ -21,7 +20,6 @@ public abstract class MixinBucketItem extends Item {
 
     @Override
     public ActionResult useOnEntity(ItemStack stack, PlayerEntity user, LivingEntity entity, Hand hand) {
-        Llamarama.LOGGER.info(stack.toString());
 
         ItemStack out;
 

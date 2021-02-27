@@ -3,10 +3,10 @@ package com.github.llamarama.team.entity.ai.goal;
 import com.github.llamarama.team.item.ModItems;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
-import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.JukeboxBlockEntity;
 import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.mob.MobEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 
@@ -17,7 +17,7 @@ public class VibeGoal extends Goal {
     private final MobEntity entity;
     private Vec3d targetPosVector;
     private BlockPos targetPos;
-    private BlockEntity jukeboxTile;
+    private JukeboxBlockEntity jukeboxTile;
     private float extraY = 0f;
     private boolean reducing = true;
 
@@ -29,9 +29,9 @@ public class VibeGoal extends Goal {
     @Override
     public void tick() {
 
-        this.jukeboxTile = this.entity.getEntityWorld().getBlockEntity(this.targetPos);
+        this.jukeboxTile = (JukeboxBlockEntity) this.entity.getEntityWorld().getBlockEntity(this.targetPos);
 
-        if (this.jukeboxTile instanceof JukeboxBlockEntity && (((JukeboxBlockEntity) this.jukeboxTile).getRecord().getItem() == ModItems.LLAMARAMA || ((JukeboxBlockEntity) this.jukeboxTile).getRecord().getItem() == ModItems.LLAMAJAMA)) {
+        if (this.jukeboxTile != null && (this.jukeboxTile.getRecord().getItem() == ModItems.LLAMARAMA || this.jukeboxTile.getRecord().getItem() == ModItems.LLAMAJAMA)) {
 
             if (this.extraY <= 0.5f) {
                 this.reducing = false;
@@ -67,7 +67,7 @@ public class VibeGoal extends Goal {
                     if (currentBlock.getBlock() == Blocks.JUKEBOX) {
                         this.targetPosVector = new Vec3d(currentPos.getX(), currentPos.getY(), currentPos.getZ());
                         this.targetPos = currentPos.toImmutable();
-                        this.jukeboxTile = this.entity.getEntityWorld().getBlockEntity(this.targetPos);
+                        this.jukeboxTile = (JukeboxBlockEntity) this.entity.getEntityWorld().getBlockEntity(this.targetPos);
 
                         return true;
                     }
@@ -80,7 +80,7 @@ public class VibeGoal extends Goal {
 
     @Override
     public boolean shouldContinue() {
-        return this.entity.getEntityWorld().getBlockState(this.targetPos).getBlock() == Blocks.JUKEBOX;
+        return this.entity.getEntityWorld().getBlockState(this.targetPos).getBlock() == Blocks.JUKEBOX && this.jukeboxTile.getRecord() != ItemStack.EMPTY;
     }
 
 }
