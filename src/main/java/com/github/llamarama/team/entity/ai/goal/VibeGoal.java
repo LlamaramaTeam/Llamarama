@@ -69,7 +69,9 @@ public class VibeGoal extends Goal {
                         this.targetPos = currentPos.toImmutable();
                         this.jukeboxTile = (JukeboxBlockEntity) this.entity.getEntityWorld().getBlockEntity(this.targetPos);
 
-                        return true;
+                        if (this.jukeboxTile != null) {
+                            return this.jukeboxTile.getRecord() != ItemStack.EMPTY;
+                        }
                     }
                 }
             }
@@ -80,7 +82,7 @@ public class VibeGoal extends Goal {
 
     @Override
     public boolean shouldContinue() {
-        return this.entity.getEntityWorld().getBlockState(this.targetPos).getBlock() == Blocks.JUKEBOX && this.jukeboxTile.getRecord() != ItemStack.EMPTY;
+        return this.jukeboxTile != null && this.jukeboxTile.getRecord() != ItemStack.EMPTY;
     }
 
 }
