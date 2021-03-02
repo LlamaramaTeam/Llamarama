@@ -2,6 +2,7 @@ package com.github.llamarama.team;
 
 import com.github.llamarama.team.block.blockentity.ModBlockEntityTypes;
 import com.github.llamarama.team.client.blockentity.LlamaWoolBedBlockEntityRenderer;
+import com.github.llamarama.team.client.entity.bumbllama.BumbllamaEntityRenderer;
 import com.github.llamarama.team.client.entity.woollyllama.WoollyLlamaEntityRenderer;
 import com.github.llamarama.team.entity.ModEntityTypes;
 import com.github.llamarama.team.item.ModItems;
@@ -9,6 +10,8 @@ import com.github.llamarama.team.util.IDBuilder;
 import com.github.llamarama.team.util.events.BlockEntityRendererRegistryListener;
 import com.github.llamarama.team.util.events.EntityRendererListener;
 import com.github.llamarama.team.util.events.SpawnEventListener;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.fabricmc.fabric.api.loot.v1.FabricLootPoolBuilder;
 import net.fabricmc.fabric.api.loot.v1.FabricLootSupplierBuilder;
@@ -64,12 +67,15 @@ public final class EventHandler {
         listener.addSpawns(biomeSelectionContext -> BiomeSelectors.includeByKey(this.MOUNTAIN_KEYS).test(biomeSelectionContext), SpawnGroup.CREATURE, ModEntityTypes.WOOLLY_LLAMA, 5, 3, 6);
     }
 
+    @Environment(EnvType.CLIENT)
     public void addBlockEntityRegisterListener(BlockEntityRendererRegistryListener listener) {
         listener.registerRenderer(ModBlockEntityTypes.LLAMA_WOOL_BED, LlamaWoolBedBlockEntityRenderer::new);
     }
 
+    @Environment(EnvType.CLIENT)
     public void addEntityRendererListener(EntityRendererListener listener) {
         listener.registerRenderer(ModEntityTypes.WOOLLY_LLAMA, WoollyLlamaEntityRenderer::new);
+        listener.registerRenderer(ModEntityTypes.BUMBLLAMA, BumbllamaEntityRenderer::new);
     }
 
 }

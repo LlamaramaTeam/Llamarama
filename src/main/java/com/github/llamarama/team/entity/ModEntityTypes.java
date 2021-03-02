@@ -1,5 +1,6 @@
 package com.github.llamarama.team.entity;
 
+import com.github.llamarama.team.entity.bumbllama.BumbllamaEntity;
 import com.github.llamarama.team.entity.woolyllama.WoollyLlamaEntity;
 import com.github.llamarama.team.util.IDBuilder;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
@@ -14,11 +15,13 @@ import java.util.function.Supplier;
 public final class ModEntityTypes {
 
     public static final EntityType<WoollyLlamaEntity> WOOLLY_LLAMA = register(WoollyLlamaEntity::new, SpawnGroup.CREATURE, 0.9f, 1.87f, false, 10, "woolly_llama");
+    public static final EntityType<BumbllamaEntity> BUMBLLAMA = register(BumbllamaEntity::new, SpawnGroup.CREATURE, 0.9f, 1.87f, false, 10, "bumbllama");
     private static ModEntityTypes instance;
 
 
     private ModEntityTypes() {
         registerAttributes(WOOLLY_LLAMA, WoollyLlamaEntity::createLlamaAttributes);
+        registerAttributes(BUMBLLAMA, BumbllamaEntity::createLlamaAttributes);
     }
 
     public static void init() {

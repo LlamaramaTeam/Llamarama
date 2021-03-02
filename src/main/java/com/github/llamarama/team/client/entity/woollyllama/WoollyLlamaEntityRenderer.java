@@ -26,7 +26,7 @@ public class WoollyLlamaEntityRenderer extends MobEntityRenderer<WoollyLlamaEnti
 
     public WoollyLlamaEntityRenderer(EntityRenderDispatcher entityRenderDispatcher, EntityRendererRegistry.Context context) {
         super(entityRenderDispatcher, new WoollyLlamaEntityModel<>(0.0f), 0.7F);
-        this.TEXTURES = ImmutableList.of(new Identifier(Llamarama.MOD_ID, "textures/entity/woolly_llama/woolly_llama" + ".png"), new Identifier(Llamarama.MOD_ID, "textures/entity/woolly_llama/woolly_llama_sheared.png"));
+        this.TEXTURES = ImmutableList.of(new Identifier(Llamarama.MOD_ID, "textures/entity/woolly_llama/woolly_llama.png"), new Identifier(Llamarama.MOD_ID, "textures/entity/woolly_llama/woolly_llama_sheared.png"));
         this.addFeature(new WoollyLlamaDecorRenderer(this));
     }
 
