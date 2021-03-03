@@ -14,6 +14,8 @@ import net.minecraft.client.render.entity.model.EntityModel;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.math.MathHelper;
 
+import java.util.stream.Stream;
+
 @Environment(EnvType.CLIENT)
 public class BumbllamaEntityModel<T extends BumbllamaEntity> extends EntityModel<T> {
 
@@ -169,6 +171,10 @@ public class BumbllamaEntityModel<T extends BumbllamaEntity> extends EntityModel
     public void setAngles(BumbllamaEntity entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch) {
         this.head.pitch = headPitch * 0.017453292F;
         this.head.yaw = headYaw * 0.017453292F;
+
+        this.bumblellama.yaw = headYaw * 0.017453292F;
+        this.bumblellama.pitch = headPitch * 0.017453292F;
+
         this.leg0.pitch = MathHelper.cos(limbAngle * 0.6662F) * 1.4F * limbDistance;
         this.leg1.pitch = MathHelper.cos(limbAngle * 0.6662F + 3.1415927F) * 1.4F * limbDistance;
         this.leg2.pitch = MathHelper.cos(limbAngle * 0.6662F + 3.1415927F) * 1.4F * limbDistance;
@@ -177,7 +183,24 @@ public class BumbllamaEntityModel<T extends BumbllamaEntity> extends EntityModel
 
     @Override
     public void render(MatrixStack matrixStack, VertexConsumer buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
-        ImmutableList.of(this.hive, this.leg0, this.leg1, this.leg2, this.leg3, this.bumblellama, this.body, this.chest1, this.chest2, this.head, this.flowers1, this.flowers2, this.bumblellama, this.cube_r8, this.cube_r9).forEach(modelPart -> modelPart.render(matrixStack, buffer, packedLight, packedOverlay));
+        if (!this.child) {
+            ImmutableList.of(this.hive, this.leg0, this.leg1, this.leg2, this.leg3, this.body, this.chest1, this.chest2, this.head, this.flowers1, this.flowers2, this.bumblellama).forEach(modelPart -> modelPart.render(matrixStack, buffer, packedLight, packedOverlay));
+        } else {
+            matrixStack.push();
+            matrixStack.translate(0, 0.75, 0);
+            matrixStack.scale(0.5f, 0.5f, 0.5f);
+            Stream.of(this.leg0, this.leg1, this.leg2, this.leg3).forEach((modelPart) -> modelPart.render(matrixStack, buffer, packedLight, packedOverlay, red, green, blue, alpha));
+
+            matrixStack.pop();
+
+            matrixStack.push();
+            matrixStack.scale(0.75f, 0.63f, 0.75f);
+            matrixStack.translate(0, 1.05, 0);
+
+            this.body.render(matrixStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
+
+            matrixStack.pop();
+        }
     }
 
     public void setRotationAngle(ModelPart bone, float x, float y, float z) {

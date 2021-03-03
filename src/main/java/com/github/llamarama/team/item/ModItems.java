@@ -23,16 +23,16 @@ import net.minecraft.util.registry.Registry;
 public final class ModItems {
 
     // Instantiate Items Here!!!
-    public static final Item RAW_LLAMA_MEAT = new Item(new Item.Settings().group(Llamarama.LLAMA_ITEM_GROUP).food(ModFoodComponents.RAW_LLAMA_MEAT));
-    public static final Item ROASTED_LLAMA_MEAT = new Item(new Item.Settings().group(Llamarama.LLAMA_ITEM_GROUP).food(ModFoodComponents.ROASTED_LLAMA_MEAT));
-    public static final Item WOOLLY_LLAMA_SPAWN_EGG = new SpawnEggItem(ModEntityTypes.WOOLLY_LLAMA, 0xFDD185, 0xE9AE48, new Item.Settings().group(Llamarama.LLAMA_ITEM_GROUP));
+    public static final Item RAW_LLAMA_MEAT = new Item(getBaseSettings().food(ModFoodComponents.RAW_LLAMA_MEAT));
+    public static final Item ROASTED_LLAMA_MEAT = new Item(getBaseSettings().food(ModFoodComponents.ROASTED_LLAMA_MEAT));
+    public static final Item WOOLLY_LLAMA_SPAWN_EGG = new SpawnEggItem(ModEntityTypes.WOOLLY_LLAMA, 0xFDD185, 0xE9AE48, getBaseSettings());
     public static final Item HAY_ON_A_STICK = new HayOnAStickItem(new Item.Settings().group(Llamarama.LLAMA_ITEM_GROUP).maxCount(1));
-    public static final Item LLAMA_MILK = new LlamaMilkItem(new Item.Settings().group(Llamarama.LLAMA_ITEM_GROUP).maxCount(1));
-    public static final Item LLAMA_CHEESE = new Item(new Item.Settings().group(Llamarama.LLAMA_ITEM_GROUP).food(ModFoodComponents.LLAMA_CHEESE));
-    public static final Item LLAMARAMA = new MusicDiscItem(5, ModSoundEvents.LLAMARAMA_DISC, new Item.Settings().group(Llamarama.LLAMA_ITEM_GROUP).maxCount(1).fireproof());
-    public static final Item LLAMAJAMA = new MusicDiscItem(5, ModSoundEvents.LLAMAJAMA_DISC, new Item.Settings().group(Llamarama.LLAMA_ITEM_GROUP).maxCount(1).fireproof());
-    private static final Item LLAMA_WOOL_BED = new BedItem(ModBlocks.LLAMA_WOOL_BED, new Item.Settings().group(Llamarama.LLAMA_ITEM_GROUP).maxCount(1));
-
+    public static final Item LLAMA_MILK = new LlamaMilkItem(getBaseSettings().maxCount(1));
+    public static final Item LLAMA_CHEESE = new Item(getBaseSettings().food(ModFoodComponents.LLAMA_CHEESE));
+    public static final Item LLAMARAMA = new MusicDiscItem(5, ModSoundEvents.LLAMARAMA_DISC, getBaseSettings().maxCount(1).fireproof());
+    public static final Item LLAMAJAMA = new MusicDiscItem(5, ModSoundEvents.LLAMAJAMA_DISC, getBaseSettings().maxCount(1).fireproof());
+    public static final Item BUMBLLAMA_SPAWN_EGG = new SpawnEggItem(ModEntityTypes.BUMBLLAMA, 0xEDEDED, 0x4A6424, getBaseSettings());
+    private static final Item LLAMA_WOOL_BED = new BedItem(ModBlocks.LLAMA_WOOL_BED, getBaseSettings().maxCount(1));
     private static ModItems instance;
 
 
@@ -46,10 +46,15 @@ public final class ModItems {
         register(LLAMA_MILK, "llama_milk");
         register(LLAMA_CHEESE, "llama_cheese");
         register(LLAMA_WOOL_BED, "llama_wool_bed");
+        register(BUMBLLAMA_SPAWN_EGG, "bumbllama_spawn_egg");
     }
 
     public static void init() {
         if (instance == null) { instance = new ModItems(); }
+    }
+
+    public static Item.Settings getBaseSettings() {
+        return new Item.Settings().group(Llamarama.LLAMA_ITEM_GROUP);
     }
 
     private void register(Item item, String id) {
