@@ -10,5 +10,11 @@
     "sounds": [
       "llamarama:llamajama"
     ]
+  },
+    "flight_of_the_bumbllama": {
+      "subtitle": "subtitle.llamarama.flight_of_the_bumbllama",
+      "sounds": [
+        "llamarama:flight_of_the_bumbllama"
+        ]
   }
 }

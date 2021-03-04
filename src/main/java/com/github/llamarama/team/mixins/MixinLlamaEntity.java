@@ -94,7 +94,7 @@ public abstract class MixinLlamaEntity extends AbstractDonkeyEntity implements R
         if (player.getStackInHand(hand).getItem() == Items.BUCKET) {
             return ActionResult.PASS;
         } else if (player.getStackInHand(hand).getItem() == Items.NETHERITE_INGOT) {
-            Item[] discs = new Item[]{ModItems.LLAMARAMA, ModItems.LLAMAJAMA};
+            Item[] discs = new Item[]{ModItems.LLAMARAMA, ModItems.LLAMAJAMA, ModItems.BUMBLLAMA_DISC};
 
             player.giveItemStack(discs[this.random.nextInt(2)].getDefaultStack());
 

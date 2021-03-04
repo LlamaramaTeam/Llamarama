@@ -16,5 +16,8 @@
   "item.llamarama.hay_on_a_stick": "Hay On A Stick",
   "item.llamarama.llama_milk": "Llama Milk",
   "item.llamarama.llama_cheese": "Llama Cheese",
-  "item.llamarama.bumbllama_spawn_egg": "Bumbllama Spawn Egg"
+  "item.llamarama.bumbllama_spawn_egg": "Bumbllama Spawn Egg",
+  "item.llamarama.flight_of_the_bumbllama": "Music Disc",
+  "item.llamarama.flight_of_the_bumbllama.desc": "Flight Of The Bumbllama",
+  "subtitle.llamarama.flight_of_the_bumbllama": "Flight Of The Bumbllama playing..."
 }

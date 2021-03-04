@@ -11,11 +11,14 @@ public final class ModSoundEvents {
     public static final SoundEvent LLAMARAMA_DISC = new SoundEvent(LLAMARAMA_ID);
     private static final Identifier LLAMAJAMA_ID = IDBuilder.of("llamajama");
     public static final SoundEvent LLAMAJAMA_DISC = new SoundEvent(LLAMAJAMA_ID);
+    private static final Identifier BUMBLLAMA_ID = IDBuilder.of("flight_of_the_bumbllama");
+    public static final SoundEvent BUMBLLAMA_DISC = new SoundEvent(BUMBLLAMA_ID);
     private static ModSoundEvents instance = null;
 
     private ModSoundEvents() {
         register(LLAMAJAMA_ID, LLAMAJAMA_DISC);
         register(LLAMARAMA_ID, LLAMARAMA_DISC);
+        register(BUMBLLAMA_ID, BUMBLLAMA_DISC);
     }
 
     public static void init() {

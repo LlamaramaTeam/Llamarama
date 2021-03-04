@@ -30,6 +30,7 @@ public final class ModItems {
     public static final Item LLAMA_CHEESE = new Item(getBaseSettings().food(ModFoodComponents.LLAMA_CHEESE));
     public static final Item LLAMARAMA = new MusicDiscItem(5, ModSoundEvents.LLAMARAMA_DISC, getBaseSettings().maxCount(1).fireproof());
     public static final Item LLAMAJAMA = new MusicDiscItem(5, ModSoundEvents.LLAMAJAMA_DISC, getBaseSettings().maxCount(1).fireproof());
+    public static final Item BUMBLLAMA_DISC = new MusicDiscItem(5, ModSoundEvents.BUMBLLAMA_DISC, getBaseSettings().maxCount(1).fireproof());
     public static final Item BUMBLLAMA_SPAWN_EGG = new SpawnEggItem(ModEntityTypes.BUMBLLAMA, 0xEDEDED, 0x4A6424, getBaseSettings());
     private static final Item LLAMA_WOOL_BED = new BedItem(ModBlocks.LLAMA_WOOL_BED, getBaseSettings().maxCount(1));
     private static ModItems instance;
@@ -46,6 +47,7 @@ public final class ModItems {
         register(LLAMA_CHEESE, "llama_cheese");
         register(LLAMA_WOOL_BED, "llama_wool_bed");
         register(BUMBLLAMA_SPAWN_EGG, "bumbllama_spawn_egg");
+        register(BUMBLLAMA_DISC,"flight_of_the_bumbllama");
     }
 
     public static void init() {
