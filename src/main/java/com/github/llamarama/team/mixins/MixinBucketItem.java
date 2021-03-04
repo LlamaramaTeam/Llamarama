@@ -23,7 +23,7 @@ public abstract class MixinBucketItem extends Item {
 
         ItemStack out;
 
-        if (entity instanceof LlamaEntity) {
+        if (entity instanceof LlamaEntity && !entity.isBaby()) {
 
             out = ModItems.LLAMA_MILK.getDefaultStack();
 

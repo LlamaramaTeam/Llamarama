@@ -6,7 +6,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Just for clearence sake.
+ * Just for clearance sake.
  *
  * @author PeterGamesGR
  */

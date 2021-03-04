@@ -64,7 +64,8 @@ public final class EventHandler {
     }
 
     public void addSpawnsListener(SpawnEventListener listener) {
-        listener.addSpawns(biomeSelectionContext -> BiomeSelectors.includeByKey(this.MOUNTAIN_KEYS).test(biomeSelectionContext), SpawnGroup.CREATURE, ModEntityTypes.WOOLLY_LLAMA, 5, 3, 6);
+        listener.addSpawns((biomeSelectionContext) -> BiomeSelectors.includeByKey(this.MOUNTAIN_KEYS).test(biomeSelectionContext), SpawnGroup.CREATURE, ModEntityTypes.WOOLLY_LLAMA, 5, 3, 6);
+        listener.addSpawns((biomeSelectionContext) -> BiomeSelectors.includeByKey(BiomeKeys.FLOWER_FOREST).test(biomeSelectionContext), SpawnGroup.CREATURE, ModEntityTypes.BUMBLLAMA, 2, 4, 7);
     }
 
     @Environment(EnvType.CLIENT)

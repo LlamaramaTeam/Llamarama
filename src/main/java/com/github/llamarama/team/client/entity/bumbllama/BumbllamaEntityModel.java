@@ -5,7 +5,6 @@
 package com.github.llamarama.team.client.entity.bumbllama;
 
 import com.github.llamarama.team.entity.bumbllama.BumbllamaEntity;
-import com.google.common.collect.ImmutableList;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.model.ModelPart;
@@ -165,6 +164,8 @@ public class BumbllamaEntityModel<T extends BumbllamaEntity> extends EntityModel
         this.bumblellama.addChild(cube_r10);
         this.setRotationAngle(cube_r10, 0.0F, 0.0F, 0.9163F);
         cube_r10.setTextureOffset(0, 0).addCuboid(-3.0F, -1.0F, 2.0F, 1.0F, 0.0F, 1.0F, 0.0F, false);
+
+        this.bumblellama.setPivot(0, 7, -6);
     }
 
     @Override
@@ -172,8 +173,8 @@ public class BumbllamaEntityModel<T extends BumbllamaEntity> extends EntityModel
         this.head.pitch = headPitch * 0.017453292F;
         this.head.yaw = headYaw * 0.017453292F;
 
-        this.bumblellama.yaw = headYaw * 0.017453292F;
-        this.bumblellama.pitch = headPitch * 0.017453292F;
+        this.bumblellama.pitch = this.head.pitch;
+        this.bumblellama.yaw = this.head.yaw;
 
         this.leg0.pitch = MathHelper.cos(limbAngle * 0.6662F) * 1.4F * limbDistance;
         this.leg1.pitch = MathHelper.cos(limbAngle * 0.6662F + 3.1415927F) * 1.4F * limbDistance;
@@ -182,24 +183,39 @@ public class BumbllamaEntityModel<T extends BumbllamaEntity> extends EntityModel
     }
 
     @Override
-    public void render(MatrixStack matrixStack, VertexConsumer buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
+    public void render(MatrixStack matrices, VertexConsumer vertices, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
         if (!this.child) {
-            ImmutableList.of(this.hive, this.leg0, this.leg1, this.leg2, this.leg3, this.body, this.chest1, this.chest2, this.head, this.flowers1, this.flowers2, this.bumblellama).forEach(modelPart -> modelPart.render(matrixStack, buffer, packedLight, packedOverlay));
+            Stream.of(this.hive, this.leg0, this.leg1, this.leg2, this.leg3, this.body, this.chest1, this.chest2, this.head, this.flowers1, this.flowers2, this.bumblellama).forEach(modelPart -> modelPart.render(matrices, vertices, packedLight, packedOverlay));
         } else {
-            matrixStack.push();
-            matrixStack.translate(0, 0.75, 0);
-            matrixStack.scale(0.5f, 0.5f, 0.5f);
-            Stream.of(this.leg0, this.leg1, this.leg2, this.leg3).forEach((modelPart) -> modelPart.render(matrixStack, buffer, packedLight, packedOverlay, red, green, blue, alpha));
+            // Leg Rendering
 
-            matrixStack.pop();
+            matrices.push();
+            matrices.scale(0.4f, 0.4f, 0.4f);
+            matrices.translate(0, 2.3f, 0);
+            Stream.of(this.leg0, this.leg1, this.leg2, this.leg3).forEach((modelPart) -> modelPart.render(matrices, vertices, packedLight, packedOverlay, red, green, blue, alpha));
 
-            matrixStack.push();
-            matrixStack.scale(0.75f, 0.63f, 0.75f);
-            matrixStack.translate(0, 1.05, 0);
+            matrices.pop();
 
-            this.body.render(matrixStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
+            // Body Rendering
 
-            matrixStack.pop();
+            matrices.push();
+            matrices.scale(0.576f, 0.4f, 0.4f);
+            matrices.translate(0, 2.5f, 0);
+
+            this.body.render(matrices, vertices, packedLight, packedOverlay, red, green, blue, alpha);
+
+            matrices.pop();
+
+            // Head Rendering
+
+            matrices.push();
+
+            matrices.scale(0.7f, 0.6f, 0.6f);
+            matrices.translate(0d, 1.497d, 0.2d);
+
+            this.head.render(matrices, vertices, packedLight, packedOverlay, red, green, blue, alpha);
+
+            matrices.pop();
         }
     }
 

@@ -16,7 +16,6 @@ import net.minecraft.util.registry.Registry;
  * @author PeterGamesGR
  * This is a utility class for adding items.
  * All items should be initialised in this class right after the registry list field.
- * No item needs to be registered manually, they are automatically registered.
  * This class should never be extended (hence it's final).
  * This class has a private constructor because it should never be instatiated.
  */
