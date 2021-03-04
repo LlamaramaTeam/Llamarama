@@ -2,7 +2,7 @@ package com.github.llamarama.team;
 
 import com.github.llamarama.team.block.blockentity.ModBlockEntityTypes;
 import com.github.llamarama.team.client.blockentity.LlamaWoolBedBlockEntityRenderer;
-import com.github.llamarama.team.client.entity.bumbllama.BumbllamaEntityRenderer;
+import com.github.llamarama.team.client.entity.bumblellama.BumbleLlamaEntityRenderer;
 import com.github.llamarama.team.client.entity.woollyllama.WoollyLlamaEntityRenderer;
 import com.github.llamarama.team.entity.ModEntityTypes;
 import com.github.llamarama.team.item.ModItems;
@@ -65,7 +65,7 @@ public final class EventHandler {
 
     public void addSpawnsListener(SpawnEventListener listener) {
         listener.addSpawns((biomeSelectionContext) -> BiomeSelectors.includeByKey(this.MOUNTAIN_KEYS).test(biomeSelectionContext), SpawnGroup.CREATURE, ModEntityTypes.WOOLLY_LLAMA, 5, 3, 6);
-        listener.addSpawns((biomeSelectionContext) -> BiomeSelectors.includeByKey(BiomeKeys.FLOWER_FOREST).test(biomeSelectionContext), SpawnGroup.CREATURE, ModEntityTypes.BUMBLLAMA, 2, 4, 7);
+        listener.addSpawns((biomeSelectionContext) -> BiomeSelectors.includeByKey(BiomeKeys.FLOWER_FOREST).test(biomeSelectionContext), SpawnGroup.CREATURE, ModEntityTypes.BUMBLE_LLAMA, 2, 4, 7);
     }
 
     @Environment(EnvType.CLIENT)
@@ -76,7 +76,7 @@ public final class EventHandler {
     @Environment(EnvType.CLIENT)
     public void addEntityRendererListener(EntityRendererListener listener) {
         listener.registerRenderer(ModEntityTypes.WOOLLY_LLAMA, WoollyLlamaEntityRenderer::new);
-        listener.registerRenderer(ModEntityTypes.BUMBLLAMA, BumbllamaEntityRenderer::new);
+        listener.registerRenderer(ModEntityTypes.BUMBLE_LLAMA, BumbleLlamaEntityRenderer::new);
     }
 
 }

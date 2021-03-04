@@ -3,6 +3,7 @@ package com.github.llamarama.team.mixins;
 import com.github.llamarama.team.entity.ai.goal.CaravanGoal;
 import com.github.llamarama.team.entity.ai.goal.VibeGoal;
 import com.github.llamarama.team.item.ModItems;
+import com.github.llamarama.team.item.tag.ModItemTags;
 import com.github.llamarama.team.util.annotation.InterfaceImplementation;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ItemSteerable;
@@ -17,7 +18,6 @@ import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.passive.AbstractDonkeyEntity;
 import net.minecraft.entity.passive.LlamaEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sound.SoundCategory;
@@ -93,10 +93,9 @@ public abstract class MixinLlamaEntity extends AbstractDonkeyEntity implements R
     public ActionResult interactMob(PlayerEntity player, Hand hand) {
         if (player.getStackInHand(hand).getItem() == Items.BUCKET) {
             return ActionResult.PASS;
-        } else if (player.getStackInHand(hand).getItem() == Items.NETHERITE_INGOT) {
-            Item[] discs = new Item[]{ModItems.LLAMARAMA, ModItems.LLAMAJAMA, ModItems.BUMBLLAMA_DISC};
+        } else if (player.getStackInHand(hand).getItem() == Items.NETHERITE_INGOT && !this.world.isClient) {
 
-            player.giveItemStack(discs[this.random.nextInt(2)].getDefaultStack());
+            player.giveItemStack(ModItemTags.LLAMA_DISCS.getRandom(this.random).getDefaultStack());
 
             player.getStackInHand(hand).decrement(1);
 

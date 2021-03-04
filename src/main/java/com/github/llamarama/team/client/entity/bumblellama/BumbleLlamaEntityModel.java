@@ -2,9 +2,9 @@
 // Exported for Minecraft version 1.15
 // Paste this class into your mod and generate all required imports
 
-package com.github.llamarama.team.client.entity.bumbllama;
+package com.github.llamarama.team.client.entity.bumblellama;
 
-import com.github.llamarama.team.entity.bumbllama.BumbllamaEntity;
+import com.github.llamarama.team.entity.bumbllama.BumbleLlamaEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.model.ModelPart;
@@ -16,7 +16,7 @@ import net.minecraft.util.math.MathHelper;
 import java.util.stream.Stream;
 
 @Environment(EnvType.CLIENT)
-public class BumbllamaEntityModel<T extends BumbllamaEntity> extends EntityModel<T> {
+public class BumbleLlamaEntityModel<T extends BumbleLlamaEntity> extends EntityModel<T> {
 
     private final ModelPart head;
     private final ModelPart chest1;
@@ -42,7 +42,7 @@ public class BumbllamaEntityModel<T extends BumbllamaEntity> extends EntityModel
     private final ModelPart cube_r9;
     private final ModelPart cube_r10;
 
-    public BumbllamaEntityModel() {
+    public BumbleLlamaEntityModel() {
         textureWidth = 128;
         textureHeight = 64;
         head = new ModelPart(this);
@@ -169,7 +169,7 @@ public class BumbllamaEntityModel<T extends BumbllamaEntity> extends EntityModel
     }
 
     @Override
-    public void setAngles(BumbllamaEntity entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch) {
+    public void setAngles(BumbleLlamaEntity entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch) {
         this.head.pitch = headPitch * 0.017453292F;
         this.head.yaw = headYaw * 0.017453292F;
 

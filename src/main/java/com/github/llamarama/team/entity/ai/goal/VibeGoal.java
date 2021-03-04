@@ -31,7 +31,7 @@ public class VibeGoal extends Goal {
 
         this.jukeboxTile = (JukeboxBlockEntity) this.entity.getEntityWorld().getBlockEntity(this.targetPos);
 
-        if (this.jukeboxTile != null && (this.jukeboxTile.getRecord().getItem() == ModItems.LLAMARAMA || this.jukeboxTile.getRecord().getItem() == ModItems.LLAMAJAMA)) {
+        if (this.jukeboxTile != null && (this.jukeboxTile.getRecord().getItem() == ModItems.LLAMARAMA || this.jukeboxTile.getRecord().getItem() == ModItems.LLAMAJAMA || this.jukeboxTile.getRecord().getItem() == ModItems.FLIGHT_OF_THE_BUMBLE_LLAMA)) {
 
             if (this.extraY <= 0.5f) {
                 this.reducing = false;

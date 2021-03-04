@@ -23,9 +23,9 @@ import net.minecraft.world.World;
 
 import java.util.List;
 
-public class BumbllamaEntity extends WoollyLlamaEntity {
+public class BumbleLlamaEntity extends WoollyLlamaEntity {
 
-    public BumbllamaEntity(EntityType<? extends WoollyLlamaEntity> entityType, World world) {
+    public BumbleLlamaEntity(EntityType<? extends WoollyLlamaEntity> entityType, World world) {
         super(entityType, world);
         this.setSheared(true);
     }
@@ -85,8 +85,8 @@ public class BumbllamaEntity extends WoollyLlamaEntity {
     }
 
     @Override
-    protected BumbllamaEntity getChild() {
-        return !this.world.isClient ? ModEntityTypes.BUMBLLAMA.create(this.world) : null;
+    protected BumbleLlamaEntity getChild() {
+        return !this.world.isClient ? ModEntityTypes.BUMBLE_LLAMA.create(this.world) : null;
     }
 
     @Override

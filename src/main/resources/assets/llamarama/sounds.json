@@ -11,10 +11,10 @@
       "llamarama:llamajama"
     ]
   },
-    "flight_of_the_bumbllama": {
-      "subtitle": "subtitle.llamarama.flight_of_the_bumbllama",
-      "sounds": [
-        "llamarama:flight_of_the_bumbllama"
-        ]
+  "flight_of_the_bumble_llama": {
+    "subtitle": "subtitle.llamarama.flight_of_the_bumble_llama",
+    "sounds": [
+      "llamarama:flight_of_the_bumble_llama"
+    ]
   }
 }
