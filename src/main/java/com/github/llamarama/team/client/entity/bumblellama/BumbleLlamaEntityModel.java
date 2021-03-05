@@ -173,9 +173,6 @@ public class BumbleLlamaEntityModel<T extends BumbleLlamaEntity> extends EntityM
         this.head.pitch = headPitch * 0.017453292F;
         this.head.yaw = headYaw * 0.017453292F;
 
-        this.bumblellama.pitch = this.head.pitch;
-        this.bumblellama.yaw = this.head.yaw;
-
         this.leg0.pitch = MathHelper.cos(limbAngle * 0.6662F) * 1.4F * limbDistance;
         this.leg1.pitch = MathHelper.cos(limbAngle * 0.6662F + 3.1415927F) * 1.4F * limbDistance;
         this.leg2.pitch = MathHelper.cos(limbAngle * 0.6662F + 3.1415927F) * 1.4F * limbDistance;
