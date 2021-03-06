@@ -5,8 +5,6 @@ import com.github.llamarama.team.client.blockentity.LlamaWoolBedBlockEntityRende
 import com.github.llamarama.team.client.entity.bumblellama.BumbleLlamaEntityRenderer;
 import com.github.llamarama.team.client.entity.woollyllama.WoollyLlamaEntityRenderer;
 import com.github.llamarama.team.entity.ModEntityTypes;
-import com.github.llamarama.team.entity.bumbllama.BumbleLlamaEntity;
-import com.github.llamarama.team.entity.woolyllama.WoollyLlamaEntity;
 import com.github.llamarama.team.item.ModItems;
 import com.github.llamarama.team.util.IDBuilder;
 import com.github.llamarama.team.util.events.BlockEntityRendererRegistryListener;
@@ -21,6 +19,7 @@ import net.fabricmc.fabric.api.loot.v1.event.LootTableLoadingCallback;
 import net.fabricmc.fabric.mixin.object.builder.SpawnRestrictionAccessor;
 import net.minecraft.entity.SpawnGroup;
 import net.minecraft.entity.SpawnRestriction;
+import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.loot.ConstantLootTableRange;
 import net.minecraft.loot.LootManager;
 import net.minecraft.loot.UniformLootTableRange;
@@ -74,8 +73,8 @@ public final class EventHandler {
     }
 
     public void addSpawnRestrictionListener() {
-        SpawnRestrictionAccessor.callRegister(ModEntityTypes.WOOLLY_LLAMA, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.WORLD_SURFACE, WoollyLlamaEntity::canMobSpawn);
-        SpawnRestrictionAccessor.callRegister(ModEntityTypes.BUMBLE_LLAMA, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.WORLD_SURFACE, BumbleLlamaEntity::canMobSpawn);
+        SpawnRestrictionAccessor.callRegister(ModEntityTypes.WOOLLY_LLAMA, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, AnimalEntity::isValidNaturalSpawn);
+        SpawnRestrictionAccessor.callRegister(ModEntityTypes.BUMBLE_LLAMA, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, AnimalEntity::isValidNaturalSpawn);
     }
 
     @Environment(EnvType.CLIENT)
