@@ -35,6 +35,7 @@ public class Llamarama implements ModInitializer {
 
         // Callback registers.
         EventHandler.getInstance().addSpawnsListener(BiomeModifications::addSpawn);
+        EventHandler.getInstance().addSpawnRestrictionListener();
         LootTableLoadingCallback.EVENT.register(EventHandler.getInstance()::lootTableListener);
     }
 

@@ -5,6 +5,8 @@ import com.github.llamarama.team.client.blockentity.LlamaWoolBedBlockEntityRende
 import com.github.llamarama.team.client.entity.bumblellama.BumbleLlamaEntityRenderer;
 import com.github.llamarama.team.client.entity.woollyllama.WoollyLlamaEntityRenderer;
 import com.github.llamarama.team.entity.ModEntityTypes;
+import com.github.llamarama.team.entity.bumbllama.BumbleLlamaEntity;
+import com.github.llamarama.team.entity.woolyllama.WoollyLlamaEntity;
 import com.github.llamarama.team.item.ModItems;
 import com.github.llamarama.team.util.IDBuilder;
 import com.github.llamarama.team.util.events.BlockEntityRendererRegistryListener;
@@ -16,7 +18,9 @@ import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.fabricmc.fabric.api.loot.v1.FabricLootPoolBuilder;
 import net.fabricmc.fabric.api.loot.v1.FabricLootSupplierBuilder;
 import net.fabricmc.fabric.api.loot.v1.event.LootTableLoadingCallback;
+import net.fabricmc.fabric.mixin.object.builder.SpawnRestrictionAccessor;
 import net.minecraft.entity.SpawnGroup;
+import net.minecraft.entity.SpawnRestriction;
 import net.minecraft.loot.ConstantLootTableRange;
 import net.minecraft.loot.LootManager;
 import net.minecraft.loot.UniformLootTableRange;
@@ -30,6 +34,7 @@ import net.minecraft.predicate.entity.EntityPredicate;
 import net.minecraft.resource.ResourceManager;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.RegistryKey;
+import net.minecraft.world.Heightmap;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BiomeKeys;
 
@@ -65,7 +70,12 @@ public final class EventHandler {
 
     public void addSpawnsListener(SpawnEventListener listener) {
         listener.addSpawns((biomeSelectionContext) -> BiomeSelectors.includeByKey(this.MOUNTAIN_KEYS).test(biomeSelectionContext), SpawnGroup.CREATURE, ModEntityTypes.WOOLLY_LLAMA, 5, 3, 6);
-        listener.addSpawns((biomeSelectionContext) -> BiomeSelectors.includeByKey(BiomeKeys.FLOWER_FOREST).test(biomeSelectionContext), SpawnGroup.CREATURE, ModEntityTypes.BUMBLE_LLAMA, 2, 4, 7);
+        listener.addSpawns((biomeSelectionContext) -> BiomeSelectors.includeByKey(BiomeKeys.FLOWER_FOREST).test(biomeSelectionContext), SpawnGroup.CREATURE, ModEntityTypes.BUMBLE_LLAMA, 3, 4, 7);
+    }
+
+    public void addSpawnRestrictionListener() {
+        SpawnRestrictionAccessor.callRegister(ModEntityTypes.WOOLLY_LLAMA, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.WORLD_SURFACE, WoollyLlamaEntity::canMobSpawn);
+        SpawnRestrictionAccessor.callRegister(ModEntityTypes.BUMBLE_LLAMA, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.WORLD_SURFACE, BumbleLlamaEntity::canMobSpawn);
     }
 
     @Environment(EnvType.CLIENT)

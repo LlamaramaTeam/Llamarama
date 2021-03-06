@@ -22,12 +22,13 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class BumbleLlamaEntity extends WoollyLlamaEntity {
 
     public BumbleLlamaEntity(EntityType<? extends WoollyLlamaEntity> entityType, World world) {
         super(entityType, world);
-        this.setSheared(true);
+        this.setSheared(false);
     }
 
     @Override
@@ -67,7 +68,7 @@ public class BumbleLlamaEntity extends WoollyLlamaEntity {
         } else if (using.getItem() == Items.BONE_MEAL && !this.world.isClient) {
             using.decrement(1);
 
-            final List<? extends Item> FLOWERS = ItemTags.FLOWERS.values();
+            final List<? extends Item> FLOWERS = ItemTags.FLOWERS.values().stream().filter((item) -> item != Items.WITHER_ROSE).collect(Collectors.toList());
 
             int targetItemIndex = this.random.nextInt(FLOWERS.size());
 
@@ -77,6 +78,11 @@ public class BumbleLlamaEntity extends WoollyLlamaEntity {
         } else {
             return super.interactMob(player, hand);
         }
+    }
+
+    @Override
+    public boolean isBreedingItem(ItemStack stack) {
+        return false;
     }
 
     @Override

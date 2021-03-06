@@ -16,7 +16,7 @@ public class SpitRevengeGoal extends RevengeGoal {
     public boolean shouldContinue() {
         if (this.mob instanceof LlamaEntity) {
             WoollyLlamaEntity llamaEntity = (WoollyLlamaEntity) this.mob;
-            if (((AccessorLlamaEntity) llamaEntity).spit()) {
+            if (((AccessorLlamaEntity) llamaEntity).getSpit()) {
                 ((AccessorLlamaEntity) llamaEntity).invokeSetSpit(false);
                 return false;
             }

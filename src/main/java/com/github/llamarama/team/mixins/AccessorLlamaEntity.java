@@ -13,7 +13,7 @@ public interface AccessorLlamaEntity {
     TrackedData<Integer> getStrength();
 
     @Accessor("spit")
-    boolean spit();
+    boolean getSpit();
 
     @Invoker("setSpit")
     void invokeSetSpit(boolean bool);

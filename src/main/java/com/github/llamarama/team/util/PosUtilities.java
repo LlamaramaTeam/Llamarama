@@ -10,19 +10,21 @@ public interface PosUtilities {
     }
 
     static double getDistanceFrom(Vec3d from, Vec3d to) {
-        final double x2 = Math.pow(from.getX(), 2);
-        final double y2 = Math.pow(from.getY(), 2);
-        final double z2 = Math.pow(from.getZ(), 2);
+        double xFrom, yFrom, zFrom;
+        double xTo, yTo, zTo;
+        xFrom = from.getX();
+        yFrom = from.getY();
+        zFrom = from.getZ();
 
-        final double sum = x2 + y2 + z2;
+        xTo = to.getX();
+        yTo = to.getY();
+        zTo = to.getZ();
 
-        final double x2To = Math.pow(to.getX(), 2);
-        final double y2To = Math.pow(to.getY(), 2);
-        final double z2To = Math.pow(to.getZ(), 2);
+        final double x = xTo - xFrom;
+        final double y = yTo - yFrom;
+        final double z = zTo - zFrom;
 
-        final double sumTo = x2To + y2To + z2To;
-
-        return MathHelper.abs(MathHelper.sqrt(sumTo) - MathHelper.sqrt(sum));
+        return Math.abs(MathHelper.sqrt(x * x + y * y + z * z));
     }
 
 }

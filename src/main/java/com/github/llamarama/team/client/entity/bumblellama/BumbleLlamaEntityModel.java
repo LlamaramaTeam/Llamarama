@@ -164,8 +164,6 @@ public class BumbleLlamaEntityModel<T extends BumbleLlamaEntity> extends EntityM
         this.bumblellama.addChild(cube_r10);
         this.setRotationAngle(cube_r10, 0.0F, 0.0F, 0.9163F);
         cube_r10.setTextureOffset(0, 0).addCuboid(-3.0F, -1.0F, 2.0F, 1.0F, 0.0F, 1.0F, 0.0F, false);
-
-        this.bumblellama.setPivot(0, 7, -6);
     }
 
     @Override
