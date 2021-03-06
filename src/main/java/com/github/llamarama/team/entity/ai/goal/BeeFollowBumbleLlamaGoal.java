@@ -60,22 +60,7 @@ public class BeeFollowBumbleLlamaGoal extends Goal {
 
         if (distance < 5) {
             ((InvokerBeeEntity) this.beeEntity).invokeSetHasNectar(random.nextInt(2400) < 10);
-        }
-    }
-
-    @Override
-    public void stop() {
-        super.stop();
-        this.target = null;
-        this.currentlyFollowing = false;
-    }
-
-    @Override
-    public void start() {
-        double distance = PosUtilities.getDistanceFrom(this.beeEntity.getPos(), this.target.getPos());
-        Random random = this.beeEntity.getRandom();
-
-        if (!this.beeEntity.isLeashed() && distance > 3) {
+        } else if (!this.beeEntity.isLeashed() && distance > 3) {
 
             double extraX = MathHelper.nextDouble(random, -1d, 1d);
             double extraY = MathHelper.nextDouble(random, 1d, 1.87d);
@@ -88,5 +73,13 @@ public class BeeFollowBumbleLlamaGoal extends Goal {
             this.beeEntity.getNavigation().startMovingTo(nextX, nextY, nextZ, 1.4d);
         }
     }
+
+    @Override
+    public void stop() {
+        super.stop();
+        this.target = null;
+        this.currentlyFollowing = false;
+    }
+
 
 }
