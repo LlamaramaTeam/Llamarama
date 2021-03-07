@@ -1,6 +1,7 @@
 package com.github.llamarama.team.mixins;
 
 import com.github.llamarama.team.entity.ai.goal.BeeFollowBumbleLlamaGoal;
+import com.github.llamarama.team.entity.ai.goal.BeeHelpBumbleLlamaGoal;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.Flutterer;
 import net.minecraft.entity.mob.Angerable;
@@ -23,7 +24,7 @@ public abstract class MixinBeeEntity extends AnimalEntity implements Angerable, 
     @Inject(method = "initGoals()V", at = @At("TAIL"))
     public void onInitGoals(CallbackInfo ci) {
         this.goalSelector.add(3, new BeeFollowBumbleLlamaGoal(((BeeEntity) (Object) this)));
-//        this.goalSelector.add(1, new BeeHelpBumbleLlamaGoal(((BeeEntity) (Object) this)));
+        this.goalSelector.add(1, new BeeHelpBumbleLlamaGoal(((BeeEntity) (Object) this)));
     }
 
 }

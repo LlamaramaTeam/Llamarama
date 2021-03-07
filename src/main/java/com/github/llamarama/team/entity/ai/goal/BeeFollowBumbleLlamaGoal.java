@@ -59,7 +59,7 @@ public class BeeFollowBumbleLlamaGoal extends Goal {
         Random random = this.beeEntity.getRandom();
 
         if (distance < 5) {
-            ((InvokerBeeEntity) this.beeEntity).invokeSetHasNectar(random.nextInt(2400) < 10);
+            ((InvokerBeeEntity) this.beeEntity).invokeSetHasNectar(random.nextInt(2400) == 1);
         } else if (!this.beeEntity.isLeashed() && distance > 3) {
 
             double extraX = MathHelper.nextDouble(random, -1d, 1d);

@@ -14,6 +14,8 @@ import net.minecraft.item.ItemUsage;
 import net.minecraft.item.Items;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.tag.ItemTags;
 import net.minecraft.text.LiteralText;
 import net.minecraft.util.ActionResult;
@@ -28,12 +30,12 @@ public class BumbleLlamaEntity extends WoollyLlamaEntity {
 
     public BumbleLlamaEntity(EntityType<? extends WoollyLlamaEntity> entityType, World world) {
         super(entityType, world);
-        this.setSheared(false);
+        this.setSheared(true);
     }
 
     @Override
     protected ItemStack getShearedItem() {
-        return new ItemStack(Items.HONEYCOMB, 2);
+        return new ItemStack(Items.HONEYCOMB, 3);
     }
 
     @Override
@@ -61,10 +63,13 @@ public class BumbleLlamaEntity extends WoollyLlamaEntity {
         final ItemStack using = player.getStackInHand(hand);
 
         if (using.getItem() == Items.GLASS_BOTTLE && !this.getSheared() && !this.world.isClient) {
-            ItemUsage.method_30012(using, player, Items.HONEY_BOTTLE.getDefaultStack());
+
+            ItemStack out = ItemUsage.method_30012(player.getStackInHand(hand), player, Items.HONEY_BOTTLE.getDefaultStack());
+            player.setStackInHand(hand, out);
+
             this.setSheared(true);
 
-            return ActionResult.PASS;
+            return ActionResult.success(this.world.isClient);
         } else if (using.getItem() == Items.BONE_MEAL && !this.world.isClient) {
             using.decrement(1);
 
@@ -113,6 +118,20 @@ public class BumbleLlamaEntity extends WoollyLlamaEntity {
             ((Fertilizable) stateForBoneMeal.getBlock()).grow((ServerWorld) this.world, this.random, down, stateForBoneMeal);
 
             ((ServerWorld) this.world).spawnParticles(ParticleTypes.HAPPY_VILLAGER, this.getX(), this.getY(), this.getZ(), 20, 2d, 2d, 2d, 0.0d);
+        }
+    }
+
+    @Override
+    public void shearedTick() {
+        if (!this.world.isClient()) {
+            if (this.WOOL_TIMER > 0) {
+                this.WOOL_TIMER--;
+            } else if (this.getSheared()) {
+                this.WOOL_TIMER = this.getRandom().nextInt(20 * 15 * 60);
+                this.setSheared(false);
+
+                this.world.playSoundFromEntity(null, this, SoundEvents.BLOCK_BEEHIVE_WORK, SoundCategory.NEUTRAL, 1.0f, 1.0f);
+            }
         }
     }
 

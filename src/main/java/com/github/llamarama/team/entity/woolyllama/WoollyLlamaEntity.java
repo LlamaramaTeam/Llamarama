@@ -84,7 +84,7 @@ public class WoollyLlamaEntity extends LlamaEntity implements Shearable {
             this.setSheared(true);
             this.setWoolTimer(this.random.nextInt(20 * 60 * 20));
 
-            this.world.playSoundFromEntity(null, this, SoundEvents.BLOCK_BEEHIVE_SHEAR, SoundCategory.NEUTRAL, 1.0f, 1.0f);
+            this.world.playSoundFromEntity(null, this, SoundEvents.BLOCK_BEEHIVE_SHEAR, shearedSoundCategory, 1.0f, 1.0f);
 
             for (int i = 0; i < this.getShearedItem().getCount(); i++) {
                 this.dropItem(this.getShearedItem().getItem());
@@ -168,12 +168,7 @@ public class WoollyLlamaEntity extends LlamaEntity implements Shearable {
     public void tick() {
         super.tick();
 
-        if (this.getWoolTimer() > 0 && this.getSheared() && this.world.getBlockState(this.getBlockPos().down()) == Blocks.GRASS_BLOCK.getDefaultState()) {
-            this.WOOL_TIMER--;
-        } else if (this.getWoolTimer() == 0 && this.getSheared()) {
-            this.setSheared(false);
-            this.world.playSoundFromEntity(null, this, SoundEvents.BLOCK_WOOL_PLACE, SoundCategory.NEUTRAL, 1.0F, 1.0F);
-        }
+        this.shearedTick();
     }
 
     @Override
@@ -231,11 +226,20 @@ public class WoollyLlamaEntity extends LlamaEntity implements Shearable {
     public void onDeath(DamageSource source) {
         if (!this.getSheared()) {
             for (int i = 0; i < this.random.nextInt(3); i++) {
-                this.dropItem(ModBlocks.LLAMA_WOOL.asItem());
+                this.dropItem(this.getShearedItem().getItem());
             }
         }
 
         super.onDeath(source);
+    }
+
+    protected void shearedTick() {
+        if (this.getWoolTimer() > 0 && this.getSheared() && this.world.getBlockState(this.getBlockPos().down()) == Blocks.GRASS_BLOCK.getDefaultState()) {
+            this.WOOL_TIMER--;
+        } else if (this.getWoolTimer() == 0 && this.getSheared()) {
+            this.setSheared(false);
+            this.world.playSoundFromEntity(null, this, SoundEvents.BLOCK_WOOL_PLACE, SoundCategory.NEUTRAL, 1.0F, 1.0F);
+        }
     }
 
 }
