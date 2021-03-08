@@ -46,8 +46,8 @@ public class BeeHelpBumbleLlamaGoal extends Goal {
     }
 
     @Override
-    public void tick() {
-        super.tick();
+    public void start() {
+        super.start();
         List<Entity> nearBees = this.beeEntity.world.getEntitiesByClass(BeeEntity.class, this.beeEntity.getBoundingBox().expand(7), (entity) -> entity instanceof BeeEntity);
 
         this.nearLlamas.forEach((bumbleLlamaEntity) -> {
