@@ -56,7 +56,7 @@ public class BeeHelpBumbleLlamaGoal extends Goal {
 
                     beeEntity.setAngryAt(attacker.getUuid());
                     beeEntity.setTarget(attacker);
-                    beeEntity.universallyAnger();
+                    beeEntity.chooseRandomAngerTime();
                 });
 
                 break;
