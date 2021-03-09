@@ -5,6 +5,8 @@ import net.minecraft.entity.passive.LlamaEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
+import net.minecraft.stat.Stats;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.world.World;
@@ -25,6 +27,14 @@ public class HayOnAStickItem extends Item {
 
                 if (riding.consumeOnAStickItem()) {
                     handItem.damage(5, user, (playerEntity) -> playerEntity.sendToolBreakStatus(hand));
+
+                    if (handItem.isEmpty()) {
+                        ItemStack out = Items.FISHING_ROD.getDefaultStack();
+                        out.setTag(handItem.getTag());
+
+                        return TypedActionResult.success(out);
+                    }
+                    user.incrementStat(Stats.USED.getOrCreateStat(this));
                     return TypedActionResult.success(handItem);
                 }
 

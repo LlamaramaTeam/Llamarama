@@ -1,12 +1,12 @@
 package com.github.llamarama.team.entity.ai.goal;
 
 import com.github.llamarama.team.entity.bumbllama.BumbleLlamaEntity;
-import com.github.llamarama.team.util.PosUtilities;
 import com.google.common.collect.Lists;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.passive.BeeEntity;
+import net.minecraft.entity.player.PlayerEntity;
 
 import java.util.EnumSet;
 import java.util.List;
@@ -16,7 +16,6 @@ public class BeeHelpBumbleLlamaGoal extends Goal {
 
     private final BeeEntity beeEntity;
     private List<BumbleLlamaEntity> nearLlamas;
-    private boolean canStart;
 
     public BeeHelpBumbleLlamaGoal(BeeEntity entity) {
         this.beeEntity = entity;
@@ -35,14 +34,13 @@ public class BeeHelpBumbleLlamaGoal extends Goal {
 
     @Override
     public boolean shouldContinue() {
-        return this.beeEntity.isAlive() && this.canStart;
+        return this.beeEntity.isAlive();
     }
 
     @Override
     public void stop() {
         super.stop();
         this.nearLlamas = Lists.newArrayList();
-        this.canStart = false;
     }
 
     @Override
@@ -50,23 +48,20 @@ public class BeeHelpBumbleLlamaGoal extends Goal {
         super.start();
         List<Entity> nearBees = this.beeEntity.world.getEntitiesByClass(BeeEntity.class, this.beeEntity.getBoundingBox().expand(7), (entity) -> entity instanceof BeeEntity);
 
-        this.nearLlamas.forEach((bumbleLlamaEntity) -> {
+        for (BumbleLlamaEntity bumbleLlamaEntity : this.nearLlamas) {
             LivingEntity attacker = bumbleLlamaEntity.getAttacker();
 
-            if (attacker != null) {
+            if (attacker instanceof PlayerEntity && !((PlayerEntity) attacker).abilities.creativeMode) {
                 nearBees.stream().map((entity) -> (BeeEntity) entity).forEach((beeEntity) -> {
-                    double distance = PosUtilities.getDistanceFrom(beeEntity.getPos(), attacker.getPos());
 
-                    if (distance < 1) {
-                        beeEntity.tryAttack(attacker);
-                    } else {
-                        beeEntity.setTarget(attacker);
-                        beeEntity.setAngryAt(attacker.getUuid());
-                        beeEntity.chooseRandomAngerTime();
-                    }
+                    beeEntity.setAngryAt(attacker.getUuid());
+                    beeEntity.setTarget(attacker);
+                    beeEntity.universallyAnger();
                 });
+
+                break;
             }
-        });
+        }
 
     }
 

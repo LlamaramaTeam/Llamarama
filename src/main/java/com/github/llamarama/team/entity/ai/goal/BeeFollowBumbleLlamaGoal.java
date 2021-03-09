@@ -28,7 +28,7 @@ public class BeeFollowBumbleLlamaGoal extends Goal {
 
     @Override
     public boolean canStart() {
-        if (!this.currentlyFollowing && !this.beeEntity.hasNectar()) {
+        if (!this.currentlyFollowing && !this.beeEntity.hasNectar() && !this.beeEntity.hasAngerTime()) {
             List<Entity> nearEntities = this.beeEntity.getEntityWorld().getEntitiesByClass(BumbleLlamaEntity.class, this.beeEntity.getBoundingBox().expand(10.0d), (entity) -> entity.getClass() == BumbleLlamaEntity.class);
 
             nearEntities.forEach((entity) -> {
