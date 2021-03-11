@@ -20,12 +20,12 @@ import net.minecraft.util.Identifier;
 
 @SuppressWarnings("unused")
 @Environment(EnvType.CLIENT)
-public class WoollyLlamaEntityRenderer extends MobEntityRenderer<WoollyLlamaEntity, WoollyLlamaEntityModel<WoollyLlamaEntity>> {
+public class WoollyLlamaEntityRenderer extends MobEntityRenderer<WoollyLlamaEntity, WoollyLlamaEntityModel> {
 
     private final ImmutableList<Identifier> TEXTURES;
 
     public WoollyLlamaEntityRenderer(EntityRenderDispatcher entityRenderDispatcher, EntityRendererRegistry.Context context) {
-        super(entityRenderDispatcher, new WoollyLlamaEntityModel<>(0.0f), 0.7F);
+        super(entityRenderDispatcher, new WoollyLlamaEntityModel(), 0.7F);
         this.TEXTURES = ImmutableList.of(new Identifier(Llamarama.MOD_ID, "textures/entity/woolly_llama/woolly_llama.png"), new Identifier(Llamarama.MOD_ID, "textures/entity/woolly_llama/woolly_llama_sheared.png"));
         this.addFeature(new WoollyLlamaDecorRenderer(this));
     }
@@ -35,16 +35,21 @@ public class WoollyLlamaEntityRenderer extends MobEntityRenderer<WoollyLlamaEnti
         return entity.getSheared() ? TEXTURES.get(1) : TEXTURES.get(0);
     }
 
+    @Override
+    public WoollyLlamaEntityModel getModel() {
+        return super.getModel();
+    }
+
     /**
      * @author PeterGamesGR
      * Adds carpet rendering.
      */
-    public static class WoollyLlamaDecorRenderer extends FeatureRenderer<WoollyLlamaEntity, WoollyLlamaEntityModel<WoollyLlamaEntity>> {
+    public static class WoollyLlamaDecorRenderer extends FeatureRenderer<WoollyLlamaEntity, WoollyLlamaEntityModel> {
 
         private static final Identifier[] LLAMA_DECOR = new Identifier[]{new Identifier("textures/entity/llama/decor/white.png"), new Identifier("textures/entity/llama/decor/orange.png"), new Identifier("textures/entity/llama/decor/magenta.png"), new Identifier("textures/entity/llama/decor/light_blue.png"), new Identifier("textures/entity/llama/decor/yellow.png"), new Identifier("textures/entity/llama/decor/lime.png"), new Identifier("textures/entity/llama/decor/pink.png"), new Identifier("textures/entity/llama/decor/gray.png"), new Identifier("textures/entity/llama/decor/light_gray.png"), new Identifier("textures/entity/llama/decor/cyan.png"), new Identifier("textures/entity/llama/decor/purple.png"), new Identifier("textures/entity/llama/decor/blue.png"), new Identifier("textures/entity/llama/decor/brown.png"), new Identifier("textures/entity/llama/decor/green.png"), new Identifier("textures/entity/llama/decor/red.png"), new Identifier("textures/entity/llama/decor/black.png")};
-        private final WoollyLlamaEntityModel<WoollyLlamaEntity> model = new WoollyLlamaEntityModel<>(0.5F);
+        private final WoollyLlamaEntityModel model = new WoollyLlamaEntityModel();
 
-        public WoollyLlamaDecorRenderer(FeatureRendererContext<WoollyLlamaEntity, WoollyLlamaEntityModel<WoollyLlamaEntity>> context) {
+        public WoollyLlamaDecorRenderer(FeatureRendererContext<WoollyLlamaEntity, WoollyLlamaEntityModel> context) {
             super(context);
         }
 

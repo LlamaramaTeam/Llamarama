@@ -1,7 +1,6 @@
 package com.github.llamarama.team.client.entity.woollyllama;
 
 import com.github.llamarama.team.entity.woolyllama.WoollyLlamaEntity;
-import com.google.common.collect.ImmutableList;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.model.ModelPart;
@@ -10,74 +9,95 @@ import net.minecraft.client.render.entity.model.EntityModel;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.math.MathHelper;
 
+import java.util.stream.Stream;
+
+/**
+ * @author 0xJoeMama mess fixed.
+ */
 @Environment(EnvType.CLIENT)
-public class WoollyLlamaEntityModel<T extends WoollyLlamaEntity> extends EntityModel<T> {
+public class WoollyLlamaEntityModel extends EntityModel<WoollyLlamaEntity> {
 
     private final ModelPart head;
+    private final ModelPart chest2;
+    private final ModelPart chest1;
+    private final ModelPart hair;
+    private final ModelPart leg0;
+    private final ModelPart leg1;
+    private final ModelPart leg2;
+    private final ModelPart leg3;
     private final ModelPart torso;
-    private final ModelPart rightBackLeg;
-    private final ModelPart leftBackLeg;
-    private final ModelPart rightFrontLeg;
-    private final ModelPart leftFrontLeg;
-    private final ModelPart rightChest;
-    private final ModelPart leftChest;
 
-    public WoollyLlamaEntityModel(float scale) {
-        this.textureWidth = 128;
-        this.textureHeight = 64;
-        this.head = new ModelPart(this, 0, 0);
-        this.head.addCuboid(-2.0F, -14.0F, -10.0F, 4.0F, 4.0F, 9.0F, scale);
-        this.head.setPivot(0.0F, 7.0F, -6.0F);
-        this.head.setTextureOffset(0, 14).addCuboid(-4.0F, -16.0F, -6.0F, 8.0F, 18.0F, 6.0F, scale);
-        this.head.setTextureOffset(17, 0).addCuboid(-4.0F, -19.0F, -4.0F, 3.0F, 3.0F, 2.0F, scale);
-        this.head.setTextureOffset(17, 0).addCuboid(1.0F, -19.0F, -4.0F, 3.0F, 3.0F, 2.0F, scale);
-        this.torso = new ModelPart(this, 29, 0);
-        this.torso.addCuboid(-6.0F, -10.0F, -7.0F, 12.0F, 18.0F, 10.0F, scale);
-        this.torso.setPivot(0.0F, 5.0F, 2.0F);
-        this.rightChest = new ModelPart(this, 45, 28);
-        this.rightChest.addCuboid(-3.0F, 0.0F, 0.0F, 8.0F, 8.0F, 3.0F, scale);
-        this.rightChest.setPivot(-8.5F, 3.0F, 3.0F);
-        this.rightChest.yaw = 1.5707964F;
-        this.leftChest = new ModelPart(this, 45, 41);
-        this.leftChest.addCuboid(-3.0F, 0.0F, 0.0F, 8.0F, 8.0F, 3.0F, scale);
-        this.leftChest.setPivot(5.5F, 3.0F, 3.0F);
-        this.leftChest.yaw = 1.5707964F;
-        this.rightBackLeg = new ModelPart(this, 29, 29);
-        this.rightBackLeg.addCuboid(-2.0F, 0.0F, -2.0F, 4.0F, 14.0F, 4.0F, scale);
-        this.rightBackLeg.setPivot(-2.5F, 10.0F, 6.0F);
-        this.leftBackLeg = new ModelPart(this, 29, 29);
-        this.leftBackLeg.addCuboid(-2.0F, 0.0F, -2.0F, 4.0F, 14.0F, 4.0F, scale);
-        this.leftBackLeg.setPivot(2.5F, 10.0F, 6.0F);
-        this.rightFrontLeg = new ModelPart(this, 29, 29);
-        this.rightFrontLeg.addCuboid(-2.0F, 0.0F, -2.0F, 4.0F, 14.0F, 4.0F, scale);
-        this.rightFrontLeg.setPivot(-2.5F, 10.0F, -4.0F);
-        this.leftFrontLeg = new ModelPart(this, 29, 29);
-        this.leftFrontLeg.addCuboid(-2.0F, 0.0F, -2.0F, 4.0F, 14.0F, 4.0F, scale);
-        this.leftFrontLeg.setPivot(2.5F, 10.0F, -4.0F);
-        --this.rightBackLeg.pivotX;
-        ++this.leftBackLeg.pivotX;
-        ModelPart backLeg = this.rightBackLeg;
-        backLeg.pivotZ += 0.0F;
-        backLeg = this.leftBackLeg;
-        backLeg.pivotZ += 0.0F;
-        --this.rightFrontLeg.pivotX;
-        ++this.leftFrontLeg.pivotX;
-        --this.rightFrontLeg.pivotZ;
-        --this.leftFrontLeg.pivotZ;
+
+    public WoollyLlamaEntityModel() {
+        textureWidth = 128;
+        textureHeight = 64;
+
+        torso = new ModelPart(this);
+        torso.setPivot(0.0F, 24.0F, 0.0F);
+        setRotationAngle(torso, 1.5708F, 0.0F, 0.0F);
+        torso.setTextureOffset(29, 0).addCuboid(-6.0F, -8.0F, 12.0F, 12.0F, 18.0F, 10.0F, 0.0F, true);
+
+        head = new ModelPart(this);
+        head.setPivot(0.0F, 7.0F, -6.0F);
+        head.setTextureOffset(0, 0).addCuboid(-2.0F, -14.0F, -10.0F, 4.0F, 4.0F, 9.0F, 0.0F, true);
+        head.setTextureOffset(0, 14).addCuboid(-4.0F, -16.0F, -6.0F, 8.0F, 18.0F, 6.0F, 0.0F, true);
+        head.setTextureOffset(17, 0).addCuboid(1.0F, -19.0F, -4.0F, 3.0F, 3.0F, 2.0F, 0.0F, true);
+        head.setTextureOffset(17, 0).addCuboid(-4.0F, -19.0F, -4.0F, 3.0F, 3.0F, 2.0F, 0.0F, true);
+
+        chest1 = new ModelPart(this);
+        chest1.setPivot(8.5F, 3.0F, 3.0F);
+        setRotationAngle(chest1, 0.0F, -1.5708F, 0.0F);
+
+
+        chest2 = new ModelPart(this);
+        chest2.setPivot(-5.5F, 3.0F, 3.0F);
+        setRotationAngle(chest2, 0.0F, -1.5708F, 0.0F);
+
+
+        hair = new ModelPart(this);
+        hair.setPivot(0.0F, 5.0F, 2.0F);
+        hair.setTextureOffset(46, 13).addCuboid(-6.0F, 7.0F, -10.0F, 0.0F, 3.0F, 18.0F, 0.0F, false);
+        hair.setTextureOffset(47, 13).addCuboid(6.0F, 7.0F, -10.0F, 0.0F, 3.0F, 18.0F, 0.0F, false);
+        hair.setTextureOffset(47, 31).addCuboid(-6.0F, 7.0F, 8.0F, 12.0F, 3.0F, 0.0F, 0.0F, false);
+        hair.setTextureOffset(47, 31).addCuboid(-6.0F, 7.0F, -10.0F, 12.0F, 3.0F, 0.0F, 0.0F, false);
+
+        leg0 = new ModelPart(this);
+        leg0.setPivot(3.5F, 10.0F, 6.0F);
+        leg0.setTextureOffset(29, 29).addCuboid(-2.0F, 0.0F, -2.0F, 4.0F, 14.0F, 4.0F, 0.0F, true);
+
+        leg1 = new ModelPart(this);
+        leg1.setPivot(-3.5F, 10.0F, 6.0F);
+        leg1.setTextureOffset(29, 29).addCuboid(-2.0F, 0.0F, -2.0F, 4.0F, 14.0F, 4.0F, 0.0F, true);
+
+        leg2 = new ModelPart(this);
+        leg2.setPivot(3.5F, 10.0F, -5.0F);
+        leg2.setTextureOffset(29, 29).addCuboid(-2.0F, 0.0F, -2.0F, 4.0F, 14.0F, 4.0F, 0.0F, true);
+
+        leg3 = new ModelPart(this);
+        leg3.setPivot(-3.5F, 10.0F, -5.0F);
+        leg3.setTextureOffset(29, 29).addCuboid(-2.0F, 0.0F, -2.0F, 4.0F, 14.0F, 4.0F, 0.0F, true);
+    }
+
+    private void setRotationAngle(ModelPart bone, float x, float y, float z) {
+        bone.pitch = x;
+        bone.yaw = y;
+        bone.roll = z;
     }
 
     @Override
-    public void setAngles(T entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch) {
+    public void setAngles(WoollyLlamaEntity entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch) {
         this.head.pitch = headPitch * 0.017453292F;
         this.head.yaw = headYaw * 0.017453292F;
         this.torso.pitch = 1.5707964F;
-        this.rightBackLeg.pitch = MathHelper.cos(limbAngle * 0.6662F) * 1.4F * limbDistance;
-        this.leftBackLeg.pitch = MathHelper.cos(limbAngle * 0.6662F + 3.1415927F) * 1.4F * limbDistance;
-        this.rightFrontLeg.pitch = MathHelper.cos(limbAngle * 0.6662F + 3.1415927F) * 1.4F * limbDistance;
-        this.leftFrontLeg.pitch = MathHelper.cos(limbAngle * 0.6662F) * 1.4F * limbDistance;
+        this.leg0.pitch = MathHelper.cos(limbAngle * 0.6662F) * 1.4F * limbDistance;
+        this.leg1.pitch = MathHelper.cos(limbAngle * 0.6662F + 3.1415927F) * 1.4F * limbDistance;
+        this.leg2.pitch = MathHelper.cos(limbAngle * 0.6662F + 3.1415927F) * 1.4F * limbDistance;
+        this.leg3.pitch = MathHelper.cos(limbAngle * 0.6662F) * 1.4F * limbDistance;
         boolean bl = !entity.isBaby() && entity.hasChest();
-        this.rightChest.visible = bl;
-        this.leftChest.visible = bl;
+        this.chest1.visible = bl;
+        this.chest2.visible = bl;
+
+        this.hair.visible = !entity.getSheared();
     }
 
     @Override
@@ -91,15 +111,16 @@ public class WoollyLlamaEntityModel<T extends WoollyLlamaEntity> extends EntityM
             matrices.push();
             matrices.scale(0.625F, 0.45454544F, 0.45454544F);
             matrices.translate(0.0D, 2.0625D, 0.0D);
+            this.hair.render(matrices, vertices, light, overlay, red, green, blue, alpha);
             this.torso.render(matrices, vertices, light, overlay, red, green, blue, alpha);
             matrices.pop();
             matrices.push();
             matrices.scale(0.45454544F, 0.41322312F, 0.45454544F);
             matrices.translate(0.0D, 2.0625D, 0.0D);
-            ImmutableList.of(this.rightBackLeg, this.leftBackLeg, this.rightFrontLeg, this.leftFrontLeg, this.rightChest, this.leftChest).forEach(modelPart -> modelPart.render(matrices, vertices, light, overlay));
+            Stream.of(this.leg0, this.leg1, this.leg2, this.leg3, this.chest1, this.chest2).forEach(modelPart -> modelPart.render(matrices, vertices, light, overlay, red, green, blue, alpha));
             matrices.pop();
         } else {
-            ImmutableList.of(this.head, this.torso, this.rightBackLeg, this.leftBackLeg, this.rightFrontLeg, this.leftFrontLeg, this.rightChest, this.leftChest).forEach((modelPart) -> modelPart.render(matrices, vertices, light, overlay, red, green, blue, alpha));
+            Stream.of(this.leg0, this.leg1, this.leg2, this.leg3, this.head, this.chest1, this.chest2, this.torso, this.hair).forEach((modelPart) -> modelPart.render(matrices, vertices, light, overlay));
         }
     }
 
