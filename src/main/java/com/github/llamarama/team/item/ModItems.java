@@ -32,6 +32,7 @@ public final class ModItems {
     public static final Item LLAMAJAMA = new MusicDiscItem(5, ModSoundEvents.LLAMAJAMA_DISC, getBaseSettings().maxCount(1).fireproof());
     public static final Item FLIGHT_OF_THE_BUMBLE_LLAMA = new MusicDiscItem(5, ModSoundEvents.BUMBLLAMA_DISC, getBaseSettings().maxCount(1).fireproof());
     public static final Item BUMBLE_LLAMA_SPAWN_EGG = new SpawnEggItem(ModEntityTypes.BUMBLE_LLAMA, 0xEDEDED, 0x4A6424, getBaseSettings());
+    public static final Item CARAVAN_TRADER_SPAWN_EGG = new SpawnEggItem(ModEntityTypes.CARAVAN_TRADER, 0x7b857f, 0x6e3302, getBaseSettings());
     private static final Item LLAMA_WOOL_BED = new BedItem(ModBlocks.LLAMA_WOOL_BED, getBaseSettings().maxCount(1));
     private static ModItems instance;
 
@@ -48,6 +49,7 @@ public final class ModItems {
         register(LLAMA_WOOL_BED, "llama_wool_bed");
         register(BUMBLE_LLAMA_SPAWN_EGG, "bumble_llama_spawn_egg");
         register(FLIGHT_OF_THE_BUMBLE_LLAMA, "flight_of_the_bumble_llama");
+        register(CARAVAN_TRADER_SPAWN_EGG, "caravan_trader_spawn_egg");
     }
 
     public static void init() {

@@ -34,7 +34,7 @@ public class WoollyLlamaEntityModel extends EntityModel<WoollyLlamaEntity> {
 
         torso = new ModelPart(this);
         torso.setPivot(0.0F, 24.0F, 0.0F);
-        setRotationAngle(torso, 1.5708F, 0.0F, 0.0F);
+        setRotationAngle(torso, 1.5708F, 0.0F);
         torso.setTextureOffset(29, 0).addCuboid(-6.0F, -8.0F, 12.0F, 12.0F, 18.0F, 10.0F, 0.0F, true);
 
         head = new ModelPart(this);
@@ -46,12 +46,12 @@ public class WoollyLlamaEntityModel extends EntityModel<WoollyLlamaEntity> {
 
         chest1 = new ModelPart(this);
         chest1.setPivot(8.5F, 3.0F, 3.0F);
-        setRotationAngle(chest1, 0.0F, -1.5708F, 0.0F);
+        setRotationAngle(chest1, 0.0F, -1.5708F);
 
 
         chest2 = new ModelPart(this);
         chest2.setPivot(-5.5F, 3.0F, 3.0F);
-        setRotationAngle(chest2, 0.0F, -1.5708F, 0.0F);
+        setRotationAngle(chest2, 0.0F, -1.5708F);
 
 
         hair = new ModelPart(this);
@@ -78,10 +78,10 @@ public class WoollyLlamaEntityModel extends EntityModel<WoollyLlamaEntity> {
         leg3.setTextureOffset(29, 29).addCuboid(-2.0F, 0.0F, -2.0F, 4.0F, 14.0F, 4.0F, 0.0F, true);
     }
 
-    private void setRotationAngle(ModelPart bone, float x, float y, float z) {
+    private void setRotationAngle(ModelPart bone, float x, float y) {
         bone.pitch = x;
         bone.yaw = y;
-        bone.roll = z;
+        bone.roll = (float) 0.0;
     }
 
     @Override
