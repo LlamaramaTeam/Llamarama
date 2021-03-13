@@ -2,6 +2,7 @@ package com.github.llamarama.team.entity.caravantrader;
 
 import com.github.llamarama.team.entity.ModEntityTypes;
 import com.github.llamarama.team.item.ModItems;
+import com.github.llamarama.team.util.TradeUtil;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ExperienceOrbEntity;
 import net.minecraft.entity.ai.goal.*;
@@ -11,7 +12,6 @@ import net.minecraft.entity.mob.*;
 import net.minecraft.entity.passive.MerchantEntity;
 import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.LiteralText;
 import net.minecraft.util.ActionResult;
@@ -29,12 +29,7 @@ public class CaravanTraderEntity extends MerchantEntity {
     }
 
     public static DefaultAttributeContainer.Builder createAttributes() {
-        return CaravanTraderEntity.createMobAttributes().add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 1.2d).add(EntityAttributes.GENERIC_FOLLOW_RANGE, 10).add(EntityAttributes.GENERIC_MAX_HEALTH, 20);
-    }
-
-    @Override
-    protected void initDataTracker() {
-        super.initDataTracker();
+        return MobEntity.createMobAttributes().add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 1.2d).add(EntityAttributes.GENERIC_FOLLOW_RANGE, 10).add(EntityAttributes.GENERIC_MAX_HEALTH, 20);
     }
 
     @Override
@@ -44,16 +39,6 @@ public class CaravanTraderEntity extends MerchantEntity {
 
             this.world.spawnEntity(new ExperienceOrbEntity(this.world, this.getX(), this.getY() + 0.5f, this.getZ(), spawn));
         }
-    }
-
-    @Override
-    public void writeCustomDataToTag(CompoundTag tag) {
-        super.writeCustomDataToTag(tag);
-    }
-
-    @Override
-    public void readCustomDataFromTag(CompoundTag tag) {
-        super.readCustomDataFromTag(tag);
     }
 
     @Override
@@ -70,10 +55,11 @@ public class CaravanTraderEntity extends MerchantEntity {
         this.goalSelector.add(2, new FleeEntityGoal<>(this, IllusionerEntity.class, 20, this.getMovementSpeed(), this.getMovementSpeed() * 2));
         this.goalSelector.add(2, new FleeEntityGoal<>(this, VindicatorEntity.class, 20, this.getMovementSpeed(), this.getMovementSpeed() * 2));
         this.goalSelector.add(2, new FleeEntityGoal<>(this, VexEntity.class, 20, this.getMovementSpeed(), this.getMovementSpeed() * 2));
-        this.goalSelector.add(3, new LookAtCustomerGoal(this));
+        this.goalSelector.add(2, new FleeEntityGoal<>(this, RavagerEntity.class, 20, this.getMovementSpeed(), this.getMovementSpeed() * 2));
         this.goalSelector.add(3, new WanderAroundGoal(this, this.getMovementSpeed()));
-        this.goalSelector.add(4, new StopAndLookAtEntityGoal(this, PlayerEntity.class, 3.0f, 1.0f));
-        this.goalSelector.add(5, new LookAtEntityGoal(this, MobEntity.class, 4));
+        this.goalSelector.add(4, new LookAtCustomerGoal(this));
+        this.goalSelector.add(5, new StopAndLookAtEntityGoal(this, PlayerEntity.class, 3.0f, 1.0f));
+        this.goalSelector.add(6, new LookAtEntityGoal(this, MobEntity.class, 4));
     }
 
     @Override
@@ -93,7 +79,7 @@ public class CaravanTraderEntity extends MerchantEntity {
     protected void fillRecipes() {
 
         // Yoinked from wandering trader for now.
-        TradeOffers.Factory[] factory = TradeOffers.WANDERING_TRADER_TRADES.get(1);
+        TradeOffers.Factory[] factory = TradeUtil.getTrades();
 
         TradeOfferList tradeOfferList = this.getOffers();
         this.fillRecipesFromPool(tradeOfferList, factory, 5);
