@@ -69,13 +69,13 @@ public final class EventHandler {
     }
 
     public void addSpawnsListener(SpawnEventListener listener) {
-        listener.addSpawns(BiomeSelectors.includeByKey(this.MOUNTAIN_KEYS), SpawnGroup.CREATURE, ModEntityTypes.WOOLLY_LLAMA, 5, 3, 6);
-        listener.addSpawns(BiomeSelectors.includeByKey(BiomeKeys.FLOWER_FOREST), SpawnGroup.CREATURE, ModEntityTypes.BUMBLE_LLAMA, 3, 4, 7);
+        listener.addSpawns(BiomeSelectors.includeByKey(this.MOUNTAIN_KEYS), SpawnGroup.CREATURE, ModEntityTypes.get().WOOLLY_LLAMA, 5, 3, 6);
+        listener.addSpawns(BiomeSelectors.includeByKey(BiomeKeys.FLOWER_FOREST), SpawnGroup.CREATURE, ModEntityTypes.get().BUMBLE_LLAMA, 3, 4, 7);
     }
 
     public void addSpawnRestrictionListener() {
-        SpawnRestrictionAccessor.callRegister(ModEntityTypes.WOOLLY_LLAMA, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, AnimalEntity::isValidNaturalSpawn);
-        SpawnRestrictionAccessor.callRegister(ModEntityTypes.BUMBLE_LLAMA, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, AnimalEntity::isValidNaturalSpawn);
+        SpawnRestrictionAccessor.callRegister(ModEntityTypes.get().WOOLLY_LLAMA, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, AnimalEntity::isValidNaturalSpawn);
+        SpawnRestrictionAccessor.callRegister(ModEntityTypes.get().BUMBLE_LLAMA, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, AnimalEntity::isValidNaturalSpawn);
     }
 
     @Environment(EnvType.CLIENT)
@@ -85,9 +85,9 @@ public final class EventHandler {
 
     @Environment(EnvType.CLIENT)
     public void addEntityRendererListener(EntityRendererListener listener) {
-        listener.registerRenderer(ModEntityTypes.WOOLLY_LLAMA, WoollyLlamaEntityRenderer::new);
-        listener.registerRenderer(ModEntityTypes.BUMBLE_LLAMA, BumbleLlamaEntityRenderer::new);
-        listener.registerRenderer(ModEntityTypes.CARAVAN_TRADER, CaravanTraderRenderer::new);
+        listener.registerRenderer(ModEntityTypes.get().WOOLLY_LLAMA, WoollyLlamaEntityRenderer::new);
+        listener.registerRenderer(ModEntityTypes.get().BUMBLE_LLAMA, BumbleLlamaEntityRenderer::new);
+        listener.registerRenderer(ModEntityTypes.get().CARAVAN_TRADER, CaravanTraderRenderer::new);
     }
 
 }

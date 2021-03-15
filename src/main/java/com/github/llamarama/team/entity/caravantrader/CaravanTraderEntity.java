@@ -77,16 +77,14 @@ public class CaravanTraderEntity extends MerchantEntity {
      */
     @Override
     protected void fillRecipes() {
-
-        // Yoinked from wandering trader for now.
-        TradeOffers.Factory[] factory = TradeUtil.getTrades();
+        TradeOffers.Factory[] factory = TradeUtil.FACTORY;
 
         TradeOfferList tradeOfferList = this.getOffers();
         this.fillRecipesFromPool(tradeOfferList, factory, 5);
         int i = this.random.nextInt(factory.length);
         TradeOffers.Factory out = factory[i];
         TradeOffer tradeOffer = out.create(this, this.random);
-        if (tradeOffer != null) {
+        if (tradeOffer != null && !tradeOfferList.contains(tradeOffer)) {
             tradeOfferList.add(tradeOffer);
         }
     }
@@ -94,7 +92,7 @@ public class CaravanTraderEntity extends MerchantEntity {
     @Nullable
     @Override
     public PassiveEntity createChild(ServerWorld world, PassiveEntity entity) {
-        return ModEntityTypes.CARAVAN_TRADER.create(world);
+        return ModEntityTypes.get().CARAVAN_TRADER.create(world);
     }
 
     @Override

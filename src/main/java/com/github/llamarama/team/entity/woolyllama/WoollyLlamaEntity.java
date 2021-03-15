@@ -126,7 +126,7 @@ public class WoollyLlamaEntity extends LlamaEntity implements Shearable {
     }
 
     protected WoollyLlamaEntity getChild() {
-        return !this.world.isClient() ? ModEntityTypes.WOOLLY_LLAMA.create(this.world) : null;
+        return !this.world.isClient() ? ModEntityTypes.get().WOOLLY_LLAMA.create(this.world) : null;
     }
 
     @Override

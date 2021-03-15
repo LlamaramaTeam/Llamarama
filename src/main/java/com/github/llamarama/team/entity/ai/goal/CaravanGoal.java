@@ -32,17 +32,12 @@ public class CaravanGoal<T extends LlamaEntity> extends Goal {
 
 
                 if (current.isLeashed() && !current.hasFollower() && current != this.entity) {
-//                    Llamarama.LOGGER.info("Llama " + current.getUuidAsString() + " is leashed and doesn't have a " + "follower!!");
-
                     this.entity.follow(current);
                     return true;
 
                 } else if (!current.isLeashed() && current.isFollowing() && !current.hasFollower() && this.canFollow(current, 1)) {
-//                    Llamarama.LOGGER.info("Llama " + current.getUuidAsString() + " is not leashed, is not followed " + "and is following someone");
-
                     this.entity.follow(current);
                     return true;
-
                 }
             }
         }

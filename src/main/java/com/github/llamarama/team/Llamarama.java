@@ -31,7 +31,7 @@ public class Llamarama implements ModInitializer {
         ModItems.init();
         ModBlockEntityTypes.init();
         ModBlocks.init();
-        ModEntityTypes.init();
+        ModEntityTypes.get();
 
         // Callback registers.
         EventHandler.getInstance().addSpawnsListener(BiomeModifications::addSpawn);
