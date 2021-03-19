@@ -9,7 +9,8 @@
     "MixinBeeEntity",
     "MixinBucketItem",
     "MixinBuiltinModelItemRenderer",
-    "MixinLlamaEntity"
+    "MixinLlamaEntity",
+    "MixinMinecraftServer"
   ],
   "client": [
   ],

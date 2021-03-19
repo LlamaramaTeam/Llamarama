@@ -8,11 +8,16 @@ import net.minecraft.entity.ExperienceOrbEntity;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.mob.*;
 import net.minecraft.entity.passive.MerchantEntity;
 import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvent;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.LiteralText;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
@@ -29,13 +34,13 @@ public class CaravanTraderEntity extends MerchantEntity {
     }
 
     public static DefaultAttributeContainer.Builder createAttributes() {
-        return MobEntity.createMobAttributes().add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 1.2d).add(EntityAttributes.GENERIC_FOLLOW_RANGE, 10).add(EntityAttributes.GENERIC_MAX_HEALTH, 20);
+        return MobEntity.createMobAttributes().add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.5d).add(EntityAttributes.GENERIC_FOLLOW_RANGE, 10).add(EntityAttributes.GENERIC_MAX_HEALTH, 20);
     }
 
     @Override
     protected void afterUsing(TradeOffer offer) {
         if (offer.shouldRewardPlayerExperience()) {
-            int spawn = 3 + this.random.nextInt(5);
+            int spawn = offer.getMerchantExperience();
 
             this.world.spawnEntity(new ExperienceOrbEntity(this.world, this.getX(), this.getY() + 0.5f, this.getZ(), spawn));
         }
@@ -45,21 +50,21 @@ public class CaravanTraderEntity extends MerchantEntity {
     protected void initGoals() {
         super.initGoals();
         this.goalSelector.add(0, new SwimGoal(this));
-        this.goalSelector.add(1, new EscapeDangerGoal(this, this.getMovementSpeed() * 2));
-        this.goalSelector.add(2, new FleeEntityGoal<>(this, ZombieEntity.class, 20, this.getMovementSpeed(), this.getMovementSpeed() * 2));
-        this.goalSelector.add(2, new FleeEntityGoal<>(this, HuskEntity.class, 20, this.getMovementSpeed(), this.getMovementSpeed() * 2));
-        this.goalSelector.add(2, new FleeEntityGoal<>(this, DrownedEntity.class, 20, this.getMovementSpeed(), this.getMovementSpeed() * 2));
-        this.goalSelector.add(2, new FleeEntityGoal<>(this, ZoglinEntity.class, 20, this.getMovementSpeed(), this.getMovementSpeed() * 2));
-        this.goalSelector.add(2, new FleeEntityGoal<>(this, PillagerEntity.class, 20, this.getMovementSpeed(), this.getMovementSpeed() * 2));
-        this.goalSelector.add(2, new FleeEntityGoal<>(this, EvokerEntity.class, 20, this.getMovementSpeed(), this.getMovementSpeed() * 2));
-        this.goalSelector.add(2, new FleeEntityGoal<>(this, IllusionerEntity.class, 20, this.getMovementSpeed(), this.getMovementSpeed() * 2));
-        this.goalSelector.add(2, new FleeEntityGoal<>(this, VindicatorEntity.class, 20, this.getMovementSpeed(), this.getMovementSpeed() * 2));
-        this.goalSelector.add(2, new FleeEntityGoal<>(this, VexEntity.class, 20, this.getMovementSpeed(), this.getMovementSpeed() * 2));
-        this.goalSelector.add(2, new FleeEntityGoal<>(this, RavagerEntity.class, 20, this.getMovementSpeed(), this.getMovementSpeed() * 2));
-        this.goalSelector.add(3, new WanderAroundGoal(this, this.getMovementSpeed()));
-        this.goalSelector.add(4, new LookAtCustomerGoal(this));
-        this.goalSelector.add(5, new StopAndLookAtEntityGoal(this, PlayerEntity.class, 3.0f, 1.0f));
-        this.goalSelector.add(6, new LookAtEntityGoal(this, MobEntity.class, 4));
+        this.goalSelector.add(1, new StopFollowingCustomerGoal(this));
+        this.goalSelector.add(1, new FleeEntityGoal<>(this, ZombieEntity.class, 8.0F, 0.5D, 0.5D));
+        this.goalSelector.add(1, new FleeEntityGoal<>(this, EvokerEntity.class, 12.0F, 0.5D, 0.5D));
+        this.goalSelector.add(1, new FleeEntityGoal<>(this, VindicatorEntity.class, 8.0F, 0.5D, 0.5D));
+        this.goalSelector.add(1, new FleeEntityGoal<>(this, VexEntity.class, 8.0F, 0.5D, 0.5D));
+        this.goalSelector.add(1, new FleeEntityGoal<>(this, PillagerEntity.class, 15.0F, 0.5D, 0.5D));
+        this.goalSelector.add(1, new FleeEntityGoal<>(this, IllusionerEntity.class, 12.0F, 0.5D, 0.5D));
+        this.goalSelector.add(1, new FleeEntityGoal<>(this, ZoglinEntity.class, 10.0F, 0.5D, 0.5D));
+        this.goalSelector.add(1, new FleeEntityGoal<>(this, RavagerEntity.class, 12.0f, 0.5d, 0.4d));
+        this.goalSelector.add(1, new EscapeDangerGoal(this, 0.5D));
+        this.goalSelector.add(1, new LookAtCustomerGoal(this));
+        this.goalSelector.add(4, new GoToWalkTargetGoal(this, 0.35D));
+        this.goalSelector.add(8, new WanderAroundFarGoal(this, 0.35D));
+        this.goalSelector.add(9, new StopAndLookAtEntityGoal(this, PlayerEntity.class, 3.0F, 1.0F));
+        this.goalSelector.add(10, new LookAtEntityGoal(this, MobEntity.class, 8.0F));
     }
 
     @Override
@@ -84,7 +89,7 @@ public class CaravanTraderEntity extends MerchantEntity {
         int i = this.random.nextInt(factory.length);
         TradeOffers.Factory out = factory[i];
         TradeOffer tradeOffer = out.create(this, this.random);
-        if (tradeOffer != null && !tradeOfferList.contains(tradeOffer)) {
+        if (tradeOffer != null && tradeOfferList.stream().noneMatch((offer) -> offer.getSellItem().getItem() == tradeOffer.getSellItem().getItem())) {
             tradeOfferList.add(tradeOffer);
         }
     }
@@ -99,5 +104,69 @@ public class CaravanTraderEntity extends MerchantEntity {
     public boolean isLeveledMerchant() {
         return false;
     }
+
+    @Override
+    public boolean canMoveVoluntarily() {
+        return true;
+    }
+
+    @Override
+    public SoundEvent getYesSound() {
+        return SoundEvents.ENTITY_WANDERING_TRADER_YES;
+    }
+
+    @Override
+    protected SoundEvent getTradingSound(boolean sold) {
+        return sold ? SoundEvents.ENTITY_WANDERING_TRADER_YES : SoundEvents.ENTITY_WANDERING_TRADER_NO;
+    }
+
+    @Nullable
+    @Override
+    protected SoundEvent getAmbientSound() {
+        return SoundEvents.ENTITY_WANDERING_TRADER_AMBIENT;
+    }
+
+    @Nullable
+    @Override
+    protected SoundEvent getHurtSound(DamageSource source) {
+        return SoundEvents.ENTITY_WANDERING_TRADER_HURT;
+    }
+
+    @Nullable
+    @Override
+    protected SoundEvent getDeathSound() {
+        return SoundEvents.ENTITY_WANDERING_TRADER_DEATH;
+    }
+
+    @Override
+    protected SoundEvent getFallSound(int distance) {
+        return SoundEvents.ENTITY_WANDERING_TRADER_HURT;
+    }
+
+    @Override
+    protected SoundEvent getDrinkSound(ItemStack stack) {
+        return SoundEvents.ENTITY_GENERIC_DRINK;
+    }
+
+    @Override
+    public SoundEvent getEatSound(ItemStack stack) {
+        return SoundEvents.ENTITY_GENERIC_EAT;
+    }
+
+    @Override
+    protected SoundEvent getSwimSound() {
+        return SoundEvents.ENTITY_GENERIC_SWIM;
+    }
+
+    @Override
+    protected SoundEvent getSplashSound() {
+        return SoundEvents.ENTITY_GENERIC_SPLASH;
+    }
+
+    @Override
+    public SoundCategory getSoundCategory() {
+        return SoundCategory.NEUTRAL;
+    }
+
 
 }

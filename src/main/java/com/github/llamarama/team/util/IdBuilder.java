@@ -3,7 +3,7 @@ package com.github.llamarama.team.util;
 import com.github.llamarama.team.Llamarama;
 import net.minecraft.util.Identifier;
 
-public interface IDBuilder {
+public interface IdBuilder {
 
     static Identifier of(String path) {
         return new Identifier(Llamarama.MOD_ID, path);

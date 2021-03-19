@@ -7,7 +7,7 @@ import com.github.llamarama.team.client.entity.caravantrader.CaravanTraderRender
 import com.github.llamarama.team.client.entity.woollyllama.WoollyLlamaEntityRenderer;
 import com.github.llamarama.team.entity.ModEntityTypes;
 import com.github.llamarama.team.item.ModItems;
-import com.github.llamarama.team.util.IDBuilder;
+import com.github.llamarama.team.util.IdBuilder;
 import com.github.llamarama.team.util.events.BlockEntityRendererRegistryListener;
 import com.github.llamarama.team.util.events.EntityRendererListener;
 import com.github.llamarama.team.util.events.SpawnEventListener;
@@ -60,7 +60,7 @@ public final class EventHandler {
     }
 
     public void lootTableListener(ResourceManager resourceManager, LootManager lootManager, Identifier identifier, FabricLootSupplierBuilder fabricLootSupplierBuilder, LootTableLoadingCallback.LootTableSetter lootTableSetter) {
-        if (IDBuilder.vanillaOf("entities/llama").equals(identifier)) {
+        if (IdBuilder.vanillaOf("entities/llama").equals(identifier)) {
 
             FabricLootPoolBuilder pool = FabricLootPoolBuilder.builder().rolls(ConstantLootTableRange.create(1)).withEntry(ItemEntry.builder(ModItems.RAW_LLAMA_MEAT).build()).withFunction(FurnaceSmeltLootFunction.builder().conditionally(EntityPropertiesLootCondition.builder(LootContext.EntityTarget.THIS, EntityPredicate.Builder.create().flags(EntityFlagsPredicate.Builder.create().onFire(true).build()))).build()).withFunction(LootingEnchantLootFunction.builder(UniformLootTableRange.between(1, 2)).build());
 

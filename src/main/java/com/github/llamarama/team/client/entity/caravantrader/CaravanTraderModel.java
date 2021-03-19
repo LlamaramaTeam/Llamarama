@@ -50,34 +50,49 @@ public class CaravanTraderModel extends EntityModel<CaravanTraderEntity> {
         arms.setPivot(4.0F, 4.0F, -5.0F);
 
 
+        ModelPart rightArm = new ModelPart(this);
+        rightArm.setPivot(0.0F, 0.0F, 0.0F);
+        arms.addChild(rightArm);
+
+
         ModelPart arms_r1 = new ModelPart(this);
-        arms_r1.setPivot(3.0F, -4.0F, 3.0F);
-        arms.addChild(arms_r1);
-        setRotationAngle(arms_r1, -0.7854F, 0.0F, 0.0F);
-        arms_r1.setTextureOffset(44, 22).addCuboid(-3.0F, -1.0F, 1.0F, 4.0F, 8.0F, 4.0F, 0.0F, true);
-        arms_r1.setTextureOffset(44, 22).addCuboid(-15.0F, -1.0F, 1.0F, 4.0F, 8.0F, 4.0F, 0.0F, true);
+        arms_r1.setPivot(-2.0F, 1.7071F, 1.5355F);
+        rightArm.addChild(arms_r1);
+        setRotationAngle(arms_r1, -0.7854F, 0.0F, -3.1416F);
+        arms_r1.setTextureOffset(40, 38).addCuboid(-2.0F, -2.0F, -2.0F, 4.0F, 4.0F, 4.0F, 0.0F, true);
 
         ModelPart arms_r2 = new ModelPart(this);
-        arms_r2.setPivot(-2.0F, 1.7071F, 1.5355F);
-        arms.addChild(arms_r2);
-        setRotationAngle(arms_r2, -0.7854F, 0.0F, -3.1416F);
-        arms_r2.setTextureOffset(40, 38).addCuboid(-2.0F, -2.0F, -2.0F, 4.0F, 4.0F, 4.0F, 0.0F, true);
+        arms_r2.setPivot(-9.0F, -4.0F, 3.0F);
+        rightArm.addChild(arms_r2);
+        setRotationAngle(arms_r2, -0.7854F, 0.0F, 0.0F);
+        arms_r2.setTextureOffset(44, 22).addCuboid(-3.0F, -1.0F, 1.0F, 4.0F, 8.0F, 4.0F, 0.0F, true);
+
+        ModelPart leftArm = new ModelPart(this);
+        leftArm.setPivot(0.0F, 0.0F, 0.0F);
+        arms.addChild(leftArm);
+
 
         ModelPart arms_r3 = new ModelPart(this);
-        arms_r3.setPivot(-4.0F, 1.0F, -2.0F);
-        arms.addChild(arms_r3);
-        setRotationAngle(arms_r3, 0.7854F, 0.0F, 0.0F);
-        arms_r3.setTextureOffset(40, 38).addCuboid(-4.0F, 1.0F, 0.0F, 4.0F, 4.0F, 4.0F, 0.0F, true);
+        arms_r3.setPivot(3.0F, -4.0F, 3.0F);
+        leftArm.addChild(arms_r3);
+        setRotationAngle(arms_r3, -0.7854F, 0.0F, 0.0F);
+        arms_r3.setTextureOffset(44, 22).addCuboid(-3.0F, -1.0F, 1.0F, 4.0F, 8.0F, 4.0F, 0.0F, true);
+
+        ModelPart arms_r4 = new ModelPart(this);
+        arms_r4.setPivot(-4.0F, 1.0F, -2.0F);
+        leftArm.addChild(arms_r4);
+        setRotationAngle(arms_r4, 0.7854F, 0.0F, 0.0F);
+        arms_r4.setTextureOffset(40, 38).addCuboid(-4.0F, 1.0F, 0.0F, 4.0F, 4.0F, 4.0F, 0.0F, true);
     }
 
     @Override
-    public void setAngles(CaravanTraderEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+    public void setAngles(CaravanTraderEntity entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch) {
         float degree = (float) (Math.PI / 180f);
+        this.head.yaw = headYaw * degree;
         this.head.pitch = headPitch * degree;
-        this.head.yaw = netHeadYaw * degree;
 
-        this.leg0.pitch = MathHelper.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
-        this.leg1.pitch = MathHelper.cos(limbSwing * 0.6662F + 3.1415927F) * 1.4F * limbSwingAmount;
+        this.leg1.pitch = MathHelper.cos(limbAngle * 0.6662F) * 1.4F * limbDistance * 0.5F;
+        this.leg0.pitch = MathHelper.cos(limbAngle * 0.6662F + 3.1415927F) * 1.4F * limbDistance * 0.5F;
     }
 
     @Override

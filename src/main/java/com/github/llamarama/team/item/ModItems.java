@@ -5,7 +5,7 @@ import com.github.llamarama.team.block.ModBlocks;
 import com.github.llamarama.team.client.ModSoundEvents;
 import com.github.llamarama.team.entity.ModEntityTypes;
 import com.github.llamarama.team.item.food.ModFoodComponents;
-import com.github.llamarama.team.util.IDBuilder;
+import com.github.llamarama.team.util.IdBuilder;
 import net.minecraft.item.BedItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.SpawnEggItem;
@@ -25,7 +25,7 @@ public final class ModItems {
     public static final Item RAW_LLAMA_MEAT = new Item(getBaseSettings().food(ModFoodComponents.RAW_LLAMA_MEAT));
     public static final Item ROASTED_LLAMA_MEAT = new Item(getBaseSettings().food(ModFoodComponents.ROASTED_LLAMA_MEAT));
     public static final Item WOOLLY_LLAMA_SPAWN_EGG = new SpawnEggItem(ModEntityTypes.get().WOOLLY_LLAMA, 0xFDD185, 0xE9AE48, getBaseSettings());
-    public static final Item HAY_ON_A_STICK = new HayOnAStickItem(new Item.Settings().group(Llamarama.LLAMA_ITEM_GROUP).maxCount(1));
+    public static final Item HAY_ON_A_STICK = new HayOnAStickItem(getBaseSettings().maxCount(1));
     public static final Item LLAMA_MILK = new LlamaMilkItem(getBaseSettings().maxCount(1));
     public static final Item LLAMA_CHEESE = new Item(getBaseSettings().food(ModFoodComponents.LLAMA_CHEESE));
     public static final Item LLAMARAMA = new MusicDiscItem(5, ModSoundEvents.LLAMARAMA_DISC, getBaseSettings().maxCount(1).fireproof());
@@ -61,7 +61,7 @@ public final class ModItems {
     }
 
     private void register(Item item, String id) {
-        Registry.register(Registry.ITEM, IDBuilder.of(id), item);
+        Registry.register(Registry.ITEM, IdBuilder.of(id), item);
     }
 
 }

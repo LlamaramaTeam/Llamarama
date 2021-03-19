@@ -1,7 +1,7 @@
 package com.github.llamarama.team.client.blockentity;
 
 import com.github.llamarama.team.block.blockentity.LlamaWoolBedBlockEntity;
-import com.github.llamarama.team.util.IDBuilder;
+import com.github.llamarama.team.util.IdBuilder;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.BedBlock;
@@ -56,7 +56,7 @@ public class LlamaWoolBedBlockEntityRenderer extends BlockEntityRenderer<LlamaWo
 
     @Override
     public void render(LlamaWoolBedBlockEntity entity, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
-        Identifier identifier = IDBuilder.of("textures/block/llama_wool_bed.png");
+        Identifier identifier = IdBuilder.of("textures/block/llama_wool_bed.png");
         World world = entity.getWorld();
         if (world != null) {
             BlockState blockState = entity.getCachedState();

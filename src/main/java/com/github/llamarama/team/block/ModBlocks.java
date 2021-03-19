@@ -1,7 +1,7 @@
 package com.github.llamarama.team.block;
 
 import com.github.llamarama.team.Llamarama;
-import com.github.llamarama.team.util.IDBuilder;
+import com.github.llamarama.team.util.IdBuilder;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
@@ -42,13 +42,13 @@ public final class ModBlocks {
     }
 
     private void register(Block block, String id) {
-        Identifier identifier = IDBuilder.of(id);
+        Identifier identifier = IdBuilder.of(id);
         Registry.register(Registry.BLOCK, identifier, block);
         Registry.register(Registry.ITEM, identifier, new BlockItem(block, new Item.Settings().group(Llamarama.LLAMA_ITEM_GROUP)));
     }
 
     private void registerNoItem(Block block, String id) {
-        Registry.register(Registry.BLOCK, IDBuilder.of(id), block);
+        Registry.register(Registry.BLOCK, IdBuilder.of(id), block);
     }
 
 }

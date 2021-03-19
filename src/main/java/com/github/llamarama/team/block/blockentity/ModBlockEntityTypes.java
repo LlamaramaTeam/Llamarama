@@ -1,7 +1,7 @@
 package com.github.llamarama.team.block.blockentity;
 
 import com.github.llamarama.team.block.ModBlocks;
-import com.github.llamarama.team.util.IDBuilder;
+import com.github.llamarama.team.util.IdBuilder;
 import net.minecraft.block.Block;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
@@ -31,7 +31,7 @@ public final class ModBlockEntityTypes {
     }
 
     private void register(String id, BlockEntityType<?> blockEntityType) {
-        Registry.register(Registry.BLOCK_ENTITY_TYPE, IDBuilder.of(id), blockEntityType);
+        Registry.register(Registry.BLOCK_ENTITY_TYPE, IdBuilder.of(id), blockEntityType);
     }
 
 }

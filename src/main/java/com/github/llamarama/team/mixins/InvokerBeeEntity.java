@@ -7,7 +7,7 @@ import org.spongepowered.asm.mixin.gen.Invoker;
 @Mixin(BeeEntity.class)
 public interface InvokerBeeEntity {
 
-    @Invoker(value = "setHasNectar")
+    @Invoker("setHasNectar")
     void invokeSetHasNectar(boolean newVal);
 
 }

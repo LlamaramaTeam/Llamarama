@@ -1,7 +1,7 @@
 package com.github.llamarama.team.client.entity.caravantrader;
 
 import com.github.llamarama.team.entity.caravantrader.CaravanTraderEntity;
-import com.github.llamarama.team.util.IDBuilder;
+import com.github.llamarama.team.util.IdBuilder;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.rendereregistry.v1.EntityRendererRegistry;
@@ -23,7 +23,7 @@ public class CaravanTraderRenderer extends MobEntityRenderer<CaravanTraderEntity
 
     @Override
     public Identifier getTexture(CaravanTraderEntity entity) {
-        return IDBuilder.of("textures/entity/caravan_trader/caravan_trader.png");
+        return IdBuilder.of("textures/entity/caravan_trader/caravan_trader.png");
     }
 
 }

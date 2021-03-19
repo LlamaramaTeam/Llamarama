@@ -5,3 +5,4 @@
 1. Changed the model and texture of the woolly llama.
 2. Added the caravan trader(no spawning yet).
 3. Added some temporary trades for the caravan trader.
+4. Small structural changes.
