@@ -1,17 +1,17 @@
 package com.github.llamarama.team.entity.caravantrader;
 
-import com.github.llamarama.team.entity.ModEntityTypes;
 import com.github.llamarama.team.item.ModItems;
 import com.github.llamarama.team.util.TradeUtil;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ExperienceOrbEntity;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
-import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.mob.*;
+import net.minecraft.entity.passive.LlamaEntity;
 import net.minecraft.entity.passive.MerchantEntity;
 import net.minecraft.entity.passive.PassiveEntity;
+import net.minecraft.entity.passive.VillagerEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.world.ServerWorld;
@@ -29,12 +29,20 @@ import org.jetbrains.annotations.Nullable;
 
 public class CaravanTraderEntity extends MerchantEntity {
 
+    private boolean hasLlama;
+
     public CaravanTraderEntity(EntityType<? extends MerchantEntity> entityType, World world) {
         super(entityType, world);
+        this.hasLlama = false;
     }
 
     public static DefaultAttributeContainer.Builder createAttributes() {
-        return MobEntity.createMobAttributes().add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.5d).add(EntityAttributes.GENERIC_FOLLOW_RANGE, 10).add(EntityAttributes.GENERIC_MAX_HEALTH, 20);
+        return VillagerEntity.createVillagerAttributes();
+    }
+
+    @Override
+    public void tickMovement() {
+        super.tickMovement();
     }
 
     @Override
@@ -97,7 +105,7 @@ public class CaravanTraderEntity extends MerchantEntity {
     @Nullable
     @Override
     public PassiveEntity createChild(ServerWorld world, PassiveEntity entity) {
-        return ModEntityTypes.get().CARAVAN_TRADER.create(world);
+        return null;
     }
 
     @Override
@@ -168,5 +176,11 @@ public class CaravanTraderEntity extends MerchantEntity {
         return SoundCategory.NEUTRAL;
     }
 
+    public void setCurrentLlama(LlamaEntity llama) {
+        if (!this.hasLlama) {
+            this.hasLlama = true;
+            llama.attachLeash(this, true);
+        }
+    }
 
 }

@@ -27,7 +27,7 @@ public final class ModEntityTypes {
     private ModEntityTypes() {
         this.WOOLLY_LLAMA = register(WoollyLlamaEntity::new, SpawnGroup.CREATURE, 0.9f, 1.87f, false, 10, WoollyLlamaEntity::createLlamaAttributes, "woolly_llama");
         this.BUMBLE_LLAMA = register(BumbleLlamaEntity::new, SpawnGroup.CREATURE, 0.9f, 1.87f, false, 10, BumbleLlamaEntity::createLlamaAttributes, "bumble_llama");
-        this.CARAVAN_TRADER = register(CaravanTraderEntity::new, SpawnGroup.AMBIENT, 0.6f, 2.0f, true, 10, CaravanTraderEntity::createAttributes, "caravan_trader");
+        this.CARAVAN_TRADER = register(CaravanTraderEntity::new, SpawnGroup.AMBIENT, 0.6f, 2.0f, false, 10, CaravanTraderEntity::createAttributes, "caravan_trader");
     }
 
     public static ModEntityTypes get() {

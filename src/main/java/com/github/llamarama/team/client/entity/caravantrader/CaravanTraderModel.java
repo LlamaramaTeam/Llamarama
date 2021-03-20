@@ -5,24 +5,23 @@
 package com.github.llamarama.team.client.entity.caravantrader;
 
 import com.github.llamarama.team.entity.caravantrader.CaravanTraderEntity;
+import com.google.common.collect.ImmutableList;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.model.ModelPart;
-import net.minecraft.client.render.VertexConsumer;
-import net.minecraft.client.render.entity.model.EntityModel;
-import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.client.render.entity.model.CompositeEntityModel;
+import net.minecraft.client.render.entity.model.ModelWithHead;
 import net.minecraft.util.math.MathHelper;
 
-import java.util.stream.Stream;
-
 @Environment(EnvType.CLIENT)
-public class CaravanTraderModel extends EntityModel<CaravanTraderEntity> {
+public class CaravanTraderModel extends CompositeEntityModel<CaravanTraderEntity> implements ModelWithHead {
 
     private final ModelPart head;
     private final ModelPart body;
     private final ModelPart leg0;
     private final ModelPart leg1;
-    private final ModelPart arms;
+    private final ModelPart leftArm;
+    private final ModelPart rightArm;
 
     public CaravanTraderModel() {
         textureWidth = 64;
@@ -34,9 +33,9 @@ public class CaravanTraderModel extends EntityModel<CaravanTraderEntity> {
         head.setTextureOffset(0, 0).addCuboid(-4.0F, -10.0F, -4.0F, 8.0F, 10.0F, 8.0F, 0.0F, true);
 
         body = new ModelPart(this);
-        body.setPivot(0.0F, 0.0F, 0.0F);
-        body.setTextureOffset(16, 20).addCuboid(-4.0F, 0.0F, -3.0F, 8.0F, 12.0F, 6.0F, 0.0F, true);
-        body.setTextureOffset(0, 38).addCuboid(-4.0F, 0.0F, -3.0F, 8.0F, 18.0F, 6.0F, 0.5F, true);
+        body.setPivot(0.0F, 9.0F, 0.0F);
+        body.setTextureOffset(16, 20).addCuboid(-4.0F, -9.0F, -3.0F, 8.0F, 12.0F, 6.0F, 0.0F, true);
+        body.setTextureOffset(0, 38).addCuboid(-4.0F, -9.0F, -3.0F, 8.0F, 18.0F, 6.0F, 0.5F, true);
 
         leg0 = new ModelPart(this);
         leg0.setPivot(2.0F, 12.0F, 0.0F);
@@ -46,14 +45,8 @@ public class CaravanTraderModel extends EntityModel<CaravanTraderEntity> {
         leg1.setPivot(-2.0F, 12.0F, 0.0F);
         leg1.setTextureOffset(0, 22).addCuboid(-2.0F, 0.0F, -2.0F, 4.0F, 12.0F, 4.0F, 0.0F, true);
 
-        arms = new ModelPart(this);
-        arms.setPivot(4.0F, 4.0F, -5.0F);
-
-
-        ModelPart rightArm = new ModelPart(this);
-        rightArm.setPivot(0.0F, 0.0F, 0.0F);
-        arms.addChild(rightArm);
-
+        rightArm = new ModelPart(this);
+        rightArm.setPivot(4.0F, 4.0F, -5.0F);
 
         ModelPart arms_r1 = new ModelPart(this);
         arms_r1.setPivot(-2.0F, 1.7071F, 1.5355F);
@@ -67,10 +60,8 @@ public class CaravanTraderModel extends EntityModel<CaravanTraderEntity> {
         setRotationAngle(arms_r2, -0.7854F, 0.0F, 0.0F);
         arms_r2.setTextureOffset(44, 22).addCuboid(-3.0F, -1.0F, 1.0F, 4.0F, 8.0F, 4.0F, 0.0F, true);
 
-        ModelPart leftArm = new ModelPart(this);
-        leftArm.setPivot(0.0F, 0.0F, 0.0F);
-        arms.addChild(leftArm);
-
+        leftArm = new ModelPart(this);
+        leftArm.setPivot(4.0F, 4.0F, -5.0F);
 
         ModelPart arms_r3 = new ModelPart(this);
         arms_r3.setPivot(3.0F, -4.0F, 3.0F);
@@ -87,25 +78,40 @@ public class CaravanTraderModel extends EntityModel<CaravanTraderEntity> {
 
     @Override
     public void setAngles(CaravanTraderEntity entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch) {
-        float degree = (float) (Math.PI / 180f);
-        this.head.yaw = headYaw * degree;
-        this.head.pitch = headPitch * degree;
+        boolean hasRoll = false;
+        if (entity != null) {
+            hasRoll = entity.getHeadRollingTimeLeft() > 0;
+        }
 
-        this.leg1.pitch = MathHelper.cos(limbAngle * 0.6662F) * 1.4F * limbDistance * 0.5F;
-        this.leg0.pitch = MathHelper.cos(limbAngle * 0.6662F + 3.1415927F) * 1.4F * limbDistance * 0.5F;
+        this.head.yaw = headYaw * 0.017453292F;
+        this.head.pitch = headPitch * 0.017453292F;
+        if (hasRoll) {
+            this.head.roll = 0.3F * MathHelper.sin(0.45F * animationProgress);
+            this.head.pitch = 0.4F;
+        } else {
+            this.head.roll = 0.0F;
+        }
+
+        this.leg0.pitch = MathHelper.cos(limbAngle * 0.6662F) * 1.4F * limbDistance * 0.5F;
+        this.leg1.pitch = MathHelper.cos(limbAngle * 0.6662F + 3.1415927F) * 1.4F * limbDistance * 0.5F;
+        this.leg0.yaw = 0.0F;
+        this.leg1.yaw = 0.0F;
     }
 
     @Override
-    public void render(MatrixStack matrices, VertexConsumer buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
-        matrices.push();
-        Stream.of(this.head, this.arms, this.body, this.leg0, this.leg1).forEach((modelPart) -> modelPart.render(matrices, buffer, packedLight, packedOverlay, red, green, blue, alpha));
-        matrices.pop();
+    public Iterable<ModelPart> getParts() {
+        return ImmutableList.of(this.leftArm, this.rightArm, this.body, this.leg0, this.leg1, this.head);
     }
 
     public void setRotationAngle(ModelPart bone, float x, float y, float z) {
         bone.pitch = x;
         bone.yaw = y;
         bone.roll = z;
+    }
+
+    @Override
+    public ModelPart getHead() {
+        return this.head;
     }
 
 }
