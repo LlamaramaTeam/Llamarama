@@ -97,7 +97,7 @@ public class BumbleLlamaEntity extends WoollyLlamaEntity {
 
     @Override
     protected BumbleLlamaEntity getChild() {
-        return !this.world.isClient ? ModEntityTypes.get().BUMBLE_LLAMA.create(this.world) : null;
+        return !this.world.isClient ? ModEntityTypes.BUMBLE_LLAMA.create(this.world) : null;
     }
 
     @Override

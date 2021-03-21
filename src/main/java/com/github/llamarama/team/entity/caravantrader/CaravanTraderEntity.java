@@ -114,11 +114,6 @@ public class CaravanTraderEntity extends MerchantEntity {
     }
 
     @Override
-    public boolean canMoveVoluntarily() {
-        return true;
-    }
-
-    @Override
     public SoundEvent getYesSound() {
         return SoundEvents.ENTITY_WANDERING_TRADER_YES;
     }

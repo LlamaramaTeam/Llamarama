@@ -18,30 +18,22 @@ import java.util.function.Supplier;
 @SuppressWarnings("SameParameterValue")
 public final class ModEntityTypes {
 
-    private static ModEntityTypes instance;
-    public final EntityType<WoollyLlamaEntity> WOOLLY_LLAMA;
-    public final EntityType<BumbleLlamaEntity> BUMBLE_LLAMA;
-    public final EntityType<CaravanTraderEntity> CARAVAN_TRADER;
-
+    public static final EntityType<WoollyLlamaEntity> WOOLLY_LLAMA = register(WoollyLlamaEntity::new, SpawnGroup.CREATURE, 0.9f, 1.87f, false, 10, WoollyLlamaEntity::createLlamaAttributes, "woolly_llama");
+    public static final EntityType<BumbleLlamaEntity> BUMBLE_LLAMA = register(BumbleLlamaEntity::new, SpawnGroup.CREATURE, 0.9f, 1.87f, false, 10, BumbleLlamaEntity::createLlamaAttributes, "bumble_llama");
+    public static final EntityType<CaravanTraderEntity> CARAVAN_TRADER = register(CaravanTraderEntity::new, SpawnGroup.CREATURE, 0.6f, 1.95f, false, 10, CaravanTraderEntity::createAttributes, "caravan_trader");
 
     private ModEntityTypes() {
-        this.WOOLLY_LLAMA = register(WoollyLlamaEntity::new, SpawnGroup.CREATURE, 0.9f, 1.87f, false, 10, WoollyLlamaEntity::createLlamaAttributes, "woolly_llama");
-        this.BUMBLE_LLAMA = register(BumbleLlamaEntity::new, SpawnGroup.CREATURE, 0.9f, 1.87f, false, 10, BumbleLlamaEntity::createLlamaAttributes, "bumble_llama");
-        this.CARAVAN_TRADER = register(CaravanTraderEntity::new, SpawnGroup.AMBIENT, 0.6f, 2.0f, false, 10, CaravanTraderEntity::createAttributes, "caravan_trader");
-    }
 
-    public static ModEntityTypes get() {
-        if (instance == null) {
-            instance = new ModEntityTypes();
-        }
-
-        return instance;
     }
 
     private static <T extends LivingEntity> EntityType<T> register(EntityType.EntityFactory<T> factory, SpawnGroup group, float width, float height, boolean fixed, int range, Supplier<DefaultAttributeContainer.Builder> attributes, String id) {
         EntityType<T> type = FabricEntityTypeBuilder.create(group).entityFactory(factory).dimensions(new EntityDimensions(width, height, fixed)).trackRangeBlocks(range).build();
         FabricDefaultAttributeRegistry.register(type, attributes.get());
         return Registry.register(Registry.ENTITY_TYPE, IdBuilder.of(id), type);
+    }
+
+    public static void init() {
+        FabricDefaultAttributeRegistry.register(CARAVAN_TRADER, CaravanTraderEntity.createAttributes());
     }
 
 }

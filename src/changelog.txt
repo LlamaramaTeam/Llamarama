@@ -6,3 +6,7 @@
 2. Added the caravan trader(no spawning yet).
 3. Added some temporary trades for the caravan trader.
 4. Small structural changes.
+5. Changed the texture for llama wool and the bed.
+6. Added spawning for the trader.
+7. Added trades for the caravan traders.
+8. 1.3.0 is now ready for release.

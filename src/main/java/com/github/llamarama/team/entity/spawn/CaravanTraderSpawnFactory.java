@@ -24,7 +24,7 @@ public class CaravanTraderSpawnFactory implements Spawner {
     private int spawnDelay;
 
     public CaravanTraderSpawnFactory() {
-        this.spawnDelay = new Random().nextInt(40 * 60 * 20);
+        this.spawnDelay = MathHelper.nextInt(new Random(), 5 * 60 * 20, 40 * 60 * 20);
     }
 
     @Override
@@ -38,7 +38,7 @@ public class CaravanTraderSpawnFactory implements Spawner {
                     return 0;
                 }
 
-                CaravanTraderEntity spawnedEntity = ModEntityTypes.get().CARAVAN_TRADER.spawn(world, null, null, null, validPos, SpawnReason.EVENT, false, false);
+                CaravanTraderEntity spawnedEntity = ModEntityTypes.CARAVAN_TRADER.spawn(world, null, null, null, validPos, SpawnReason.EVENT, false, false);
 
                 if (spawnedEntity != null) {
                     spawnedEntity.initialize(world, world.getLocalDifficulty(validPos), SpawnReason.EVENT, null, null);
@@ -62,7 +62,7 @@ public class CaravanTraderSpawnFactory implements Spawner {
         if (player != null) {
             BlockPos alteredPos = PosUtilities.getRandomPosInArea(world, player.getBlockPos(), 128, false);
 
-            return SpawnHelper.canSpawn(SpawnRestriction.Location.ON_GROUND, world, alteredPos, ModEntityTypes.get().CARAVAN_TRADER) ? alteredPos.toImmutable() : null;
+            return SpawnHelper.canSpawn(SpawnRestriction.Location.ON_GROUND, world, alteredPos, ModEntityTypes.CARAVAN_TRADER) ? alteredPos.toImmutable() : null;
         } else {
             return null;
         }
@@ -73,7 +73,7 @@ public class CaravanTraderSpawnFactory implements Spawner {
         if (traderPos != null) {
             Random random = world.getRandom();
 
-            EntityType<?>[] llamas = {EntityType.LLAMA, EntityType.TRADER_LLAMA, ModEntityTypes.get().WOOLLY_LLAMA, ModEntityTypes.get().BUMBLE_LLAMA};
+            EntityType<?>[] llamas = {EntityType.LLAMA, EntityType.TRADER_LLAMA, ModEntityTypes.WOOLLY_LLAMA, ModEntityTypes.BUMBLE_LLAMA};
 
             int amountOfLlamas = random.nextInt(6) + 1;
 
