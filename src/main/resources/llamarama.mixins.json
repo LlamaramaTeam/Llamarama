@@ -8,11 +8,11 @@
     "InvokerBeeEntity",
     "MixinBeeEntity",
     "MixinBucketItem",
-    "MixinBuiltinModelItemRenderer",
     "MixinLlamaEntity",
-    "MixinMinecraftServer"
+    "MixinServerWorld"
   ],
   "client": [
+    "MixinBuiltinModelItemRenderer"
   ],
   "injectors": {
     "defaultRequire": 1
