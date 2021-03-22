@@ -36,7 +36,7 @@ public abstract class MixinServerWorld extends World implements StructureWorldAc
                     "Lnet/minecraft/server/WorldGenerationProgressListener;" +
                     "Lnet/minecraft/world/gen/chunk/ChunkGenerator;" +
                     "ZJLjava/util/List;Z)V",
-            at = @At("HEAD"), index = 12, name = "list"
+            at = @At("HEAD"), ordinal = 0
     )
     private static List<Spawner> modifySpawnsList(List<Spawner> list) {
 

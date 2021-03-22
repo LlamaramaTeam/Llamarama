@@ -29,7 +29,32 @@ import java.util.stream.Collectors;
 
 public final class TradeUtil {
 
-    public static final TradeOffers.Factory[] FACTORY = new TradeOffers.Factory[]{new SellOneForBuyOne(ModItems.FLIGHT_OF_THE_BUMBLE_LLAMA, ModItems.LLAMAJAMA), new SellOneForBuyOne(ModItems.LLAMAJAMA, ModItems.LLAMARAMA), new SellOneForBuyOne(ModItems.FLIGHT_OF_THE_BUMBLE_LLAMA, ModItems.LLAMARAMA), new DefaultTrade(ModItems.LLAMA_MILK, 1, ModItems.LLAMA_CHEESE, 4), new DefaultTrade(Items.EMERALD, 2, ModItems.LLAMA_MILK, 1), new SellRandomForBuyRandom(Items.EMERALD, ModItems.RAW_LLAMA_MEAT, 6, 6, 1, 1), new VillageMapTrade(), new RandomMaxEnchantTrade(), new CombinedEnchantmentTrade(), new RandomPlantOrNameTagTrade(), new RandomPotionTrade(), new BuyItemsForEmerald(ModBlocks.LLAMA_WOOL.asItem(), 24, 16), new BuyItemsForEmerald(Items.COMPASS, 6, 3), new SellOneForBuyOne(Items.DIAMOND, Items.EMERALD), new SellOneForBuyOne(Items.IRON_INGOT, Items.GOLD_INGOT), new SellOneForBuyOne(Items.EMERALD, Items.DIAMOND), new SellOneForBuyOne(Items.GOLD_INGOT, Items.IRON_INGOT), new BuyItemsForEmerald(Items.COAL, 18, 8), new BuyItemsForEmerald(Items.PAPER, 24, 16), new BuyItemsForEmerald(Items.GLASS_PANE, 12, 20), new SellForOneEmerald(Items.REDSTONE, 4), new SellForOneEmerald(Items.LAPIS_LAZULI, 4), new SellForOneEmerald(Items.SLIME_BALL, 4), new DefaultTrade(Items.EMERALD, 2, Items.IRON_INGOT, 4), new DefaultTrade(Items.EMERALD, 2, Items.GOLD_INGOT, 4)};
+    public static final TradeOffers.Factory[] FACTORY = new TradeOffers.Factory[]{
+            new SellOneForBuyOne(ModItems.FLIGHT_OF_THE_BUMBLE_LLAMA, ModItems.LLAMAJAMA),
+            new SellOneForBuyOne(ModItems.LLAMAJAMA, ModItems.LLAMARAMA),
+            new SellOneForBuyOne(ModItems.FLIGHT_OF_THE_BUMBLE_LLAMA, ModItems.LLAMARAMA),
+            new DefaultTrade(ModItems.LLAMA_MILK, 1, ModItems.LLAMA_CHEESE, 4),
+            new DefaultTrade(Items.EMERALD, 2, ModItems.LLAMA_MILK, 1),
+            new SellRandomForBuyRandom(Items.EMERALD, ModItems.RAW_LLAMA_MEAT, 6, 6, 1, 1),
+            new VillageMapTrade(),
+            new RandomMaxEnchantTrade(),
+            new CombinedEnchantmentTrade(),
+            new RandomPlantOrNameTagTrade(),
+            new RandomPotionTrade(),
+            new BuyItemsForEmerald(ModBlocks.LLAMA_WOOL.asItem(), 24, 16),
+            new BuyItemsForEmerald(Items.COMPASS, 6, 3),
+            new SellOneForBuyOne(Items.DIAMOND, Items.EMERALD),
+            new SellOneForBuyOne(Items.IRON_INGOT, Items.GOLD_INGOT),
+            new SellOneForBuyOne(Items.EMERALD, Items.DIAMOND),
+            new SellOneForBuyOne(Items.GOLD_INGOT, Items.IRON_INGOT),
+            new BuyItemsForEmerald(Items.COAL, 18, 8),
+            new BuyItemsForEmerald(Items.PAPER, 24, 16),
+            new BuyItemsForEmerald(Items.GLASS_PANE, 12, 20),
+            new SellForOneEmerald(Items.REDSTONE, 4),
+            new SellForOneEmerald(Items.LAPIS_LAZULI, 4),
+            new SellForOneEmerald(Items.SLIME_BALL, 4),
+            new DefaultTrade(Items.EMERALD, 2, Items.IRON_INGOT, 4),
+            new DefaultTrade(Items.EMERALD, 2, Items.GOLD_INGOT, 4)};
 
     public static class SellItemForEmeralds implements TradeOffers.Factory {
 
