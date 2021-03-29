@@ -73,7 +73,7 @@ public abstract class MixinLlamaEntity extends AbstractDonkeyEntity implements R
         this.goalSelector.add(5, new VibeGoal(((LlamaEntity) (Object) this)));
     }
 
-    @Inject(method = "initDataTracker()V", at = @At("TAIL"))
+    @Inject(method = "initDataTracker()V", at = @At(value = "HEAD"), cancellable = true)
     public void onInitDataTracker(CallbackInfo ci) {
         this.dataTracker.startTracking(CARPETED, false);
         this.dataTracker.startTracking(BOOST_TIME, 0);
