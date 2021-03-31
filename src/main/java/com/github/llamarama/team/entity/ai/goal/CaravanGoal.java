@@ -6,7 +6,8 @@ import net.minecraft.entity.passive.LlamaEntity;
 import net.minecraft.util.math.Vec3d;
 
 import java.util.EnumSet;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @SuppressWarnings("unchecked")
 public class CaravanGoal<T extends LlamaEntity> extends Goal {
@@ -23,13 +24,12 @@ public class CaravanGoal<T extends LlamaEntity> extends Goal {
     @Override
     public boolean canStart() {
         if (!this.entity.isLeashed() && !this.entity.isFollowing()) {
-            List<Entity> near = this.entity.world.getOtherEntities(this.entity, this.entity.getBoundingBox().expand(16.0d), entity -> entity instanceof LlamaEntity);
+            Set<Entity> near = new HashSet<>(this.entity.world.getOtherEntities(this.entity, this.entity.getBoundingBox().expand(16.0d), entity -> entity instanceof LlamaEntity));
 
             T current;
 
             for (Entity entity : near) {
                 current = (T) entity;
-
 
                 if (current.isLeashed() && !current.hasFollower() && current != this.entity) {
                     this.entity.follow(current);

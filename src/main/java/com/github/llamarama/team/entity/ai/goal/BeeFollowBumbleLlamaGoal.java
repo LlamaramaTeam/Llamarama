@@ -10,8 +10,9 @@ import net.minecraft.entity.passive.BeeEntity;
 import net.minecraft.util.math.MathHelper;
 
 import java.util.EnumSet;
-import java.util.List;
+import java.util.HashSet;
 import java.util.Random;
+import java.util.Set;
 
 public class BeeFollowBumbleLlamaGoal extends Goal {
 
@@ -29,7 +30,9 @@ public class BeeFollowBumbleLlamaGoal extends Goal {
     @Override
     public boolean canStart() {
         if (!this.currentlyFollowing && !this.beeEntity.hasNectar() && !this.beeEntity.hasAngerTime()) {
-            List<Entity> nearEntities = this.beeEntity.getEntityWorld().getEntitiesByClass(BumbleLlamaEntity.class, this.beeEntity.getBoundingBox().expand(10.0d), (entity) -> entity.getClass() == BumbleLlamaEntity.class);
+            Set<Entity> nearEntities = new HashSet<>(this.beeEntity.getEntityWorld().getEntitiesByClass(BumbleLlamaEntity.class,
+                    this.beeEntity.getBoundingBox().expand(10.0d),
+                    (entity) -> entity.getClass() == BumbleLlamaEntity.class));
 
             nearEntities.forEach((entity) -> {
                 double distanceTo = PosUtilities.getDistanceFrom(this.beeEntity.getPos(), entity.getPos());
