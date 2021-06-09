@@ -1,6 +1,6 @@
 {
-  "replace": false,
-  "values": [
-    "llamarama:llama_wool"
-  ]
+    "replace": false,
+    "values": [
+        "llamarama:llama_wool"
+    ]
 }

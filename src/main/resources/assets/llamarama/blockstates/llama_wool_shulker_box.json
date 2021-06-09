@@ -1,7 +1,7 @@
 {
-  "variants": {
-    "": {
-      "model": "llamarama:block/llama_wool_shulker_box"
+    "variants": {
+        "": {
+            "model": "llamarama:block/llama_wool_shulker_box"
+        }
     }
-  }
 }

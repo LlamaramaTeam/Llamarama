@@ -1,18 +1,18 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "H#"
-  ],
-  "key": {
-    "#": {
-      "item": "minecraft:fishing_rod"
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "H#"
+    ],
+    "key": {
+        "#": {
+            "item": "minecraft:fishing_rod"
+        },
+        "H": {
+            "item": "minecraft:wheat"
+        }
     },
-    "H": {
-      "item": "minecraft:wheat"
+    "result": {
+        "item": "llamarama:hay_on_a_stick",
+        "count": 1
     }
-  },
-  "result": {
-    "item": "llamarama:hay_on_a_stick",
-    "count": 1
-  }
 }

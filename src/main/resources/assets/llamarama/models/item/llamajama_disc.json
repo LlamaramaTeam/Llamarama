@@ -1,6 +1,6 @@
 {
-  "parent": "minecraft:item/generated",
-  "textures": {
-    "layer0": "llamarama:item/llamajama_disc"
-  }
+    "parent": "minecraft:item/generated",
+    "textures": {
+        "layer0": "llamarama:item/llamajama_disc"
+    }
 }

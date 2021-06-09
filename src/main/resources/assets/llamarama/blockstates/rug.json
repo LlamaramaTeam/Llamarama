@@ -1,7 +1,7 @@
 {
-  "variants": {
-    "": {
-      "model": "llamarama:block/rug"
+    "variants": {
+        "": {
+            "model": "llamarama:block/rug"
+        }
     }
-  }
 }

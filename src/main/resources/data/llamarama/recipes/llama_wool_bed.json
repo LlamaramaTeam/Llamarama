@@ -1,19 +1,19 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "###",
-    "$$$"
-  ],
-  "key": {
-    "#": {
-      "item": "llamarama:llama_wool"
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "###",
+        "$$$"
+    ],
+    "key": {
+        "#": {
+            "item": "llamarama:llama_wool"
+        },
+        "$": {
+            "tag": "minecraft:planks"
+        }
     },
-    "$": {
-      "tag": "minecraft:planks"
+    "result": {
+        "item": "llamarama:llama_wool_bed",
+        "count": 1
     }
-  },
-  "result": {
-    "item": "llamarama:llama_wool_bed",
-    "count": 1
-  }
 }

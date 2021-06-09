@@ -1,7 +1,6 @@
 package com.github.llamarama.team.entity.ai.goal;
 
 import com.github.llamarama.team.entity.bumbllama.BumbleLlamaEntity;
-import com.github.llamarama.team.mixins.InvokerBeeEntity;
 import com.github.llamarama.team.util.PosUtilities;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.ai.goal.Goal;
@@ -62,7 +61,8 @@ public class BeeFollowBumbleLlamaGoal extends Goal {
         Random random = this.beeEntity.getRandom();
 
         if (distance < 5) {
-            ((InvokerBeeEntity) this.beeEntity).invokeSetHasNectar(random.nextInt(2400) == 1);
+            //MathHelper.nextInt(random, 500, 2400) == 1200
+            this.beeEntity.setHasNectar(true);
         } else if (!this.beeEntity.isLeashed() && distance > 3) {
 
             double extraX = MathHelper.nextDouble(random, -1d, 1d);

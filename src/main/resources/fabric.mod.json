@@ -1,38 +1,39 @@
 {
-  "schemaVersion": 1,
-  "id": "llamarama",
-  "version": "${version}",
-  "name": "Llamarama",
-  "description": "General improvements to llamas gone insane!!!",
-  "authors": [
-    "DigitalPear",
-    "PeterGamesGR",
-    "KaloyanKYS",
-    "Greevin"
-  ],
-  "contact": {
-    "homepage": "https://github.com/ArshiaDPG/LlamaMod",
-    "sources": "https://github.com/ArshiaDPG/LlamaMod"
-  },
-  "license": "CC0-1.0",
-  "icon": "assets/llamarama/icon.png",
-  "environment": "*",
-  "entrypoints": {
-    "main": [
-      "com.github.llamarama.team.Llamarama"
+    "schemaVersion": 1,
+    "id": "llamarama",
+    "version": "${version}",
+    "name": "Llamarama",
+    "description": "General improvements to llamas gone insane!!!",
+    "authors": [
+        "DigitalPear",
+        "PeterGamesGR",
+        "KaloyanKYS",
+        "Greevin"
     ],
-    "client": [
-      "com.github.llamarama.team.LlamaramaClient"
-    ]
-  },
-  "mixins": [
-    "llamarama.mixins.json"
-  ],
-  "depends": {
-    "fabricloader": ">=0.7.4",
-    "fabric": "*",
-    "minecraft": "1.16.x"
-  },
-  "suggests": {
-  }
+    "contact": {
+        "homepage": "https://github.com/ArshiaDPG/LlamaMod",
+        "sources": "https://github.com/ArshiaDPG/LlamaMod"
+    },
+    "license": "CC0-1.0",
+    "icon": "assets/llamarama/icon.png",
+    "environment": "*",
+    "entrypoints": {
+        "main": [
+            "com.github.llamarama.team.Llamarama"
+        ],
+        "client": [
+            "com.github.llamarama.team.LlamaramaClient"
+        ]
+    },
+    "mixins": [
+        "llamarama.mixins.json"
+    ],
+    "depends": {
+        "fabricloader": ">=0.7.4",
+        "fabric": "*",
+        "minecraft": "1.16.x"
+    },
+    "suggests": {
+    },
+    "accessWidener": "llamarama.accesswidener"
 }

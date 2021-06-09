@@ -1,6 +1,6 @@
 {
-  "parent": "minecraft:item/generated",
-  "textures": {
-    "layer0": "llamarama:item/raw_llama_meat"
-  }
+    "parent": "minecraft:item/generated",
+    "textures": {
+        "layer0": "llamarama:item/raw_llama_meat"
+    }
 }

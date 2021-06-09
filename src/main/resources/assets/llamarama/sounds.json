@@ -1,20 +1,20 @@
 {
-  "llamarama": {
-    "subtitle": "subtitle.llamarama.llamarama",
-    "sounds": [
-      "llamarama:llamarama"
-    ]
-  },
-  "llamajama": {
-    "subtitle": "subtitle.llamarama.llamajama",
-    "sounds": [
-      "llamarama:llamajama"
-    ]
-  },
-  "flight_of_the_bumble_llama": {
-    "subtitle": "subtitle.llamarama.flight_of_the_bumble_llama",
-    "sounds": [
-      "llamarama:flight_of_the_bumble_llama"
-    ]
-  }
+    "llamarama": {
+        "subtitle": "subtitle.llamarama.llamarama",
+        "sounds": [
+            "llamarama:llamarama"
+        ]
+    },
+    "llamajama": {
+        "subtitle": "subtitle.llamarama.llamajama",
+        "sounds": [
+            "llamarama:llamajama"
+        ]
+    },
+    "flight_of_the_bumble_llama": {
+        "subtitle": "subtitle.llamarama.flight_of_the_bumble_llama",
+        "sounds": [
+            "llamarama:flight_of_the_bumble_llama"
+        ]
+    }
 }
