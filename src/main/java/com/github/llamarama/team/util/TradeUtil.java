@@ -150,7 +150,7 @@ public final class TradeUtil {
                     ItemStack out = FilledMapItem.createMap(world, structurePos.getX(), structurePos.getZ(), (byte) 4, true, true);
 
                     FilledMapItem.fillExplorationMap((ServerWorld) world, out);
-                    MapState.addDecorationsTag(out, structurePos, "+", MapIcon.Type.RED_X);
+                    MapState.addDecorationsNbt(out, structurePos, "+", MapIcon.Type.RED_X);
                     out.setCustomName(new TranslatableText("llamarama.text.village_map"));
 
                     return new TradeOffer(new ItemStack(Items.EMERALD, 4 + random.nextInt(10)), out, 1, 3, 4.0f);

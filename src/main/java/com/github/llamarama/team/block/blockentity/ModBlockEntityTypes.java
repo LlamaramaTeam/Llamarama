@@ -12,27 +12,23 @@ import net.minecraft.util.registry.Registry;
 public final class ModBlockEntityTypes {
 
     public static final BlockEntityType<LlamaWoolBedBlockEntity> LLAMA_WOOL_BED =
-            create(LlamaWoolBedBlockEntity::new, ModBlocks.LLAMA_WOOL_BED);
-    private static ModBlockEntityTypes instance;
+            create("llama_wool_bed", LlamaWoolBedBlockEntity::new, ModBlocks.LLAMA_WOOL_BED);
 
     private ModBlockEntityTypes() {
-        register("llama_wool_bed", LLAMA_WOOL_BED);
     }
 
 
     public static void init() {
-        if (instance == null) {
-            instance = new ModBlockEntityTypes();
-        }
     }
 
-    private static <T extends BlockEntity> BlockEntityType<T> create(FabricBlockEntityTypeBuilder.Factory<T> factory,
+    private static <T extends BlockEntity> BlockEntityType<T> create(String id,
+                                                                     FabricBlockEntityTypeBuilder.Factory<T> factory,
                                                                      Block... blocks) {
-        return FabricBlockEntityTypeBuilder.create(factory, blocks).build();
+        return register(id, FabricBlockEntityTypeBuilder.create(factory, blocks).build());
     }
 
-    private void register(String id, BlockEntityType<?> blockEntityType) {
-        Registry.register(Registry.BLOCK_ENTITY_TYPE, IdBuilder.of(id), blockEntityType);
+    private static <T extends BlockEntity> BlockEntityType<T> register(String id, BlockEntityType<T> blockEntityType) {
+        return Registry.register(Registry.BLOCK_ENTITY_TYPE, IdBuilder.of(id), blockEntityType);
     }
 
 }

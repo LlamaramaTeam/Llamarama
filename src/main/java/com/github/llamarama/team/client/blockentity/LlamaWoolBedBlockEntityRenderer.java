@@ -15,8 +15,8 @@ import net.minecraft.client.model.ModelPart;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.client.render.block.entity.BlockEntityRenderDispatcher;
 import net.minecraft.client.render.block.entity.BlockEntityRenderer;
+import net.minecraft.client.render.block.entity.BlockEntityRendererFactory;
 import net.minecraft.client.render.block.entity.LightmapCoordinatesRetriever;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
@@ -31,8 +31,7 @@ public class LlamaWoolBedBlockEntityRenderer implements BlockEntityRenderer<Llam
     private final ModelPart body;
     private final ModelPart[] legs = new ModelPart[4];
 
-    public LlamaWoolBedBlockEntityRenderer(BlockEntityRenderDispatcher dispatcher) {
-        super(dispatcher);
+    public LlamaWoolBedBlockEntityRenderer(BlockEntityRendererFactory.Context context) {
         this.model.addCuboid(0.0F, 0.0F, 0.0F, 16.0F, 16.0F, 6.0F, 0.0F);
         this.body = new ModelPart(64, 64, 0, 22);
         this.body.addCuboid(0.0F, 0.0F, 0.0F, 16.0F, 16.0F, 6.0F, 0.0F);
