@@ -85,9 +85,6 @@ public class CaravanTraderEntity extends MerchantEntity {
         return ActionResult.SUCCESS;
     }
 
-    /**
-     * TODO: Actually add good pools.
-     */
     @Override
     protected void fillRecipes() {
         TradeOffers.Factory[] factory = TradeUtil.FACTORY;

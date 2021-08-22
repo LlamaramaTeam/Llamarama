@@ -4,8 +4,7 @@ import com.github.llamarama.team.entity.caravantrader.CaravanTraderEntity;
 import com.github.llamarama.team.util.IdBuilder;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.fabricmc.fabric.api.client.rendereregistry.v1.EntityRendererRegistry;
-import net.minecraft.client.render.entity.EntityRenderDispatcher;
+import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.MobEntityRenderer;
 import net.minecraft.client.render.entity.feature.HeadFeatureRenderer;
 import net.minecraft.client.render.entity.feature.VillagerHeldItemFeatureRenderer;
@@ -16,9 +15,10 @@ import net.minecraft.util.Identifier;
 @Environment(EnvType.CLIENT)
 public class CaravanTraderRenderer extends MobEntityRenderer<CaravanTraderEntity, VillagerResemblingModel<CaravanTraderEntity>> {
 
+    // TODO Fix this
     @SuppressWarnings("unused")
-    public CaravanTraderRenderer(EntityRenderDispatcher entityRenderDispatcher, EntityRendererRegistry.Context context) {
-        super(entityRenderDispatcher, new VillagerResemblingModel<>(0.0f), 0.5f);
+    public CaravanTraderRenderer(EntityRendererFactory.Context context) {
+        super(context, new VillagerResemblingModel<>(0.0f), 0.5f);
         this.addFeature(new HeadFeatureRenderer<>(this));
         this.addFeature(new VillagerHeldItemFeatureRenderer<>(this));
     }

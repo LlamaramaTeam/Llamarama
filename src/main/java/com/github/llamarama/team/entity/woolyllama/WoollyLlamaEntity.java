@@ -19,7 +19,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.server.world.ServerWorld;
@@ -48,7 +48,7 @@ public class WoollyLlamaEntity extends LlamaEntity implements Shearable {
         this.goalSelector.add(3, new EscapeDangerGoal(this, 1.2D));
         this.goalSelector.add(3, new MoveToBlockGoal(this, Blocks.GRASS_BLOCK.getDefaultState(), this.getMovementSpeed() + 0.25d, 16));
         this.goalSelector.add(4, new AnimalMateGoal(this, 1.0D));
-        this.goalSelector.add(5, new TemptGoal(this, 2.99d, false, Ingredient.ofItems(Blocks.HAY_BLOCK.asItem())));
+        this.goalSelector.add(5, new TemptGoal(this, 2.99d, Ingredient.ofItems(Blocks.HAY_BLOCK.asItem()), false));
         this.goalSelector.add(5, new VibeGoal(this));
         this.goalSelector.add(5, new FollowParentGoal(this, 1.0D));
         this.goalSelector.add(6, new WanderAroundFarGoal(this, 0.7D));
@@ -65,15 +65,15 @@ public class WoollyLlamaEntity extends LlamaEntity implements Shearable {
     }
 
     @Override
-    public void writeCustomDataToTag(CompoundTag tag) {
-        super.writeCustomDataToTag(tag);
+    public void writeCustomDataToNbt(NbtCompound tag) {
+        super.writeCustomDataToNbt(tag);
         tag.putBoolean("Sheared", this.getSheared());
         tag.putInt("WoolTimer", this.getWoolTimer());
     }
 
     @Override
-    public void readCustomDataFromTag(CompoundTag tag) {
-        super.readCustomDataFromTag(tag);
+    public void readCustomDataFromNbt(NbtCompound tag) {
+        super.readCustomDataFromNbt(tag);
         this.setSheared(tag.getBoolean("Sheared"));
         this.setWoolTimer(tag.getInt("WoolTimer"));
     }

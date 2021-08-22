@@ -1,10 +1,11 @@
 package com.github.llamarama.team.block;
 
-import com.github.llamarama.team.block.blockentity.LlamaWoolBedBlockEntity;
+import com.github.llamarama.team.block.blockentity.ModBlockEntityTypes;
 import net.minecraft.block.BedBlock;
+import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.util.DyeColor;
-import net.minecraft.world.BlockView;
+import net.minecraft.util.math.BlockPos;
 
 public class LlamaWoolBedBlock extends BedBlock {
 
@@ -13,8 +14,8 @@ public class LlamaWoolBedBlock extends BedBlock {
     }
 
     @Override
-    public BlockEntity createBlockEntity(BlockView world) {
-        return new LlamaWoolBedBlockEntity();
+    public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
+        return ModBlockEntityTypes.LLAMA_WOOL_BED.instantiate(pos, state);
     }
 
 }

@@ -64,7 +64,7 @@ public class BumbleLlamaEntity extends WoollyLlamaEntity {
 
         if (using.getItem() == Items.GLASS_BOTTLE && !this.getSheared() && !this.world.isClient) {
 
-            ItemStack out = ItemUsage.method_30012(player.getStackInHand(hand), player, Items.HONEY_BOTTLE.getDefaultStack());
+            ItemStack out = ItemUsage.exchangeStack(player.getStackInHand(hand), player, Items.HONEY_BOTTLE.getDefaultStack());
             player.setStackInHand(hand, out);
 
             this.setSheared(true);

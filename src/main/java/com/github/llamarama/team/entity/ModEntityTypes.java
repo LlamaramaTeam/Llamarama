@@ -4,7 +4,6 @@ import com.github.llamarama.team.entity.bumbllama.BumbleLlamaEntity;
 import com.github.llamarama.team.entity.caravantrader.CaravanTraderEntity;
 import com.github.llamarama.team.entity.woolyllama.WoollyLlamaEntity;
 import com.github.llamarama.team.util.IdBuilder;
-import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.minecraft.entity.EntityDimensions;
 import net.minecraft.entity.EntityType;
@@ -27,13 +26,19 @@ public final class ModEntityTypes {
     }
 
     private static <T extends LivingEntity> EntityType<T> register(EntityType.EntityFactory<T> factory, SpawnGroup group, float width, float height, boolean fixed, int range, Supplier<DefaultAttributeContainer.Builder> attributes, String id) {
-        EntityType<T> type = FabricEntityTypeBuilder.create(group).entityFactory(factory).dimensions(new EntityDimensions(width, height, fixed)).trackRangeBlocks(range).build();
-        FabricDefaultAttributeRegistry.register(type, attributes.get());
+        EntityType<T> type =
+                FabricEntityTypeBuilder.Living.createLiving()
+                        .spawnGroup(group)
+                        .entityFactory(factory)
+                        .dimensions(new EntityDimensions(width, height, fixed))
+                        .trackRangeBlocks(range)
+                        .defaultAttributes(attributes)
+                        .build();
         return Registry.register(Registry.ENTITY_TYPE, IdBuilder.of(id), type);
     }
 
     public static void init() {
-        FabricDefaultAttributeRegistry.register(CARAVAN_TRADER, CaravanTraderEntity.createAttributes());
+
     }
 
 }

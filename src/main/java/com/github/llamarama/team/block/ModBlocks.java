@@ -11,7 +11,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 
 /**
- * @author PeterGamesGR
+ * @author 0xJoeMama
  * This class is to blocks, what {@link com.github.llamarama.team.item.ModItems} is to items.
  * All blocks should be instantiated in this class, after the registry list.
  * This class is final, so it cannot be extended.

@@ -5,12 +5,11 @@ import com.github.llamarama.team.entity.woolyllama.WoollyLlamaEntity;
 import com.google.common.collect.ImmutableList;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.fabricmc.fabric.api.client.rendereregistry.v1.EntityRendererRegistry;
 import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.client.render.entity.EntityRenderDispatcher;
+import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.MobEntityRenderer;
 import net.minecraft.client.render.entity.feature.FeatureRenderer;
 import net.minecraft.client.render.entity.feature.FeatureRendererContext;
@@ -24,8 +23,8 @@ public class WoollyLlamaEntityRenderer extends MobEntityRenderer<WoollyLlamaEnti
 
     private final ImmutableList<Identifier> TEXTURES;
 
-    public WoollyLlamaEntityRenderer(EntityRenderDispatcher entityRenderDispatcher, EntityRendererRegistry.Context context) {
-        super(entityRenderDispatcher, new WoollyLlamaEntityModel(), 0.7F);
+    public WoollyLlamaEntityRenderer(EntityRendererFactory.Context context) {
+        super(context, new WoollyLlamaEntityModel(), 0.7F);
         this.TEXTURES = ImmutableList.of(new Identifier(Llamarama.MOD_ID, "textures/entity/woolly_llama/woolly_llama.png"), new Identifier(Llamarama.MOD_ID, "textures/entity/woolly_llama/woolly_llama_sheared.png"));
         this.addFeature(new WoollyLlamaDecorRenderer(this));
     }

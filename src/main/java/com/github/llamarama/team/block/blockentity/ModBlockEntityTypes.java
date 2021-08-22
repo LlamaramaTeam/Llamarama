@@ -2,17 +2,17 @@ package com.github.llamarama.team.block.blockentity;
 
 import com.github.llamarama.team.block.ModBlocks;
 import com.github.llamarama.team.util.IdBuilder;
+import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
 import net.minecraft.block.Block;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.util.registry.Registry;
 
-import java.util.function.Supplier;
-
 @SuppressWarnings("SameParameterValue")
 public final class ModBlockEntityTypes {
 
-    public static final BlockEntityType<LlamaWoolBedBlockEntity> LLAMA_WOOL_BED = create(LlamaWoolBedBlockEntity::new, ModBlocks.LLAMA_WOOL_BED);
+    public static final BlockEntityType<LlamaWoolBedBlockEntity> LLAMA_WOOL_BED =
+            create(LlamaWoolBedBlockEntity::new, ModBlocks.LLAMA_WOOL_BED);
     private static ModBlockEntityTypes instance;
 
     private ModBlockEntityTypes() {
@@ -26,8 +26,9 @@ public final class ModBlockEntityTypes {
         }
     }
 
-    private static <T extends BlockEntity> BlockEntityType<T> create(Supplier<T> supplier, Block... blocks) {
-        return BlockEntityType.Builder.create(supplier, blocks).build(null);
+    private static <T extends BlockEntity> BlockEntityType<T> create(FabricBlockEntityTypeBuilder.Factory<T> factory,
+                                                                     Block... blocks) {
+        return FabricBlockEntityTypeBuilder.create(factory, blocks).build();
     }
 
     private void register(String id, BlockEntityType<?> blockEntityType) {

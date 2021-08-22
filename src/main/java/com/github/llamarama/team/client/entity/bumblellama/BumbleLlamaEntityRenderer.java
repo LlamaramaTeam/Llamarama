@@ -5,8 +5,7 @@ import com.github.llamarama.team.util.IdBuilder;
 import com.google.common.collect.ImmutableList;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.fabricmc.fabric.api.client.rendereregistry.v1.EntityRendererRegistry;
-import net.minecraft.client.render.entity.EntityRenderDispatcher;
+import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.MobEntityRenderer;
 import net.minecraft.util.Identifier;
 
@@ -16,8 +15,8 @@ public class BumbleLlamaEntityRenderer extends MobEntityRenderer<BumbleLlamaEnti
     private final ImmutableList<Identifier> TEXTURES = ImmutableList.of(IdBuilder.of("textures/entity/bumble_llama/bumble_llama.png"), IdBuilder.of("textures/entity/bumble_llama/bumble_llama_hive_empty.png"));
 
     @SuppressWarnings("unused")
-    public BumbleLlamaEntityRenderer(EntityRenderDispatcher dispatcher, EntityRendererRegistry.Context context) {
-        super(dispatcher, new BumbleLlamaEntityModel<>(), 0.5f);
+    public BumbleLlamaEntityRenderer(EntityRendererFactory.Context context) {
+        super(context, new BumbleLlamaEntityModel<>(), 0.5f);
     }
 
     @Override

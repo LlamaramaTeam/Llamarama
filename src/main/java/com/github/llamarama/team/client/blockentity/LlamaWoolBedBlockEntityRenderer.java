@@ -19,13 +19,13 @@ import net.minecraft.client.render.block.entity.BlockEntityRenderDispatcher;
 import net.minecraft.client.render.block.entity.BlockEntityRenderer;
 import net.minecraft.client.render.block.entity.LightmapCoordinatesRetriever;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.client.util.math.Vector3f;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.Vec3f;
 import net.minecraft.world.World;
 
 @Environment(EnvType.CLIENT)
-public class LlamaWoolBedBlockEntityRenderer extends BlockEntityRenderer<LlamaWoolBedBlockEntity> {
+public class LlamaWoolBedBlockEntityRenderer implements BlockEntityRenderer<LlamaWoolBedBlockEntity> {
 
     private final ModelPart model = new ModelPart(64, 64, 0, 0);
     private final ModelPart body;
@@ -78,9 +78,9 @@ public class LlamaWoolBedBlockEntityRenderer extends BlockEntityRenderer<LlamaWo
         this.legs[3].visible = bl;
         matrices.push();
         matrices.translate(0.0D, 0.5625D, bl2 ? -1.0D : 0.0D);
-        matrices.multiply(Vector3f.POSITIVE_X.getDegreesQuaternion(90.0F));
+        matrices.multiply(Vec3f.POSITIVE_X.getDegreesQuaternion(90.0F));
         matrices.translate(0.5D, 0.5D, 0.5D);
-        matrices.multiply(Vector3f.POSITIVE_Z.getDegreesQuaternion(180.0F + direction.asRotation()));
+        matrices.multiply(Vec3f.POSITIVE_Z.getDegreesQuaternion(180.0F + direction.asRotation()));
         matrices.translate(-0.5D, -0.5D, -0.5D);
         VertexConsumer vertexConsumer = vertexConsumers.getBuffer(RenderLayer.getEntitySolid(identifier));
         this.model.render(matrices, vertexConsumer, light, overlay);

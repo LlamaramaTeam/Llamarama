@@ -13,7 +13,7 @@ import net.minecraft.util.registry.Registry;
 
 
 /**
- * @author PeterGamesGR
+ * @author 0xJoeMama
  * This is a utility class for adding items.
  * All items should be initialised in this class right after the registry list field.
  * This class should never be extended (hence it's final).
