@@ -2,7 +2,6 @@ package com.github.llamarama.team.util;
 
 import com.github.llamarama.team.block.ModBlocks;
 import com.github.llamarama.team.item.ModItems;
-import com.google.common.collect.Sets;
 import net.minecraft.block.Block;
 import net.minecraft.block.PlantBlock;
 import net.minecraft.enchantment.Enchantment;
@@ -214,7 +213,7 @@ public final class TradeUtil {
         @Override
         public TradeOffer create(Entity entity, Random random) {
             List<Enchantment> enchantments = Registry.ENCHANTMENT.getEntries().stream().map(Map.Entry::getValue).collect(Collectors.toList());
-            HashSet<Enchantment> appliedEnchantments = Sets.newHashSet();
+            List<Enchantment> appliedEnchantments = new ArrayList<>();
 
             int amountOfEnchants = random.nextInt(6) + 1;
 

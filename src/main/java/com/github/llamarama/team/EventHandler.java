@@ -9,6 +9,7 @@ import com.github.llamarama.team.entity.ModEntityTypes;
 import com.github.llamarama.team.item.ModItems;
 import com.github.llamarama.team.util.IdBuilder;
 import com.github.llamarama.team.util.events.BlockEntityRendererRegistryListener;
+import com.github.llamarama.team.util.events.EntityLayerRegistryListener;
 import com.github.llamarama.team.util.events.EntityRendererListener;
 import com.github.llamarama.team.util.events.SpawnEventListener;
 import net.fabricmc.api.EnvType;
@@ -43,7 +44,7 @@ import java.util.Collection;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-@SuppressWarnings({"deprecation", "unused"})
+@SuppressWarnings({"deprecation", "unused", "UnstableApiUsage"})
 public final class EventHandler {
 
     private static EventHandler eventHandler;
@@ -86,7 +87,7 @@ public final class EventHandler {
         listener.addSpawns(BiomeSelectors.includeByKey(BiomeKeys.FLOWER_FOREST), SpawnGroup.CREATURE, ModEntityTypes.BUMBLE_LLAMA, 3, 4, 7);
     }
 
-    public void addSpawnRestrictionListener() {
+    public void registerSpawnRestrictions() {
         SpawnRestrictionAccessor.callRegister(ModEntityTypes.WOOLLY_LLAMA, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, AnimalEntity::isValidNaturalSpawn);
         SpawnRestrictionAccessor.callRegister(ModEntityTypes.BUMBLE_LLAMA, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, AnimalEntity::isValidNaturalSpawn);
         SpawnRestrictionAccessor.callRegister(ModEntityTypes.CARAVAN_TRADER, SpawnRestriction.Location.NO_RESTRICTIONS, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, MobEntity::canMobSpawn);
@@ -102,6 +103,14 @@ public final class EventHandler {
         listener.registerRenderer(ModEntityTypes.WOOLLY_LLAMA, WoollyLlamaEntityRenderer::new);
         listener.registerRenderer(ModEntityTypes.BUMBLE_LLAMA, BumbleLlamaEntityRenderer::new);
         listener.registerRenderer(ModEntityTypes.CARAVAN_TRADER, CaravanTraderRenderer::new);
+    }
+
+    @Environment(EnvType.CLIENT)
+    public void addEntityModelLayers(EntityLayerRegistryListener listener) {
+        listener.register(LlamaWoolBedBlockEntityRenderer.LLAMA_BED_HEAD,
+                LlamaWoolBedBlockEntityRenderer::getHeadTexturedModelData);
+        listener.register(LlamaWoolBedBlockEntityRenderer.LLAMA_BED_FOOT,
+                LlamaWoolBedBlockEntityRenderer::getFootTexturedModelData);
     }
 
 }

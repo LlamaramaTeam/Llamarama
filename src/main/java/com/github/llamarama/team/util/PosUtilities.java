@@ -1,7 +1,6 @@
 package com.github.llamarama.team.util;
 
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.Heightmap;
 import net.minecraft.world.World;
@@ -29,10 +28,10 @@ public interface PosUtilities {
         final double y = yTo - yFrom;
         final double z = zTo - zFrom;
 
-        return Math.abs(MathHelper.sqrt(x * x + y * y + z * z));
+        return Math.abs(Math.sqrt(x * x + y * y + z * z));
     }
 
-    static BlockPos.Mutable getRandomPosInArea(World world, BlockPos center, int radius, boolean keepYIntact) {
+    static BlockPos getRandomPosInArea(World world, BlockPos center, int radius, boolean keepYIntact) {
         Random random = world.getRandom();
 
         int extraX = random.nextInt(radius * 2);
@@ -52,7 +51,7 @@ public interface PosUtilities {
             }
         }
 
-        return out;
+        return out.toImmutable();
     }
 
 }
