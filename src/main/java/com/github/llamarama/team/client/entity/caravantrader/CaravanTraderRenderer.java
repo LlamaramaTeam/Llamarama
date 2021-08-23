@@ -8,6 +8,7 @@ import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.MobEntityRenderer;
 import net.minecraft.client.render.entity.feature.HeadFeatureRenderer;
 import net.minecraft.client.render.entity.feature.VillagerHeldItemFeatureRenderer;
+import net.minecraft.client.render.entity.model.EntityModelLayer;
 import net.minecraft.client.render.entity.model.VillagerResemblingModel;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
@@ -15,11 +16,12 @@ import net.minecraft.util.Identifier;
 @Environment(EnvType.CLIENT)
 public class CaravanTraderRenderer extends MobEntityRenderer<CaravanTraderEntity, VillagerResemblingModel<CaravanTraderEntity>> {
 
-    // TODO Fix this
-    @SuppressWarnings("unused")
+    public static final EntityModelLayer CARAVAN_TRADER =
+            new EntityModelLayer(IdBuilder.of("caravan_trader"), "main");
+
     public CaravanTraderRenderer(EntityRendererFactory.Context context) {
-        super(context, new VillagerResemblingModel<>(0.0f), 0.5f);
-        this.addFeature(new HeadFeatureRenderer<>(this));
+        super(context, new VillagerResemblingModel<>(context.getPart(CARAVAN_TRADER)), 0.5f);
+        this.addFeature(new HeadFeatureRenderer<>(this, context.getModelLoader()));
         this.addFeature(new VillagerHeldItemFeatureRenderer<>(this));
     }
 

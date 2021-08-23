@@ -4,6 +4,7 @@ import com.github.llamarama.team.block.blockentity.ModBlockEntityTypes;
 import com.github.llamarama.team.client.blockentity.LlamaWoolBedBlockEntityRenderer;
 import com.github.llamarama.team.client.entity.bumblellama.BumbleLlamaEntityRenderer;
 import com.github.llamarama.team.client.entity.caravantrader.CaravanTraderRenderer;
+import com.github.llamarama.team.client.entity.woollyllama.WoollyLlamaEntityModel;
 import com.github.llamarama.team.client.entity.woollyllama.WoollyLlamaEntityRenderer;
 import com.github.llamarama.team.entity.ModEntityTypes;
 import com.github.llamarama.team.item.ModItems;
@@ -111,6 +112,11 @@ public final class EventHandler {
                 LlamaWoolBedBlockEntityRenderer::getHeadTexturedModelData);
         listener.register(LlamaWoolBedBlockEntityRenderer.LLAMA_BED_FOOT,
                 LlamaWoolBedBlockEntityRenderer::getFootTexturedModelData);
+
+        listener.register(WoollyLlamaEntityRenderer.WOOLLY_LLAMA,
+                WoollyLlamaEntityModel::getTexturedModelData);
+        listener.register(WoollyLlamaEntityRenderer.WoollyLlamaDecorRenderer.WOOLLY_LLAMA_DECOR,
+                WoollyLlamaEntityModel::getTexturedModelData);
     }
 
 }
