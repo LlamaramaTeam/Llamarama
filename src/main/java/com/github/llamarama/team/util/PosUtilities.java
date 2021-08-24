@@ -10,7 +10,7 @@ import java.util.Random;
 public interface PosUtilities {
 
     static boolean checkForNoVelocity(Vec3d vec3d) {
-        return Math.abs(vec3d.getX()) != 0d && Math.abs(vec3d.getY()) != 0d;
+        return Math.abs(vec3d.getX()) != 0d && Math.abs(vec3d.getY()) != 0d && Math.abs(vec3d.getZ()) != 0d;
     }
 
     static double getDistanceFrom(Vec3d from, Vec3d to) {

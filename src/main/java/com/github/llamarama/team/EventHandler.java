@@ -2,6 +2,7 @@ package com.github.llamarama.team;
 
 import com.github.llamarama.team.block.blockentity.ModBlockEntityTypes;
 import com.github.llamarama.team.client.blockentity.LlamaWoolBedBlockEntityRenderer;
+import com.github.llamarama.team.client.entity.bumblellama.BumbleLlamaEntityModel;
 import com.github.llamarama.team.client.entity.bumblellama.BumbleLlamaEntityRenderer;
 import com.github.llamarama.team.client.entity.caravantrader.CaravanTraderRenderer;
 import com.github.llamarama.team.client.entity.woollyllama.WoollyLlamaEntityModel;
@@ -20,6 +21,8 @@ import net.fabricmc.fabric.api.loot.v1.FabricLootPoolBuilder;
 import net.fabricmc.fabric.api.loot.v1.FabricLootSupplierBuilder;
 import net.fabricmc.fabric.api.loot.v1.event.LootTableLoadingCallback;
 import net.fabricmc.fabric.mixin.object.builder.SpawnRestrictionAccessor;
+import net.minecraft.client.model.TexturedModelData;
+import net.minecraft.client.render.entity.model.VillagerResemblingModel;
 import net.minecraft.entity.SpawnGroup;
 import net.minecraft.entity.SpawnRestriction;
 import net.minecraft.entity.mob.MobEntity;
@@ -117,6 +120,12 @@ public final class EventHandler {
                 WoollyLlamaEntityModel::getTexturedModelData);
         listener.register(WoollyLlamaEntityRenderer.WoollyLlamaDecorRenderer.WOOLLY_LLAMA_DECOR,
                 WoollyLlamaEntityModel::getTexturedModelData);
+
+        listener.register(BumbleLlamaEntityRenderer.BUMBLE_LLAMA,
+                BumbleLlamaEntityModel::getTexturedModelData);
+
+        listener.register(CaravanTraderRenderer.CARAVAN_TRADER,
+                () -> TexturedModelData.of(VillagerResemblingModel.getModelData(), 64, 64));
     }
 
 }

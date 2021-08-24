@@ -2,16 +2,12 @@ package com.github.llamarama.team.entity.ai.goal;
 
 import com.github.llamarama.team.entity.bumbllama.BumbleLlamaEntity;
 import com.github.llamarama.team.util.PosUtilities;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.passive.BeeEntity;
 import net.minecraft.util.math.MathHelper;
 
-import java.util.EnumSet;
-import java.util.HashSet;
-import java.util.Random;
-import java.util.Set;
+import java.util.*;
 
 public class BeeFollowBumbleLlamaGoal extends Goal {
 
@@ -23,21 +19,22 @@ public class BeeFollowBumbleLlamaGoal extends Goal {
         this.beeEntity = beeEntity;
         this.currentlyFollowing = false;
         this.target = null;
-        this.setControls(EnumSet.of(Control.MOVE, Control.TARGET));
+        this.setControls(EnumSet.of(Control.MOVE, Control.TARGET, Control.LOOK));
     }
 
     @Override
     public boolean canStart() {
         if (!this.currentlyFollowing && !this.beeEntity.hasNectar() && !this.beeEntity.hasAngerTime()) {
-            Set<Entity> nearEntities = new HashSet<>(this.beeEntity.getEntityWorld().getEntitiesByClass(BumbleLlamaEntity.class,
-                    this.beeEntity.getBoundingBox().expand(10.0d),
-                    (entity) -> entity.getClass() == BumbleLlamaEntity.class));
+            Set<BumbleLlamaEntity> nearEntities =
+                    new HashSet<>(this.beeEntity.getEntityWorld().getEntitiesByClass(BumbleLlamaEntity.class,
+                            this.beeEntity.getBoundingBox().expand(10.0d),
+                            Objects::nonNull));
 
-            nearEntities.forEach((entity) -> {
-                double distanceTo = PosUtilities.getDistanceFrom(this.beeEntity.getPos(), entity.getPos());
+            nearEntities.forEach((bumbleLlamaEntity) -> {
+                double distanceTo = PosUtilities.getDistanceFrom(this.beeEntity.getPos(), bumbleLlamaEntity.getPos());
 
                 if (this.target == null && distanceTo > 3) {
-                    this.target = (MobEntity) entity;
+                    this.target = bumbleLlamaEntity;
                     this.currentlyFollowing = true;
                 }
             });
@@ -55,8 +52,6 @@ public class BeeFollowBumbleLlamaGoal extends Goal {
 
     @Override
     public void tick() {
-        super.tick();
-
         double distance = PosUtilities.getDistanceFrom(this.beeEntity.getPos(), this.target.getPos());
         Random random = this.beeEntity.getRandom();
 
@@ -74,12 +69,12 @@ public class BeeFollowBumbleLlamaGoal extends Goal {
             double nextZ = this.target.getZ() + extraZ;
 
             this.beeEntity.getNavigation().startMovingTo(nextX, nextY, nextZ, 1.4d);
+            this.beeEntity.getLookControl().lookAt(this.target);
         }
     }
 
     @Override
     public void stop() {
-        super.stop();
         this.target = null;
         this.currentlyFollowing = false;
     }

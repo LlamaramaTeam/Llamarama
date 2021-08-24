@@ -10,7 +10,7 @@ import net.minecraft.item.Item;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 
-@SuppressWarnings("SameParameterValue")
+@SuppressWarnings("unused")
 public final class ModBlocks {
 
     public static final Block LLAMA_WOOL =
@@ -18,7 +18,7 @@ public final class ModBlocks {
     public static final Block RUG =
             register(new RugBlock(AbstractBlock.Settings.copy(Blocks.WHITE_CARPET)), "rug");
     public static final Block LLAMA_WOOL_BED =
-            register(new LlamaWoolBedBlock(AbstractBlock.Settings.copy(Blocks.WHITE_BED)), "llama_wool_bed");
+            registerNoItem(new LlamaWoolBedBlock(AbstractBlock.Settings.copy(Blocks.WHITE_BED)), "llama_wool_bed");
 
 
     private ModBlocks() {

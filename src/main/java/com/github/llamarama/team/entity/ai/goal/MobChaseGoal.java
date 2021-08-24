@@ -9,8 +9,8 @@ public class MobChaseGoal<T extends MobEntity, E extends LivingEntity> extends F
 
     public MobChaseGoal(T llama, Class<E> entityClass) {
         super(llama, entityClass, 16, false, true, (livingEntity) -> {
-            if (livingEntity instanceof WolfEntity) {
-                return !((WolfEntity) livingEntity).isTamed();
+            if (livingEntity instanceof WolfEntity wolfEntity) {
+                return !wolfEntity.isTamed();
             } else {
                 return true;
             }

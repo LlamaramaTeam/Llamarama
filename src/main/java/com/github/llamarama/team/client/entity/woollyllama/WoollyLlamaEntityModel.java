@@ -48,7 +48,7 @@ public class WoollyLlamaEntityModel extends EntityModel<WoollyLlamaEntity> {
         modelPartData.addChild("leg1", ModelPartBuilder.create().uv(29, 29).cuboid(-2.0F, 0.0F, -2.0F, 4.0F, 14.0F, 4.0F, true), ModelTransform.pivot(-3.5F, 10.0F, 6.0F));
         modelPartData.addChild("leg2", ModelPartBuilder.create().uv(29, 29).cuboid(-2.0F, 0.0F, -2.0F, 4.0F, 14.0F, 4.0F, true), ModelTransform.pivot(3.5F, 10.0F, -5.0F));
         modelPartData.addChild("leg3", ModelPartBuilder.create().uv(29, 29).cuboid(-2.0F, 0.0F, -2.0F, 4.0F, 14.0F, 4.0F, true), ModelTransform.pivot(-3.5F, 10.0F, -5.0F));
-        return TexturedModelData.of(modelData, 128, 128);
+        return TexturedModelData.of(modelData, 128, 64);
     }
 
     @Override

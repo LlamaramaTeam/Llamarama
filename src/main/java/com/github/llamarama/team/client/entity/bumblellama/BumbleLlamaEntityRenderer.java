@@ -7,16 +7,22 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.MobEntityRenderer;
+import net.minecraft.client.render.entity.model.EntityModelLayer;
 import net.minecraft.util.Identifier;
 
 @Environment(EnvType.CLIENT)
 public class BumbleLlamaEntityRenderer extends MobEntityRenderer<BumbleLlamaEntity, BumbleLlamaEntityModel<BumbleLlamaEntity>> {
 
-    private final ImmutableList<Identifier> TEXTURES = ImmutableList.of(IdBuilder.of("textures/entity/bumble_llama/bumble_llama.png"), IdBuilder.of("textures/entity/bumble_llama/bumble_llama_hive_empty.png"));
+    public static final EntityModelLayer BUMBLE_LLAMA =
+            new EntityModelLayer(IdBuilder.of("bumble_llama"), "main");
+    private final ImmutableList<Identifier> TEXTURES =
+            ImmutableList.of(
+                    IdBuilder.of("textures/entity/bumble_llama/bumble_llama.png"),
+                    IdBuilder.of("textures/entity/bumble_llama/bumble_llama_hive_empty.png")
+            );
 
-    @SuppressWarnings("unused")
     public BumbleLlamaEntityRenderer(EntityRendererFactory.Context context) {
-        super(context, new BumbleLlamaEntityModel<>(), 0.5f);
+        super(context, new BumbleLlamaEntityModel<>(context.getPart(BUMBLE_LLAMA)), 0.5f);
     }
 
     @Override

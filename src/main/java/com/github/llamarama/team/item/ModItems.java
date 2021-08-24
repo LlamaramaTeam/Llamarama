@@ -29,7 +29,7 @@ public final class ModItems {
             new Item(getBaseSettings().food(ModFoodComponents.LLAMA_CHEESE)));
     public static final Item LLAMARAMA = register("llamarama_disc",
             new MusicDiscItem(5, ModSoundEvents.LLAMARAMA_DISC, getDiscSettings()));
-    public static final Item LLAMAJAMA = register("llamajam_disc",
+    public static final Item LLAMAJAMA = register("llamajama_disc",
             new MusicDiscItem(5, ModSoundEvents.LLAMAJAMA_DISC, getDiscSettings()));
     public static final Item FLIGHT_OF_THE_BUMBLE_LLAMA = register("flight_of_the_bumble_llama",
             new MusicDiscItem(5, ModSoundEvents.BUMBLLAMA_DISC, getDiscSettings()));
