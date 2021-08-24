@@ -14,15 +14,17 @@ import net.minecraft.util.registry.Registry;
 
 import java.util.function.Supplier;
 
-@SuppressWarnings("SameParameterValue")
 public final class ModEntityTypes {
 
     public static final EntityType<WoollyLlamaEntity> WOOLLY_LLAMA =
-            register(WoollyLlamaEntity::new, SpawnGroup.CREATURE, 0.9f, 1.87f, false, 10, WoollyLlamaEntity::createLlamaAttributes, "woolly_llama");
+            register(WoollyLlamaEntity::new, SpawnGroup.CREATURE, 0.9f, 1.87f, false, 10,
+                    WoollyLlamaEntity::createLlamaAttributes, "woolly_llama");
     public static final EntityType<BumbleLlamaEntity> BUMBLE_LLAMA =
-            register(BumbleLlamaEntity::new, SpawnGroup.CREATURE, 0.9f, 1.87f, false, 10, BumbleLlamaEntity::createLlamaAttributes, "bumble_llama");
+            register(BumbleLlamaEntity::new, SpawnGroup.CREATURE, 0.9f, 1.87f, false, 10,
+                    BumbleLlamaEntity::createLlamaAttributes, "bumble_llama");
     public static final EntityType<CaravanTraderEntity> CARAVAN_TRADER =
-            register(CaravanTraderEntity::new, SpawnGroup.CREATURE, 0.6f, 1.95f, false, 10, CaravanTraderEntity::createAttributes, "caravan_trader");
+            register(CaravanTraderEntity::new, SpawnGroup.MISC, 0.6f, 1.95f, true, 10,
+                    CaravanTraderEntity::createAttributes, "caravan_trader");
 
     private ModEntityTypes() {
 

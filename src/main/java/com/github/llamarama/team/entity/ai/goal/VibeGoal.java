@@ -1,6 +1,6 @@
 package com.github.llamarama.team.entity.ai.goal;
 
-import com.github.llamarama.team.item.ModItems;
+import com.github.llamarama.team.item.tag.ModItemTags;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.entity.JukeboxBlockEntity;
@@ -29,11 +29,7 @@ public class VibeGoal extends Goal {
     public void tick() {
         this.jukeboxTile = (JukeboxBlockEntity) this.entity.getEntityWorld().getBlockEntity(this.targetPos);
 
-        if (this.jukeboxTile != null &&
-                (this.jukeboxTile.getRecord().getItem() == ModItems.LLAMARAMA ||
-                        this.jukeboxTile.getRecord().getItem() == ModItems.LLAMAJAMA ||
-                        this.jukeboxTile.getRecord().getItem() == ModItems.FLIGHT_OF_THE_BUMBLE_LLAMA)) {
-
+        if (this.jukeboxTile != null && this.jukeboxTile.getRecord().isIn(ModItemTags.LLAMA_DISCS)) {
             if (this.extraY <= 0.5f) {
                 this.reducing = false;
             } else if (this.extraY > 2.0f) {
