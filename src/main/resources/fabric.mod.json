@@ -8,11 +8,12 @@
         "DigitalPear",
         "PeterGamesGR",
         "KaloyanKYS",
-        "Greevin"
+        "BrianComics",
+        "Calypso Robobobert"
     ],
     "contact": {
-        "homepage": "https://github.com/ArshiaDPG/LlamaMod",
-        "sources": "https://github.com/ArshiaDPG/LlamaMod"
+        "homepage": "https://github.com/LlamaramaTeam/Llamarama",
+        "sources": "https://github.com/LlamaramaTeam/Llamarama"
     },
     "license": "CC0-1.0",
     "icon": "assets/llamarama/icon.png",
