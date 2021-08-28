@@ -5,6 +5,8 @@ import com.github.llamarama.team.client.blockentity.LlamaWoolBedBlockEntityRende
 import com.github.llamarama.team.client.entity.bumblellama.BumbleLlamaEntityModel;
 import com.github.llamarama.team.client.entity.bumblellama.BumbleLlamaEntityRenderer;
 import com.github.llamarama.team.client.entity.caravantrader.CaravanTraderRenderer;
+import com.github.llamarama.team.client.entity.mossyllama.MossyLlamaEntityModel;
+import com.github.llamarama.team.client.entity.mossyllama.MossyLlamaEntityRenderer;
 import com.github.llamarama.team.client.entity.woollyllama.WoollyLlamaEntityModel;
 import com.github.llamarama.team.client.entity.woollyllama.WoollyLlamaEntityRenderer;
 import com.github.llamarama.team.entity.ModEntityTypes;
@@ -107,6 +109,7 @@ public final class EventHandler {
         listener.registerRenderer(ModEntityTypes.WOOLLY_LLAMA, WoollyLlamaEntityRenderer::new);
         listener.registerRenderer(ModEntityTypes.BUMBLE_LLAMA, BumbleLlamaEntityRenderer::new);
         listener.registerRenderer(ModEntityTypes.CARAVAN_TRADER, CaravanTraderRenderer::new);
+        listener.registerRenderer(ModEntityTypes.MOSSY_LLAMA, MossyLlamaEntityRenderer::new);
     }
 
     @Environment(EnvType.CLIENT)
@@ -126,6 +129,9 @@ public final class EventHandler {
 
         listener.register(CaravanTraderRenderer.CARAVAN_TRADER,
                 () -> TexturedModelData.of(VillagerResemblingModel.getModelData(), 64, 64));
+
+        listener.register(MossyLlamaEntityRenderer.MOSSY_LLAMA,
+                MossyLlamaEntityModel::getTexturedModelData);
     }
 
 }

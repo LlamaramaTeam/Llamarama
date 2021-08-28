@@ -2,6 +2,7 @@ package com.github.llamarama.team.entity;
 
 import com.github.llamarama.team.entity.bumbllama.BumbleLlamaEntity;
 import com.github.llamarama.team.entity.caravantrader.CaravanTraderEntity;
+import com.github.llamarama.team.entity.mossyllama.MossyLlamaEntity;
 import com.github.llamarama.team.entity.woolyllama.WoollyLlamaEntity;
 import com.github.llamarama.team.util.IdBuilder;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
@@ -25,6 +26,9 @@ public final class ModEntityTypes {
     public static final EntityType<CaravanTraderEntity> CARAVAN_TRADER =
             register(CaravanTraderEntity::new, SpawnGroup.MISC, 0.6f, 1.95f, true, 10,
                     CaravanTraderEntity::createAttributes, "caravan_trader");
+    public static final EntityType<MossyLlamaEntity> MOSSY_LLAMA =
+            register(MossyLlamaEntity::new, SpawnGroup.CREATURE, 0.9f, 1.87f, false, 10,
+                    WoollyLlamaEntity::createLlamaAttributes, "mossy_llama");
 
     private ModEntityTypes() {
 
