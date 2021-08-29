@@ -24,5 +24,6 @@
     "item.llamarama.caravan_trader_spawn_egg": "Caravan Trader Spawn Egg",
     "entity.llamarama.bumble_llama": "Bumble Llama",
     "entity.llamarama.caravan_trader": "Caravan Trader",
-    "entity.llamarama.mossy_llama": "Mossy Llama"
+    "entity.llamarama.mossy_llama": "Mossy Llama",
+    "items.llamarama.mossy_llama_spawn_egg": "Mossy Llama Spawn Egg"
 }

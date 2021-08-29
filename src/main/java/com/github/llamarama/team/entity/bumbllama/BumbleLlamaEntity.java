@@ -110,15 +110,12 @@ public class BumbleLlamaEntity extends WoollyLlamaEntity {
 
     @Override
     public void shearedTick() {
-        if (!this.world.isClient()) {
-            if (this.woolTimer > 0) {
-                this.woolTimer--;
-            } else if (this.getSheared()) {
-                this.woolTimer = this.getRandom().nextInt(20 * 15 * 60);
-                this.setSheared(false);
+        if (this.woolTimer > 0) {
+            this.woolTimer--;
+        } else if (this.getSheared() && this.woolTimer == 0) {
+            this.setSheared(false);
 
-                this.world.playSoundFromEntity(null, this, SoundEvents.BLOCK_BEEHIVE_WORK, SoundCategory.NEUTRAL, 1.0f, 1.0f);
-            }
+            this.world.playSoundFromEntity(null, this, SoundEvents.BLOCK_BEEHIVE_WORK, SoundCategory.NEUTRAL, 1.0f, 1.0f);
         }
     }
 

@@ -6,11 +6,14 @@ import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.entity.model.EntityModel;
 import net.minecraft.client.render.entity.model.EntityModelPartNames;
 import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.entity.Shearable;
 import net.minecraft.util.math.MathHelper;
 
 import java.util.stream.Stream;
 
 public class MossyLlamaEntityModel<T extends MossyLlamaEntity> extends EntityModel<T> {
+
+    private static final float DEGREE = (float) (Math.PI / 180f);
 
     private final ModelPart head;
     private final ModelPart hat;
@@ -20,6 +23,7 @@ public class MossyLlamaEntityModel<T extends MossyLlamaEntity> extends EntityMod
     private final ModelPart leg3;
     private final ModelPart leg4;
     private final ModelPart saplings;
+    private final ModelPart[] ears;
 
     public MossyLlamaEntityModel(ModelPart root) {
         ModelPart main = root.getChild("main");
@@ -30,8 +34,9 @@ public class MossyLlamaEntityModel<T extends MossyLlamaEntity> extends EntityMod
         this.leg1 = main.getChild(EntityModelPartNames.RIGHT_HIND_LEG);
         this.leg2 = main.getChild(EntityModelPartNames.LEFT_FRONT_LEG);
         this.leg3 = main.getChild(EntityModelPartNames.RIGHT_FRONT_LEG);
-        this.leg4 = main.getChild(EntityModelPartNames.RIGHT_HIND_LEG);
+        this.leg4 = main.getChild(EntityModelPartNames.LEFT_HIND_LEG);
         this.saplings = main.getChild("saplings");
+        this.ears = new ModelPart[]{this.head.getChild("left_ear"), this.head.getChild("right_ear")};
     }
 
     public static TexturedModelData getTexturedModelData() {
@@ -47,7 +52,7 @@ public class MossyLlamaEntityModel<T extends MossyLlamaEntity> extends EntityMod
         ModelPartData head = main.addChild(
                 "head",
                 ModelPartBuilder.create()
-                        .uv(1, 0)
+                        .uv(0, 0)
                         .mirrored(false)
                         .cuboid(-2.0F, -14.0F, -10.0F, 4.0F, 4.0F, 9.0F, new Dilation(0.0F))
                         .uv(0, 14)
@@ -77,22 +82,34 @@ public class MossyLlamaEntityModel<T extends MossyLlamaEntity> extends EntityMod
                 ModelTransform.of(0.0F, 0.0F, 0.0F, 0.0F, -0.7854F, 0.0F)
         );
 
-        head.addChild(
+        ModelPartData left_ear = head.addChild(
+                "left_ear",
+                ModelPartBuilder.create(),
+                ModelTransform.of(1.5F, -15.0F, -3.0F, 0.0F, 0.0F, 0.0F)
+        );
+
+        left_ear.addChild(
                 "head_r1",
                 ModelPartBuilder.create()
                         .uv(17, 0)
                         .mirrored(false)
-                        .cuboid(5.0F, -5.0F, -1.0F, 3.0F, 4.0F, 2.0F, new Dilation(0.0F)),
-                ModelTransform.of(-3.0F, -19.0F, -3.0F, 0.0F, 0.0F, 0.7854F)
+                        .cuboid(-0.5F, -5.0F, -1.0F, 3.0F, 4.0F, 2.0F, new Dilation(0.0F)),
+                ModelTransform.of(0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.7854F)
         );
 
-        head.addChild(
+        ModelPartData right_ear = head.addChild(
+                "right_ear",
+                ModelPartBuilder.create(),
+                ModelTransform.of(-1.5F, -15.0F, -3.0F, 0.0F, 0.0F, 0.0F)
+        );
+
+        right_ear.addChild(
                 "head_r2",
                 ModelPartBuilder.create()
                         .uv(17, 0)
                         .mirrored(false)
-                        .cuboid(-4.0F, -1.0F, -1.0F, 3.0F, 4.0F, 2.0F, new Dilation(0.0F)),
-                ModelTransform.of(-3.0F, -19.0F, -3.0F, 0.0F, 0.0F, -0.7854F)
+                        .cuboid(-2.5F, -5.0F, -1.0F, 3.0F, 4.0F, 2.0F, new Dilation(0.0F)),
+                ModelTransform.of(0.0F, 0.0F, 0.0F, 0.0F, 0.0F, -0.7854F)
         );
 
         ModelPartData hat = head.addChild(
@@ -276,7 +293,7 @@ public class MossyLlamaEntityModel<T extends MossyLlamaEntity> extends EntityMod
         );
 
         main.addChild(
-                EntityModelPartNames.RIGHT_HIND_LEG,
+                "right_hind_leg",
                 ModelPartBuilder.create()
                         .uv(29, 29)
                         .mirrored(false)
@@ -285,7 +302,7 @@ public class MossyLlamaEntityModel<T extends MossyLlamaEntity> extends EntityMod
         );
 
         main.addChild(
-                EntityModelPartNames.LEFT_FRONT_LEG,
+                "left_front_leg",
                 ModelPartBuilder.create()
                         .uv(29, 29)
                         .mirrored(false)
@@ -294,7 +311,7 @@ public class MossyLlamaEntityModel<T extends MossyLlamaEntity> extends EntityMod
         );
 
         main.addChild(
-                EntityModelPartNames.RIGHT_FRONT_LEG,
+                "right_front_leg",
                 ModelPartBuilder.create()
                         .uv(29, 29)
                         .mirrored(false)
@@ -303,7 +320,7 @@ public class MossyLlamaEntityModel<T extends MossyLlamaEntity> extends EntityMod
         );
 
         main.addChild(
-                EntityModelPartNames.LEFT_HIND_LEG,
+                "left_hind_leg",
                 ModelPartBuilder.create()
                         .uv(29, 29)
                         .mirrored(false)
@@ -316,19 +333,28 @@ public class MossyLlamaEntityModel<T extends MossyLlamaEntity> extends EntityMod
 
     @Override
     public void setAngles(T entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch) {
-        this.head.pitch = headPitch * 0.017453292F;
-        this.head.yaw = headYaw * 0.017453292F;
+        this.head.pitch = headPitch * DEGREE;
+        this.head.yaw = headYaw * DEGREE;
         this.body.pitch = 0;
         this.leg1.pitch = MathHelper.cos(limbAngle * 0.6662F) * 1.4F * limbDistance;
-        this.leg2.pitch = MathHelper.cos(limbAngle * 0.6662F + 3.1415927F) * 1.4F * limbDistance;
+        this.leg4.pitch = MathHelper.cos(limbAngle * 0.6662F + 3.1415927F) * 1.4F * limbDistance;
         this.leg3.pitch = MathHelper.cos(limbAngle * 0.6662F + 3.1415927F) * 1.4F * limbDistance;
-        this.leg4.pitch = MathHelper.cos(limbAngle * 0.6662F) * 1.4F * limbDistance;
+        this.leg2.pitch = MathHelper.cos(limbAngle * 0.6662F) * 1.4F * limbDistance;
+        boolean shearable = ((Shearable) entity).isShearable();
+        this.hat.visible = true;
+        this.saplings.visible = shearable;
+
+        this.ears[0].roll = shearable ? 0 : -45 * DEGREE;
+        this.ears[1].roll = shearable ? 0 : 45 * DEGREE;
     }
 
     @Override
     public void render(MatrixStack matrices, VertexConsumer vertices, int light, int overlay, float red, float green, float blue, float alpha) {
+        matrices.push();
+        matrices.translate(0, 1.5d, 0);
         Stream.of(this.head, this.body, this.leg1, this.leg2, this.leg3, this.leg4, this.saplings)
                 .forEach(modelPart -> modelPart.render(matrices, vertices, light, overlay, red, green, blue, alpha));
+        matrices.pop();
     }
 
 }
