@@ -39,16 +39,6 @@ public class BumbleLlamaEntity extends WoollyLlamaEntity {
     }
 
     @Override
-    protected ItemStack getShearedItem() {
-        return new ItemStack(Items.HONEYCOMB, 3);
-    }
-
-    @Override
-    protected boolean canStartRiding(Entity entity) {
-        return false;
-    }
-
-    @Override
     public boolean startRiding(Entity entity, boolean force) {
         return false;
     }
@@ -93,16 +83,6 @@ public class BumbleLlamaEntity extends WoollyLlamaEntity {
     }
 
     @Override
-    protected void putPlayerOnBack(PlayerEntity player) {
-        player.sendMessage(new LiteralText("Thine shall not ride such rare and beautiful creature."), true);
-    }
-
-    @Override
-    protected BumbleLlamaEntity getChild() {
-        return !this.world.isClient ? ModEntityTypes.BUMBLE_LLAMA.create(this.world) : null;
-    }
-
-    @Override
     public boolean isTrader() {
         return false;
     }
@@ -131,15 +111,35 @@ public class BumbleLlamaEntity extends WoollyLlamaEntity {
     @Override
     public void shearedTick() {
         if (!this.world.isClient()) {
-            if (this.WOOL_TIMER > 0) {
-                this.WOOL_TIMER--;
+            if (this.woolTimer > 0) {
+                this.woolTimer--;
             } else if (this.getSheared()) {
-                this.WOOL_TIMER = this.getRandom().nextInt(20 * 15 * 60);
+                this.woolTimer = this.getRandom().nextInt(20 * 15 * 60);
                 this.setSheared(false);
 
                 this.world.playSoundFromEntity(null, this, SoundEvents.BLOCK_BEEHIVE_WORK, SoundCategory.NEUTRAL, 1.0f, 1.0f);
             }
         }
+    }
+
+    @Override
+    protected ItemStack getShearedItem() {
+        return new ItemStack(Items.HONEYCOMB, 3);
+    }
+
+    @Override
+    protected boolean canStartRiding(Entity entity) {
+        return false;
+    }
+
+    @Override
+    protected void putPlayerOnBack(PlayerEntity player) {
+        player.sendMessage(new LiteralText("Thine shall not ride such rare and beautiful creature."), true);
+    }
+
+    @Override
+    protected BumbleLlamaEntity getChild() {
+        return ModEntityTypes.BUMBLE_LLAMA.create(this.world);
     }
 
 }
