@@ -36,9 +36,11 @@ public final class ModItems {
     public static final Item BUMBLE_LLAMA_SPAWN_EGG = register("bumble_llama_spawn_egg",
             new SpawnEggItem(ModEntityTypes.BUMBLE_LLAMA, 0xEDEDED, 0x4A6424, getBaseSettings()));
     public static final Item CARAVAN_TRADER_SPAWN_EGG = register("caravan_trader_spawn_egg",
-            new SpawnEggItem(ModEntityTypes.CARAVAN_TRADER, 0x7b857f, 0x6e3302, getBaseSettings()));
+            new SpawnEggItem(ModEntityTypes.CARAVAN_TRADER, 0x7B857F, 0x6E3302, getBaseSettings()));
     public static final Item LLAMA_WOOL_BED = register("llama_wool_bed",
             new BedItem(ModBlocks.LLAMA_WOOL_BED,getUnstackableSettings()));
+    public static final Item MOSSY_LLAMA_SPAWN_EGG = register("mossy_llama_spawn_egg",
+            new SpawnEggItem(ModEntityTypes.MOSSY_LLAMA, 0x5F833F, 0xBA62CE, getBaseSettings()));
 
     private ModItems() {
     }
