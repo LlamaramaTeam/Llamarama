@@ -50,11 +50,21 @@ import java.util.Collection;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-@SuppressWarnings({"deprecation", "unused", "UnstableApiUsage"})
+@SuppressWarnings({"deprecation", "unused"})
 public final class EventHandler {
 
     private static EventHandler eventHandler;
-    private final Collection<RegistryKey<Biome>> MOUNTAIN_KEYS = Stream.of(BiomeKeys.MOUNTAINS, BiomeKeys.MOUNTAIN_EDGE, BiomeKeys.GRAVELLY_MOUNTAINS, BiomeKeys.MODIFIED_GRAVELLY_MOUNTAINS, BiomeKeys.SNOWY_MOUNTAINS, BiomeKeys.SNOWY_TAIGA_MOUNTAINS, BiomeKeys.TAIGA_MOUNTAINS, BiomeKeys.WOODED_MOUNTAINS).collect(Collectors.toList());
+    private final Collection<RegistryKey<Biome>> MOUNTAIN_KEYS =
+            Stream.of(
+                    BiomeKeys.MOUNTAINS,
+                    BiomeKeys.MOUNTAIN_EDGE,
+                    BiomeKeys.GRAVELLY_MOUNTAINS,
+                    BiomeKeys.MODIFIED_GRAVELLY_MOUNTAINS,
+                    BiomeKeys.SNOWY_MOUNTAINS,
+                    BiomeKeys.SNOWY_TAIGA_MOUNTAINS,
+                    BiomeKeys.TAIGA_MOUNTAINS,
+                    BiomeKeys.WOODED_MOUNTAINS
+            ).collect(Collectors.toList());
 
     private EventHandler() {
 
