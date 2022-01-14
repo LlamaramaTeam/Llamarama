@@ -1,0 +1,9 @@
+{
+    "replace": false,
+    "values": [
+        "minecraft:llama",
+        "llamarama:woolly_llama",
+        "llamarama:bumble_llama",
+        "llamarama:mossy_llama"
+    ]
+}

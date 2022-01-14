@@ -27,6 +27,7 @@ public abstract class MixinServerWorld extends World implements StructureWorldAc
         super(properties, registryRef, dimensionType, profiler, isClient, debugWorld, seed);
     }
 
+    @SuppressWarnings("ModifyVariableMayBeArgsOnly")
     @ModifyVariable(
             method = "<init>(Lnet/minecraft/server/MinecraftServer;" +
                     "Ljava/util/concurrent/Executor;" +
@@ -37,15 +38,11 @@ public abstract class MixinServerWorld extends World implements StructureWorldAc
                     "Lnet/minecraft/server/WorldGenerationProgressListener;" +
                     "Lnet/minecraft/world/gen/chunk/ChunkGenerator;" +
                     "ZJLjava/util/List;Z)V",
-            at = @At("HEAD"), ordinal = 0,
-            argsOnly = true
+            at = @At("HEAD")
     )
     private static List<Spawner> modifySpawnsList(List<Spawner> list) {
-
         Set<Spawner> usedSet = Sets.newHashSet();
-
         usedSet.addAll(list);
-
         usedSet.add(new CaravanTraderSpawnFactory());
 
         return new ArrayList<>(usedSet);

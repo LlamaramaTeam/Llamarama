@@ -24,9 +24,11 @@ public class CaravanGoal<T extends LlamaEntity> extends Goal {
     @Override
     public boolean canStart() {
         if (!this.entity.isLeashed() && !this.entity.isFollowing()) {
-            Set<Entity> near = new HashSet<>(this.entity.world.
-                    getOtherEntities(this.entity, this.entity.getBoundingBox().expand(16.0d),
-                            entity -> entity instanceof LlamaEntity));
+            Set<Entity> near = new HashSet<>(this.entity.world.getOtherEntities(
+                    this.entity,
+                    this.entity.getBoundingBox().expand(16.0d),
+                    entity -> entity instanceof LlamaEntity
+            ));
 
             T current;
 
