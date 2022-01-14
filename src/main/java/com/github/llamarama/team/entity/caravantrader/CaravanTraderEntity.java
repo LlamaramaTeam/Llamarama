@@ -40,6 +40,39 @@ public class CaravanTraderEntity extends MerchantEntity {
         return VillagerEntity.createVillagerAttributes();
     }
 
+    @Nullable
+    @Override
+    public PassiveEntity createChild(ServerWorld world, PassiveEntity entity) {
+        return null;
+    }
+
+    @Override
+    public boolean isLeveledMerchant() {
+        return false;
+    }
+
+    @Override
+    public SoundEvent getYesSound() {
+        return SoundEvents.ENTITY_WANDERING_TRADER_YES;
+    }
+
+    @Override
+    public SoundEvent getEatSound(ItemStack stack) {
+        return SoundEvents.ENTITY_GENERIC_EAT;
+    }
+
+    @Override
+    public SoundCategory getSoundCategory() {
+        return SoundCategory.NEUTRAL;
+    }
+
+    public void setCurrentLlama(LlamaEntity llama) {
+        if (!this.hasLlama) {
+            this.hasLlama = true;
+            llama.attachLeash(this, true);
+        }
+    }
+
     @Override
     protected void afterUsing(TradeOffer offer) {
         if (offer.shouldRewardPlayerExperience()) {
@@ -100,22 +133,6 @@ public class CaravanTraderEntity extends MerchantEntity {
         }
     }
 
-    @Nullable
-    @Override
-    public PassiveEntity createChild(ServerWorld world, PassiveEntity entity) {
-        return null;
-    }
-
-    @Override
-    public boolean isLeveledMerchant() {
-        return false;
-    }
-
-    @Override
-    public SoundEvent getYesSound() {
-        return SoundEvents.ENTITY_WANDERING_TRADER_YES;
-    }
-
     @Override
     protected SoundEvent getTradingSound(boolean sold) {
         return sold ? SoundEvents.ENTITY_WANDERING_TRADER_YES : SoundEvents.ENTITY_WANDERING_TRADER_NO;
@@ -145,11 +162,6 @@ public class CaravanTraderEntity extends MerchantEntity {
     }
 
     @Override
-    public SoundEvent getEatSound(ItemStack stack) {
-        return SoundEvents.ENTITY_GENERIC_EAT;
-    }
-
-    @Override
     protected SoundEvent getSwimSound() {
         return SoundEvents.ENTITY_GENERIC_SWIM;
     }
@@ -157,18 +169,6 @@ public class CaravanTraderEntity extends MerchantEntity {
     @Override
     protected SoundEvent getSplashSound() {
         return SoundEvents.ENTITY_GENERIC_SPLASH;
-    }
-
-    @Override
-    public SoundCategory getSoundCategory() {
-        return SoundCategory.NEUTRAL;
-    }
-
-    public void setCurrentLlama(LlamaEntity llama) {
-        if (!this.hasLlama) {
-            this.hasLlama = true;
-            llama.attachLeash(this, true);
-        }
     }
 
 }
