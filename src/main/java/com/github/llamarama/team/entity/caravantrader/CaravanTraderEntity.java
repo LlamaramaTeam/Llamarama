@@ -40,9 +40,37 @@ public class CaravanTraderEntity extends MerchantEntity {
         return VillagerEntity.createVillagerAttributes();
     }
 
+    @Nullable
     @Override
-    public void tickMovement() {
-        super.tickMovement();
+    public PassiveEntity createChild(ServerWorld world, PassiveEntity entity) {
+        return null;
+    }
+
+    @Override
+    public boolean isLeveledMerchant() {
+        return false;
+    }
+
+    @Override
+    public SoundEvent getYesSound() {
+        return SoundEvents.ENTITY_WANDERING_TRADER_YES;
+    }
+
+    @Override
+    public SoundEvent getEatSound(ItemStack stack) {
+        return SoundEvents.ENTITY_GENERIC_EAT;
+    }
+
+    @Override
+    public SoundCategory getSoundCategory() {
+        return SoundCategory.NEUTRAL;
+    }
+
+    public void setCurrentLlama(LlamaEntity llama) {
+        if (!this.hasLlama) {
+            this.hasLlama = true;
+            llama.attachLeash(this, true);
+        }
     }
 
     @Override
@@ -50,7 +78,13 @@ public class CaravanTraderEntity extends MerchantEntity {
         if (offer.shouldRewardPlayerExperience()) {
             int spawn = offer.getMerchantExperience();
 
-            this.world.spawnEntity(new ExperienceOrbEntity(this.world, this.getX(), this.getY() + 0.5f, this.getZ(), spawn));
+            this.world.spawnEntity(new ExperienceOrbEntity(
+                    this.world,
+                    this.getX(),
+                    this.getY() + 0.5f,
+                    this.getZ(),
+                    spawn)
+            );
         }
     }
 
@@ -85,9 +119,6 @@ public class CaravanTraderEntity extends MerchantEntity {
         return ActionResult.SUCCESS;
     }
 
-    /**
-     * TODO: Actually add good pools.
-     */
     @Override
     protected void fillRecipes() {
         TradeOffers.Factory[] factory = TradeUtil.FACTORY;
@@ -100,22 +131,6 @@ public class CaravanTraderEntity extends MerchantEntity {
         if (tradeOffer != null && tradeOfferList.stream().noneMatch((offer) -> offer.getSellItem().getItem() == tradeOffer.getSellItem().getItem())) {
             tradeOfferList.add(tradeOffer);
         }
-    }
-
-    @Nullable
-    @Override
-    public PassiveEntity createChild(ServerWorld world, PassiveEntity entity) {
-        return null;
-    }
-
-    @Override
-    public boolean isLeveledMerchant() {
-        return false;
-    }
-
-    @Override
-    public SoundEvent getYesSound() {
-        return SoundEvents.ENTITY_WANDERING_TRADER_YES;
     }
 
     @Override
@@ -142,18 +157,8 @@ public class CaravanTraderEntity extends MerchantEntity {
     }
 
     @Override
-    protected SoundEvent getFallSound(int distance) {
-        return SoundEvents.ENTITY_WANDERING_TRADER_HURT;
-    }
-
-    @Override
     protected SoundEvent getDrinkSound(ItemStack stack) {
         return SoundEvents.ENTITY_GENERIC_DRINK;
-    }
-
-    @Override
-    public SoundEvent getEatSound(ItemStack stack) {
-        return SoundEvents.ENTITY_GENERIC_EAT;
     }
 
     @Override
@@ -164,18 +169,6 @@ public class CaravanTraderEntity extends MerchantEntity {
     @Override
     protected SoundEvent getSplashSound() {
         return SoundEvents.ENTITY_GENERIC_SPLASH;
-    }
-
-    @Override
-    public SoundCategory getSoundCategory() {
-        return SoundCategory.NEUTRAL;
-    }
-
-    public void setCurrentLlama(LlamaEntity llama) {
-        if (!this.hasLlama) {
-            this.hasLlama = true;
-            llama.attachLeash(this, true);
-        }
     }
 
 }

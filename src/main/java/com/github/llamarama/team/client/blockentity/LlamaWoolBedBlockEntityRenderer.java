@@ -11,47 +11,53 @@ import net.minecraft.block.DoubleBlockProperties;
 import net.minecraft.block.entity.BedBlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.block.enums.BedPart;
-import net.minecraft.client.model.ModelPart;
+import net.minecraft.client.model.*;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.client.render.block.entity.BlockEntityRenderDispatcher;
 import net.minecraft.client.render.block.entity.BlockEntityRenderer;
+import net.minecraft.client.render.block.entity.BlockEntityRendererFactory;
 import net.minecraft.client.render.block.entity.LightmapCoordinatesRetriever;
+import net.minecraft.client.render.entity.model.EntityModelLayer;
+import net.minecraft.client.render.entity.model.EntityModelPartNames;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.client.util.math.Vector3f;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.Vec3f;
 import net.minecraft.world.World;
 
 @Environment(EnvType.CLIENT)
-public class LlamaWoolBedBlockEntityRenderer extends BlockEntityRenderer<LlamaWoolBedBlockEntity> {
+public class LlamaWoolBedBlockEntityRenderer implements BlockEntityRenderer<LlamaWoolBedBlockEntity> {
 
-    private final ModelPart model = new ModelPart(64, 64, 0, 0);
-    private final ModelPart body;
-    private final ModelPart[] legs = new ModelPart[4];
+    public static final EntityModelLayer LLAMA_BED_HEAD =
+            new EntityModelLayer(IdBuilder.of("llama_bed_head"), "main");
+    public static final EntityModelLayer LLAMA_BED_FOOT =
+            new EntityModelLayer(IdBuilder.of("llama_bed_foot"), "main");
+    private final ModelPart bedHead;
+    private final ModelPart bedFoot;
 
-    public LlamaWoolBedBlockEntityRenderer(BlockEntityRenderDispatcher dispatcher) {
-        super(dispatcher);
-        this.model.addCuboid(0.0F, 0.0F, 0.0F, 16.0F, 16.0F, 6.0F, 0.0F);
-        this.body = new ModelPart(64, 64, 0, 22);
-        this.body.addCuboid(0.0F, 0.0F, 0.0F, 16.0F, 16.0F, 6.0F, 0.0F);
-        this.legs[0] = new ModelPart(64, 64, 50, 0);
-        this.legs[1] = new ModelPart(64, 64, 50, 6);
-        this.legs[2] = new ModelPart(64, 64, 50, 12);
-        this.legs[3] = new ModelPart(64, 64, 50, 18);
-        this.legs[0].addCuboid(0.0F, 6.0F, -16.0F, 3.0F, 3.0F, 3.0F);
-        this.legs[1].addCuboid(0.0F, 6.0F, 0.0F, 3.0F, 3.0F, 3.0F);
-        this.legs[2].addCuboid(-16.0F, 6.0F, -16.0F, 3.0F, 3.0F, 3.0F);
-        this.legs[3].addCuboid(-16.0F, 6.0F, 0.0F, 3.0F, 3.0F, 3.0F);
-        this.legs[0].pitch = 1.5707964F;
-        this.legs[1].pitch = 1.5707964F;
-        this.legs[2].pitch = 1.5707964F;
-        this.legs[3].pitch = 1.5707964F;
-        this.legs[0].roll = 0.0F;
-        this.legs[1].roll = 1.5707964F;
-        this.legs[2].roll = 4.712389F;
-        this.legs[3].roll = 3.1415927F;
+
+    public LlamaWoolBedBlockEntityRenderer(BlockEntityRendererFactory.Context context) {
+        this.bedHead = context.getLayerModelPart(LLAMA_BED_HEAD);
+        this.bedFoot = context.getLayerModelPart(LLAMA_BED_FOOT);
+    }
+
+    public static TexturedModelData getHeadTexturedModelData() {
+        ModelData modelData = new ModelData();
+        ModelPartData modelPartData = modelData.getRoot();
+        modelPartData.addChild("main", ModelPartBuilder.create().uv(0, 0).cuboid(0.0F, 0.0F, 0.0F, 16.0F, 16.0F, 6.0F), ModelTransform.NONE);
+        modelPartData.addChild(EntityModelPartNames.LEFT_LEG, ModelPartBuilder.create().uv(50, 6).cuboid(0.0F, 6.0F, 0.0F, 3.0F, 3.0F, 3.0F), ModelTransform.rotation(1.5707964F, 0.0F, 1.5707964F));
+        modelPartData.addChild(EntityModelPartNames.RIGHT_LEG, ModelPartBuilder.create().uv(50, 18).cuboid(-16.0F, 6.0F, 0.0F, 3.0F, 3.0F, 3.0F), ModelTransform.rotation(1.5707964F, 0.0F, 3.1415927F));
+        return TexturedModelData.of(modelData, 64, 64);
+    }
+
+    public static TexturedModelData getFootTexturedModelData() {
+        ModelData modelData = new ModelData();
+        ModelPartData modelPartData = modelData.getRoot();
+        modelPartData.addChild("main", ModelPartBuilder.create().uv(0, 22).cuboid(0.0F, 0.0F, 0.0F, 16.0F, 16.0F, 6.0F), ModelTransform.NONE);
+        modelPartData.addChild(EntityModelPartNames.LEFT_LEG, ModelPartBuilder.create().uv(50, 0).cuboid(0.0F, 6.0F, -16.0F, 3.0F, 3.0F, 3.0F), ModelTransform.rotation(1.5707964F, 0.0F, 0.0F));
+        modelPartData.addChild(EntityModelPartNames.RIGHT_LEG, ModelPartBuilder.create().uv(50, 12).cuboid(-16.0F, 6.0F, -16.0F, 3.0F, 3.0F, 3.0F), ModelTransform.rotation(1.5707964F, 0.0F, 4.712389F));
+        return TexturedModelData.of(modelData, 64, 64);
     }
 
     @Override
@@ -62,33 +68,24 @@ public class LlamaWoolBedBlockEntityRenderer extends BlockEntityRenderer<LlamaWo
             BlockState blockState = entity.getCachedState();
             DoubleBlockProperties.PropertySource<? extends BedBlockEntity> propertySource = DoubleBlockProperties.toPropertySource(BlockEntityType.BED, BedBlock::getBedPart, BedBlock::getOppositePartDirection, ChestBlock.FACING, blockState, world, entity.getPos(), (worldAccess, blockPos) -> false);
             int k = propertySource.apply(new LightmapCoordinatesRetriever<>()).get(light);
-            this.renderDirectional(matrices, vertexConsumers, blockState.get(BedBlock.PART) == BedPart.HEAD, blockState.get(BedBlock.FACING), identifier, k, overlay, false);
+            this.renderPart(matrices, vertexConsumers, blockState.get(BedBlock.PART) == BedPart.HEAD ? this.bedHead : this.bedFoot,
+                    blockState.get(BedBlock.FACING), identifier, k, overlay, false);
         } else {
-            this.renderDirectional(matrices, vertexConsumers, true, Direction.SOUTH, identifier, light, overlay, false);
-            this.renderDirectional(matrices, vertexConsumers, false, Direction.SOUTH, identifier, light, overlay, true);
+            this.renderPart(matrices, vertexConsumers, this.bedHead, Direction.SOUTH, identifier, light, overlay, false);
+            this.renderPart(matrices, vertexConsumers, this.bedFoot, Direction.SOUTH, identifier, light, overlay, true);
         }
     }
 
-    public void renderDirectional(MatrixStack matrices, VertexConsumerProvider vertexConsumers, boolean bl, Direction direction, Identifier identifier, int light, int overlay, boolean bl2) {
-        this.model.visible = bl;
-        this.body.visible = !bl;
-        this.legs[0].visible = !bl;
-        this.legs[1].visible = bl;
-        this.legs[2].visible = !bl;
-        this.legs[3].visible = bl;
+    public void renderPart(MatrixStack matrices, VertexConsumerProvider vertexConsumers, ModelPart part,
+                           Direction direction, Identifier texture, int light, int overlay, boolean isFoot) {
         matrices.push();
-        matrices.translate(0.0D, 0.5625D, bl2 ? -1.0D : 0.0D);
-        matrices.multiply(Vector3f.POSITIVE_X.getDegreesQuaternion(90.0F));
+        matrices.translate(0.0D, 0.5625D, isFoot ? -1.0D : 0.0D);
+        matrices.multiply(Vec3f.POSITIVE_X.getDegreesQuaternion(90.0F));
         matrices.translate(0.5D, 0.5D, 0.5D);
-        matrices.multiply(Vector3f.POSITIVE_Z.getDegreesQuaternion(180.0F + direction.asRotation()));
+        matrices.multiply(Vec3f.POSITIVE_Z.getDegreesQuaternion(180.0F + direction.asRotation()));
         matrices.translate(-0.5D, -0.5D, -0.5D);
-        VertexConsumer vertexConsumer = vertexConsumers.getBuffer(RenderLayer.getEntitySolid(identifier));
-        this.model.render(matrices, vertexConsumer, light, overlay);
-        this.body.render(matrices, vertexConsumer, light, overlay);
-        this.legs[0].render(matrices, vertexConsumer, light, overlay);
-        this.legs[1].render(matrices, vertexConsumer, light, overlay);
-        this.legs[2].render(matrices, vertexConsumer, light, overlay);
-        this.legs[3].render(matrices, vertexConsumer, light, overlay);
+        VertexConsumer vertexConsumer = vertexConsumers.getBuffer(RenderLayer.getEntitySolid(texture));
+        part.render(matrices, vertexConsumer, light, overlay);
         matrices.pop();
     }
 

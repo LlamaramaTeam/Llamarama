@@ -21,5 +21,12 @@
     "item.llamarama.flight_of_the_bumble_llama.desc": "Flight Of The Bumble Llama - KaloyanKYS",
     "subtitle.llamarama.flight_of_the_bumble_llama": "Flight Of The Bumble Llama playing...",
     "llamarama.text.village_map": "Village Explorer Map",
-    "item.llamarama.caravan_trader_spawn_egg": "Caravan Trader Spawn Egg"
+    "item.llamarama.caravan_trader_spawn_egg": "Caravan Trader Spawn Egg",
+    "entity.llamarama.bumble_llama": "Bumble Llama",
+    "entity.llamarama.caravan_trader": "Caravan Trader",
+    "entity.llamarama.mossy_llama": "Mossy Llama",
+    "item.llamarama.mossy_llama_spawn_egg": "Mossy Llama Spawn Egg",
+    "subtitle.llamarama.mossed_up": "Mossed Up playing...",
+    "item.llamarama.mossed_up_disc": "Music Disc",
+    "item.llamarama.mossed_up_disc.desc": "Mossed Up - Calypso Robobobert"
 }

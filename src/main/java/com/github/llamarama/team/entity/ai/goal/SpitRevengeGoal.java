@@ -1,6 +1,5 @@
 package com.github.llamarama.team.entity.ai.goal;
 
-import com.github.llamarama.team.entity.woolyllama.WoollyLlamaEntity;
 import com.github.llamarama.team.mixins.AccessorLlamaEntity;
 import net.minecraft.entity.ai.goal.RevengeGoal;
 import net.minecraft.entity.mob.PathAwareEntity;
@@ -14,8 +13,7 @@ public class SpitRevengeGoal extends RevengeGoal {
 
     @Override
     public boolean shouldContinue() {
-        if (this.mob instanceof LlamaEntity) {
-            WoollyLlamaEntity llamaEntity = (WoollyLlamaEntity) this.mob;
+        if (this.mob instanceof LlamaEntity llamaEntity) {
             if (((AccessorLlamaEntity) llamaEntity).getSpit()) {
                 ((AccessorLlamaEntity) llamaEntity).invokeSetSpit(false);
                 return false;

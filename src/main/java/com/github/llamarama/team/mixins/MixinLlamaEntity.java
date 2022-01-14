@@ -19,7 +19,7 @@ import net.minecraft.entity.passive.AbstractDonkeyEntity;
 import net.minecraft.entity.passive.LlamaEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Items;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
@@ -47,6 +47,7 @@ public abstract class MixinLlamaEntity extends AbstractDonkeyEntity implements R
     private static TrackedData<Integer> BOOST_TIME;
     private SaddledComponent saddledComponent;
 
+    @SuppressWarnings("unused")
     protected MixinLlamaEntity(EntityType<? extends AbstractDonkeyEntity> entityType, World world) {
         super(entityType, world);
     }
@@ -73,20 +74,20 @@ public abstract class MixinLlamaEntity extends AbstractDonkeyEntity implements R
         this.goalSelector.add(5, new VibeGoal(((LlamaEntity) (Object) this)));
     }
 
-    @Inject(method = "initDataTracker()V", at = @At(value = "HEAD"), cancellable = true)
+    @Inject(method = "initDataTracker()V", at = @At(value = "HEAD"))
     public void onInitDataTracker(CallbackInfo ci) {
         this.dataTracker.startTracking(CARPETED, false);
         this.dataTracker.startTracking(BOOST_TIME, 0);
     }
 
-    @Inject(method = "writeCustomDataToTag(Lnet/minecraft/nbt/CompoundTag;)V", at = @At("RETURN"))
-    public void onWriteCustomDataToTag(CompoundTag tag, CallbackInfo ci) {
-        saddledComponent.toTag(tag);
+    @Inject(method = "writeCustomDataToNbt", at = @At("RETURN"))
+    public void onWriteCustomDataToTag(NbtCompound tag, CallbackInfo ci) {
+        saddledComponent.writeNbt(tag);
     }
 
-    @Inject(method = "readCustomDataFromTag(Lnet/minecraft/nbt/CompoundTag;)V", at = @At("RETURN"))
-    public void onReadCustomDataFromTag(CompoundTag tag, CallbackInfo ci) {
-        saddledComponent.fromTag(tag);
+    @Inject(method = "readCustomDataFromNbt", at = @At("RETURN"))
+    public void onReadCustomDataFromTag(NbtCompound tag, CallbackInfo ci) {
+        saddledComponent.readNbt(tag);
     }
 
     @Override

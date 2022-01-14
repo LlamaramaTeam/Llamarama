@@ -6,13 +6,14 @@
     "description": "General improvements to llamas gone insane!!!",
     "authors": [
         "DigitalPear",
-        "PeterGamesGR",
+        "0xJoeMama",
         "KaloyanKYS",
-        "Greevin"
+        "BrianComics",
+        "Calypso Robobobert"
     ],
     "contact": {
-        "homepage": "https://github.com/ArshiaDPG/LlamaMod",
-        "sources": "https://github.com/ArshiaDPG/LlamaMod"
+        "homepage": "https://github.com/LlamaramaTeam/Llamarama",
+        "sources": "https://github.com/LlamaramaTeam/Llamarama"
     },
     "license": "CC0-1.0",
     "icon": "assets/llamarama/icon.png",
@@ -22,18 +23,17 @@
             "com.github.llamarama.team.Llamarama"
         ],
         "client": [
-            "com.github.llamarama.team.LlamaramaClient"
+            "com.github.llamarama.team.client.LlamaramaClient"
         ]
     },
     "mixins": [
         "llamarama.mixins.json"
     ],
     "depends": {
-        "fabricloader": ">=0.7.4",
+        "fabricloader": ">=0.11.3",
         "fabric": "*",
-        "minecraft": "1.16.x"
-    },
-    "suggests": {
+        "minecraft": "1.18.x",
+        "java": ">=17"
     },
     "accessWidener": "llamarama.accesswidener"
 }

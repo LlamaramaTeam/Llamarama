@@ -24,7 +24,11 @@ public class CaravanGoal<T extends LlamaEntity> extends Goal {
     @Override
     public boolean canStart() {
         if (!this.entity.isLeashed() && !this.entity.isFollowing()) {
-            Set<Entity> near = new HashSet<>(this.entity.world.getOtherEntities(this.entity, this.entity.getBoundingBox().expand(16.0d), entity -> entity instanceof LlamaEntity));
+            Set<Entity> near = new HashSet<>(this.entity.world.getOtherEntities(
+                    this.entity,
+                    this.entity.getBoundingBox().expand(16.0d),
+                    entity -> entity instanceof LlamaEntity
+            ));
 
             T current;
 
@@ -34,7 +38,6 @@ public class CaravanGoal<T extends LlamaEntity> extends Goal {
                 if (current.isLeashed() && !current.hasFollower() && current != this.entity) {
                     this.entity.follow(current);
                     return true;
-
                 } else if (!current.isLeashed() && current.isFollowing() && !current.hasFollower() && this.canFollow(current, 1)) {
                     this.entity.follow(current);
                     return true;
@@ -48,20 +51,28 @@ public class CaravanGoal<T extends LlamaEntity> extends Goal {
 
     @Override
     public void tick() {
-        if (this.entity.getFollowing() != null && this.entity.isFollowing() && !this.entity.isLeashed()) {
-            Vec3d currentPos = this.entity.getPos();
+        if (this.entity.getFollowing() == null)
+            return;
 
-            Vec3d followingPos = this.entity.getFollowing().getPos();
+        Vec3d currentPos = this.entity.getPos();
+        Vec3d followingPos = this.entity.getFollowing().getPos();
+        Vec3d crossProduct = followingPos
+                .add(currentPos.multiply(-1d))
+                .multiply(this.entity.distanceTo(this.entity.getFollowing()) - 2.0d);
 
-            Vec3d crossProduct = followingPos
-                    .add(currentPos.multiply(-1d))
-                    .multiply(this.entity.distanceTo(this.entity.getFollowing()) - 2.0d);
+        this.entity.getNavigation().startMovingTo(
+                currentPos.getX() + crossProduct.getX(),
+                currentPos.getY() + crossProduct.getY(),
+                currentPos.getZ() + crossProduct.getZ(), this.speed);
+    }
 
-            this.entity.getNavigation().startMovingTo(
-                    currentPos.getX() + crossProduct.getX(),
-                    currentPos.getY() + crossProduct.getY(),
-                    currentPos.getZ() + crossProduct.getZ(), this.speed);
-        }
+    @Override
+    public boolean shouldContinue() {
+        return this.entity.isAlive() && this.entity.isFollowing() &&
+                this.entity.getFollowing() != null &&
+                this.entity.getFollowing().isAlive() &&
+                !this.entity.isLeashed() &&
+                this.canFollow(this.entity, 0);
     }
 
     @Override

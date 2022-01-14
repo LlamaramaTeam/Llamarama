@@ -16,5 +16,11 @@
         "sounds": [
             "llamarama:flight_of_the_bumble_llama"
         ]
+    },
+    "mossed_up": {
+        "subtitle": "subtitle.llamarama.mossed_up",
+        "sounds": [
+            "llamarama:mossed_up"
+        ]
     }
 }

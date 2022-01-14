@@ -2,13 +2,14 @@ package com.github.llamarama.team.util.events;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.fabricmc.fabric.api.client.rendereregistry.v1.EntityRendererRegistry;
+import net.minecraft.client.render.entity.EntityRendererFactory;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 
 @Environment(EnvType.CLIENT)
 @FunctionalInterface
 public interface EntityRendererListener {
 
-    void registerRenderer(EntityType<?> entityType, EntityRendererRegistry.Factory factory);
+    <T extends Entity> void registerRenderer(EntityType<T> entityType, EntityRendererFactory<T> factory);
 
 }

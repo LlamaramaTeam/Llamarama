@@ -6,7 +6,6 @@ import net.minecraft.entity.SpawnGroup;
 
 import java.util.function.Predicate;
 
-@SuppressWarnings("deprecation")
 @FunctionalInterface
 public interface SpawnEventListener {
 

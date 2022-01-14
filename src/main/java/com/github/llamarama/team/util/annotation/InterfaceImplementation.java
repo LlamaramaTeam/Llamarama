@@ -8,7 +8,7 @@ import java.lang.annotation.Target;
 /**
  * Just for clearance sake.
  *
- * @author PeterGamesGR
+ * @author 0xJoeMama
  */
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.SOURCE)

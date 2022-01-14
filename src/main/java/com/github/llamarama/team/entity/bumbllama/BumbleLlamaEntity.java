@@ -22,25 +22,20 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class BumbleLlamaEntity extends WoollyLlamaEntity {
+
+    private static final List<Item> FLOWER_LIST = ItemTags.FLOWERS.values()
+            .stream()
+            .filter((item) -> item != Items.WITHER_ROSE)
+            .toList();
 
     public BumbleLlamaEntity(EntityType<? extends WoollyLlamaEntity> entityType, World world) {
         super(entityType, world);
         this.setSheared(true);
-    }
-
-    @Override
-    protected ItemStack getShearedItem() {
-        return new ItemStack(Items.HONEYCOMB, 3);
-    }
-
-    @Override
-    protected boolean canStartRiding(Entity entity) {
-        return false;
     }
 
     @Override
@@ -60,11 +55,11 @@ public class BumbleLlamaEntity extends WoollyLlamaEntity {
 
     @Override
     public ActionResult interactMob(PlayerEntity player, Hand hand) {
-        final ItemStack using = player.getStackInHand(hand);
+        ItemStack using = player.getStackInHand(hand);
 
         if (using.getItem() == Items.GLASS_BOTTLE && !this.getSheared() && !this.world.isClient) {
-
-            ItemStack out = ItemUsage.method_30012(player.getStackInHand(hand), player, Items.HONEY_BOTTLE.getDefaultStack());
+            ItemStack out =
+                    ItemUsage.exchangeStack(player.getStackInHand(hand), player, Items.HONEY_BOTTLE.getDefaultStack());
             player.setStackInHand(hand, out);
 
             this.setSheared(true);
@@ -73,11 +68,8 @@ public class BumbleLlamaEntity extends WoollyLlamaEntity {
         } else if (using.getItem() == Items.BONE_MEAL && !this.world.isClient) {
             using.decrement(1);
 
-            final List<? extends Item> FLOWERS = ItemTags.FLOWERS.values().stream().filter((item) -> item != Items.WITHER_ROSE).collect(Collectors.toList());
-
-            int targetItemIndex = this.random.nextInt(FLOWERS.size());
-
-            this.dropItem(FLOWERS.get(targetItemIndex), 1);
+            int targetItemIndex = this.random.nextInt(FLOWER_LIST.size());
+            this.dropItem(FLOWER_LIST.get(targetItemIndex), 1);
 
             return ActionResult.PASS;
         } else {
@@ -88,16 +80,6 @@ public class BumbleLlamaEntity extends WoollyLlamaEntity {
     @Override
     public boolean isBreedingItem(ItemStack stack) {
         return false;
-    }
-
-    @Override
-    protected void putPlayerOnBack(PlayerEntity player) {
-        player.sendMessage(new LiteralText("Thine shall not ride such rare and beautiful creature."), true);
-    }
-
-    @Override
-    protected BumbleLlamaEntity getChild() {
-        return !this.world.isClient ? ModEntityTypes.BUMBLE_LLAMA.create(this.world) : null;
     }
 
     @Override
@@ -114,25 +96,47 @@ public class BumbleLlamaEntity extends WoollyLlamaEntity {
 
         boolean isChosen = this.random.nextInt(384) == 0;
 
-        if (isChosen && !this.world.isClient && stateForBoneMeal.getBlock() instanceof Fertilizable && PosUtilities.checkForNoVelocity(this.getVelocity())) {
-            ((Fertilizable) stateForBoneMeal.getBlock()).grow((ServerWorld) this.world, this.random, down, stateForBoneMeal);
+        if (isChosen && !this.world.isClient &&
+                stateForBoneMeal.getBlock() instanceof Fertilizable fertilizable &&
+                PosUtilities.checkForNoVelocity(this.getVelocity())) {
+            fertilizable.grow((ServerWorld) this.world, this.random, down, stateForBoneMeal);
 
-            ((ServerWorld) this.world).spawnParticles(ParticleTypes.HAPPY_VILLAGER, this.getX(), this.getY(), this.getZ(), 20, 2d, 2d, 2d, 0.0d);
+            ((ServerWorld) this.world).spawnParticles(
+                    ParticleTypes.HAPPY_VILLAGER, this.getX(), this.getY(), this.getZ(),
+                    20, 2d, 2d, 2d, 0.0d
+            );
         }
     }
 
     @Override
     public void shearedTick() {
-        if (!this.world.isClient()) {
-            if (this.WOOL_TIMER > 0) {
-                this.WOOL_TIMER--;
-            } else if (this.getSheared()) {
-                this.WOOL_TIMER = this.getRandom().nextInt(20 * 15 * 60);
-                this.setSheared(false);
+        if (this.woolTimer > 0) {
+            this.woolTimer--;
+        } else if (this.getSheared() && this.woolTimer == 0) {
+            this.setSheared(false);
 
-                this.world.playSoundFromEntity(null, this, SoundEvents.BLOCK_BEEHIVE_WORK, SoundCategory.NEUTRAL, 1.0f, 1.0f);
-            }
+            this.world.playSoundFromEntity(null, this, SoundEvents.BLOCK_BEEHIVE_WORK, SoundCategory.NEUTRAL, 1.0f, 1.0f);
         }
+    }
+
+    @Override
+    protected @NotNull ItemStack getShearedItem() {
+        return new ItemStack(Items.HONEYCOMB, 3);
+    }
+
+    @Override
+    protected boolean canStartRiding(Entity entity) {
+        return false;
+    }
+
+    @Override
+    protected void putPlayerOnBack(PlayerEntity player) {
+        player.sendMessage(new LiteralText("Thine shall not ride such rare and beautiful creature."), true);
+    }
+
+    @Override
+    protected BumbleLlamaEntity getChild() {
+        return ModEntityTypes.BUMBLE_LLAMA.create(this.world);
     }
 
 }

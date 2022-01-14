@@ -22,15 +22,15 @@ public class HayOnAStickItem extends Item {
         ItemStack handItem = user.getStackInHand(hand);
 
         if (!world.isClient()) {
-            if (user.hasVehicle() && user.getVehicle() instanceof LlamaEntity && user.getVehicle() instanceof ItemSteerable) {
-                ItemSteerable riding = (ItemSteerable) user.getVehicle();
+            if (user.hasVehicle() && user.getVehicle() instanceof LlamaEntity &&
+                    user.getVehicle() instanceof ItemSteerable riding) {
 
                 if (riding.consumeOnAStickItem()) {
                     handItem.damage(5, user, (playerEntity) -> playerEntity.sendToolBreakStatus(hand));
 
                     if (handItem.isEmpty()) {
                         ItemStack out = Items.FISHING_ROD.getDefaultStack();
-                        out.setTag(handItem.getTag());
+                        out.setNbt(handItem.getNbt());
 
                         return TypedActionResult.success(out);
                     }

@@ -1,12 +1,11 @@
 package com.github.llamarama.team.entity.ai.goal;
 
-import com.github.llamarama.team.item.ModItems;
+import com.github.llamarama.team.item.tag.ModItemTags;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.entity.JukeboxBlockEntity;
 import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 
@@ -28,11 +27,9 @@ public class VibeGoal extends Goal {
 
     @Override
     public void tick() {
-
         this.jukeboxTile = (JukeboxBlockEntity) this.entity.getEntityWorld().getBlockEntity(this.targetPos);
 
-        if (this.jukeboxTile != null && (this.jukeboxTile.getRecord().getItem() == ModItems.LLAMARAMA || this.jukeboxTile.getRecord().getItem() == ModItems.LLAMAJAMA || this.jukeboxTile.getRecord().getItem() == ModItems.FLIGHT_OF_THE_BUMBLE_LLAMA)) {
-
+        if (this.jukeboxTile != null && this.jukeboxTile.getRecord().isIn(ModItemTags.LLAMA_DISCS)) {
             if (this.extraY <= 0.5f) {
                 this.reducing = false;
             } else if (this.extraY > 2.0f) {
@@ -45,7 +42,11 @@ public class VibeGoal extends Goal {
                 this.extraY += 0.4f;
             }
 
-            this.entity.getLookControl().lookAt(this.targetPosVector.getX(), this.targetPosVector.getY() + this.extraY, this.targetPosVector.getZ());
+            this.entity.getLookControl()
+                    .lookAt(this.targetPosVector.getX(),
+                            this.targetPosVector.getY() + this.extraY,
+                            this.targetPosVector.getZ()
+                    );
 
         } else {
             this.extraY = 0f;
@@ -54,7 +55,6 @@ public class VibeGoal extends Goal {
 
     @Override
     public boolean canStart() {
-
         BlockPos.Mutable currentPos = new BlockPos.Mutable(this.entity.getPos().getX(), this.entity.getPos().getY(), this.entity.getZ());
 
         BlockState currentBlock;
@@ -70,7 +70,7 @@ public class VibeGoal extends Goal {
                         this.jukeboxTile = (JukeboxBlockEntity) this.entity.getEntityWorld().getBlockEntity(this.targetPos);
 
                         if (this.jukeboxTile != null) {
-                            return this.jukeboxTile.getRecord() != ItemStack.EMPTY;
+                            return !this.jukeboxTile.getRecord().isEmpty();
                         }
                     }
                 }
@@ -82,7 +82,7 @@ public class VibeGoal extends Goal {
 
     @Override
     public boolean shouldContinue() {
-        return this.jukeboxTile != null && this.jukeboxTile.getRecord() != ItemStack.EMPTY;
+        return this.jukeboxTile != null && !this.jukeboxTile.getRecord().isEmpty();
     }
 
 }

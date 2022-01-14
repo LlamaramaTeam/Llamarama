@@ -3,7 +3,7 @@ package com.github.llamarama.team.client.entity.woollyllama;
 import com.github.llamarama.team.entity.woolyllama.WoollyLlamaEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.model.ModelPart;
+import net.minecraft.client.model.*;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.entity.model.EntityModel;
 import net.minecraft.client.util.math.MatrixStack;
@@ -11,9 +11,6 @@ import net.minecraft.util.math.MathHelper;
 
 import java.util.stream.Stream;
 
-/**
- * @author 0xJoeMama mess fixed.
- */
 @Environment(EnvType.CLIENT)
 public class WoollyLlamaEntityModel extends EntityModel<WoollyLlamaEntity> {
 
@@ -27,61 +24,31 @@ public class WoollyLlamaEntityModel extends EntityModel<WoollyLlamaEntity> {
     private final ModelPart leg3;
     private final ModelPart torso;
 
-
-    public WoollyLlamaEntityModel() {
-        textureWidth = 128;
-        textureHeight = 64;
-
-        torso = new ModelPart(this);
-        torso.setPivot(0.0F, 24.0F, 0.0F);
-        setRotationAngle(torso, 1.5708F, 0.0F);
-        torso.setTextureOffset(29, 0).addCuboid(-6.0F, -8.0F, 12.0F, 12.0F, 18.0F, 10.0F, 0.0F, true);
-
-        head = new ModelPart(this);
-        head.setPivot(0.0F, 7.0F, -6.0F);
-        head.setTextureOffset(0, 0).addCuboid(-2.0F, -14.0F, -10.0F, 4.0F, 4.0F, 9.0F, 0.0F, true);
-        head.setTextureOffset(0, 14).addCuboid(-4.0F, -16.0F, -6.0F, 8.0F, 18.0F, 6.0F, 0.0F, true);
-        head.setTextureOffset(17, 0).addCuboid(1.0F, -19.0F, -4.0F, 3.0F, 3.0F, 2.0F, 0.0F, true);
-        head.setTextureOffset(17, 0).addCuboid(-4.0F, -19.0F, -4.0F, 3.0F, 3.0F, 2.0F, 0.0F, true);
-
-        chest1 = new ModelPart(this);
-        chest1.setPivot(8.5F, 3.0F, 3.0F);
-        setRotationAngle(chest1, 0.0F, -1.5708F);
-
-
-        chest2 = new ModelPart(this);
-        chest2.setPivot(-5.5F, 3.0F, 3.0F);
-        setRotationAngle(chest2, 0.0F, -1.5708F);
-
-
-        hair = new ModelPart(this);
-        hair.setPivot(0.0F, 5.0F, 2.0F);
-        hair.setTextureOffset(46, 13).addCuboid(-6.0F, 7.0F, -10.0F, 0.0F, 3.0F, 18.0F, 0.0F, false);
-        hair.setTextureOffset(47, 13).addCuboid(6.0F, 7.0F, -10.0F, 0.0F, 3.0F, 18.0F, 0.0F, false);
-        hair.setTextureOffset(47, 31).addCuboid(-6.0F, 7.0F, 8.0F, 12.0F, 3.0F, 0.0F, 0.0F, false);
-        hair.setTextureOffset(47, 31).addCuboid(-6.0F, 7.0F, -10.0F, 12.0F, 3.0F, 0.0F, 0.0F, false);
-
-        leg0 = new ModelPart(this);
-        leg0.setPivot(3.5F, 10.0F, 6.0F);
-        leg0.setTextureOffset(29, 29).addCuboid(-2.0F, 0.0F, -2.0F, 4.0F, 14.0F, 4.0F, 0.0F, true);
-
-        leg1 = new ModelPart(this);
-        leg1.setPivot(-3.5F, 10.0F, 6.0F);
-        leg1.setTextureOffset(29, 29).addCuboid(-2.0F, 0.0F, -2.0F, 4.0F, 14.0F, 4.0F, 0.0F, true);
-
-        leg2 = new ModelPart(this);
-        leg2.setPivot(3.5F, 10.0F, -5.0F);
-        leg2.setTextureOffset(29, 29).addCuboid(-2.0F, 0.0F, -2.0F, 4.0F, 14.0F, 4.0F, 0.0F, true);
-
-        leg3 = new ModelPart(this);
-        leg3.setPivot(-3.5F, 10.0F, -5.0F);
-        leg3.setTextureOffset(29, 29).addCuboid(-2.0F, 0.0F, -2.0F, 4.0F, 14.0F, 4.0F, 0.0F, true);
+    public WoollyLlamaEntityModel(ModelPart root) {
+        this.head = root.getChild("head");
+        this.chest2 = root.getChild("chest2");
+        this.chest1 = root.getChild("chest1");
+        this.hair = root.getChild("hair");
+        this.leg0 = root.getChild("leg0");
+        this.leg1 = root.getChild("leg1");
+        this.leg2 = root.getChild("leg2");
+        this.leg3 = root.getChild("leg3");
+        this.torso = root.getChild("torso");
     }
 
-    private void setRotationAngle(ModelPart bone, float x, float y) {
-        bone.pitch = x;
-        bone.yaw = y;
-        bone.roll = (float) 0.0;
+    public static TexturedModelData getTexturedModelData() {
+        ModelData modelData = new ModelData();
+        ModelPartData modelPartData = modelData.getRoot();
+        modelPartData.addChild("torso", ModelPartBuilder.create().uv(29, 0).cuboid(-6.0F, -8.0F, 12.0F, 12.0F, 18.0F, 10.0F, true), ModelTransform.pivot(0.0F, 24.0F, 0.0F));
+        modelPartData.addChild("head", ModelPartBuilder.create().uv(0, 0).cuboid(-2.0F, -14.0F, -10.0F, 4.0F, 4.0F, 9.0F, true).uv(0, 14).cuboid(-4.0F, -16.0F, -6.0F, 8.0F, 18.0F, 6.0F, true).uv(17, 0).cuboid(1.0F, -19.0F, -4.0F, 3.0F, 3.0F, 2.0F, true).uv(17, 0).cuboid(-4.0F, -19.0F, -4.0F, 3.0F, 3.0F, 2.0F, true), ModelTransform.pivot(0.0F, 7.0F, -6.0F));
+        modelPartData.addChild("chest1", ModelPartBuilder.create(), ModelTransform.pivot(8.5F, 3.0F, 3.0F));
+        modelPartData.addChild("chest2", ModelPartBuilder.create(), ModelTransform.pivot(-5.5F, 3.0F, 3.0F));
+        modelPartData.addChild("hair", ModelPartBuilder.create().uv(46, 13).cuboid(-6.0F, 7.0F, -10.0F, 0.0F, 3.0F, 18.0F).uv(47, 13).cuboid(6.0F, 7.0F, -10.0F, 0.0F, 3.0F, 18.0F).uv(47, 31).cuboid(-6.0F, 7.0F, 8.0F, 12.0F, 3.0F, 0.0F).uv(47, 31).cuboid(-6.0F, 7.0F, -10.0F, 12.0F, 3.0F, 0.0F), ModelTransform.pivot(0.0F, 5.0F, 2.0F));
+        modelPartData.addChild("leg0", ModelPartBuilder.create().uv(29, 29).cuboid(-2.0F, 0.0F, -2.0F, 4.0F, 14.0F, 4.0F, true), ModelTransform.pivot(3.5F, 10.0F, 6.0F));
+        modelPartData.addChild("leg1", ModelPartBuilder.create().uv(29, 29).cuboid(-2.0F, 0.0F, -2.0F, 4.0F, 14.0F, 4.0F, true), ModelTransform.pivot(-3.5F, 10.0F, 6.0F));
+        modelPartData.addChild("leg2", ModelPartBuilder.create().uv(29, 29).cuboid(-2.0F, 0.0F, -2.0F, 4.0F, 14.0F, 4.0F, true), ModelTransform.pivot(3.5F, 10.0F, -5.0F));
+        modelPartData.addChild("leg3", ModelPartBuilder.create().uv(29, 29).cuboid(-2.0F, 0.0F, -2.0F, 4.0F, 14.0F, 4.0F, true), ModelTransform.pivot(-3.5F, 10.0F, -5.0F));
+        return TexturedModelData.of(modelData, 128, 64);
     }
 
     @Override
@@ -122,6 +89,13 @@ public class WoollyLlamaEntityModel extends EntityModel<WoollyLlamaEntity> {
         } else {
             Stream.of(this.leg0, this.leg1, this.leg2, this.leg3, this.head, this.chest1, this.chest2, this.torso, this.hair).forEach((modelPart) -> modelPart.render(matrices, vertices, light, overlay));
         }
+    }
+
+    @SuppressWarnings("unused")
+    private void setRotationAngle(ModelPart bone, float x, float y) {
+        bone.pitch = x;
+        bone.yaw = y;
+        bone.roll = (float) 0.0;
     }
 
 }

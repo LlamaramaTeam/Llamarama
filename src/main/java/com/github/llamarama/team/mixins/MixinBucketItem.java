@@ -27,13 +27,13 @@ public abstract class MixinBucketItem extends Item {
 
             out = ModItems.LLAMA_MILK.getDefaultStack();
 
-            if (!user.abilities.creativeMode) {
+            if (!user.getAbilities().creativeMode) {
                 user.giveItemStack(out);
-            } else if (!user.inventory.contains(out)) {
+            } else if (!user.getInventory().contains(out)) {
                 user.giveItemStack(out);
             }
 
-            if (!user.abilities.creativeMode) {
+            if (!user.getAbilities().creativeMode) {
                 stack.decrement(1);
             }
 

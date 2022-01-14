@@ -2,7 +2,6 @@ package com.github.llamarama.team.util;
 
 import com.github.llamarama.team.block.ModBlocks;
 import com.github.llamarama.team.item.ModItems;
-import com.google.common.collect.Sets;
 import net.minecraft.block.Block;
 import net.minecraft.block.PlantBlock;
 import net.minecraft.enchantment.Enchantment;
@@ -56,19 +55,9 @@ public final class TradeUtil {
             new DefaultTrade(Items.EMERALD, 2, Items.IRON_INGOT, 4),
             new DefaultTrade(Items.EMERALD, 2, Items.GOLD_INGOT, 4)};
 
-    public static class SellItemForEmeralds implements TradeOffers.Factory {
+    public record SellItemForEmeralds(ItemStack sell, int maxEmeralds,
+                                      int mixEmeralds) implements TradeOffers.Factory {
 
-        private final ItemStack sell;
-        private final int maxEmeralds;
-        private final int mixEmeralds;
-
-        public SellItemForEmeralds(ItemStack sell, int maxEmeralds, int mixEmeralds) {
-            this.maxEmeralds = maxEmeralds;
-            this.mixEmeralds = mixEmeralds;
-            this.sell = sell;
-        }
-
-        @Nullable
         @Override
         public TradeOffer create(Entity entity, Random random) {
             return new TradeOffer(new ItemStack(Items.EMERALD, MathHelper.nextInt(random, this.mixEmeralds, this.maxEmeralds)), this.sell, 12, 2, 1.0f);
@@ -86,7 +75,8 @@ public final class TradeUtil {
         @Override
         public TradeOffer create(Entity entity, Random random) {
             if (random.nextBoolean()) {
-                List<Enchantment> enchantments = Registry.ENCHANTMENT.getEntries().stream().map(Map.Entry::getValue).collect(Collectors.toList());
+                List<Enchantment> enchantments =
+                        Registry.ENCHANTMENT.getEntries().stream().map(Map.Entry::getValue).toList();
 
                 Enchantment selectedEnchantment = null;
 
@@ -109,25 +99,9 @@ public final class TradeUtil {
 
     }
 
-    public static class SellRandomForBuyRandom implements TradeOffers.Factory {
+    public record SellRandomForBuyRandom(Item buy, Item sell, int maxBuy, int maxSell,
+                                         int minBuy, int minSell) implements TradeOffers.Factory {
 
-        private final Item buy;
-        private final Item sell;
-        private final int maxBuy;
-        private final int maxSell;
-        private final int minBuy;
-        private final int minSell;
-
-        public SellRandomForBuyRandom(Item buy, Item sell, int maxBuy, int maxSell, int minBuy, int minSell) {
-            this.buy = buy;
-            this.sell = sell;
-            this.maxBuy = maxBuy;
-            this.maxSell = maxSell;
-            this.minBuy = minBuy;
-            this.minSell = minSell;
-        }
-
-        @Nullable
         @Override
         public TradeOffer create(Entity entity, Random random) {
             int finalBuyCount = MathHelper.nextInt(random, this.minBuy, this.maxBuy);
@@ -150,7 +124,7 @@ public final class TradeUtil {
                     ItemStack out = FilledMapItem.createMap(world, structurePos.getX(), structurePos.getZ(), (byte) 4, true, true);
 
                     FilledMapItem.fillExplorationMap((ServerWorld) world, out);
-                    MapState.addDecorationsTag(out, structurePos, "+", MapIcon.Type.RED_X);
+                    MapState.addDecorationsNbt(out, structurePos, "+", MapIcon.Type.RED_X);
                     out.setCustomName(new TranslatableText("llamarama.text.village_map"));
 
                     return new TradeOffer(new ItemStack(Items.EMERALD, 4 + random.nextInt(10)), out, 1, 3, 4.0f);
@@ -162,17 +136,9 @@ public final class TradeUtil {
 
     }
 
-    public static class SellOneForBuyOne implements TradeOffers.Factory {
+    public record SellOneForBuyOne(Item buy,
+                                   Item sell) implements TradeOffers.Factory {
 
-        private final Item buy;
-        private final Item sell;
-
-        public SellOneForBuyOne(Item buy, Item sell) {
-            this.buy = buy;
-            this.sell = sell;
-        }
-
-        @Nullable
         @Override
         public TradeOffer create(Entity entity, Random random) {
             return new TradeOffer(this.buy.getDefaultStack(), this.sell.getDefaultStack(), 4, 3, 1.0f);
@@ -180,21 +146,9 @@ public final class TradeUtil {
 
     }
 
-    public static class DefaultTrade implements TradeOffers.Factory {
+    public record DefaultTrade(Item buy, int buyCount, Item sell,
+                               int sellCount) implements TradeOffers.Factory {
 
-        private final Item buy;
-        private final int buyCount;
-        private final Item sell;
-        private final int sellCount;
-
-        public DefaultTrade(Item buy, int buyCount, Item sell, int sellCount) {
-            this.buy = buy;
-            this.buyCount = buyCount;
-            this.sell = sell;
-            this.sellCount = sellCount;
-        }
-
-        @Nullable
         @Override
         public TradeOffer create(Entity entity, Random random) {
             ItemStack buyStack = new ItemStack(this.buy, this.buyCount);
@@ -213,8 +167,8 @@ public final class TradeUtil {
         @Nullable
         @Override
         public TradeOffer create(Entity entity, Random random) {
-            List<Enchantment> enchantments = Registry.ENCHANTMENT.getEntries().stream().map(Map.Entry::getValue).collect(Collectors.toList());
-            HashSet<Enchantment> appliedEnchantments = Sets.newHashSet();
+            List<Enchantment> enchantments = Registry.ENCHANTMENT.getEntries().stream().map(Map.Entry::getValue).toList();
+            List<Enchantment> appliedEnchantments = new ArrayList<>();
 
             int amountOfEnchants = random.nextInt(6) + 1;
 
@@ -224,7 +178,9 @@ public final class TradeUtil {
                 appliedEnchantments.add(current);
             }
 
-            List<EnchantmentLevelEntry> finalEnchants = appliedEnchantments.stream().map(enchantment -> new EnchantmentLevelEntry(enchantment, random.nextInt(enchantment.getMaxLevel()) + 1)).collect(Collectors.toList());
+            List<EnchantmentLevelEntry> finalEnchants =
+                    appliedEnchantments.stream().map(enchantment -> new EnchantmentLevelEntry(enchantment,
+                            random.nextInt(enchantment.getMaxLevel()) + 1)).toList();
 
             ItemStack bookOut = Items.ENCHANTED_BOOK.getDefaultStack();
             int totalLevelCount = 0;
@@ -278,7 +234,7 @@ public final class TradeUtil {
         @Nullable
         @Override
         public TradeOffer create(Entity entity, Random random) {
-            List<Potion> potions = Registry.POTION.getEntries().stream().map(Map.Entry::getValue).collect(Collectors.toList());
+            List<Potion> potions = Registry.POTION.getEntries().stream().map(Map.Entry::getValue).toList();
 
             ItemStack out = PotionUtil.setPotion(new ItemStack(Items.POTION), potions.get(random.nextInt(potions.size())));
             ItemStack price = new ItemStack(Items.EMERALD, MathHelper.nextInt(random, 1, 5));
@@ -289,19 +245,8 @@ public final class TradeUtil {
 
     }
 
-    public static class BuyItemsForEmerald implements TradeOffers.Factory {
+    public record BuyItemsForEmerald(Item buy, int max, int min) implements TradeOffers.Factory {
 
-        private final Item buy;
-        private final int max;
-        private final int min;
-
-        public BuyItemsForEmerald(Item buy, int max, int min) {
-            this.buy = buy;
-            this.max = max;
-            this.min = min;
-        }
-
-        @Nullable
         @Override
         public TradeOffer create(Entity entity, Random random) {
             return new TradeOffer(new ItemStack(this.buy, MathHelper.nextInt(random, this.min, this.max)), Items.EMERALD.getDefaultStack(), 12, 2, 1.0f);
@@ -309,17 +254,8 @@ public final class TradeUtil {
 
     }
 
-    public static class SellForOneEmerald implements TradeOffers.Factory {
+    public record SellForOneEmerald(Item sell, int amount) implements TradeOffers.Factory {
 
-        private final Item sell;
-        private final int amount;
-
-        public SellForOneEmerald(Item sell, int amount) {
-            this.sell = sell;
-            this.amount = amount;
-        }
-
-        @Nullable
         @Override
         public TradeOffer create(Entity entity, Random random) {
             return new DefaultTrade(Items.EMERALD, 1, this.sell, this.amount).create(entity, random);
