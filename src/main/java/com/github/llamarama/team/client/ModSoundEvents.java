@@ -13,6 +13,8 @@ public final class ModSoundEvents {
     public static final SoundEvent LLAMAJAMA_DISC = register(LLAMAJAMA_ID);
     private static final Identifier BUMBLLAMA_ID = IdBuilder.of("flight_of_the_bumble_llama");
     public static final SoundEvent BUMBLLAMA_DISC = register(BUMBLLAMA_ID);
+    private static final Identifier MOSSED_UP_ID = IdBuilder.of("mossed_up");
+    public static final SoundEvent MOSSED_UP_DISC = register(MOSSED_UP_ID);
 
     private ModSoundEvents() {
     }

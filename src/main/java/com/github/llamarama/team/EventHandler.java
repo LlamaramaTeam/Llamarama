@@ -53,16 +53,15 @@ import java.util.Set;
 public final class EventHandler {
 
     private static EventHandler eventHandler;
-    private final Collection<RegistryKey<Biome>> MOUNTAIN_KEYS =
-            Set.of(
-                    BiomeKeys.SNOWY_SLOPES,
-                    BiomeKeys.FROZEN_PEAKS,
-                    BiomeKeys.JAGGED_PEAKS,
-                    BiomeKeys.STONY_PEAKS,
-                    BiomeKeys.MEADOW,
-                    BiomeKeys.WINDSWEPT_HILLS,
-                    BiomeKeys.WINDSWEPT_GRAVELLY_HILLS
-            );
+    private final Collection<RegistryKey<Biome>> MOUNTAIN_KEYS = Set.of(
+            BiomeKeys.SNOWY_SLOPES,
+            BiomeKeys.FROZEN_PEAKS,
+            BiomeKeys.JAGGED_PEAKS,
+            BiomeKeys.STONY_PEAKS,
+            BiomeKeys.MEADOW,
+            BiomeKeys.WINDSWEPT_HILLS,
+            BiomeKeys.WINDSWEPT_GRAVELLY_HILLS
+    );
 
     private EventHandler() {
 
@@ -97,14 +96,51 @@ public final class EventHandler {
     }
 
     public void addSpawnsListener(SpawnEventListener listener) {
-        listener.addSpawns(BiomeSelectors.includeByKey(this.MOUNTAIN_KEYS), SpawnGroup.CREATURE, ModEntityTypes.WOOLLY_LLAMA, 5, 3, 6);
-        listener.addSpawns(BiomeSelectors.includeByKey(BiomeKeys.FLOWER_FOREST), SpawnGroup.CREATURE, ModEntityTypes.BUMBLE_LLAMA, 3, 4, 7);
+        listener.addSpawns(
+                BiomeSelectors.includeByKey(this.MOUNTAIN_KEYS),
+                SpawnGroup.CREATURE,
+                ModEntityTypes.WOOLLY_LLAMA,
+                5, 3, 6
+        );
+        listener.addSpawns(
+                BiomeSelectors.includeByKey(BiomeKeys.FLOWER_FOREST),
+                SpawnGroup.CREATURE,
+                ModEntityTypes.BUMBLE_LLAMA,
+                3, 4, 7
+        );
+        listener.addSpawns(
+                BiomeSelectors.includeByKey(BiomeKeys.LUSH_CAVES),
+                SpawnGroup.CREATURE,
+                ModEntityTypes.MOSSY_LLAMA,
+                3, 2, 4
+        );
     }
 
     public void registerSpawnRestrictions() {
-        SpawnRestrictionAccessor.callRegister(ModEntityTypes.WOOLLY_LLAMA, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, AnimalEntity::isValidNaturalSpawn);
-        SpawnRestrictionAccessor.callRegister(ModEntityTypes.BUMBLE_LLAMA, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, AnimalEntity::isValidNaturalSpawn);
-        SpawnRestrictionAccessor.callRegister(ModEntityTypes.CARAVAN_TRADER, SpawnRestriction.Location.NO_RESTRICTIONS, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, MobEntity::canMobSpawn);
+        SpawnRestrictionAccessor.callRegister(
+                ModEntityTypes.WOOLLY_LLAMA,
+                SpawnRestriction.Location.ON_GROUND,
+                Heightmap.Type.MOTION_BLOCKING_NO_LEAVES,
+                AnimalEntity::isValidNaturalSpawn
+        );
+        SpawnRestrictionAccessor.callRegister(
+                ModEntityTypes.BUMBLE_LLAMA,
+                SpawnRestriction.Location.ON_GROUND,
+                Heightmap.Type.MOTION_BLOCKING_NO_LEAVES,
+                AnimalEntity::isValidNaturalSpawn
+        );
+        SpawnRestrictionAccessor.callRegister(
+                ModEntityTypes.CARAVAN_TRADER,
+                SpawnRestriction.Location.NO_RESTRICTIONS,
+                Heightmap.Type.MOTION_BLOCKING_NO_LEAVES,
+                MobEntity::canMobSpawn
+        );
+        SpawnRestrictionAccessor.callRegister(
+                ModEntityTypes.MOSSY_LLAMA,
+                SpawnRestriction.Location.ON_GROUND,
+                Heightmap.Type.MOTION_BLOCKING_NO_LEAVES,
+                (type, worldAccess, reason, pos, random) -> true
+        );
     }
 
     @Environment(EnvType.CLIENT)

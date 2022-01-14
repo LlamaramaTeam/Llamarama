@@ -23,7 +23,7 @@
             "com.github.llamarama.team.Llamarama"
         ],
         "client": [
-            "com.github.llamarama.team.LlamaramaClient"
+            "com.github.llamarama.team.client.LlamaramaClient"
         ]
     },
     "mixins": [

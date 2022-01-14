@@ -1,5 +1,6 @@
-package com.github.llamarama.team;
+package com.github.llamarama.team.client;
 
+import com.github.llamarama.team.EventHandler;
 import com.github.llamarama.team.block.ModBlocks;
 import com.github.llamarama.team.block.blockentity.LlamaWoolBedBlockEntity;
 import com.github.llamarama.team.item.ModItems;

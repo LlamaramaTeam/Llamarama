@@ -25,5 +25,8 @@
     "entity.llamarama.bumble_llama": "Bumble Llama",
     "entity.llamarama.caravan_trader": "Caravan Trader",
     "entity.llamarama.mossy_llama": "Mossy Llama",
-    "items.llamarama.mossy_llama_spawn_egg": "Mossy Llama Spawn Egg"
+    "item.llamarama.mossy_llama_spawn_egg": "Mossy Llama Spawn Egg",
+    "subtitle.llamarama.mossed_up": "Mossed Up playing...",
+    "item.llamarama.mossed_up_disc": "Music Disc",
+    "item.llamarama.mossed_up_disc.desc": "Mossed Up - Calypso Robobobert"
 }

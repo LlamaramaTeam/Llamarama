@@ -41,6 +41,8 @@ public final class ModItems {
             new BedItem(ModBlocks.LLAMA_WOOL_BED, getUnstackableSettings()));
     public static final Item MOSSY_LLAMA_SPAWN_EGG = register("mossy_llama_spawn_egg",
             new SpawnEggItem(ModEntityTypes.MOSSY_LLAMA, 0x5F833F, 0xBA62CE, getBaseSettings()));
+    public static final Item MOSSED_UP = register("mossed_up_disc",
+            new MusicDiscItem(11, ModSoundEvents.MOSSED_UP_DISC, getDiscSettings()));
 
     private ModItems() {
     }
