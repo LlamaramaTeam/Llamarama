@@ -18,6 +18,7 @@ public final class ModBlockEntityTypes {
     }
 
 
+    @SuppressWarnings("EmptyMethod")
     public static void init() {
     }
 

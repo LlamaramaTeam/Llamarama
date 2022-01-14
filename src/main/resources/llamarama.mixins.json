@@ -2,15 +2,13 @@
     "required": true,
     "minVersion": "0.8",
     "package": "com.github.llamarama.team.mixins",
-    "compatibilityLevel": "JAVA_11",
+    "compatibilityLevel": "JAVA_17",
     "mixins": [
         "AccessorLlamaEntity",
         "MixinBeeEntity",
         "MixinBucketItem",
         "MixinLlamaEntity",
         "MixinServerWorld"
-    ],
-    "client": [
     ],
     "injectors": {
         "defaultRequire": 1

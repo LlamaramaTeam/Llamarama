@@ -19,6 +19,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(BeeEntity.class)
 public abstract class MixinBeeEntity extends AnimalEntity implements Angerable, Flutterer {
 
+    @SuppressWarnings("unused")
     protected MixinBeeEntity(EntityType<? extends AnimalEntity> entityType, World world) {
         super(entityType, world);
     }

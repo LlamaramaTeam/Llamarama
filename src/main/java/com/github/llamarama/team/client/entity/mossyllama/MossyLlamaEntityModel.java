@@ -341,7 +341,7 @@ public class MossyLlamaEntityModel<T extends MossyLlamaEntity> extends EntityMod
         this.leg3.pitch = MathHelper.cos(limbAngle * 0.6662F + 3.1415927F) * 1.4F * limbDistance;
         this.leg2.pitch = MathHelper.cos(limbAngle * 0.6662F) * 1.4F * limbDistance;
         boolean shearable = ((Shearable) entity).isShearable();
-        this.hat.visible = true;
+        this.hat.visible = shearable;
         this.saplings.visible = shearable;
 
         this.ears[0].roll = shearable ? 0 : -45 * DEGREE;

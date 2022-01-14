@@ -47,6 +47,7 @@ public abstract class MixinLlamaEntity extends AbstractDonkeyEntity implements R
     private static TrackedData<Integer> BOOST_TIME;
     private SaddledComponent saddledComponent;
 
+    @SuppressWarnings("unused")
     protected MixinLlamaEntity(EntityType<? extends AbstractDonkeyEntity> entityType, World world) {
         super(entityType, world);
     }
@@ -73,7 +74,7 @@ public abstract class MixinLlamaEntity extends AbstractDonkeyEntity implements R
         this.goalSelector.add(5, new VibeGoal(((LlamaEntity) (Object) this)));
     }
 
-    @Inject(method = "initDataTracker()V", at = @At(value = "HEAD"), cancellable = true)
+    @Inject(method = "initDataTracker()V", at = @At(value = "HEAD"))
     public void onInitDataTracker(CallbackInfo ci) {
         this.dataTracker.startTracking(CARPETED, false);
         this.dataTracker.startTracking(BOOST_TIME, 0);

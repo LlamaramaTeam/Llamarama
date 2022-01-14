@@ -34,6 +34,7 @@ public final class ModEntityTypes {
 
     }
 
+    @SuppressWarnings("SameParameterValue")
     private static <T extends LivingEntity> EntityType<T> register(EntityType.EntityFactory<T> factory, SpawnGroup group, float width, float height, boolean fixed, int range, Supplier<DefaultAttributeContainer.Builder> attributes, String id) {
         EntityType<T> type =
                 FabricEntityTypeBuilder.Living.createLiving()
@@ -46,6 +47,7 @@ public final class ModEntityTypes {
         return Registry.register(Registry.ENTITY_TYPE, IdBuilder.of(id), type);
     }
 
+    @SuppressWarnings("EmptyMethod")
     public static void init() {
 
     }

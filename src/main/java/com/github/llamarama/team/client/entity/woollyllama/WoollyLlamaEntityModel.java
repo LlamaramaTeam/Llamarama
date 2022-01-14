@@ -91,6 +91,7 @@ public class WoollyLlamaEntityModel extends EntityModel<WoollyLlamaEntity> {
         }
     }
 
+    @SuppressWarnings("unused")
     private void setRotationAngle(ModelPart bone, float x, float y) {
         bone.pitch = x;
         bone.yaw = y;

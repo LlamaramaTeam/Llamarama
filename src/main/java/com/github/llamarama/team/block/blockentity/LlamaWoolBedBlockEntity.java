@@ -15,7 +15,7 @@ public class LlamaWoolBedBlockEntity extends BlockEntity {
     @Nullable
     @Override
     public BlockEntityUpdateS2CPacket toUpdatePacket() {
-        return new BlockEntityUpdateS2CPacket(this.getPos(), 11, this.toInitialChunkDataNbt());
+        return BlockEntityUpdateS2CPacket.create(this);
     }
 
 }

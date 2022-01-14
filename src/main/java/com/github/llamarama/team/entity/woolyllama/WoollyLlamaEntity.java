@@ -28,10 +28,14 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 public class WoollyLlamaEntity extends LlamaEntity implements Shearable {
 
-    private static final TrackedData<Boolean> SHEARED = DataTracker.registerData(WoollyLlamaEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+    @NotNull
+    private static final TrackedData<Boolean> SHEARED =
+            DataTracker.registerData(WoollyLlamaEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
     protected int woolTimer;
 
     public WoollyLlamaEntity(EntityType<? extends WoollyLlamaEntity> entityType, World world) {
@@ -80,18 +84,15 @@ public class WoollyLlamaEntity extends LlamaEntity implements Shearable {
             }
 
             return super.interactMob(player, hand);
-
         } else if (this.isShearable()) {
             this.sheared(SoundCategory.NEUTRAL);
-
-            player.getStackInHand(hand).damage(1, player, (playerEntity -> playerEntity.sendToolBreakStatus(hand)));
-
+            player.getStackInHand(hand).damage(1, player,
+                    playerEntity -> playerEntity.sendToolBreakStatus(hand)
+            );
             return ActionResult.success(this.world.isClient());
-
         } else {
             return ActionResult.PASS;
         }
-
     }
 
     @Override
@@ -101,13 +102,14 @@ public class WoollyLlamaEntity extends LlamaEntity implements Shearable {
         int i = this.random.nextInt(Math.max(this.getStrength(), actualMate.getStrength())) + 1;
 
         this.setChildAttributes(mate, child);
-        child.setStrength(i);
-
+        if (child != null) {
+            child.setStrength(i);
+        }
         return child;
     }
 
     public void setStrength(int strength) {
-        this.dataTracker.set(((AccessorLlamaEntity) this).getStrength(), strength);
+        this.dataTracker.set(AccessorLlamaEntity.getStrength(), strength);
     }
 
     public boolean getSheared() {
@@ -169,12 +171,14 @@ public class WoollyLlamaEntity extends LlamaEntity implements Shearable {
         this.dataTracker.startTracking(SHEARED, false);
     }
 
+    @NotNull
     protected ItemStack getShearedItem() {
         return new ItemStack(ModBlocks.LLAMA_WOOL.asItem(), this.world.random.nextInt(3) + 1);
     }
 
+    @Nullable
     protected WoollyLlamaEntity getChild() {
-        return !this.world.isClient() ? ModEntityTypes.WOOLLY_LLAMA.create(this.world) : null;
+        return ModEntityTypes.WOOLLY_LLAMA.create(this.world);
     }
 
     @Override

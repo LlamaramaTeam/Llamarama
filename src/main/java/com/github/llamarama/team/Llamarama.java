@@ -15,7 +15,6 @@ import net.minecraft.item.ItemStack;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-@SuppressWarnings("deprecation")
 public class Llamarama implements ModInitializer {
 
     public static final String MOD_ID = "llamarama";

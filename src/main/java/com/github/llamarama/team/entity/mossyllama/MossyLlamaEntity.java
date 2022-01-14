@@ -3,7 +3,6 @@ package com.github.llamarama.team.entity.mossyllama;
 import com.github.llamarama.team.entity.ModEntityTypes;
 import com.github.llamarama.team.entity.woolyllama.WoollyLlamaEntity;
 import com.github.llamarama.team.util.PosUtilities;
-import com.google.common.collect.ImmutableList;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -21,13 +20,17 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.tag.BlockTags;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 import java.util.Random;
 
 public class MossyLlamaEntity extends WoollyLlamaEntity {
 
-    private static final List<Block> AZALEA_BLOCKS = ImmutableList.of(Blocks.AZALEA, Blocks.FLOWERING_AZALEA);
+    @NotNull
+    private static final List<Block> AZALEA_BLOCKS =
+            List.of(Blocks.AZALEA, Blocks.FLOWERING_AZALEA);
+    @NotNull
     private static final TrackedData<Integer> MOSSY_LLAMA_TIMER =
             DataTracker.registerData(MossyLlamaEntity.class, TrackedDataHandlerRegistry.INTEGER);
 
@@ -82,7 +85,7 @@ public class MossyLlamaEntity extends WoollyLlamaEntity {
     }
 
     @Override
-    protected ItemStack getShearedItem() {
+    protected @NotNull ItemStack getShearedItem() {
         return new ItemStack(Items.AZALEA);
     }
 
@@ -92,7 +95,7 @@ public class MossyLlamaEntity extends WoollyLlamaEntity {
         this.dataTracker.startTracking(MOSSY_LLAMA_TIMER, 20 * 60 * 10);
     }
 
-    private void tryGrowAzalea(Random random) {
+    private void tryGrowAzalea(@NotNull Random random) {
         if (this.getSheared() && random.nextInt(1000) == 0) {
             BlockPos.streamOutwards(this.getBlockPos(), 1, 1, 1)
                     .filter(pos -> AZALEA_BLOCKS.contains(this.world.getBlockState(pos).getBlock()))
@@ -106,7 +109,7 @@ public class MossyLlamaEntity extends WoollyLlamaEntity {
         }
     }
 
-    private void trySpawnMoss(Random random) {
+    private void trySpawnMoss(@NotNull Random random) {
         boolean isOnMoss = this.world.getBlockState(this.getBlockPos().down()).isOf(Blocks.MOSS_BLOCK);
         if (random.nextInt(10) == 0 && !PosUtilities.checkForNoVelocity(this.getVelocity()) && !isOnMoss) {
             BlockPos.streamOutwards(this.getBlockPos(), 2, 1, 2).forEach(pos -> {
@@ -138,21 +141,22 @@ public class MossyLlamaEntity extends WoollyLlamaEntity {
         }
     }
 
-    private void trySpawnParticles(Random random) {
+    private void trySpawnParticles(@NotNull Random random) {
         int chanceOfParticles = random.nextInt(20);
 
-        if (chanceOfParticles < 1) {
+        if (chanceOfParticles == 0) {
             BlockPos llamaPos = this.getBlockPos();
             BlockPos.Mutable mutable = new BlockPos.Mutable();
             for (int i = random.nextInt(20); i > 0; i--) {
                 mutable.set(llamaPos.getX() + random.nextInt(10),
                         llamaPos.getY() + random.nextInt(10),
                         llamaPos.getZ() + random.nextInt(10));
-                ((ServerWorld) this.world)
-                        .spawnParticles(ParticleTypes.SPORE_BLOSSOM_AIR,
-                                llamaPos.getX() + 0.5d,
-                                llamaPos.getY() + 2,
-                                llamaPos.getZ() + 0.5d, 1, 0, 0, 0, 0.3);
+                ((ServerWorld) this.world).spawnParticles(ParticleTypes.SPORE_BLOSSOM_AIR,
+                        llamaPos.getX() + random.nextGaussian(),
+                        llamaPos.getY() + random.nextGaussian() + 1,
+                        llamaPos.getZ() + random.nextGaussian(),
+                        1, 0, 0, 0, 0.3
+                );
             }
         }
     }

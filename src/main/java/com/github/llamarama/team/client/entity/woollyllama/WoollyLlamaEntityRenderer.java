@@ -39,11 +39,6 @@ public class WoollyLlamaEntityRenderer extends MobEntityRenderer<WoollyLlamaEnti
         return entity.getSheared() ? TEXTURES.get(1) : TEXTURES.get(0);
     }
 
-    @Override
-    public WoollyLlamaEntityModel getModel() {
-        return super.getModel();
-    }
-
     public static class WoollyLlamaDecorRenderer extends FeatureRenderer<WoollyLlamaEntity, WoollyLlamaEntityModel> {
 
         public static final EntityModelLayer WOOLLY_LLAMA_DECOR =

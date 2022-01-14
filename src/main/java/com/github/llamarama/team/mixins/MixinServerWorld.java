@@ -22,6 +22,7 @@ import java.util.function.Supplier;
 @Mixin(ServerWorld.class)
 public abstract class MixinServerWorld extends World implements StructureWorldAccess {
 
+    @SuppressWarnings("unused")
     protected MixinServerWorld(MutableWorldProperties properties, RegistryKey<World> registryRef, DimensionType dimensionType, Supplier<Profiler> profiler, boolean isClient, boolean debugWorld, long seed) {
         super(properties, registryRef, dimensionType, profiler, isClient, debugWorld, seed);
     }
@@ -36,7 +37,8 @@ public abstract class MixinServerWorld extends World implements StructureWorldAc
                     "Lnet/minecraft/server/WorldGenerationProgressListener;" +
                     "Lnet/minecraft/world/gen/chunk/ChunkGenerator;" +
                     "ZJLjava/util/List;Z)V",
-            at = @At("HEAD"), ordinal = 0
+            at = @At("HEAD"), ordinal = 0,
+            argsOnly = true
     )
     private static List<Spawner> modifySpawnsList(List<Spawner> list) {
 

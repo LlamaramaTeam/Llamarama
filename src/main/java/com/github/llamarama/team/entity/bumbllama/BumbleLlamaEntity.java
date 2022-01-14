@@ -22,16 +22,16 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class BumbleLlamaEntity extends WoollyLlamaEntity {
 
     private static final List<Item> FLOWER_LIST = ItemTags.FLOWERS.values()
             .stream()
             .filter((item) -> item != Items.WITHER_ROSE)
-            .collect(Collectors.toList());
+            .toList();
 
     public BumbleLlamaEntity(EntityType<? extends WoollyLlamaEntity> entityType, World world) {
         super(entityType, world);
@@ -120,7 +120,7 @@ public class BumbleLlamaEntity extends WoollyLlamaEntity {
     }
 
     @Override
-    protected ItemStack getShearedItem() {
+    protected @NotNull ItemStack getShearedItem() {
         return new ItemStack(Items.HONEYCOMB, 3);
     }
 

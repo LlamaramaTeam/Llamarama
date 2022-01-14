@@ -41,16 +41,17 @@ public class CaravanTraderEntity extends MerchantEntity {
     }
 
     @Override
-    public void tickMovement() {
-        super.tickMovement();
-    }
-
-    @Override
     protected void afterUsing(TradeOffer offer) {
         if (offer.shouldRewardPlayerExperience()) {
             int spawn = offer.getMerchantExperience();
 
-            this.world.spawnEntity(new ExperienceOrbEntity(this.world, this.getX(), this.getY() + 0.5f, this.getZ(), spawn));
+            this.world.spawnEntity(new ExperienceOrbEntity(
+                    this.world,
+                    this.getX(),
+                    this.getY() + 0.5f,
+                    this.getZ(),
+                    spawn)
+            );
         }
     }
 
@@ -136,11 +137,6 @@ public class CaravanTraderEntity extends MerchantEntity {
     @Override
     protected SoundEvent getDeathSound() {
         return SoundEvents.ENTITY_WANDERING_TRADER_DEATH;
-    }
-
-    @Override
-    protected SoundEvent getFallSound(int distance) {
-        return SoundEvents.ENTITY_WANDERING_TRADER_HURT;
     }
 
     @Override

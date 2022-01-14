@@ -10,12 +10,14 @@ import org.spongepowered.asm.mixin.gen.Invoker;
 public interface AccessorLlamaEntity {
 
     @Accessor("STRENGTH")
-    TrackedData<Integer> getStrength();
+    static TrackedData<Integer> getStrength() {
+        throw new RuntimeException("This shouldn't happen");
+    }
 
-    @Accessor("spit")
+    @Accessor
     boolean getSpit();
 
-    @Invoker("setSpit")
+    @Invoker
     void invokeSetSpit(boolean bool);
 
 }

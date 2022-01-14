@@ -13,8 +13,7 @@ import net.fabricmc.fabric.api.client.rendering.v1.BuiltinItemRendererRegistry;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.util.math.BlockPos;
 
-
-@SuppressWarnings({"UnstableApiUsage", "deprecation"})
+@SuppressWarnings("deprecation")
 @Environment(EnvType.CLIENT)
 public class LlamaramaClient implements ClientModInitializer {
 

@@ -17,6 +17,7 @@ public final class ModSoundEvents {
     private ModSoundEvents() {
     }
 
+    @SuppressWarnings("EmptyMethod")
     public static void init() {
     }
 

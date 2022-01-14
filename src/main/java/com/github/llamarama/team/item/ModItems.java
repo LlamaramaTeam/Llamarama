@@ -45,6 +45,7 @@ public final class ModItems {
     private ModItems() {
     }
 
+    @SuppressWarnings("EmptyMethod")
     public static void init() {
     }
 

@@ -47,24 +47,22 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BiomeKeys;
 
 import java.util.Collection;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+import java.util.Set;
 
 @SuppressWarnings({"deprecation", "unused"})
 public final class EventHandler {
 
     private static EventHandler eventHandler;
     private final Collection<RegistryKey<Biome>> MOUNTAIN_KEYS =
-            Stream.of(
-                    BiomeKeys.MOUNTAINS,
-                    BiomeKeys.MOUNTAIN_EDGE,
-                    BiomeKeys.GRAVELLY_MOUNTAINS,
-                    BiomeKeys.MODIFIED_GRAVELLY_MOUNTAINS,
-                    BiomeKeys.SNOWY_MOUNTAINS,
-                    BiomeKeys.SNOWY_TAIGA_MOUNTAINS,
-                    BiomeKeys.TAIGA_MOUNTAINS,
-                    BiomeKeys.WOODED_MOUNTAINS
-            ).collect(Collectors.toList());
+            Set.of(
+                    BiomeKeys.SNOWY_SLOPES,
+                    BiomeKeys.FROZEN_PEAKS,
+                    BiomeKeys.JAGGED_PEAKS,
+                    BiomeKeys.STONY_PEAKS,
+                    BiomeKeys.MEADOW,
+                    BiomeKeys.WINDSWEPT_HILLS,
+                    BiomeKeys.WINDSWEPT_GRAVELLY_HILLS
+            );
 
     private EventHandler() {
 
