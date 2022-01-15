@@ -9,7 +9,7 @@ public final class ModItemTags {
 
     public static final Tag<Item> LLAMA_DISCS = TagFactory.ITEM.create(IdBuilder.of("llama_discs"));
 
-    private ModItemTags() {
+    public static void init() {
 
     }
 

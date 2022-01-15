@@ -1,18 +1,20 @@
 package com.github.llamarama.team.entity.mossyllama;
 
+import com.github.llamarama.team.block.ModBlockTags;
 import com.github.llamarama.team.entity.ModEntityTypes;
 import com.github.llamarama.team.entity.woolyllama.WoollyLlamaEntity;
+import com.github.llamarama.team.util.Constants;
 import com.github.llamarama.team.util.PosUtilities;
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.Fertilizable;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
@@ -22,14 +24,10 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.List;
 import java.util.Random;
 
 public class MossyLlamaEntity extends WoollyLlamaEntity {
 
-    @NotNull
-    private static final List<Block> AZALEA_BLOCKS =
-            List.of(Blocks.AZALEA, Blocks.FLOWERING_AZALEA);
     @NotNull
     private static final TrackedData<Integer> MOSSY_LLAMA_TIMER =
             DataTracker.registerData(MossyLlamaEntity.class, TrackedDataHandlerRegistry.INTEGER);
@@ -85,8 +83,13 @@ public class MossyLlamaEntity extends WoollyLlamaEntity {
     }
 
     @Override
+    public boolean isBaby() {
+        return false;
+    }
+
+    @Override
     protected @NotNull ItemStack getShearedItem() {
-        return new ItemStack(Items.AZALEA);
+        return ModBlockTags.LUSH_GROWTH.getRandom(this.random).asItem().getDefaultStack();
     }
 
     @Override
@@ -98,8 +101,9 @@ public class MossyLlamaEntity extends WoollyLlamaEntity {
     private void tryGrowAzalea(@NotNull Random random) {
         if (this.getSheared() && random.nextInt(1000) == 0) {
             BlockPos.streamOutwards(this.getBlockPos(), 1, 1, 1)
-                    .filter(pos -> AZALEA_BLOCKS.contains(this.world.getBlockState(pos).getBlock()))
-                    .findFirst().ifPresent(pos -> {
+                    .filter(pos -> ModBlockTags.AZALEA_BLOCKS.contains(this.world.getBlockState(pos).getBlock()))
+                    .findFirst()
+                    .ifPresent(pos -> {
                         BlockState state = world.getBlockState(pos);
 
                         if (state.getBlock() instanceof Fertilizable fertilizable) {
@@ -159,6 +163,16 @@ public class MossyLlamaEntity extends WoollyLlamaEntity {
                 );
             }
         }
+    }
+
+    @Override
+    protected boolean canStartRiding(Entity entity) {
+        return false;
+    }
+
+    @Override
+    protected void putPlayerOnBack(PlayerEntity player) {
+        player.sendMessage(Constants.CANNOT_RIDE_TEXT, true);
     }
 
 }

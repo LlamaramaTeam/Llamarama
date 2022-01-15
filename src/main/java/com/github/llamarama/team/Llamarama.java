@@ -1,11 +1,13 @@
 package com.github.llamarama.team;
 
+import com.github.llamarama.team.block.ModBlockTags;
 import com.github.llamarama.team.block.ModBlocks;
 import com.github.llamarama.team.block.blockentity.ModBlockEntityTypes;
 import com.github.llamarama.team.client.ModSoundEvents;
 import com.github.llamarama.team.entity.ModEntityTags;
 import com.github.llamarama.team.entity.ModEntityTypes;
 import com.github.llamarama.team.item.ModItems;
+import com.github.llamarama.team.item.tag.ModItemTags;
 import com.github.llamarama.team.util.IdBuilder;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
@@ -35,7 +37,9 @@ public class Llamarama implements ModInitializer {
         ModBlockEntityTypes.init();
         ModBlocks.init();
         ModEntityTypes.init();
+        ModItemTags.init();
         ModEntityTags.init();
+        ModBlockTags.init();
 
         // Callback registers.
         EventHandler.getInstance().addSpawnsListener(BiomeModifications::addSpawn);

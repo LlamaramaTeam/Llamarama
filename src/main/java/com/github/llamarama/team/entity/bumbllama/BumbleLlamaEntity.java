@@ -2,6 +2,7 @@ package com.github.llamarama.team.entity.bumbllama;
 
 import com.github.llamarama.team.entity.ModEntityTypes;
 import com.github.llamarama.team.entity.woolyllama.WoollyLlamaEntity;
+import com.github.llamarama.team.util.Constants;
 import com.github.llamarama.team.util.PosUtilities;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Fertilizable;
@@ -17,7 +18,6 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.tag.ItemTags;
-import net.minecraft.text.LiteralText;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
@@ -131,7 +131,7 @@ public class BumbleLlamaEntity extends WoollyLlamaEntity {
 
     @Override
     protected void putPlayerOnBack(PlayerEntity player) {
-        player.sendMessage(new LiteralText("Thine shall not ride such rare and beautiful creature."), true);
+        player.sendMessage(Constants.CANNOT_RIDE_TEXT, true);
     }
 
     @Override

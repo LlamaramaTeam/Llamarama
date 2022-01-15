@@ -1,0 +1,9 @@
+{
+    "replace": false,
+    "values": [
+        "#llamarama:azalea_blocks",
+        "minecraft:small_dripleaf",
+        "minecraft:big_dripleaf",
+        "minecraft:glow_lichen"
+    ]
+}
