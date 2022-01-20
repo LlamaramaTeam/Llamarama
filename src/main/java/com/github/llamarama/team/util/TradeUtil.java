@@ -53,10 +53,10 @@ public final class TradeUtil {
             new SellForOneEmerald(Items.LAPIS_LAZULI, 4),
             new SellForOneEmerald(Items.SLIME_BALL, 4),
             new DefaultTrade(Items.EMERALD, 2, Items.IRON_INGOT, 4),
-            new DefaultTrade(Items.EMERALD, 2, Items.GOLD_INGOT, 4)};
+            new DefaultTrade(Items.EMERALD, 2, Items.GOLD_INGOT, 4)
+    };
 
-    public record SellItemForEmeralds(ItemStack sell, int maxEmeralds,
-                                      int mixEmeralds) implements TradeOffers.Factory {
+    public record SellItemForEmeralds(ItemStack sell, int maxEmeralds, int mixEmeralds) implements TradeOffers.Factory {
 
         @Override
         public TradeOffer create(Entity entity, Random random) {
@@ -64,6 +64,9 @@ public final class TradeUtil {
         }
 
     }
+
+    private static final List<Enchantment> ENCHANTMENTS =
+            Registry.ENCHANTMENT.getEntries().stream().map(Map.Entry::getValue).toList();
 
     public static class RandomMaxEnchantTrade implements TradeOffers.Factory {
 
@@ -75,19 +78,18 @@ public final class TradeUtil {
         @Override
         public TradeOffer create(Entity entity, Random random) {
             if (random.nextBoolean()) {
-                List<Enchantment> enchantments =
-                        Registry.ENCHANTMENT.getEntries().stream().map(Map.Entry::getValue).toList();
-
                 Enchantment selectedEnchantment = null;
 
-                if (enchantments.size() > 0) {
-                    selectedEnchantment = enchantments.get(random.nextInt(enchantments.size()));
+                if (ENCHANTMENTS.size() > 0) {
+                    selectedEnchantment = ENCHANTMENTS.get(random.nextInt(ENCHANTMENTS.size()));
                 }
 
                 if (selectedEnchantment != null) {
                     ItemStack out = new ItemStack(Items.ENCHANTED_BOOK);
-                    EnchantedBookItem.addEnchantment(out, new EnchantmentLevelEntry(selectedEnchantment, selectedEnchantment.getMaxLevel()));
-
+                    EnchantedBookItem.addEnchantment(out, new EnchantmentLevelEntry(
+                            selectedEnchantment,
+                            Math.max(selectedEnchantment.getMaxLevel(), 0)
+                    ));
                     ItemStack buy = new ItemStack(Items.EMERALD, MathHelper.nextInt(random, 5, 64));
 
                     return new TradeOffer(buy, Items.BOOKSHELF.getDefaultStack(), out, 1, 5, 1.0f);
@@ -99,8 +101,8 @@ public final class TradeUtil {
 
     }
 
-    public record SellRandomForBuyRandom(Item buy, Item sell, int maxBuy, int maxSell,
-                                         int minBuy, int minSell) implements TradeOffers.Factory {
+    public record SellRandomForBuyRandom(Item buy, Item sell, int maxBuy, int maxSell, int minBuy,
+                                         int minSell) implements TradeOffers.Factory {
 
         @Override
         public TradeOffer create(Entity entity, Random random) {
@@ -136,8 +138,7 @@ public final class TradeUtil {
 
     }
 
-    public record SellOneForBuyOne(Item buy,
-                                   Item sell) implements TradeOffers.Factory {
+    public record SellOneForBuyOne(Item buy, Item sell) implements TradeOffers.Factory {
 
         @Override
         public TradeOffer create(Entity entity, Random random) {
@@ -167,20 +168,18 @@ public final class TradeUtil {
         @Nullable
         @Override
         public TradeOffer create(Entity entity, Random random) {
-            List<Enchantment> enchantments = Registry.ENCHANTMENT.getEntries().stream().map(Map.Entry::getValue).toList();
             List<Enchantment> appliedEnchantments = new ArrayList<>();
-
             int amountOfEnchants = random.nextInt(6) + 1;
 
             for (int i = amountOfEnchants; i > 0; i--) {
-                Enchantment current = enchantments.get(random.nextInt(enchantments.size()));
-
+                Enchantment current = ENCHANTMENTS.get(random.nextInt(ENCHANTMENTS.size()));
                 appliedEnchantments.add(current);
             }
 
-            List<EnchantmentLevelEntry> finalEnchants =
-                    appliedEnchantments.stream().map(enchantment -> new EnchantmentLevelEntry(enchantment,
-                            random.nextInt(enchantment.getMaxLevel()) + 1)).toList();
+            List<EnchantmentLevelEntry> finalEnchants = appliedEnchantments.stream()
+                    .map(it -> new EnchantmentLevelEntry(it,
+                            random.nextInt(Math.max(0, it.getMaxLevel())) + 1))
+                    .toList();
 
             ItemStack bookOut = Items.ENCHANTED_BOOK.getDefaultStack();
             int totalLevelCount = 0;
@@ -194,9 +193,8 @@ public final class TradeUtil {
             }
 
             int totalLevels = totalLevelCount * finalEnchants.size();
-
-            int finalPrice = MathHelper.nextInt(random, totalLevelCount, totalLevels) + MathHelper.nextInt(random, 5, 15);
-
+            int finalPrice = MathHelper.nextInt(random, totalLevelCount, totalLevels) +
+                    MathHelper.nextInt(random, 5, 15);
             finalPrice = Math.min(finalPrice, 64);
 
             ItemStack buy = new ItemStack(Items.EMERALD, finalPrice);
@@ -209,18 +207,20 @@ public final class TradeUtil {
 
     public static class RandomPlantOrNameTagTrade implements TradeOffers.Factory {
 
+        private static final Set<Block> PLANTS = Registry.BLOCK.getEntries().stream()
+                .map(Map.Entry::getValue)
+                .filter((block) -> block instanceof PlantBlock)
+                .collect(Collectors.toSet());
+
         public RandomPlantOrNameTagTrade() {
 
         }
-
 
         @Nullable
         @Override
         public TradeOffer create(Entity entity, Random random) {
             if (random.nextBoolean()) {
-                Set<Block> plants = Registry.BLOCK.getEntries().stream().map(Map.Entry::getValue).filter((block) -> block instanceof PlantBlock).collect(Collectors.toSet());
-                Block out = new ArrayList<>(plants).get(random.nextInt(plants.size()));
-
+                Block out = new ArrayList<>(PLANTS).get(random.nextInt(PLANTS.size()));
                 return new TradeOffer(new ItemStack(Items.EMERALD, MathHelper.nextInt(random, 1, 5)), new ItemStack(out, random.nextInt(3) + 1), 8, 2, 1.0f);
             } else {
                 return new TradeOffer(new ItemStack(Items.EMERALD, MathHelper.nextInt(random, 5, 10)), Items.NAME_TAG.getDefaultStack(), 8, 3, 1.0f);
@@ -231,12 +231,13 @@ public final class TradeUtil {
 
     public static class RandomPotionTrade implements TradeOffers.Factory {
 
+        private static final List<Potion> POTIONS =
+                Registry.POTION.getEntries().stream().map(Map.Entry::getValue).toList();
+
         @Nullable
         @Override
         public TradeOffer create(Entity entity, Random random) {
-            List<Potion> potions = Registry.POTION.getEntries().stream().map(Map.Entry::getValue).toList();
-
-            ItemStack out = PotionUtil.setPotion(new ItemStack(Items.POTION), potions.get(random.nextInt(potions.size())));
+            ItemStack out = PotionUtil.setPotion(new ItemStack(Items.POTION), POTIONS.get(random.nextInt(POTIONS.size())));
             ItemStack price = new ItemStack(Items.EMERALD, MathHelper.nextInt(random, 1, 5));
             ItemStack catalyst = new ItemStack(Items.GLASS_BOTTLE);
 
