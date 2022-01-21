@@ -10,6 +10,7 @@ import net.minecraft.block.Blocks;
 import net.minecraft.block.Fertilizable;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
@@ -21,7 +22,10 @@ import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.tag.BlockTags;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.registry.BuiltinRegistries;
+import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
+import net.minecraft.world.biome.BiomeKeys;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Random;
@@ -40,6 +44,15 @@ public class MossyLlamaEntity extends WoollyLlamaEntity {
     @Override
     public int getWoolTimer() {
         return this.dataTracker.get(MOSSY_LLAMA_TIMER);
+    }
+
+    public static boolean canSpawn(EntityType<MossyLlamaEntity> type, ServerWorldAccess worldAccess, SpawnReason reason, BlockPos pos, Random ignoredRandom) {
+        return worldAccess.getEntitiesByClass(
+                type.getBaseClass(),
+                type.createSimpleBoundingBox(pos.getX(), pos.getY(), pos.getZ()).expand(512),
+                entity -> BuiltinRegistries.BIOME.getKey(worldAccess.getBiome(entity.getBlockPos()))
+                        .orElse(BiomeKeys.THE_VOID) == BiomeKeys.LUSH_CAVES
+        ).isEmpty() || reason == SpawnReason.EVENT;
     }
 
     @Override

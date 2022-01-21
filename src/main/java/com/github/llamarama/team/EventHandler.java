@@ -10,6 +10,7 @@ import com.github.llamarama.team.client.entity.mossyllama.MossyLlamaEntityRender
 import com.github.llamarama.team.client.entity.woollyllama.WoollyLlamaEntityModel;
 import com.github.llamarama.team.client.entity.woollyllama.WoollyLlamaEntityRenderer;
 import com.github.llamarama.team.entity.ModEntityTypes;
+import com.github.llamarama.team.entity.mossyllama.MossyLlamaEntity;
 import com.github.llamarama.team.item.ModItems;
 import com.github.llamarama.team.util.IdBuilder;
 import com.github.llamarama.team.util.events.BlockEntityRendererRegistryListener;
@@ -110,7 +111,7 @@ public final class EventHandler {
         );
         listener.addSpawns(
                 BiomeSelectors.includeByKey(BiomeKeys.LUSH_CAVES),
-                SpawnGroup.CREATURE,
+                SpawnGroup.AXOLOTLS,
                 ModEntityTypes.MOSSY_LLAMA,
                 3, 2, 4
         );
@@ -137,9 +138,9 @@ public final class EventHandler {
         );
         SpawnRestrictionAccessor.callRegister(
                 ModEntityTypes.MOSSY_LLAMA,
-                SpawnRestriction.Location.ON_GROUND,
+                SpawnRestriction.Location.NO_RESTRICTIONS,
                 Heightmap.Type.MOTION_BLOCKING_NO_LEAVES,
-                (type, worldAccess, reason, pos, random) -> true
+                MossyLlamaEntity::canSpawn
         );
     }
 
