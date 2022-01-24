@@ -113,8 +113,7 @@ public class CaravanTraderEntity extends MerchantEntity {
     protected ActionResult interactMob(PlayerEntity player, Hand hand) {
         if (player.getStackInHand(hand).getItem() != ModItems.CARAVAN_TRADER_SPAWN_EGG) {
             this.setCurrentCustomer(player);
-            this.sendOffers(player, new LiteralText("Caravan Trader"), 1);
-
+            this.sendOffers(player, this.getName(), 1);
         }
         return ActionResult.SUCCESS;
     }
