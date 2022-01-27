@@ -49,7 +49,7 @@ public class MossyLlamaEntity extends WoollyLlamaEntity {
 
     public static boolean canSpawn(@NotNull EntityType<MossyLlamaEntity> type, @NotNull ServerWorldAccess worldAccess, SpawnReason reason, @NotNull BlockPos pos, Random ignoredRandom) {
         return worldAccess.getEntitiesByClass(
-            type.getBaseClass(),
+            MossyLlamaEntity.class,
             type.createSimpleBoundingBox(pos.getX(), pos.getY(), pos.getZ()).expand(512),
             entity -> BuiltinRegistries.BIOME.getKey(worldAccess.getBiome(entity.getBlockPos()))
                 .orElse(BiomeKeys.THE_VOID) == BiomeKeys.LUSH_CAVES

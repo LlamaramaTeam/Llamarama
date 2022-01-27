@@ -95,11 +95,8 @@ public abstract class MixinLlamaEntity extends AbstractDonkeyEntity implements R
         if (player.getStackInHand(hand).getItem() == Items.BUCKET) {
             return ActionResult.PASS;
         } else if (player.getStackInHand(hand).getItem() == Items.NETHERITE_INGOT && !this.world.isClient) {
-
             player.giveItemStack(ModItemTags.LLAMA_DISCS.getRandom(this.random).getDefaultStack());
-
             player.getStackInHand(hand).decrement(1);
-
             this.world.playSoundFromEntity(null, this, SoundEvents.ENTITY_LLAMA_EAT, SoundCategory.NEUTRAL, 1.0f, 1.0f);
 
             return ActionResult.success(player.getEntityWorld().isClient());
@@ -130,7 +127,6 @@ public abstract class MixinLlamaEntity extends AbstractDonkeyEntity implements R
     @Inject(method = "canBeControlledByRider()Z", at = @At("HEAD"), cancellable = true)
     public void onCanBeControlledByRider(CallbackInfoReturnable<Boolean> returnValue) {
         LivingEntity rider = (LivingEntity) this.getPrimaryPassenger();
-
         boolean out = rider != null && this.isSaddled() && Stream.of(rider.getStackInHand(Hand.MAIN_HAND), rider.getStackInHand(Hand.OFF_HAND)).anyMatch((itemStack) -> itemStack.getItem() == ModItems.HAY_ON_A_STICK);
 
         returnValue.setReturnValue(out);
