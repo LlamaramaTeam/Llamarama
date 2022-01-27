@@ -36,7 +36,7 @@ public class CaravanTraderSpawnFactory implements Spawner {
                 BlockPos validPos = this.getRandomValidPos(world);
 
                 if (validPos == null) {
-                    this.spawnDelay = 5;
+                    this.spawnDelay = 20;
                     return 0;
                 }
 
