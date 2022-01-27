@@ -23,6 +23,7 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.tag.BlockTags;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.BuiltinRegistries;
+import net.minecraft.world.GameRules;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeKeys;
@@ -34,7 +35,7 @@ public class MossyLlamaEntity extends WoollyLlamaEntity {
 
     @NotNull
     private static final TrackedData<Integer> MOSSY_LLAMA_TIMER =
-            DataTracker.registerData(MossyLlamaEntity.class, TrackedDataHandlerRegistry.INTEGER);
+        DataTracker.registerData(MossyLlamaEntity.class, TrackedDataHandlerRegistry.INTEGER);
 
     public MossyLlamaEntity(EntityType<? extends WoollyLlamaEntity> entityType, World world) {
         super(entityType, world);
@@ -46,12 +47,12 @@ public class MossyLlamaEntity extends WoollyLlamaEntity {
         return this.dataTracker.get(MOSSY_LLAMA_TIMER);
     }
 
-    public static boolean canSpawn(EntityType<MossyLlamaEntity> type, ServerWorldAccess worldAccess, SpawnReason reason, BlockPos pos, Random ignoredRandom) {
+    public static boolean canSpawn(@NotNull EntityType<MossyLlamaEntity> type, @NotNull ServerWorldAccess worldAccess, SpawnReason reason, @NotNull BlockPos pos, Random ignoredRandom) {
         return worldAccess.getEntitiesByClass(
-                type.getBaseClass(),
-                type.createSimpleBoundingBox(pos.getX(), pos.getY(), pos.getZ()).expand(512),
-                entity -> BuiltinRegistries.BIOME.getKey(worldAccess.getBiome(entity.getBlockPos()))
-                        .orElse(BiomeKeys.THE_VOID) == BiomeKeys.LUSH_CAVES
+            type.getBaseClass(),
+            type.createSimpleBoundingBox(pos.getX(), pos.getY(), pos.getZ()).expand(512),
+            entity -> BuiltinRegistries.BIOME.getKey(worldAccess.getBiome(entity.getBlockPos()))
+                .orElse(BiomeKeys.THE_VOID) == BiomeKeys.LUSH_CAVES
         ).isEmpty() || reason == SpawnReason.EVENT;
     }
 
@@ -66,10 +67,12 @@ public class MossyLlamaEntity extends WoollyLlamaEntity {
 
         if (!world.isClient) {
             Random random = this.getRandom();
-
             this.trySpawnParticles(random);
-            this.trySpawnMoss(random);
-            this.tryGrowAzalea(random);
+
+            if (this.world.getGameRules().getBoolean(GameRules.DO_MOB_GRIEFING)) {
+                this.trySpawnMoss(random);
+                this.tryGrowAzalea(random);
+            }
         }
     }
 
@@ -85,8 +88,8 @@ public class MossyLlamaEntity extends WoollyLlamaEntity {
         } else if (this.getSheared()) {
             this.setSheared(false);
             world.playSoundFromEntity(null, this,
-                    SoundEvents.BLOCK_GRASS_PLACE,
-                    SoundCategory.AMBIENT, 1.0f, 1.0f);
+                SoundEvents.BLOCK_GRASS_PLACE,
+                SoundCategory.AMBIENT, 1.0f, 1.0f);
         }
     }
 
@@ -112,49 +115,47 @@ public class MossyLlamaEntity extends WoollyLlamaEntity {
     }
 
     private void tryGrowAzalea(@NotNull Random random) {
-        if (this.getSheared() && random.nextInt(1000) == 0) {
+        if (!this.getSheared() && random.nextInt(1000) == 0) {
             BlockPos.streamOutwards(this.getBlockPos(), 1, 1, 1)
-                    .filter(pos -> ModBlockTags.AZALEA_BLOCKS.contains(this.world.getBlockState(pos).getBlock()))
-                    .findFirst()
-                    .ifPresent(pos -> {
-                        BlockState state = world.getBlockState(pos);
+                .filter(pos -> this.world.getBlockState(pos).isIn(ModBlockTags.AZALEA_BLOCKS))
+                .findFirst()
+                .ifPresent(pos -> {
+                    BlockState state = world.getBlockState(pos);
 
-                        if (state.getBlock() instanceof Fertilizable fertilizable) {
-                            fertilizable.grow((ServerWorld) this.world, random, pos, state);
-                        }
-                    });
+                    if (state.getBlock() instanceof Fertilizable fertilizable) {
+                        fertilizable.grow((ServerWorld) this.world, random, pos, state);
+                    }
+                });
         }
     }
 
     private void trySpawnMoss(@NotNull Random random) {
-        boolean isOnMoss = this.world.getBlockState(this.getBlockPos().down()).isOf(Blocks.MOSS_BLOCK);
-        if (random.nextInt(10) == 0 && !PosUtilities.checkForNoVelocity(this.getVelocity()) && !isOnMoss) {
-            BlockPos.streamOutwards(this.getBlockPos(), 2, 1, 2).forEach(pos -> {
-                boolean canMossReplace = this.world.getBlockState(pos).isIn(BlockTags.MOSS_REPLACEABLE);
-
-                if (canMossReplace) {
+        boolean isInPushGrowth =
+            this.world.getBlockState(this.getBlockPos().down()).isIn(ModBlockTags.LUSH_GROWTH);
+        if (random.nextInt(20) == 0 && PosUtilities.checkForNoVelocity(this.getVelocity()) && !isInPushGrowth) {
+            BlockPos.streamOutwards(this.getBlockPos(), 2, 1, 2)
+                .filter(it -> this.world.getBlockState(it).isIn(BlockTags.MOSS_REPLACEABLE))
+                .forEach(pos -> {
                     boolean isWithinDistance = PosUtilities.getDistanceFrom(pos, this.getBlockPos()) <= 2;
 
-                    if (isWithinDistance || random.nextInt(3) == 0) {
+                    if (random.nextInt(2) == 0) {
                         world.setBlockState(pos, Blocks.MOSS_BLOCK.getDefaultState());
-
-                        int azaleaChance = random.nextInt(4);
-
-                        if (PosUtilities.arePositionsEqual(pos.up(), this.getBlockPos())) {
-                            if (azaleaChance == 0) {
-                                boolean flowering = random.nextInt(2) == 0;
-                                BlockState stateToPlace = flowering ?
-                                        Blocks.FLOWERING_AZALEA.getDefaultState() :
-                                        Blocks.AZALEA.getDefaultState();
-
-                                world.setBlockState(pos.up(), stateToPlace);
-                            } else if (azaleaChance == 2) {
-                                world.setBlockState(pos.up(), Blocks.MOSS_CARPET.getDefaultState());
-                            }
-                        }
+                        this.spawnCarpetOrAzalea(random, pos, isWithinDistance);
                     }
-                }
-            });
+                });
+        }
+    }
+
+    private void spawnCarpetOrAzalea(@NotNull Random random, @NotNull BlockPos pos, boolean isWithinDistance) {
+        int azaleaChance = isWithinDistance ? random.nextInt(8) : 69;
+        if (!PosUtilities.arePositionsEqual(pos.up(), this.getBlockPos()) && this.world.getBlockState(pos.up()).isAir()) {
+            if (azaleaChance == 0) {
+                BlockState stateToPlace = random.nextBoolean() ? Blocks.FLOWERING_AZALEA.getDefaultState() :
+                    Blocks.AZALEA.getDefaultState();
+                this.world.setBlockState(pos.up(), stateToPlace);
+            } else if (azaleaChance == 2) {
+                this.world.setBlockState(pos.up(), Blocks.MOSS_CARPET.getDefaultState());
+            }
         }
     }
 
@@ -166,13 +167,13 @@ public class MossyLlamaEntity extends WoollyLlamaEntity {
             BlockPos.Mutable mutable = new BlockPos.Mutable();
             for (int i = random.nextInt(20); i > 0; i--) {
                 mutable.set(llamaPos.getX() + random.nextInt(10),
-                        llamaPos.getY() + random.nextInt(10),
-                        llamaPos.getZ() + random.nextInt(10));
+                    llamaPos.getY() + random.nextInt(10),
+                    llamaPos.getZ() + random.nextInt(10));
                 ((ServerWorld) this.world).spawnParticles(ParticleTypes.SPORE_BLOSSOM_AIR,
-                        llamaPos.getX() + random.nextGaussian(),
-                        llamaPos.getY() + random.nextGaussian() + 1,
-                        llamaPos.getZ() + random.nextGaussian(),
-                        1, 0, 0, 0, 0.3
+                    llamaPos.getX() + random.nextGaussian(),
+                    llamaPos.getY() + random.nextGaussian() + 1,
+                    llamaPos.getZ() + random.nextGaussian(),
+                    1, 0, 0, 0, 0.3
                 );
             }
         }
