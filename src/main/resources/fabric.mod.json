@@ -4,6 +4,9 @@
     "version": "${version}",
     "name": "Llamarama",
     "description": "General improvements to llamas gone insane!!!",
+    "contributors": [
+        "chen_index(Chinese translation)"
+    ],
     "authors": [
         "DigitalPear",
         "0xJoeMama",
