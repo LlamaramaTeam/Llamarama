@@ -12,7 +12,7 @@ until you find one of our mobs.
 # Different mobs you can find around the world include:  
 
 ## Normal llamas
-Normal llamas have had some upgrades. Now they can be ridden and controlled using the [Hay on a Stick item](./README.md#hay-on-a-stick).
+Normal llamas have had some upgrades. Now they can be ridden and controlled using the [Hay on a Stick item](#hay-on-a-stick).
 
 ## The Woolly Llama
 People say it's an alpaca...nahh. It is a new variaty of llama that spawns in mountains.  
@@ -32,7 +32,7 @@ You could also try bone-mealing this llama and from what I've heard from researc
 Even without your assistance, this llama will spread life around it, when it moves.
 
 ## The Mossy Llama
-Unlike the [Bumble Llama](./README.md#the-bumble-llama) that found its home in flower forests,  
+Unlike the [Bumble Llama](#the-bumble-llama) that found its home in flower forests,  
 this one went deep underground where it found [Lush Caves](https://minecraft.fandom.com/wiki/Lush_Caves).  
 The underground growth of those caves, crept up on the llama and slowly mutated it. That lead to the creation  
 of a new species. A llama able to spread lush growth, grow azalea trees, camoufladge itself in moss and also  
@@ -56,17 +56,17 @@ I mean the name pretty much explains itself. Crafter with a piece of wheat and a
 the hay on a stick allows you to control llamas when riding them.
 
 ## Llama Wool, Llama Wool Beds and Rugs
-A new type of wool that you get from shearing [Woolly Llamas](./README.md#the-woolly-llama).  
+A new type of wool that you get from shearing [Woolly Llamas](#the-woolly-llama).  
 You can create a bed and a carpet out of it. However this rough carpet, would scratch the back of a llama,  
 therefore it's not a good idea to place it on them...
 
 ## Llama Milk and Llama Cheese
-The [Caravan Trader](./README.md#the-caravan-trader) has a chance to give you a deal with Llama Milk.  
+The [Caravan Trader](#the-caravan-trader) has a chance to give you a deal with Llama Milk.  
 It's pretty much normal milk, but made from llamas. By smelting the milk, you will get some cheese,   
 which is very beneficial to your health. :)
 
 ## Llama Meat
-The [Caravan Trader](./README.md#the-caravan-trader) sometimes offers Llama Meat in his trades. This meat is from  
+The [Caravan Trader](#the-caravan-trader) sometimes offers Llama Meat in his trades. This meat is from  
 llamas that had an accident. He wasn't the one who killed them. He sells the meat, so that he can raise money  
 and protect other llamas from having the same fate. 
 
@@ -76,7 +76,7 @@ Be a good person and help him, so that no other llamas have to get hurt.
 A unique element of this mod is the [Music Discs](https://minecraft.fandom.com/wiki/Music_Disc) it adds.  
 A new music disc has been added for every llama variant. You can check out the songs [here](https://soundcloud.com/digital-pear-gaming/sets/llamarama-soundtrack).
 
-However, we do suggest trying to get the songs in-game. For that you can try finding a [Caravan Trader](./README.md#the-caravan-trader), who will trade for them.
+However, we do suggest trying to get the songs in-game. For that you can try finding a [Caravan Trader](#the-caravan-trader), who will trade for them.
 Well, whatever you do, do NOT attempt to feed metals to animals...it's a really bad idea. At least the vet old me so...;)
 
 # Building the project yourself
