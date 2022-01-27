@@ -36,18 +36,22 @@ public class CaravanTraderSpawnFactory implements Spawner {
                 BlockPos validPos = this.getRandomValidPos(world);
 
                 if (validPos == null) {
-                    this.spawnDelay = 20 * 40;
+                    this.spawnDelay = 20;
                     return 0;
                 }
 
-                CaravanTraderEntity spawnedEntity = ModEntityTypes.CARAVAN_TRADER.spawn(world, null, null, null, validPos, SpawnReason.EVENT, false, false);
+                CaravanTraderEntity spawnedEntity = ModEntityTypes.CARAVAN_TRADER.spawn(
+                        world,
+                        null,
+                        null,
+                        null,
+                        validPos,
+                        SpawnReason.EVENT,
+                        true,
+                        false
+                );
 
                 if (spawnedEntity != null) {
-                    spawnedEntity.initialize(world, world.getLocalDifficulty(validPos), SpawnReason.EVENT, null, null);
-
-                    spawnedEntity.setPos(validPos.getX(), validPos.getY(), validPos.getZ());
-                    spawnedEntity.updateTrackedPosition(validPos.getX(), validPos.getY(), validPos.getZ());
-
                     this.spawnDelay = nextSpawnDelay(world.getRandom());
                     return this.spawnLlamas(world, spawnedEntity) + 1;
                 }
@@ -66,7 +70,8 @@ public class CaravanTraderSpawnFactory implements Spawner {
 
         if (player != null) {
             BlockPos alteredPos = PosUtilities.getRandomPosInArea(world, player.getBlockPos(), 128, false);
-            return SpawnHelper.canSpawn(SpawnRestriction.Location.ON_GROUND, world, alteredPos, ModEntityTypes.CARAVAN_TRADER) ? alteredPos.toImmutable() : null;
+            return SpawnHelper.canSpawn(SpawnRestriction.Location.ON_GROUND, world, alteredPos,
+                    ModEntityTypes.CARAVAN_TRADER) ? alteredPos.toImmutable() : null;
         } else {
             return null;
         }
@@ -83,17 +88,16 @@ public class CaravanTraderSpawnFactory implements Spawner {
                     BlockPos randomLlamaPos = PosUtilities.getRandomPosInArea(world, traderPos, 3, false);
 
                     if (PosUtilities.getDistanceFrom(Vec3d.ofCenter(randomLlamaPos), merchant.getPos()) < 4) {
-                        LlamaEntity llamaSpawn = (LlamaEntity) ModEntityTags.LLAMAS.getRandom(random)
-                                .create(
-                                        world,
-                                        null,
-                                        null,
-                                        null,
-                                        randomLlamaPos,
-                                        SpawnReason.EVENT,
-                                        false,
-                                        false
-                                );
+                        LlamaEntity llamaSpawn = (LlamaEntity) ModEntityTags.LLAMAS.getRandom(random).create(
+                                world,
+                                null,
+                                null,
+                                null,
+                                randomLlamaPos,
+                                SpawnReason.EVENT,
+                                false,
+                                false
+                        );
 
                         if (llamaSpawn != null) {
                             merchant.setCurrentLlama(llamaSpawn);
