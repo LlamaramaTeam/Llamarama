@@ -65,6 +65,13 @@ The [Caravan Trader](./README.md#the-caravan-trader) has a chance to give you a 
 It's pretty much normal milk, but made from llamas. By smelting the milk, you will get some cheese,   
 which is very beneficial to your health. :)
 
+## Llama Meat
+The [Caravan Trader](./README.md#the-caravan-trader) sometimes offers Llama Meat in his trades. This meat is from  
+llamas that had an accident. He wasn't the one who killed them. He sells the meat, so that he can raise money  
+and protect other llamas from having the same fate. 
+
+Be a good person and help him, so that no other llamas have to get hurt.
+
 ## Music Discs
 A unique element of this mod is the [Music Discs](https://minecraft.fandom.com/wiki/Music_Disc) it adds.  
 A new music disc has been added for every llama variant. You can check out the songs [here](https://soundcloud.com/digital-pear-gaming/sets/llamarama-soundtrack).
