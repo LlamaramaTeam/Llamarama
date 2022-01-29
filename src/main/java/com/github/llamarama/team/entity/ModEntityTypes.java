@@ -27,7 +27,7 @@ public final class ModEntityTypes {
             register(CaravanTraderEntity::new, SpawnGroup.MISC, 0.6f, 1.95f, true, 10,
                     CaravanTraderEntity::createAttributes, "caravan_trader");
     public static final EntityType<MossyLlamaEntity> MOSSY_LLAMA =
-            register(MossyLlamaEntity::new, SpawnGroup.CREATURE, 0.9f, 1.87f, false, 10,
+            register(MossyLlamaEntity::new, SpawnGroup.AXOLOTLS, 0.9f, 1.87f, false, 10,
                     WoollyLlamaEntity::createLlamaAttributes, "mossy_llama");
 
     private ModEntityTypes() {
