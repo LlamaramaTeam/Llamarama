@@ -23,10 +23,10 @@
     "environment": "*",
     "entrypoints": {
         "main": [
-            "com.github.llamarama.team.Llamarama"
+            "io.github.llamarama.team.Llamarama"
         ],
         "client": [
-            "com.github.llamarama.team.client.LlamaramaClient"
+            "io.github.llamarama.team.client.LlamaramaClient"
         ]
     },
     "mixins": [
