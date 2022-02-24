@@ -25,9 +25,9 @@ public class CaravanGoal<T extends LlamaEntity> extends Goal {
     public boolean canStart() {
         if (!this.entity.isLeashed() && !this.entity.isFollowing()) {
             Set<Entity> near = new HashSet<>(this.entity.world.getOtherEntities(
-                    this.entity,
-                    this.entity.getBoundingBox().expand(16.0d),
-                    entity -> entity instanceof LlamaEntity
+                this.entity,
+                this.entity.getBoundingBox().expand(16.0d),
+                entity -> entity instanceof LlamaEntity
             ));
 
             T current;
@@ -57,22 +57,22 @@ public class CaravanGoal<T extends LlamaEntity> extends Goal {
         Vec3d currentPos = this.entity.getPos();
         Vec3d followingPos = this.entity.getFollowing().getPos();
         Vec3d crossProduct = followingPos
-                .add(currentPos.multiply(-1d))
-                .multiply(this.entity.distanceTo(this.entity.getFollowing()) - 2.0d);
+            .add(currentPos.multiply(-1d))
+            .multiply(this.entity.distanceTo(this.entity.getFollowing()) - 2.0d);
 
         this.entity.getNavigation().startMovingTo(
-                currentPos.getX() + crossProduct.getX(),
-                currentPos.getY() + crossProduct.getY(),
-                currentPos.getZ() + crossProduct.getZ(), this.speed);
+            currentPos.getX() + crossProduct.getX(),
+            currentPos.getY() + crossProduct.getY(),
+            currentPos.getZ() + crossProduct.getZ(), this.speed);
     }
 
     @Override
     public boolean shouldContinue() {
         return this.entity.isAlive() && this.entity.isFollowing() &&
-                this.entity.getFollowing() != null &&
-                this.entity.getFollowing().isAlive() &&
-                !this.entity.isLeashed() &&
-                this.canFollow(this.entity, 0);
+            this.entity.getFollowing() != null &&
+            this.entity.getFollowing().isAlive() &&
+            !this.entity.isLeashed() &&
+            this.canFollow(this.entity, 0);
     }
 
     @Override

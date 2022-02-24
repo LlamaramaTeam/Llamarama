@@ -1,8 +1,8 @@
 package io.github.llamarama.team.client.entity.bumblellama;
 
+import com.google.common.collect.ImmutableList;
 import io.github.llamarama.team.entity.bumbllama.BumbleLlamaEntity;
 import io.github.llamarama.team.util.IdBuilder;
-import com.google.common.collect.ImmutableList;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.render.entity.EntityRendererFactory;
@@ -14,12 +14,12 @@ import net.minecraft.util.Identifier;
 public class BumbleLlamaEntityRenderer extends MobEntityRenderer<BumbleLlamaEntity, BumbleLlamaEntityModel<BumbleLlamaEntity>> {
 
     public static final EntityModelLayer BUMBLE_LLAMA =
-            new EntityModelLayer(IdBuilder.of("bumble_llama"), "main");
+        new EntityModelLayer(IdBuilder.of("bumble_llama"), "main");
     private final ImmutableList<Identifier> TEXTURES =
-            ImmutableList.of(
-                    IdBuilder.of("textures/entity/bumble_llama/bumble_llama.png"),
-                    IdBuilder.of("textures/entity/bumble_llama/bumble_llama_hive_empty.png")
-            );
+        ImmutableList.of(
+            IdBuilder.of("textures/entity/bumble_llama/bumble_llama.png"),
+            IdBuilder.of("textures/entity/bumble_llama/bumble_llama_hive_empty.png")
+        );
 
     public BumbleLlamaEntityRenderer(EntityRendererFactory.Context context) {
         super(context, new BumbleLlamaEntityModel<>(context.getPart(BUMBLE_LLAMA)), 0.5f);

@@ -29,9 +29,9 @@ import java.util.List;
 public class BumbleLlamaEntity extends WoollyLlamaEntity {
 
     private static final List<Item> FLOWER_LIST = ItemTags.FLOWERS.values()
-            .stream()
-            .filter((item) -> item != Items.WITHER_ROSE)
-            .toList();
+        .stream()
+        .filter((item) -> item != Items.WITHER_ROSE)
+        .toList();
 
     public BumbleLlamaEntity(EntityType<? extends WoollyLlamaEntity> entityType, World world) {
         super(entityType, world);
@@ -59,7 +59,7 @@ public class BumbleLlamaEntity extends WoollyLlamaEntity {
 
         if (using.getItem() == Items.GLASS_BOTTLE && !this.getSheared() && !this.world.isClient) {
             ItemStack out =
-                    ItemUsage.exchangeStack(player.getStackInHand(hand), player, Items.HONEY_BOTTLE.getDefaultStack());
+                ItemUsage.exchangeStack(player.getStackInHand(hand), player, Items.HONEY_BOTTLE.getDefaultStack());
             player.setStackInHand(hand, out);
 
             this.setSheared(true);
@@ -97,13 +97,13 @@ public class BumbleLlamaEntity extends WoollyLlamaEntity {
         boolean isChosen = this.random.nextInt(384) == 0;
 
         if (isChosen && !this.world.isClient &&
-                stateForBoneMeal.getBlock() instanceof Fertilizable fertilizable &&
-                PosUtilities.checkForNoVelocity(this.getVelocity())) {
+            stateForBoneMeal.getBlock() instanceof Fertilizable fertilizable &&
+            PosUtilities.checkForNoVelocity(this.getVelocity())) {
             fertilizable.grow((ServerWorld) this.world, this.random, down, stateForBoneMeal);
 
             ((ServerWorld) this.world).spawnParticles(
-                    ParticleTypes.HAPPY_VILLAGER, this.getX(), this.getY(), this.getZ(),
-                    20, 2d, 2d, 2d, 0.0d
+                ParticleTypes.HAPPY_VILLAGER, this.getX(), this.getY(), this.getZ(),
+                20, 2d, 2d, 2d, 0.0d
             );
         }
     }

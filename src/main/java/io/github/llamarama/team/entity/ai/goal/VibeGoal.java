@@ -43,10 +43,10 @@ public class VibeGoal extends Goal {
             }
 
             this.entity.getLookControl()
-                    .lookAt(this.targetPosVector.getX(),
-                            this.targetPosVector.getY() + this.extraY,
-                            this.targetPosVector.getZ()
-                    );
+                .lookAt(this.targetPosVector.getX(),
+                    this.targetPosVector.getY() + this.extraY,
+                    this.targetPosVector.getZ()
+                );
 
         } else {
             this.extraY = 0f;

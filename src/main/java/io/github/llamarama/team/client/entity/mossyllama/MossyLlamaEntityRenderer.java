@@ -11,7 +11,7 @@ public class MossyLlamaEntityRenderer extends MobEntityRenderer<MossyLlamaEntity
 
     public static final Identifier TEXTURE = IdBuilder.of("textures/entity/mossy_llama/mossy_llama.png");
     public static final EntityModelLayer MOSSY_LLAMA =
-            new EntityModelLayer(IdBuilder.of("mossy_llama"), "main");
+        new EntityModelLayer(IdBuilder.of("mossy_llama"), "main");
 
     public MossyLlamaEntityRenderer(EntityRendererFactory.Context context) {
         super(context, new MossyLlamaEntityModel<>(context.getPart(MOSSY_LLAMA)), 0.7f);

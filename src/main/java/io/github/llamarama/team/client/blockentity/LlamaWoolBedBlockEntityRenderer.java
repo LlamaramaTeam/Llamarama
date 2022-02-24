@@ -30,9 +30,9 @@ import net.minecraft.world.World;
 public class LlamaWoolBedBlockEntityRenderer implements BlockEntityRenderer<LlamaWoolBedBlockEntity> {
 
     public static final EntityModelLayer LLAMA_BED_HEAD =
-            new EntityModelLayer(IdBuilder.of("llama_bed_head"), "main");
+        new EntityModelLayer(IdBuilder.of("llama_bed_head"), "main");
     public static final EntityModelLayer LLAMA_BED_FOOT =
-            new EntityModelLayer(IdBuilder.of("llama_bed_foot"), "main");
+        new EntityModelLayer(IdBuilder.of("llama_bed_foot"), "main");
     private final ModelPart bedHead;
     private final ModelPart bedFoot;
 
@@ -69,7 +69,7 @@ public class LlamaWoolBedBlockEntityRenderer implements BlockEntityRenderer<Llam
             DoubleBlockProperties.PropertySource<? extends BedBlockEntity> propertySource = DoubleBlockProperties.toPropertySource(BlockEntityType.BED, BedBlock::getBedPart, BedBlock::getOppositePartDirection, ChestBlock.FACING, blockState, world, entity.getPos(), (worldAccess, blockPos) -> false);
             int k = propertySource.apply(new LightmapCoordinatesRetriever<>()).get(light);
             this.renderPart(matrices, vertexConsumers, blockState.get(BedBlock.PART) == BedPart.HEAD ? this.bedHead : this.bedFoot,
-                    blockState.get(BedBlock.FACING), identifier, k, overlay, false);
+                blockState.get(BedBlock.FACING), identifier, k, overlay, false);
         } else {
             this.renderPart(matrices, vertexConsumers, this.bedHead, Direction.SOUTH, identifier, light, overlay, false);
             this.renderPart(matrices, vertexConsumers, this.bedFoot, Direction.SOUTH, identifier, light, overlay, true);

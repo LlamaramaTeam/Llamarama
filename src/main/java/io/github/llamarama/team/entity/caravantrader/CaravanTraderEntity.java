@@ -78,11 +78,11 @@ public class CaravanTraderEntity extends MerchantEntity {
             int spawn = offer.getMerchantExperience();
 
             this.world.spawnEntity(new ExperienceOrbEntity(
-                    this.world,
-                    this.getX(),
-                    this.getY() + 0.5f,
-                    this.getZ(),
-                    spawn)
+                this.world,
+                this.getX(),
+                this.getY() + 0.5f,
+                this.getZ(),
+                spawn)
             );
         }
     }

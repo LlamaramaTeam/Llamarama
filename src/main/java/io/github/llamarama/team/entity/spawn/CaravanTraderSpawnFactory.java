@@ -41,14 +41,14 @@ public class CaravanTraderSpawnFactory implements Spawner {
                 }
 
                 CaravanTraderEntity spawnedEntity = ModEntityTypes.CARAVAN_TRADER.spawn(
-                        world,
-                        null,
-                        null,
-                        null,
-                        validPos,
-                        SpawnReason.EVENT,
-                        true,
-                        false
+                    world,
+                    null,
+                    null,
+                    null,
+                    validPos,
+                    SpawnReason.EVENT,
+                    true,
+                    false
                 );
 
                 if (spawnedEntity != null) {
@@ -71,7 +71,7 @@ public class CaravanTraderSpawnFactory implements Spawner {
         if (player != null) {
             BlockPos alteredPos = PosUtilities.getRandomPosInArea(world, player.getBlockPos(), 128, false);
             return SpawnHelper.canSpawn(SpawnRestriction.Location.ON_GROUND, world, alteredPos,
-                    ModEntityTypes.CARAVAN_TRADER) ? alteredPos.toImmutable() : null;
+                ModEntityTypes.CARAVAN_TRADER) ? alteredPos.toImmutable() : null;
         } else {
             return null;
         }
@@ -89,14 +89,14 @@ public class CaravanTraderSpawnFactory implements Spawner {
 
                     if (PosUtilities.getDistanceFrom(Vec3d.ofCenter(randomLlamaPos), merchant.getPos()) < 4) {
                         LlamaEntity llamaSpawn = (LlamaEntity) ModEntityTags.LLAMAS.getRandom(random).create(
-                                world,
-                                null,
-                                null,
-                                null,
-                                randomLlamaPos,
-                                SpawnReason.EVENT,
-                                false,
-                                false
+                            world,
+                            null,
+                            null,
+                            null,
+                            randomLlamaPos,
+                            SpawnReason.EVENT,
+                            false,
+                            false
                         );
 
                         if (llamaSpawn != null) {

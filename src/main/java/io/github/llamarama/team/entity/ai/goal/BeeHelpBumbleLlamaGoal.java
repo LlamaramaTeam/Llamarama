@@ -21,8 +21,8 @@ public class BeeHelpBumbleLlamaGoal extends Goal {
     @Override
     public boolean canStart() {
         this.nearLlamas = this.beeEntity.world.getEntitiesByClass(BumbleLlamaEntity.class,
-                this.beeEntity.getBoundingBox().expand(10),
-                bumbleLlamaEntity -> bumbleLlamaEntity.getAttacker() != null);
+            this.beeEntity.getBoundingBox().expand(10),
+            bumbleLlamaEntity -> bumbleLlamaEntity.getAttacker() != null);
 
         return this.nearLlamas.size() != 0;
     }
@@ -40,7 +40,7 @@ public class BeeHelpBumbleLlamaGoal extends Goal {
     @Override
     public void start() {
         Set<BeeEntity> nearBees = new HashSet<>(this.beeEntity.world.getEntitiesByClass(BeeEntity.class,
-                this.beeEntity.getBoundingBox().expand(7), Objects::nonNull));
+            this.beeEntity.getBoundingBox().expand(7), Objects::nonNull));
 
         for (BumbleLlamaEntity bumbleLlamaEntity : this.nearLlamas) {
             LivingEntity attacker = bumbleLlamaEntity.getAttacker();

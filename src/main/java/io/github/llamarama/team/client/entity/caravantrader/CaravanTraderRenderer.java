@@ -17,7 +17,7 @@ import net.minecraft.util.Identifier;
 public class CaravanTraderRenderer extends MobEntityRenderer<CaravanTraderEntity, VillagerResemblingModel<CaravanTraderEntity>> {
 
     public static final EntityModelLayer CARAVAN_TRADER =
-            new EntityModelLayer(IdBuilder.of("caravan_trader"), "main");
+        new EntityModelLayer(IdBuilder.of("caravan_trader"), "main");
 
     public CaravanTraderRenderer(EntityRendererFactory.Context context) {
         super(context, new VillagerResemblingModel<>(context.getPart(CARAVAN_TRADER)), 0.5f);

@@ -1,8 +1,8 @@
 package io.github.llamarama.team.client.entity.woollyllama;
 
+import com.google.common.collect.ImmutableList;
 import io.github.llamarama.team.entity.woolyllama.WoollyLlamaEntity;
 import io.github.llamarama.team.util.IdBuilder;
-import com.google.common.collect.ImmutableList;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.render.OverlayTexture;
@@ -28,8 +28,8 @@ public class WoollyLlamaEntityRenderer extends MobEntityRenderer<WoollyLlamaEnti
     public WoollyLlamaEntityRenderer(EntityRendererFactory.Context context) {
         super(context, new WoollyLlamaEntityModel(context.getPart(WOOLLY_LLAMA)), 0.7F);
         this.TEXTURES = ImmutableList.of(
-                IdBuilder.of("textures/entity/woolly_llama/woolly_llama.png"),
-                IdBuilder.of("textures/entity/woolly_llama/woolly_llama_sheared.png")
+            IdBuilder.of("textures/entity/woolly_llama/woolly_llama.png"),
+            IdBuilder.of("textures/entity/woolly_llama/woolly_llama_sheared.png")
         );
         this.addFeature(new WoollyLlamaDecorRenderer(this, context));
     }
@@ -42,24 +42,24 @@ public class WoollyLlamaEntityRenderer extends MobEntityRenderer<WoollyLlamaEnti
     public static class WoollyLlamaDecorRenderer extends FeatureRenderer<WoollyLlamaEntity, WoollyLlamaEntityModel> {
 
         public static final EntityModelLayer WOOLLY_LLAMA_DECOR =
-                new EntityModelLayer(IdBuilder.of("woolly_llama"), "decor");
+            new EntityModelLayer(IdBuilder.of("woolly_llama"), "decor");
         private static final Identifier[] LLAMA_DECOR = new Identifier[]{
-                new Identifier("textures/entity/llama/decor/white.png"),
-                new Identifier("textures/entity/llama/decor/orange.png"),
-                new Identifier("textures/entity/llama/decor/magenta.png"),
-                new Identifier("textures/entity/llama/decor/light_blue.png"),
-                new Identifier("textures/entity/llama/decor/yellow.png"),
-                new Identifier("textures/entity/llama/decor/lime.png"),
-                new Identifier("textures/entity/llama/decor/pink.png"),
-                new Identifier("textures/entity/llama/decor/gray.png"),
-                new Identifier("textures/entity/llama/decor/light_gray.png"),
-                new Identifier("textures/entity/llama/decor/cyan.png"),
-                new Identifier("textures/entity/llama/decor/purple.png"),
-                new Identifier("textures/entity/llama/decor/blue.png"),
-                new Identifier("textures/entity/llama/decor/brown.png"),
-                new Identifier("textures/entity/llama/decor/green.png"),
-                new Identifier("textures/entity/llama/decor/red.png"),
-                new Identifier("textures/entity/llama/decor/black.png")
+            new Identifier("textures/entity/llama/decor/white.png"),
+            new Identifier("textures/entity/llama/decor/orange.png"),
+            new Identifier("textures/entity/llama/decor/magenta.png"),
+            new Identifier("textures/entity/llama/decor/light_blue.png"),
+            new Identifier("textures/entity/llama/decor/yellow.png"),
+            new Identifier("textures/entity/llama/decor/lime.png"),
+            new Identifier("textures/entity/llama/decor/pink.png"),
+            new Identifier("textures/entity/llama/decor/gray.png"),
+            new Identifier("textures/entity/llama/decor/light_gray.png"),
+            new Identifier("textures/entity/llama/decor/cyan.png"),
+            new Identifier("textures/entity/llama/decor/purple.png"),
+            new Identifier("textures/entity/llama/decor/blue.png"),
+            new Identifier("textures/entity/llama/decor/brown.png"),
+            new Identifier("textures/entity/llama/decor/green.png"),
+            new Identifier("textures/entity/llama/decor/red.png"),
+            new Identifier("textures/entity/llama/decor/black.png")
         };
         private final WoollyLlamaEntityModel model;
 

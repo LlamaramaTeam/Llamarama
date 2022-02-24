@@ -23,7 +23,7 @@ public class HayOnAStickItem extends Item {
 
         if (!world.isClient()) {
             if (user.hasVehicle() && user.getVehicle() instanceof LlamaEntity &&
-                    user.getVehicle() instanceof ItemSteerable riding) {
+                user.getVehicle() instanceof ItemSteerable riding) {
 
                 if (riding.consumeOnAStickItem()) {
                     handItem.damage(5, user, (playerEntity) -> playerEntity.sendToolBreakStatus(hand));

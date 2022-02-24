@@ -25,9 +25,9 @@ public class Llamarama implements ModInitializer {
     public static final Logger LOGGER = LogManager.getLogger(MOD_NAME);
 
     public static final ItemGroup LLAMA_ITEM_GROUP =
-            FabricItemGroupBuilder.create(IdBuilder.of("llama_item_group"))
-                    .icon(() -> new ItemStack(ModItems.WOOLLY_LLAMA_SPAWN_EGG))
-                    .build();
+        FabricItemGroupBuilder.create(IdBuilder.of("llama_item_group"))
+            .icon(() -> new ItemStack(ModItems.WOOLLY_LLAMA_SPAWN_EGG))
+            .build();
 
     @Override
     public void onInitialize() {

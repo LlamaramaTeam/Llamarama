@@ -19,7 +19,7 @@ public class MoveToBlockGoal extends MoveToTargetPosGoal {
     @Override
     protected boolean isTargetPos(WorldView world, BlockPos pos) {
         return world.getBlockState(pos) == this.targetBlock &&
-                this.mob.world.getBlockState(this.mob.getBlockPos().down()).getBlock().equals(Blocks.GRASS);
+            this.mob.world.getBlockState(this.mob.getBlockPos().down()).getBlock().equals(Blocks.GRASS);
     }
 
 }

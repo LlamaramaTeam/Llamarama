@@ -46,6 +46,7 @@ import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.Heightmap;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BiomeKeys;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Collection;
 import java.util.Set;
@@ -55,13 +56,13 @@ public final class EventHandler {
 
     private static EventHandler eventHandler;
     private final Collection<RegistryKey<Biome>> MOUNTAIN_KEYS = Set.of(
-            BiomeKeys.SNOWY_SLOPES,
-            BiomeKeys.FROZEN_PEAKS,
-            BiomeKeys.JAGGED_PEAKS,
-            BiomeKeys.STONY_PEAKS,
-            BiomeKeys.MEADOW,
-            BiomeKeys.WINDSWEPT_HILLS,
-            BiomeKeys.WINDSWEPT_GRAVELLY_HILLS
+        BiomeKeys.SNOWY_SLOPES,
+        BiomeKeys.FROZEN_PEAKS,
+        BiomeKeys.JAGGED_PEAKS,
+        BiomeKeys.STONY_PEAKS,
+        BiomeKeys.MEADOW,
+        BiomeKeys.WINDSWEPT_HILLS,
+        BiomeKeys.WINDSWEPT_GRAVELLY_HILLS
     );
 
     private EventHandler() {
@@ -79,18 +80,18 @@ public final class EventHandler {
         if (IdBuilder.vanillaOf("entities/llama").equals(identifier)) {
 
             FabricLootPoolBuilder pool =
-                    FabricLootPoolBuilder.builder()
-                            .rolls(ConstantLootNumberProvider.create(1))
-                            .withEntry(ItemEntry.builder(ModItems.RAW_LLAMA_MEAT).build())
-                            .withFunction(FurnaceSmeltLootFunction.builder()
-                                    .conditionally(EntityPropertiesLootCondition
-                                            .builder(LootContext.EntityTarget.THIS,
-                                                    EntityPredicate.Builder.create()
-                                                            .flags(EntityFlagsPredicate.Builder.create()
-                                                                    .onFire(true).build())))
-                                    .build())
-                            .withFunction(LootingEnchantLootFunction.builder(UniformLootNumberProvider.create(1, 2))
-                                    .build());
+                FabricLootPoolBuilder.builder()
+                    .rolls(ConstantLootNumberProvider.create(1))
+                    .withEntry(ItemEntry.builder(ModItems.RAW_LLAMA_MEAT).build())
+                    .withFunction(FurnaceSmeltLootFunction.builder()
+                        .conditionally(EntityPropertiesLootCondition
+                            .builder(LootContext.EntityTarget.THIS,
+                                EntityPredicate.Builder.create()
+                                    .flags(EntityFlagsPredicate.Builder.create()
+                                        .onFire(true).build())))
+                        .build())
+                    .withFunction(LootingEnchantLootFunction.builder(UniformLootNumberProvider.create(1, 2))
+                        .build());
 
             fabricLootSupplierBuilder.withPool(pool.build());
         }
@@ -98,59 +99,59 @@ public final class EventHandler {
 
     public void addSpawnsListener(SpawnEventListener listener) {
         listener.addSpawns(
-                BiomeSelectors.includeByKey(this.MOUNTAIN_KEYS),
-                SpawnGroup.CREATURE,
-                ModEntityTypes.WOOLLY_LLAMA,
-                5, 3, 6
+            BiomeSelectors.includeByKey(this.MOUNTAIN_KEYS),
+            SpawnGroup.CREATURE,
+            ModEntityTypes.WOOLLY_LLAMA,
+            5, 3, 6
         );
         listener.addSpawns(
-                BiomeSelectors.includeByKey(BiomeKeys.FLOWER_FOREST),
-                SpawnGroup.CREATURE,
-                ModEntityTypes.BUMBLE_LLAMA,
-                3, 4, 7
+            BiomeSelectors.includeByKey(BiomeKeys.FLOWER_FOREST),
+            SpawnGroup.CREATURE,
+            ModEntityTypes.BUMBLE_LLAMA,
+            3, 4, 7
         );
         listener.addSpawns(
-                BiomeSelectors.includeByKey(BiomeKeys.LUSH_CAVES),
-                SpawnGroup.AXOLOTLS,
-                ModEntityTypes.MOSSY_LLAMA,
-                3, 2, 4
+            BiomeSelectors.includeByKey(BiomeKeys.LUSH_CAVES),
+            SpawnGroup.AXOLOTLS,
+            ModEntityTypes.MOSSY_LLAMA,
+            3, 2, 4
         );
     }
 
     public void registerSpawnRestrictions() {
         SpawnRestrictionAccessor.callRegister(
-                ModEntityTypes.WOOLLY_LLAMA,
-                SpawnRestriction.Location.ON_GROUND,
-                Heightmap.Type.MOTION_BLOCKING_NO_LEAVES,
-                AnimalEntity::isValidNaturalSpawn
+            ModEntityTypes.WOOLLY_LLAMA,
+            SpawnRestriction.Location.ON_GROUND,
+            Heightmap.Type.MOTION_BLOCKING_NO_LEAVES,
+            AnimalEntity::isValidNaturalSpawn
         );
         SpawnRestrictionAccessor.callRegister(
-                ModEntityTypes.BUMBLE_LLAMA,
-                SpawnRestriction.Location.ON_GROUND,
-                Heightmap.Type.MOTION_BLOCKING_NO_LEAVES,
-                AnimalEntity::isValidNaturalSpawn
+            ModEntityTypes.BUMBLE_LLAMA,
+            SpawnRestriction.Location.ON_GROUND,
+            Heightmap.Type.MOTION_BLOCKING_NO_LEAVES,
+            AnimalEntity::isValidNaturalSpawn
         );
         SpawnRestrictionAccessor.callRegister(
-                ModEntityTypes.CARAVAN_TRADER,
-                SpawnRestriction.Location.NO_RESTRICTIONS,
-                Heightmap.Type.MOTION_BLOCKING_NO_LEAVES,
-                MobEntity::canMobSpawn
+            ModEntityTypes.CARAVAN_TRADER,
+            SpawnRestriction.Location.NO_RESTRICTIONS,
+            Heightmap.Type.MOTION_BLOCKING_NO_LEAVES,
+            MobEntity::canMobSpawn
         );
         SpawnRestrictionAccessor.callRegister(
-                ModEntityTypes.MOSSY_LLAMA,
-                SpawnRestriction.Location.NO_RESTRICTIONS,
-                Heightmap.Type.MOTION_BLOCKING_NO_LEAVES,
-                MossyLlamaEntity::canSpawn
+            ModEntityTypes.MOSSY_LLAMA,
+            SpawnRestriction.Location.NO_RESTRICTIONS,
+            Heightmap.Type.MOTION_BLOCKING_NO_LEAVES,
+            MossyLlamaEntity::canSpawn
         );
     }
 
     @Environment(EnvType.CLIENT)
-    public void addBlockEntityRegisterListener(BlockEntityRendererRegistryListener listener) {
+    public void addBlockEntityRegisterListener(@NotNull BlockEntityRendererRegistryListener listener) {
         listener.registerRenderer(ModBlockEntityTypes.LLAMA_WOOL_BED, LlamaWoolBedBlockEntityRenderer::new);
     }
 
     @Environment(EnvType.CLIENT)
-    public void addEntityRendererListener(EntityRendererListener listener) {
+    public void addEntityRendererListener(@NotNull EntityRendererListener listener) {
         listener.registerRenderer(ModEntityTypes.WOOLLY_LLAMA, WoollyLlamaEntityRenderer::new);
         listener.registerRenderer(ModEntityTypes.BUMBLE_LLAMA, BumbleLlamaEntityRenderer::new);
         listener.registerRenderer(ModEntityTypes.CARAVAN_TRADER, CaravanTraderRenderer::new);
@@ -158,25 +159,25 @@ public final class EventHandler {
     }
 
     @Environment(EnvType.CLIENT)
-    public void addEntityModelLayers(EntityLayerRegistryListener listener) {
+    public void addEntityModelLayers(@NotNull EntityLayerRegistryListener listener) {
         listener.register(LlamaWoolBedBlockEntityRenderer.LLAMA_BED_HEAD,
-                LlamaWoolBedBlockEntityRenderer::getHeadTexturedModelData);
+            LlamaWoolBedBlockEntityRenderer::getHeadTexturedModelData);
         listener.register(LlamaWoolBedBlockEntityRenderer.LLAMA_BED_FOOT,
-                LlamaWoolBedBlockEntityRenderer::getFootTexturedModelData);
+            LlamaWoolBedBlockEntityRenderer::getFootTexturedModelData);
 
         listener.register(WoollyLlamaEntityRenderer.WOOLLY_LLAMA,
-                WoollyLlamaEntityModel::getTexturedModelData);
+            WoollyLlamaEntityModel::getTexturedModelData);
         listener.register(WoollyLlamaEntityRenderer.WoollyLlamaDecorRenderer.WOOLLY_LLAMA_DECOR,
-                WoollyLlamaEntityModel::getTexturedModelData);
+            WoollyLlamaEntityModel::getTexturedModelData);
 
         listener.register(BumbleLlamaEntityRenderer.BUMBLE_LLAMA,
-                BumbleLlamaEntityModel::getTexturedModelData);
+            BumbleLlamaEntityModel::getTexturedModelData);
 
         listener.register(CaravanTraderRenderer.CARAVAN_TRADER,
-                () -> TexturedModelData.of(VillagerResemblingModel.getModelData(), 64, 64));
+            () -> TexturedModelData.of(VillagerResemblingModel.getModelData(), 64, 64));
 
         listener.register(MossyLlamaEntityRenderer.MOSSY_LLAMA,
-                MossyLlamaEntityModel::getTexturedModelData);
+            MossyLlamaEntityModel::getTexturedModelData);
     }
 
 }

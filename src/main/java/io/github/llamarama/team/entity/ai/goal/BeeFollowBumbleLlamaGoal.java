@@ -26,9 +26,9 @@ public class BeeFollowBumbleLlamaGoal extends Goal {
     public boolean canStart() {
         if (!this.currentlyFollowing && !this.beeEntity.hasNectar() && !this.beeEntity.hasAngerTime()) {
             Set<BumbleLlamaEntity> nearEntities =
-                    new HashSet<>(this.beeEntity.getEntityWorld().getEntitiesByClass(BumbleLlamaEntity.class,
-                            this.beeEntity.getBoundingBox().expand(10.0d),
-                            Objects::nonNull));
+                new HashSet<>(this.beeEntity.getEntityWorld().getEntitiesByClass(BumbleLlamaEntity.class,
+                    this.beeEntity.getBoundingBox().expand(10.0d),
+                    Objects::nonNull));
 
             nearEntities.forEach((bumbleLlamaEntity) -> {
                 double distanceTo = PosUtilities.getDistanceFrom(this.beeEntity.getPos(), bumbleLlamaEntity.getPos());

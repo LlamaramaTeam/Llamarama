@@ -29,31 +29,31 @@ import java.util.stream.Collectors;
 public final class TradeUtil {
 
     public static final TradeOffers.Factory[] FACTORY = new TradeOffers.Factory[]{
-            new SellOneForBuyOne(ModItems.FLIGHT_OF_THE_BUMBLE_LLAMA, ModItems.LLAMAJAMA),
-            new SellOneForBuyOne(ModItems.LLAMAJAMA, ModItems.LLAMARAMA),
-            new SellOneForBuyOne(ModItems.FLIGHT_OF_THE_BUMBLE_LLAMA, ModItems.LLAMARAMA),
-            new DefaultTrade(ModItems.LLAMA_MILK, 1, ModItems.LLAMA_CHEESE, 4),
-            new DefaultTrade(Items.EMERALD, 2, ModItems.LLAMA_MILK, 1),
-            new SellRandomForBuyRandom(Items.EMERALD, ModItems.RAW_LLAMA_MEAT, 6, 6, 1, 1),
-            new VillageMapTrade(),
-            new RandomMaxEnchantTrade(),
-            new CombinedEnchantmentTrade(),
-            new RandomPlantOrNameTagTrade(),
-            new RandomPotionTrade(),
-            new BuyItemsForEmerald(ModBlocks.LLAMA_WOOL.asItem(), 24, 16),
-            new BuyItemsForEmerald(Items.COMPASS, 6, 3),
-            new SellOneForBuyOne(Items.DIAMOND, Items.EMERALD),
-            new SellOneForBuyOne(Items.IRON_INGOT, Items.GOLD_INGOT),
-            new SellOneForBuyOne(Items.EMERALD, Items.DIAMOND),
-            new SellOneForBuyOne(Items.GOLD_INGOT, Items.IRON_INGOT),
-            new BuyItemsForEmerald(Items.COAL, 18, 8),
-            new BuyItemsForEmerald(Items.PAPER, 24, 16),
-            new BuyItemsForEmerald(Items.GLASS_PANE, 12, 20),
-            new SellForOneEmerald(Items.REDSTONE, 4),
-            new SellForOneEmerald(Items.LAPIS_LAZULI, 4),
-            new SellForOneEmerald(Items.SLIME_BALL, 4),
-            new DefaultTrade(Items.EMERALD, 2, Items.IRON_INGOT, 4),
-            new DefaultTrade(Items.EMERALD, 2, Items.GOLD_INGOT, 4)
+        new SellOneForBuyOne(ModItems.FLIGHT_OF_THE_BUMBLE_LLAMA, ModItems.LLAMAJAMA),
+        new SellOneForBuyOne(ModItems.LLAMAJAMA, ModItems.LLAMARAMA),
+        new SellOneForBuyOne(ModItems.FLIGHT_OF_THE_BUMBLE_LLAMA, ModItems.LLAMARAMA),
+        new DefaultTrade(ModItems.LLAMA_MILK, 1, ModItems.LLAMA_CHEESE, 4),
+        new DefaultTrade(Items.EMERALD, 2, ModItems.LLAMA_MILK, 1),
+        new SellRandomForBuyRandom(Items.EMERALD, ModItems.RAW_LLAMA_MEAT, 6, 6, 1, 1),
+        new VillageMapTrade(),
+        new RandomMaxEnchantTrade(),
+        new CombinedEnchantmentTrade(),
+        new RandomPlantOrNameTagTrade(),
+        new RandomPotionTrade(),
+        new BuyItemsForEmerald(ModBlocks.LLAMA_WOOL.asItem(), 24, 16),
+        new BuyItemsForEmerald(Items.COMPASS, 6, 3),
+        new SellOneForBuyOne(Items.DIAMOND, Items.EMERALD),
+        new SellOneForBuyOne(Items.IRON_INGOT, Items.GOLD_INGOT),
+        new SellOneForBuyOne(Items.EMERALD, Items.DIAMOND),
+        new SellOneForBuyOne(Items.GOLD_INGOT, Items.IRON_INGOT),
+        new BuyItemsForEmerald(Items.COAL, 18, 8),
+        new BuyItemsForEmerald(Items.PAPER, 24, 16),
+        new BuyItemsForEmerald(Items.GLASS_PANE, 12, 20),
+        new SellForOneEmerald(Items.REDSTONE, 4),
+        new SellForOneEmerald(Items.LAPIS_LAZULI, 4),
+        new SellForOneEmerald(Items.SLIME_BALL, 4),
+        new DefaultTrade(Items.EMERALD, 2, Items.IRON_INGOT, 4),
+        new DefaultTrade(Items.EMERALD, 2, Items.GOLD_INGOT, 4)
     };
 
     public record SellItemForEmeralds(ItemStack sell, int maxEmeralds, int mixEmeralds) implements TradeOffers.Factory {
@@ -66,7 +66,7 @@ public final class TradeUtil {
     }
 
     private static final List<Enchantment> ENCHANTMENTS =
-            Registry.ENCHANTMENT.getEntries().stream().map(Map.Entry::getValue).toList();
+        Registry.ENCHANTMENT.getEntries().stream().map(Map.Entry::getValue).toList();
 
     public static class RandomMaxEnchantTrade implements TradeOffers.Factory {
 
@@ -87,8 +87,8 @@ public final class TradeUtil {
                 if (selectedEnchantment != null) {
                     ItemStack out = new ItemStack(Items.ENCHANTED_BOOK);
                     EnchantedBookItem.addEnchantment(out, new EnchantmentLevelEntry(
-                            selectedEnchantment,
-                            Math.max(selectedEnchantment.getMaxLevel(), 0)
+                        selectedEnchantment,
+                        Math.max(selectedEnchantment.getMaxLevel(), 0)
                     ));
                     ItemStack buy = new ItemStack(Items.EMERALD, MathHelper.nextInt(random, 5, 64));
 
@@ -177,9 +177,9 @@ public final class TradeUtil {
             }
 
             List<EnchantmentLevelEntry> finalEnchants = appliedEnchantments.stream()
-                    .map(it -> new EnchantmentLevelEntry(it,
-                            random.nextInt(Math.max(0, it.getMaxLevel())) + 1))
-                    .toList();
+                .map(it -> new EnchantmentLevelEntry(it,
+                    random.nextInt(Math.max(0, it.getMaxLevel())) + 1))
+                .toList();
 
             ItemStack bookOut = Items.ENCHANTED_BOOK.getDefaultStack();
             int totalLevelCount = 0;
@@ -194,7 +194,7 @@ public final class TradeUtil {
 
             int totalLevels = totalLevelCount * finalEnchants.size();
             int finalPrice = MathHelper.nextInt(random, totalLevelCount, totalLevels) +
-                    MathHelper.nextInt(random, 5, 15);
+                MathHelper.nextInt(random, 5, 15);
             finalPrice = Math.min(finalPrice, 64);
 
             ItemStack buy = new ItemStack(Items.EMERALD, finalPrice);
@@ -208,9 +208,9 @@ public final class TradeUtil {
     public static class RandomPlantOrNameTagTrade implements TradeOffers.Factory {
 
         private static final Set<Block> PLANTS = Registry.BLOCK.getEntries().stream()
-                .map(Map.Entry::getValue)
-                .filter((block) -> block instanceof PlantBlock)
-                .collect(Collectors.toSet());
+            .map(Map.Entry::getValue)
+            .filter((block) -> block instanceof PlantBlock)
+            .collect(Collectors.toSet());
 
         public RandomPlantOrNameTagTrade() {
 
@@ -232,7 +232,7 @@ public final class TradeUtil {
     public static class RandomPotionTrade implements TradeOffers.Factory {
 
         private static final List<Potion> POTIONS =
-                Registry.POTION.getEntries().stream().map(Map.Entry::getValue).toList();
+            Registry.POTION.getEntries().stream().map(Map.Entry::getValue).toList();
 
         @Nullable
         @Override

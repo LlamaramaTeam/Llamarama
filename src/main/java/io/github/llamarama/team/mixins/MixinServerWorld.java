@@ -1,7 +1,7 @@
 package io.github.llamarama.team.mixins;
 
-import io.github.llamarama.team.entity.spawn.CaravanTraderSpawnFactory;
 import com.google.common.collect.Sets;
+import io.github.llamarama.team.entity.spawn.CaravanTraderSpawnFactory;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.profiler.Profiler;
 import net.minecraft.util.registry.RegistryKey;
@@ -29,16 +29,16 @@ public abstract class MixinServerWorld extends World implements StructureWorldAc
 
     @SuppressWarnings("ModifyVariableMayBeArgsOnly")
     @ModifyVariable(
-            method = "<init>(Lnet/minecraft/server/MinecraftServer;" +
-                    "Ljava/util/concurrent/Executor;" +
-                    "Lnet/minecraft/world/level/storage/LevelStorage$Session;" +
-                    "Lnet/minecraft/world/level/ServerWorldProperties;" +
-                    "Lnet/minecraft/util/registry/RegistryKey;" +
-                    "Lnet/minecraft/world/dimension/DimensionType;" +
-                    "Lnet/minecraft/server/WorldGenerationProgressListener;" +
-                    "Lnet/minecraft/world/gen/chunk/ChunkGenerator;" +
-                    "ZJLjava/util/List;Z)V",
-            at = @At("HEAD")
+        method = "<init>(Lnet/minecraft/server/MinecraftServer;" +
+            "Ljava/util/concurrent/Executor;" +
+            "Lnet/minecraft/world/level/storage/LevelStorage$Session;" +
+            "Lnet/minecraft/world/level/ServerWorldProperties;" +
+            "Lnet/minecraft/util/registry/RegistryKey;" +
+            "Lnet/minecraft/world/dimension/DimensionType;" +
+            "Lnet/minecraft/server/WorldGenerationProgressListener;" +
+            "Lnet/minecraft/world/gen/chunk/ChunkGenerator;" +
+            "ZJLjava/util/List;Z)V",
+        at = @At("HEAD")
     )
     private static List<Spawner> modifySpawnsList(List<Spawner> list) {
         Set<Spawner> usedSet = Sets.newHashSet();

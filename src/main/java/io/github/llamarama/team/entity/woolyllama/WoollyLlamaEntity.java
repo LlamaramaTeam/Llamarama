@@ -2,8 +2,8 @@ package io.github.llamarama.team.entity.woolyllama;
 
 import io.github.llamarama.team.block.ModBlocks;
 import io.github.llamarama.team.entity.ModEntityTypes;
-import io.github.llamarama.team.mixins.AccessorLlamaEntity;
 import io.github.llamarama.team.entity.ai.goal.*;
+import io.github.llamarama.team.mixins.AccessorLlamaEntity;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.Shearable;
@@ -35,7 +35,7 @@ public class WoollyLlamaEntity extends LlamaEntity implements Shearable {
 
     @NotNull
     private static final TrackedData<Boolean> SHEARED =
-            DataTracker.registerData(WoollyLlamaEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+        DataTracker.registerData(WoollyLlamaEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
     protected int woolTimer;
 
     public WoollyLlamaEntity(EntityType<? extends WoollyLlamaEntity> entityType, World world) {
@@ -87,7 +87,7 @@ public class WoollyLlamaEntity extends LlamaEntity implements Shearable {
         } else if (this.isShearable()) {
             this.sheared(SoundCategory.NEUTRAL);
             player.getStackInHand(hand).damage(1, player,
-                    playerEntity -> playerEntity.sendToolBreakStatus(hand)
+                playerEntity -> playerEntity.sendToolBreakStatus(hand)
             );
             return ActionResult.success(this.world.isClient());
         } else {

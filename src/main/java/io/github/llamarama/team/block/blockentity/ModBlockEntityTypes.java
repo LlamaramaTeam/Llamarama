@@ -12,7 +12,7 @@ import net.minecraft.util.registry.Registry;
 public final class ModBlockEntityTypes {
 
     public static final BlockEntityType<LlamaWoolBedBlockEntity> LLAMA_WOOL_BED =
-            create("llama_wool_bed", LlamaWoolBedBlockEntity::new, ModBlocks.LLAMA_WOOL_BED);
+        create("llama_wool_bed", LlamaWoolBedBlockEntity::new, ModBlocks.LLAMA_WOOL_BED);
 
     @SuppressWarnings("EmptyMethod")
     public static void init() {
