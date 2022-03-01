@@ -11,14 +11,12 @@ import net.minecraft.util.registry.Registry;
 @SuppressWarnings("SameParameterValue")
 public final class ModBlockEntityTypes {
 
-    public static final BlockEntityType<LlamaWoolBedBlockEntity> LLAMA_WOOL_BED =
+    private ModBlockEntityTypes() {
+    }    public static final BlockEntityType<LlamaWoolBedBlockEntity> LLAMA_WOOL_BED =
         create("llama_wool_bed", LlamaWoolBedBlockEntity::new, ModBlocks.LLAMA_WOOL_BED);
 
     @SuppressWarnings("EmptyMethod")
     public static void init() {
-    }
-
-    private ModBlockEntityTypes() {
     }
 
     private static <T extends BlockEntity> BlockEntityType<T> create(String id,
@@ -30,6 +28,8 @@ public final class ModBlockEntityTypes {
     private static <T extends BlockEntity> BlockEntityType<T> register(String id, BlockEntityType<T> blockEntityType) {
         return Registry.register(Registry.BLOCK_ENTITY_TYPE, IdBuilder.of(id), blockEntityType);
     }
+
+
 
 
 }

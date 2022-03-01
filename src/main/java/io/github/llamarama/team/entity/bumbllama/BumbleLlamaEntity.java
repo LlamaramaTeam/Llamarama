@@ -21,6 +21,8 @@ import net.minecraft.tag.ItemTags;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.registry.Registry;
+import net.minecraft.util.registry.RegistryEntry;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 
@@ -28,9 +30,10 @@ import java.util.List;
 
 public class BumbleLlamaEntity extends WoollyLlamaEntity {
 
-    private static final List<Item> FLOWER_LIST = ItemTags.FLOWERS.values()
+    private static final List<Item> FLOWER_LIST = Registry.ITEM.getOrCreateEntryList(ItemTags.FLOWERS)
         .stream()
-        .filter((item) -> item != Items.WITHER_ROSE)
+        .map(RegistryEntry::value)
+        .filter(it -> it != Items.WITHER_ROSE)
         .toList();
 
     public BumbleLlamaEntity(EntityType<? extends WoollyLlamaEntity> entityType, World world) {

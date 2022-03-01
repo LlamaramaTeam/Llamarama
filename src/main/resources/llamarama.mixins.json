@@ -1,16 +1,16 @@
 {
-    "required": true,
-    "minVersion": "0.8",
-    "package": "io.github.llamarama.team.mixins",
-    "compatibilityLevel": "JAVA_17",
-    "mixins": [
-        "AccessorLlamaEntity",
-        "MixinBeeEntity",
-        "MixinBucketItem",
-        "MixinLlamaEntity",
-        "MixinServerWorld"
-    ],
-    "injectors": {
-        "defaultRequire": 1
-    }
+  "required": true,
+  "minVersion": "0.8",
+  "package": "io.github.llamarama.team.mixins",
+  "compatibilityLevel": "JAVA_17",
+  "mixins": [
+    "AccessorLlamaEntity",
+    "MixinBeeEntity",
+    "MixinBucketItem",
+    "MixinLlamaEntity",
+    "MixinServerWorld"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
 }

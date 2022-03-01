@@ -76,7 +76,9 @@ public final class EventHandler {
         return eventHandler;
     }
 
-    public void lootTableListener(ResourceManager resourceManager, LootManager lootManager, Identifier identifier, FabricLootSupplierBuilder fabricLootSupplierBuilder, LootTableLoadingCallback.LootTableSetter lootTableSetter) {
+    public void lootTableListener(ResourceManager __, LootManager ___, Identifier identifier,
+                                  FabricLootSupplierBuilder fabricLootSupplierBuilder,
+                                  LootTableLoadingCallback.LootTableSetter ____) {
         if (IdBuilder.vanillaOf("entities/llama").equals(identifier)) {
 
             FabricLootPoolBuilder pool =

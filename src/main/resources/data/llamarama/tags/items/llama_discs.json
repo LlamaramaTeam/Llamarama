@@ -1,9 +1,9 @@
 {
-    "replace": false,
-    "values": [
-        "llamarama:llamarama_disc",
-        "llamarama:llamajama_disc",
-        "llamarama:flight_of_the_bumble_llama",
-        "llamarama:mossed_up_disc"
-    ]
+  "replace": false,
+  "values": [
+    "llamarama:llamarama_disc",
+    "llamarama:llamajama_disc",
+    "llamarama:flight_of_the_bumble_llama",
+    "llamarama:mossed_up_disc"
+  ]
 }

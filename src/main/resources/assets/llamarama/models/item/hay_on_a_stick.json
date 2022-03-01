@@ -1,6 +1,6 @@
 {
-    "parent": "minecraft:item/handheld_rod",
-    "textures": {
-        "layer0": "llamarama:item/hay_on_a_stick"
-    }
+  "parent": "minecraft:item/handheld_rod",
+  "textures": {
+    "layer0": "llamarama:item/hay_on_a_stick"
+  }
 }

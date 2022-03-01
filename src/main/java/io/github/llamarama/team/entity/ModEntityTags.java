@@ -1,23 +1,13 @@
 package io.github.llamarama.team.entity;
 
 import io.github.llamarama.team.util.IdBuilder;
-import net.fabricmc.fabric.api.tag.TagFactory;
 import net.minecraft.entity.EntityType;
-import net.minecraft.tag.Tag;
-import org.jetbrains.annotations.NotNull;
+import net.minecraft.tag.TagKey;
+import net.minecraft.util.registry.Registry;
 
 public final class ModEntityTags {
 
-    public static final Tag<EntityType<?>> LLAMAS = register("llamas");
-
-    private ModEntityTags() {
-    }
-
-    @SuppressWarnings("SameParameterValue")
-    @NotNull
-    private static Tag<EntityType<?>> register(@NotNull String id) {
-        return TagFactory.ENTITY_TYPE.create(IdBuilder.of(id));
-    }
+    public static final TagKey<EntityType<?>> LLAMAS = TagKey.of(Registry.ENTITY_TYPE_KEY, IdBuilder.of("llamas"));
 
     public static void init() {
 

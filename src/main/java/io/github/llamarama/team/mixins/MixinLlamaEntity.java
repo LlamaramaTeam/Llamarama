@@ -4,6 +4,7 @@ import io.github.llamarama.team.entity.ai.goal.CaravanGoal;
 import io.github.llamarama.team.entity.ai.goal.VibeGoal;
 import io.github.llamarama.team.item.ModItems;
 import io.github.llamarama.team.item.tag.ModItemTags;
+import io.github.llamarama.team.util.TagUtil;
 import io.github.llamarama.team.util.annotation.InterfaceImplementation;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ItemSteerable;
@@ -95,7 +96,10 @@ public abstract class MixinLlamaEntity extends AbstractDonkeyEntity implements R
         if (player.getStackInHand(hand).getItem() == Items.BUCKET) {
             return ActionResult.PASS;
         } else if (player.getStackInHand(hand).getItem() == Items.NETHERITE_INGOT && !this.world.isClient) {
-            player.giveItemStack(ModItemTags.LLAMA_DISCS.getRandom(this.random).getDefaultStack());
+            player.giveItemStack(
+                TagUtil.getRandomItem(ModItemTags.LLAMA_DISCS, this.random)
+                    .orElseGet(ModItems.LLAMARAMA::getDefaultStack)
+            );
             player.getStackInHand(hand).decrement(1);
             this.world.playSoundFromEntity(null, this, SoundEvents.ENTITY_LLAMA_EAT, SoundCategory.NEUTRAL, 1.0f, 1.0f);
 

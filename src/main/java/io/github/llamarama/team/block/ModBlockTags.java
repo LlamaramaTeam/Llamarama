@@ -1,19 +1,14 @@
 package io.github.llamarama.team.block;
 
 import io.github.llamarama.team.util.IdBuilder;
-import net.fabricmc.fabric.api.tag.TagFactory;
 import net.minecraft.block.Block;
-import net.minecraft.tag.Tag;
+import net.minecraft.tag.TagKey;
+import net.minecraft.util.registry.Registry;
 
 public final class ModBlockTags {
 
-    public static final Tag<Block> AZALEA_BLOCKS = register("azalea_blocks");
-    public static final Tag<Block> LUSH_GROWTH = register("lush_growth");
-
-    @SuppressWarnings("SameParameterValue")
-    private static Tag<Block> register(String id) {
-        return TagFactory.BLOCK.create(IdBuilder.of(id));
-    }
+    public static final TagKey<Block> AZALEA_BLOCKS = TagKey.of(Registry.BLOCK_KEY, IdBuilder.of("azalea_blocks"));
+    public static final TagKey<Block> LUSH_GROWTH = TagKey.of(Registry.BLOCK_KEY, IdBuilder.of("lush_growth"));
 
     public static void init() {
 
