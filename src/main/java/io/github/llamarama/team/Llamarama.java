@@ -15,14 +15,14 @@ import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
 import net.fabricmc.fabric.api.loot.v1.event.LootTableLoadingCallback;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import com.mojang.logging.LogUtils;
+import org.slf4j.Logger;
 
 public class Llamarama implements ModInitializer {
 
     public static final String MOD_ID = "llamarama";
     public static final String MOD_NAME = "Llamarama";
-    public static final Logger LOGGER = LogManager.getLogger(MOD_NAME);
+    public static final Logger LOGGER = LogUtils.getLogger();
 
     public static final ItemGroup LLAMA_ITEM_GROUP =
         FabricItemGroupBuilder.create(IdBuilder.of("llama_item_group"))
