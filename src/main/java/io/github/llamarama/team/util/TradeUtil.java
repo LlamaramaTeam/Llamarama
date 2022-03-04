@@ -13,6 +13,7 @@ import net.minecraft.item.map.MapState;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionUtil;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.tag.ConfiguredStructureFeatureTags;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -20,10 +21,12 @@ import net.minecraft.util.registry.Registry;
 import net.minecraft.village.TradeOffer;
 import net.minecraft.village.TradeOffers;
 import net.minecraft.world.World;
-import net.minecraft.world.gen.feature.StructureFeature;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 public final class TradeUtil {
@@ -55,6 +58,7 @@ public final class TradeUtil {
         new DefaultTrade(Items.EMERALD, 2, Items.IRON_INGOT, 4),
         new DefaultTrade(Items.EMERALD, 2, Items.GOLD_INGOT, 4)
     };
+    private static final List<Enchantment> ENCHANTMENTS = Registry.ENCHANTMENT.stream().toList();
 
     public record SellItemForEmeralds(ItemStack sell, int maxEmeralds, int mixEmeralds) implements TradeOffers.Factory {
 
@@ -64,9 +68,6 @@ public final class TradeUtil {
         }
 
     }
-
-    private static final List<Enchantment> ENCHANTMENTS =
-        Registry.ENCHANTMENT.getEntries().stream().map(Map.Entry::getValue).toList();
 
     public static class RandomMaxEnchantTrade implements TradeOffers.Factory {
 
@@ -120,7 +121,12 @@ public final class TradeUtil {
         public TradeOffer create(Entity entity, Random random) {
             World world = entity.getEntityWorld();
             if (!world.isClient() && world instanceof ServerWorld && random.nextInt(4) == 0) {
-                BlockPos structurePos = ((ServerWorld) world).locateStructure(StructureFeature.VILLAGE, entity.getBlockPos(), 100, false);
+                BlockPos structurePos = ((ServerWorld) world).locateStructure(
+                    ConfiguredStructureFeatureTags.VILLAGE,
+                    entity.getBlockPos(),
+                    100,
+                    false
+                );
 
                 if (structurePos != null) {
                     ItemStack out = FilledMapItem.createMap(world, structurePos.getX(), structurePos.getZ(), (byte) 4, true, true);
@@ -207,8 +213,7 @@ public final class TradeUtil {
 
     public static class RandomPlantOrNameTagTrade implements TradeOffers.Factory {
 
-        private static final Set<Block> PLANTS = Registry.BLOCK.getEntries().stream()
-            .map(Map.Entry::getValue)
+        private static final Set<Block> PLANTS = Registry.BLOCK.stream()
             .filter((block) -> block instanceof PlantBlock)
             .collect(Collectors.toSet());
 
@@ -231,8 +236,7 @@ public final class TradeUtil {
 
     public static class RandomPotionTrade implements TradeOffers.Factory {
 
-        private static final List<Potion> POTIONS =
-            Registry.POTION.getEntries().stream().map(Map.Entry::getValue).toList();
+        private static final List<Potion> POTIONS = Registry.POTION.stream().toList();
 
         @Nullable
         @Override

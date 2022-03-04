@@ -1,6 +1,6 @@
 {
-    "parent": "minecraft:item/generated",
-    "textures": {
-        "layer0": "llamarama:item/flight_of_the_bumble_llama"
-    }
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "llamarama:item/flight_of_the_bumble_llama"
+  }
 }

@@ -1,7 +1,7 @@
 {
-    "variants": {
-        "": {
-            "model": "llamarama:block/llama_wool_bed"
-        }
+  "variants": {
+    "": {
+      "model": "llamarama:block/llama_wool_bed"
     }
+  }
 }

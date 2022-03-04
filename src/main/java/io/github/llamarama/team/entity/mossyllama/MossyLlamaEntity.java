@@ -23,6 +23,8 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.tag.BlockTags;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.BuiltinRegistries;
+import net.minecraft.util.registry.Registry;
+import net.minecraft.util.registry.RegistryEntry;
 import net.minecraft.world.GameRules;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
@@ -42,18 +44,18 @@ public class MossyLlamaEntity extends WoollyLlamaEntity {
         this.setWoolTimer(this.getRandom().nextInt(20 * 60 * 10));
     }
 
-    @Override
-    public int getWoolTimer() {
-        return this.dataTracker.get(MOSSY_LLAMA_TIMER);
-    }
-
     public static boolean canSpawn(@NotNull EntityType<MossyLlamaEntity> type, @NotNull ServerWorldAccess worldAccess, SpawnReason reason, @NotNull BlockPos pos, Random ignoredRandom) {
         return worldAccess.getEntitiesByClass(
             MossyLlamaEntity.class,
             type.createSimpleBoundingBox(pos.getX(), pos.getY(), pos.getZ()).expand(512),
-            entity -> BuiltinRegistries.BIOME.getKey(worldAccess.getBiome(entity.getBlockPos()))
+            entity -> BuiltinRegistries.BIOME.getKey(worldAccess.getBiome(entity.getBlockPos()).value())
                 .orElse(BiomeKeys.THE_VOID) == BiomeKeys.LUSH_CAVES
         ).isEmpty() || reason == SpawnReason.EVENT;
+    }
+
+    @Override
+    public int getWoolTimer() {
+        return this.dataTracker.get(MOSSY_LLAMA_TIMER);
     }
 
     @Override
@@ -105,7 +107,12 @@ public class MossyLlamaEntity extends WoollyLlamaEntity {
 
     @Override
     protected @NotNull ItemStack getShearedItem() {
-        return ModBlockTags.LUSH_GROWTH.getRandom(this.random).asItem().getDefaultStack();
+        return Registry.BLOCK.getOrCreateEntryList(ModBlockTags.LUSH_GROWTH)
+            .getRandom(this.random)
+            .orElseGet(() -> RegistryEntry.of(Blocks.FLOWERING_AZALEA))
+            .value()
+            .asItem()
+            .getDefaultStack();
     }
 
     @Override

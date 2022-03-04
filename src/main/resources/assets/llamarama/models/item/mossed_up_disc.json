@@ -1,6 +1,6 @@
 {
-    "parent": "minecraft:item/generated",
-    "textures": {
-        "layer0": "llamarama:item/mossed_up_disc"
-    }
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "llamarama:item/mossed_up_disc"
+  }
 }

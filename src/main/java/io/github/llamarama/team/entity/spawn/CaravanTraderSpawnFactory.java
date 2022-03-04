@@ -4,6 +4,7 @@ import io.github.llamarama.team.entity.ModEntityTags;
 import io.github.llamarama.team.entity.ModEntityTypes;
 import io.github.llamarama.team.entity.caravantrader.CaravanTraderEntity;
 import io.github.llamarama.team.util.PosUtilities;
+import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.SpawnRestriction;
 import net.minecraft.entity.passive.LlamaEntity;
@@ -12,9 +13,11 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.registry.Registry;
+import net.minecraft.util.registry.RegistryEntry;
 import net.minecraft.world.GameRules;
 import net.minecraft.world.SpawnHelper;
-import net.minecraft.world.gen.Spawner;
+import net.minecraft.world.spawner.Spawner;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -88,16 +91,21 @@ public class CaravanTraderSpawnFactory implements Spawner {
                     BlockPos randomLlamaPos = PosUtilities.getRandomPosInArea(world, traderPos, 3, false);
 
                     if (PosUtilities.getDistanceFrom(Vec3d.ofCenter(randomLlamaPos), merchant.getPos()) < 4) {
-                        LlamaEntity llamaSpawn = (LlamaEntity) ModEntityTags.LLAMAS.getRandom(random).create(
-                            world,
-                            null,
-                            null,
-                            null,
-                            randomLlamaPos,
-                            SpawnReason.EVENT,
-                            false,
-                            false
-                        );
+                        LlamaEntity llamaSpawn = (LlamaEntity) Registry.ENTITY_TYPE
+                            .getOrCreateEntryList(ModEntityTags.LLAMAS)
+                            .getRandom(random)
+                            .orElseGet(() -> RegistryEntry.of(EntityType.LLAMA))
+                            .value()
+                            .create(
+                                world,
+                                null,
+                                null,
+                                null,
+                                randomLlamaPos,
+                                SpawnReason.EVENT,
+                                false,
+                                false
+                            );
 
                         if (llamaSpawn != null) {
                             merchant.setCurrentLlama(llamaSpawn);
