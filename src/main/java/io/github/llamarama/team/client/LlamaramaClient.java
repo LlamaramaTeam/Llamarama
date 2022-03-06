@@ -1,9 +1,9 @@
 package io.github.llamarama.team.client;
 
-import io.github.llamarama.team.EventHandler;
-import io.github.llamarama.team.block.ModBlocks;
-import io.github.llamarama.team.block.blockentity.LlamaWoolBedBlockEntity;
-import io.github.llamarama.team.item.ModItems;
+import io.github.llamarama.team.common.block.ModBlocks;
+import io.github.llamarama.team.common.block.blockentity.LlamaWoolBedBlockEntity;
+import io.github.llamarama.team.common.event.EventHandler;
+import io.github.llamarama.team.common.item.ModItems;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;

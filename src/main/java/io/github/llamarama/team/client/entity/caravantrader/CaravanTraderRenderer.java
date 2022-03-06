@@ -1,7 +1,7 @@
 package io.github.llamarama.team.client.entity.caravantrader;
 
-import io.github.llamarama.team.entity.caravantrader.CaravanTraderEntity;
-import io.github.llamarama.team.util.IdBuilder;
+import io.github.llamarama.team.common.entity.caravantrader.CaravanTraderEntity;
+import io.github.llamarama.team.common.util.IdBuilder;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.render.entity.EntityRendererFactory;

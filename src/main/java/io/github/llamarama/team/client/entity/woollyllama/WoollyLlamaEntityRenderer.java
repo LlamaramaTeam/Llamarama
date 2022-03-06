@@ -1,8 +1,8 @@
 package io.github.llamarama.team.client.entity.woollyllama;
 
 import com.google.common.collect.ImmutableList;
-import io.github.llamarama.team.entity.woolyllama.WoollyLlamaEntity;
-import io.github.llamarama.team.util.IdBuilder;
+import io.github.llamarama.team.common.entity.woolyllama.WoollyLlamaEntity;
+import io.github.llamarama.team.common.util.IdBuilder;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.render.OverlayTexture;

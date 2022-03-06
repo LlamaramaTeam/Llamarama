@@ -1,7 +1,7 @@
 package io.github.llamarama.team.client.entity.mossyllama;
 
-import io.github.llamarama.team.entity.mossyllama.MossyLlamaEntity;
-import io.github.llamarama.team.util.IdBuilder;
+import io.github.llamarama.team.common.entity.mossyllama.MossyLlamaEntity;
+import io.github.llamarama.team.common.util.IdBuilder;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.MobEntityRenderer;
 import net.minecraft.client.render.entity.model.EntityModelLayer;

@@ -1,8 +1,8 @@
 package io.github.llamarama.team.client.entity.bumblellama;
 
 import com.google.common.collect.ImmutableList;
-import io.github.llamarama.team.entity.bumbllama.BumbleLlamaEntity;
-import io.github.llamarama.team.util.IdBuilder;
+import io.github.llamarama.team.common.entity.bumbllama.BumbleLlamaEntity;
+import io.github.llamarama.team.common.util.IdBuilder;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.render.entity.EntityRendererFactory;

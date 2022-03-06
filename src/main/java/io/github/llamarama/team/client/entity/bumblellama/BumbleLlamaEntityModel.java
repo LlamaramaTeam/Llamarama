@@ -4,7 +4,7 @@
 
 package io.github.llamarama.team.client.entity.bumblellama;
 
-import io.github.llamarama.team.entity.bumbllama.BumbleLlamaEntity;
+import io.github.llamarama.team.common.entity.bumbllama.BumbleLlamaEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.model.*;

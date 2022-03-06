@@ -1,6 +1,6 @@
 package io.github.llamarama.team.client;
 
-import io.github.llamarama.team.util.IdBuilder;
+import io.github.llamarama.team.common.util.IdBuilder;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;

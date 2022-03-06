@@ -1,6 +1,6 @@
 package io.github.llamarama.team.mixins;
 
-import io.github.llamarama.team.item.ModItems;
+import io.github.llamarama.team.common.item.ModItems;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.passive.LlamaEntity;
 import net.minecraft.entity.player.PlayerEntity;

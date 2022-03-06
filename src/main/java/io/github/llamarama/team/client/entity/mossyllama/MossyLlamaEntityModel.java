@@ -1,6 +1,6 @@
 package io.github.llamarama.team.client.entity.mossyllama;
 
-import io.github.llamarama.team.entity.mossyllama.MossyLlamaEntity;
+import io.github.llamarama.team.common.entity.mossyllama.MossyLlamaEntity;
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.entity.model.EntityModel;

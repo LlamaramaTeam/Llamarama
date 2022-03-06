@@ -1,7 +1,6 @@
 package io.github.llamarama.team.mixins;
 
-import com.google.common.collect.Sets;
-import io.github.llamarama.team.entity.spawn.CaravanTraderSpawnFactory;
+import io.github.llamarama.team.common.entity.spawn.CaravanTraderSpawnFactory;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.profiler.Profiler;
 import net.minecraft.util.registry.RegistryEntry;
@@ -11,13 +10,13 @@ import net.minecraft.world.StructureWorldAccess;
 import net.minecraft.world.World;
 import net.minecraft.world.dimension.DimensionType;
 import net.minecraft.world.spawner.Spawner;
+import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 import java.util.function.Supplier;
 
 @Mixin(ServerWorld.class)
@@ -27,17 +26,20 @@ public abstract class MixinServerWorld extends World implements StructureWorldAc
         super(properties, registryRef, registryEntry, profiler, isClient, debugWorld, seed);
     }
 
-    @SuppressWarnings("ModifyVariableMayBeArgsOnly")
     @ModifyVariable(
         method = "<init>",
-        at = @At("HEAD")
+        at = @At("HEAD"),
+        argsOnly = true
     )
-    private static List<Spawner> modifySpawnsList(List<Spawner> list) {
-        Set<Spawner> usedSet = Sets.newHashSet();
-        usedSet.addAll(list);
-        usedSet.add(new CaravanTraderSpawnFactory());
+    private static @NotNull List<Spawner> modifySpawnsList(List<Spawner> list) {
+        if (!list.isEmpty()) {
+            var newList = new ArrayList<>(list);
+            newList.add(new CaravanTraderSpawnFactory());
 
-        return new ArrayList<>(usedSet);
+            return newList;
+        }
+
+        return list;
     }
 
 

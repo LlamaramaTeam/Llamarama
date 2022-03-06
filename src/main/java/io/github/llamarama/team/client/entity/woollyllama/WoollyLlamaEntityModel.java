@@ -1,6 +1,6 @@
 package io.github.llamarama.team.client.entity.woollyllama;
 
-import io.github.llamarama.team.entity.woolyllama.WoollyLlamaEntity;
+import io.github.llamarama.team.common.entity.woolyllama.WoollyLlamaEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.model.*;
