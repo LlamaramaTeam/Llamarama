@@ -47,11 +47,6 @@ public class BumbleLlamaEntity extends WoollyLlamaEntity {
     }
 
     @Override
-    public boolean startRiding(Entity entity) {
-        return false;
-    }
-
-    @Override
     public boolean canBeControlledByRider() {
         return false;
     }
@@ -98,16 +93,8 @@ public class BumbleLlamaEntity extends WoollyLlamaEntity {
         BlockState stateForBoneMeal = this.world.getBlockState(down);
 
         boolean isChosen = this.random.nextInt(384) == 0;
-
-        if (isChosen && !this.world.isClient &&
-            stateForBoneMeal.getBlock() instanceof Fertilizable fertilizable &&
-            PosUtilities.checkForNoVelocity(this.getVelocity())) {
-            fertilizable.grow((ServerWorld) this.world, this.random, down, stateForBoneMeal);
-
-            ((ServerWorld) this.world).spawnParticles(
-                ParticleTypes.HAPPY_VILLAGER, this.getX(), this.getY(), this.getZ(),
-                20, 2d, 2d, 2d, 0.0d
-            );
+        if (isChosen && world.isClient) {
+            this.tryGrowPlant(down, stateForBoneMeal);
         }
     }
 
@@ -140,6 +127,20 @@ public class BumbleLlamaEntity extends WoollyLlamaEntity {
     @Override
     protected BumbleLlamaEntity getChild() {
         return ModEntityTypes.BUMBLE_LLAMA.create(this.world);
+    }
+
+    private void tryGrowPlant(BlockPos down, @NotNull BlockState stateForBoneMeal) {
+        if (stateForBoneMeal.getBlock() instanceof Fertilizable fertilizable &&
+            PosUtilities.checkForNoVelocity(this.getVelocity()) &&
+            fertilizable.isFertilizable(world, down, stateForBoneMeal, world.isClient) &&
+            fertilizable.canGrow(world, this.getRandom(), down, stateForBoneMeal)) {
+            fertilizable.grow((ServerWorld) this.world, this.random, down, stateForBoneMeal);
+
+            ((ServerWorld) this.world).spawnParticles(
+                ParticleTypes.HAPPY_VILLAGER, this.getX(), this.getY(), this.getZ(),
+                20, 2d, 2d, 2d, 0.0d
+            );
+        }
     }
 
 }
