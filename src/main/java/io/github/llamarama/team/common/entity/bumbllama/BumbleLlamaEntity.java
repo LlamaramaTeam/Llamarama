@@ -93,7 +93,7 @@ public class BumbleLlamaEntity extends WoollyLlamaEntity {
         BlockState stateForBoneMeal = this.world.getBlockState(down);
 
         boolean isChosen = this.random.nextInt(384) == 0;
-        if (isChosen && world.isClient) {
+        if (isChosen && !world.isClient) {
             this.tryGrowPlant(down, stateForBoneMeal);
         }
     }
