@@ -184,7 +184,7 @@ public final class TradeUtil {
 
             List<EnchantmentLevelEntry> finalEnchants = appliedEnchantments.stream()
                 .map(it -> new EnchantmentLevelEntry(it,
-                    random.nextInt(Math.max(0, it.getMaxLevel())) + 1))
+                    random.nextInt(Math.max(1, it.getMaxLevel())) + 1))
                 .toList();
 
             ItemStack bookOut = Items.ENCHANTED_BOOK.getDefaultStack();
