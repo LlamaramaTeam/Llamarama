@@ -58,7 +58,12 @@ public final class TradeUtil {
         new DefaultTrade(Items.EMERALD, 2, Items.IRON_INGOT, 4),
         new DefaultTrade(Items.EMERALD, 2, Items.GOLD_INGOT, 4)
     };
-    private static final List<Enchantment> ENCHANTMENTS = Registry.ENCHANTMENT.stream().toList();
+
+    // Handling maxLevel <= 0 as a common practice for disabling enchantments.
+    // Look here: https://github.com/StrikerRockers-Mods/VanillaTweaks/issues/164
+    // And here: https://github.com/LlamaramaTeam/Llamarama/issues/15
+    private static final List<Enchantment> ENCHANTMENTS =
+        Registry.ENCHANTMENT.stream().filter(it -> it.getMaxLevel() > 0).toList();
 
     public record SellItemForEmeralds(ItemStack sell, int maxEmeralds, int mixEmeralds) implements TradeOffers.Factory {
 
@@ -89,7 +94,7 @@ public final class TradeUtil {
                     ItemStack out = new ItemStack(Items.ENCHANTED_BOOK);
                     EnchantedBookItem.addEnchantment(out, new EnchantmentLevelEntry(
                         selectedEnchantment,
-                        Math.max(selectedEnchantment.getMaxLevel(), 0)
+                        selectedEnchantment.getMaxLevel()
                     ));
                     ItemStack buy = new ItemStack(Items.EMERALD, MathHelper.nextInt(random, 5, 64));
 
@@ -183,8 +188,10 @@ public final class TradeUtil {
             }
 
             List<EnchantmentLevelEntry> finalEnchants = appliedEnchantments.stream()
-                .map(it -> new EnchantmentLevelEntry(it,
-                    random.nextInt(Math.max(0, it.getMaxLevel())) + 1))
+                .map(it -> new EnchantmentLevelEntry(
+                    it,
+                    random.nextInt(it.getMaxLevel()) + 1)
+                )
                 .toList();
 
             ItemStack bookOut = Items.ENCHANTED_BOOK.getDefaultStack();
