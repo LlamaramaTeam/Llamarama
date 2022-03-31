@@ -94,7 +94,7 @@ public final class TradeUtil {
                     ItemStack out = new ItemStack(Items.ENCHANTED_BOOK);
                     EnchantedBookItem.addEnchantment(out, new EnchantmentLevelEntry(
                         selectedEnchantment,
-                        Math.max(selectedEnchantment.getMaxLevel(), 0)
+                        selectedEnchantment.getMaxLevel()
                     ));
                     ItemStack buy = new ItemStack(Items.EMERALD, MathHelper.nextInt(random, 5, 64));
 
@@ -190,7 +190,7 @@ public final class TradeUtil {
             List<EnchantmentLevelEntry> finalEnchants = appliedEnchantments.stream()
                 .map(it -> new EnchantmentLevelEntry(
                     it,
-                    random.nextInt(it.getMaxLevel() + (random.nextBoolean() ? 1 : 0)))
+                    random.nextInt(it.getMaxLevel()) + 1)
                 )
                 .toList();
 
