@@ -51,7 +51,7 @@ public class CaravanGoal<T extends LlamaEntity> extends Goal {
 
     @Override
     public void tick() {
-        if (this.entity.getFollowing() == null || !this.entity.isAlive())
+        if (this.entity.getFollowing() == null || !this.entity.getFollowing().isAlive())
             return;
 
         Vec3d currentPos = this.entity.getPos();
