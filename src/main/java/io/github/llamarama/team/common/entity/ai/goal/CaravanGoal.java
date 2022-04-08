@@ -51,7 +51,7 @@ public class CaravanGoal<T extends LlamaEntity> extends Goal {
 
     @Override
     public void tick() {
-        if (this.entity.getFollowing() == null)
+        if (this.entity.getFollowing() == null || !this.entity.isAlive())
             return;
 
         Vec3d currentPos = this.entity.getPos();
@@ -63,7 +63,8 @@ public class CaravanGoal<T extends LlamaEntity> extends Goal {
         this.entity.getNavigation().startMovingTo(
             currentPos.getX() + crossProduct.getX(),
             currentPos.getY() + crossProduct.getY(),
-            currentPos.getZ() + crossProduct.getZ(), this.speed);
+            currentPos.getZ() + crossProduct.getZ(), this.speed
+        );
     }
 
     @Override
