@@ -42,6 +42,9 @@ You cannot ride this llama, because it has some azalea growing on it's back, how
 many different kinds of underground plants. These llamas have also evolved, so that they cannot be bred and they  
 also are quite unsocial creatures. You won't find more that 4 spawning close to one another or even in the same cave.
 
+Post Scriptum: The [Caravan Traders](#the-caravan-trader) have trained Mossy Llamas to not spread moss around when moving, because it  
+constantly interrupted their walking.
+
 ## The Caravan Trader
 A new [Wandering Trader-like](https://minecraft.fandom.com/wiki/Wandering_Trader) mob, with the same kind of spawning behavior. However this one has a deep  
 relation to his llamas. Unlike normal merchants, this one has a lot of llamas that come with him, on a caravan.  
