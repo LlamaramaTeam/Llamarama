@@ -9,6 +9,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.Fertilizable;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityData;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.data.DataTracker;
@@ -16,6 +17,7 @@ import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
@@ -26,18 +28,23 @@ import net.minecraft.util.registry.BuiltinRegistries;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryEntry;
 import net.minecraft.world.GameRules;
+import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeKeys;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Random;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class MossyLlamaEntity extends WoollyLlamaEntity {
 
     @NotNull
     private static final TrackedData<Integer> MOSSY_LLAMA_TIMER =
         DataTracker.registerData(MossyLlamaEntity.class, TrackedDataHandlerRegistry.INTEGER);
+    private static final String DEADLY_KEY = "Deadly";
+    private final AtomicBoolean deadly = new AtomicBoolean(true);
 
     public MossyLlamaEntity(EntityType<? extends WoollyLlamaEntity> entityType, World world) {
         super(entityType, world);
@@ -51,6 +58,28 @@ public class MossyLlamaEntity extends WoollyLlamaEntity {
             entity -> BuiltinRegistries.BIOME.getKey(worldAccess.getBiome(entity.getBlockPos()).value())
                 .orElse(BiomeKeys.THE_VOID) == BiomeKeys.LUSH_CAVES
         ).isEmpty() || reason == SpawnReason.EVENT;
+    }
+
+    @Nullable
+    @Override
+    public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData, @Nullable NbtCompound entityNbt) {
+        if (spawnReason == SpawnReason.EVENT) {
+            this.deadly.set(false);
+        }
+
+        return super.initialize(world, difficulty, spawnReason, entityData, entityNbt);
+    }
+
+    @Override
+    public void writeCustomDataToNbt(NbtCompound tag) {
+        super.writeCustomDataToNbt(tag);
+        tag.putBoolean(DEADLY_KEY, this.deadly.get());
+    }
+
+    @Override
+    public void readCustomDataFromNbt(NbtCompound tag) {
+        super.readCustomDataFromNbt(tag);
+        this.deadly.set(tag.getBoolean(DEADLY_KEY));
     }
 
     @Override
@@ -137,6 +166,10 @@ public class MossyLlamaEntity extends WoollyLlamaEntity {
     }
 
     private void trySpawnMoss(@NotNull Random random) {
+        if (!this.deadly.get()) {
+            return;
+        }
+
         boolean isInPushGrowth =
             this.world.getBlockState(this.getBlockPos().down()).isIn(ModBlockTags.LUSH_GROWTH);
         if (random.nextInt(20) == 0 && PosUtilities.checkForNoVelocity(this.getVelocity()) && !isInPushGrowth) {
