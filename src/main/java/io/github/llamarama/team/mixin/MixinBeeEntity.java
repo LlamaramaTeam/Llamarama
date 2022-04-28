@@ -1,4 +1,4 @@
-package io.github.llamarama.team.mixins;
+package io.github.llamarama.team.mixin;
 
 import io.github.llamarama.team.common.entity.ai.goal.BeeFollowBumbleLlamaGoal;
 import io.github.llamarama.team.common.entity.ai.goal.BeeHelpBumbleLlamaGoal;
