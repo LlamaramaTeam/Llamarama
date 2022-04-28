@@ -20,6 +20,8 @@ public final class ModBlocks {
         register(new RugBlock(AbstractBlock.Settings.copy(Blocks.WHITE_CARPET)), "rug");
     public static final Block LLAMA_WOOL_BED =
         registerNoItem(new LlamaWoolBedBlock(AbstractBlock.Settings.copy(Blocks.WHITE_BED)), "llama_wool_bed");
+    public static final Block LLAMA_MILK_CAULDRON =
+        registerNoItem(new LlamaMilkCauldronBlock(AbstractBlock.Settings.copy(Blocks.CAULDRON).ticksRandomly()), "llama_milk_cauldron");
 
 
     private ModBlocks() {
