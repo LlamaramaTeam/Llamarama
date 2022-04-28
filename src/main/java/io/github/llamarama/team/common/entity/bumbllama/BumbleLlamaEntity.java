@@ -1,5 +1,6 @@
 package io.github.llamarama.team.common.entity.bumbllama;
 
+import io.github.llamarama.team.Llamarama;
 import io.github.llamarama.team.common.entity.ModEntityTypes;
 import io.github.llamarama.team.common.entity.woolyllama.WoollyLlamaEntity;
 import io.github.llamarama.team.common.util.Constants;
@@ -134,12 +135,21 @@ public class BumbleLlamaEntity extends WoollyLlamaEntity {
             PosUtilities.checkForNoVelocity(this.getVelocity()) &&
             fertilizable.isFertilizable(world, down, stateForBoneMeal, world.isClient) &&
             fertilizable.canGrow(world, this.getRandom(), down, stateForBoneMeal)) {
-            fertilizable.grow((ServerWorld) this.world, this.random, down, stateForBoneMeal);
 
-            ((ServerWorld) this.world).spawnParticles(
-                ParticleTypes.HAPPY_VILLAGER, this.getX(), this.getY(), this.getZ(),
-                20, 2d, 2d, 2d, 0.0d
-            );
+            // Mods that implement the Fertilizable interface in invalid ways, will cause this code to crash with
+            //  an IllegalArgumentException. We safely handle that case to prevent crashes however the issue should
+            //  still be resolved by the respective mod author.
+            try {
+                fertilizable.grow((ServerWorld) this.world, this.random, down, stateForBoneMeal);
+                ((ServerWorld) this.world).spawnParticles(
+                    ParticleTypes.HAPPY_VILLAGER, this.getX(), this.getY(), this.getZ(),
+                    20, 2d, 2d, 2d, 0.0d
+                );
+            } catch (IllegalArgumentException e) {
+                Llamarama.getLogger().warn("The block {} has an invalid implementation of the Fertilizable interface!" +
+                    " Please report that as an issue to the mod's issue/bug tracker!\n {}",
+                    stateForBoneMeal.getBlock(), e);
+            }
         }
     }
 
