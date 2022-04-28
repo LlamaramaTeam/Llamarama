@@ -51,7 +51,7 @@ public class LlamaMilkCauldronBlock extends AbstractCauldronBlock {
                 world.setBlockState(pos, Blocks.CAULDRON.getDefaultState());
                 world.playSound(null, pos, SoundEvents.ENTITY_ITEM_PICKUP, SoundCategory.BLOCKS, 1.0F, 1.0F);
                 world.emitGameEvent(player, GameEvent.MOB_INTERACT, pos);
-                return ActionResult.SUCCESS;
+                return ActionResult.success(false);
             }
 
             return ActionResult.PASS;
