@@ -32,6 +32,8 @@ import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeKeys;
+import net.minecraft.world.gen.feature.UndergroundConfiguredFeatures;
+import net.minecraft.world.gen.feature.VegetationConfiguredFeatures;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -172,30 +174,12 @@ public class MossyLlamaEntity extends WoollyLlamaEntity {
 
         boolean isInPushGrowth =
             this.world.getBlockState(this.getBlockPos().down()).isIn(ModBlockTags.LUSH_GROWTH);
-        if (random.nextInt(20) == 0 && PosUtilities.checkForNoVelocity(this.getVelocity()) && !isInPushGrowth) {
-            BlockPos.streamOutwards(this.getBlockPos(), 2, 1, 2)
-                .filter(it -> this.world.getBlockState(it).isIn(BlockTags.MOSS_REPLACEABLE))
-                .forEach(pos -> {
-                    boolean isWithinDistance = PosUtilities.getDistanceFrom(pos, this.getBlockPos()) <= 2;
-
-                    if (random.nextInt(2) == 0) {
-                        world.setBlockState(pos, Blocks.MOSS_BLOCK.getDefaultState());
-                        this.spawnCarpetOrAzalea(random, pos, isWithinDistance);
-                    }
-                });
-        }
-    }
-
-    private void spawnCarpetOrAzalea(@NotNull Random random, @NotNull BlockPos pos, boolean isWithinDistance) {
-        int azaleaChance = isWithinDistance ? random.nextInt(8) : 69;
-        if (!PosUtilities.arePositionsEqual(pos.up(), this.getBlockPos()) && this.world.getBlockState(pos.up()).isAir()) {
-            if (azaleaChance == 0) {
-                BlockState stateToPlace = random.nextBoolean() ? Blocks.FLOWERING_AZALEA.getDefaultState() :
-                    Blocks.AZALEA.getDefaultState();
-                this.world.setBlockState(pos.up(), stateToPlace);
-            } else if (azaleaChance == 2) {
-                this.world.setBlockState(pos.up(), Blocks.MOSS_CARPET.getDefaultState());
-            }
+        System.out.println(this.getMovementSpeed());
+        if (this.getMovementSpeed() > 0 && !isInPushGrowth) {
+            ServerWorld sw = (ServerWorld) this.world;
+            // Use the vanilla method for better mod integration
+            UndergroundConfiguredFeatures.MOSS_PATCH_BONEMEAL.value().generate(sw,
+                sw.getChunkManager().getChunkGenerator(), random, this.getBlockPos().down());
         }
     }
 
