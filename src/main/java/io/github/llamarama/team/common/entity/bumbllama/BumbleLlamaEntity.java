@@ -146,9 +146,11 @@ public class BumbleLlamaEntity extends WoollyLlamaEntity {
                     20, 2d, 2d, 2d, 0.0d
                 );
             } catch (IllegalArgumentException e) {
-                Llamarama.getLogger().warn("The block {} has an invalid implementation of the Fertilizable interface!" +
-                    " Please report that as an issue to the mod's issue/bug tracker!\n {}",
-                    stateForBoneMeal.getBlock(), e);
+                Llamarama.getLogger().warn("""
+                    The block {} has an invalid implementation of the Fertilizable interface!
+                    Please report that as an issue to the mod's issue/bug tracker!
+                    {}
+                """, stateForBoneMeal.getBlock(), e);
             }
         }
     }
