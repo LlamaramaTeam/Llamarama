@@ -174,8 +174,8 @@ public class MossyLlamaEntity extends WoollyLlamaEntity {
 
         boolean isInPushGrowth =
             this.world.getBlockState(this.getBlockPos().down()).isIn(ModBlockTags.LUSH_GROWTH);
-        System.out.println(this.getMovementSpeed());
-        if (this.getMovementSpeed() > 0 && !isInPushGrowth) {
+        // System.out.println(this.getMovementSpeed());
+        if (this.getMovementSpeed() > 0 && !isInPushGrowth && random.nextInt(100) == 0) {
             ServerWorld sw = (ServerWorld) this.world;
             // Use the vanilla method for better mod integration
             UndergroundConfiguredFeatures.MOSS_PATCH_BONEMEAL.value().generate(sw,
