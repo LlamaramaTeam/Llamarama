@@ -6,7 +6,6 @@ import io.github.llamarama.team.common.entity.caravantrader.CaravanTraderEntity;
 import io.github.llamarama.team.common.util.PosUtilities;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnReason;
-import net.minecraft.entity.SpawnRestriction;
 import net.minecraft.entity.passive.LlamaEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.world.ServerWorld;
@@ -56,7 +55,7 @@ public class CaravanTraderSpawnFactory implements Spawner {
 
                 if (spawnedEntity != null) {
                     this.spawnDelay = nextSpawnDelay(world.getRandom());
-                    return this.spawnLlamas(world, spawnedEntity) + 1;
+                    return 1 + this.spawnLlamas(world, spawnedEntity);
                 }
             }
         }
@@ -64,7 +63,7 @@ public class CaravanTraderSpawnFactory implements Spawner {
     }
 
     private int nextSpawnDelay(@NotNull Random random) {
-//        return MathHelper.nextInt(random, 40, 60); // USED FOR TESTING PURPOSES
+        // return MathHelper.nextInt(random, 40, 60); // USED FOR TESTING PURPOSES
         return MathHelper.nextInt(random, 40 * 60 * 20, 60 * 60 * 20);
     }
 
@@ -73,8 +72,11 @@ public class CaravanTraderSpawnFactory implements Spawner {
 
         if (player != null) {
             BlockPos alteredPos = PosUtilities.getRandomPosInArea(world, player.getBlockPos(), 128, false);
-            return Optional.ofNullable(SpawnHelper.canSpawn(SpawnRestriction.Location.ON_GROUND, world, alteredPos,
-                ModEntityTypes.CARAVAN_TRADER) ? alteredPos.toImmutable() : null);
+            return Optional.of(alteredPos).filter(pos -> SpawnHelper.isClearForSpawn(
+                world, pos,
+                world.getBlockState(pos), world.getFluidState(pos),
+                ModEntityTypes.CARAVAN_TRADER)
+            );
         }
 
         return Optional.empty();

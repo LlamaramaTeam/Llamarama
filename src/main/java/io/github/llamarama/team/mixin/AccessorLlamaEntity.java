@@ -1,4 +1,4 @@
-package io.github.llamarama.team.mixins;
+package io.github.llamarama.team.mixin;
 
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.passive.LlamaEntity;
