@@ -51,10 +51,10 @@ public class LlamaMilkCauldronBlock extends AbstractCauldronBlock {
                 world.setBlockState(pos, Blocks.CAULDRON.getDefaultState());
                 world.playSound(null, pos, SoundEvents.ENTITY_ITEM_PICKUP, SoundCategory.BLOCKS, 1.0F, 1.0F);
                 world.emitGameEvent(player, GameEvent.MOB_INTERACT, pos);
-                return ActionResult.success(false);
+                return ActionResult.success(true);
             }
 
-            return ActionResult.PASS;
+            return ActionResult.CONSUME;
         });
     });
 
@@ -94,6 +94,8 @@ public class LlamaMilkCauldronBlock extends AbstractCauldronBlock {
     public void randomTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
         if (random.nextInt(5) == 0) {
             world.setBlockState(pos, state.with(IS_CHEESE, random.nextBoolean()));
+            world.emitGameEvent(null, GameEvent.BLOCK_CHANGE, pos);
+            world.playSound(null, pos, SoundEvents.BLOCK_CROP_BREAK, SoundCategory.BLOCKS, 1f, 1f);
         }
     }
 
