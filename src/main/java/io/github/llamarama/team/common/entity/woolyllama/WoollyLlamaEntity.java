@@ -3,7 +3,7 @@ package io.github.llamarama.team.common.entity.woolyllama;
 import io.github.llamarama.team.common.block.ModBlocks;
 import io.github.llamarama.team.common.entity.ModEntityTypes;
 import io.github.llamarama.team.common.entity.ai.goal.*;
-import io.github.llamarama.team.mixins.AccessorLlamaEntity;
+import io.github.llamarama.team.mixin.AccessorLlamaEntity;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.Shearable;

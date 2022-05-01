@@ -1,9 +1,7 @@
 package io.github.llamarama.team.common.util;
 
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.util.math.Vec3i;
 import net.minecraft.world.Heightmap;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
@@ -34,22 +32,6 @@ public interface PosUtilities {
         return Math.abs(Math.sqrt(x * x + y * y + z * z));
     }
 
-    static float getDistanceFrom(@NotNull BlockPos from, @NotNull BlockPos to) {
-        float xFrom = from.getX() + 0.5f;
-        float yFrom = from.getY() + 0.5f;
-        float zFrom = from.getZ() + 0.5f;
-
-        float xTo = to.getX() + 0.5f;
-        float yTo = to.getY() + 0.5f;
-        float zTo = to.getZ() + 0.5f;
-
-        float x = xTo - xFrom;
-        float y = yTo - yFrom;
-        float z = zTo - zFrom;
-
-        return MathHelper.abs(MathHelper.sqrt(x * x + y * y + z * z));
-    }
-
     static BlockPos getRandomPosInArea(@NotNull World world, @NotNull BlockPos center, int radius, boolean keepYIntact) {
         Random random = world.getRandom();
 
@@ -71,10 +53,6 @@ public interface PosUtilities {
         }
 
         return out.toImmutable();
-    }
-
-    static boolean arePositionsEqual(@NotNull Vec3i first, @NotNull Vec3i second) {
-        return first.getX() == second.getX() && first.getY() == second.getY() && first.getZ() == second.getZ();
     }
 
 }
