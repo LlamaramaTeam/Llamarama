@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "is_cheese=true": {
+      "model": "llamarama:block/cauldron/cheese_cauldron"
+    },
+    "is_cheese=false": {
+      "model": "llamarama:block/cauldron/milk_cauldron"
+    }
+  }
+}
