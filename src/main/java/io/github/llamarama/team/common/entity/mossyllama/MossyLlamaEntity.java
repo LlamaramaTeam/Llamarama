@@ -22,14 +22,9 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.registry.BuiltinRegistries;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryEntry;
-import net.minecraft.world.GameRules;
-import net.minecraft.world.LocalDifficulty;
-import net.minecraft.world.ServerWorldAccess;
-import net.minecraft.world.World;
-import net.minecraft.world.biome.BiomeKeys;
+import net.minecraft.world.*;
 import net.minecraft.world.gen.feature.UndergroundConfiguredFeatures;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -51,12 +46,27 @@ public class MossyLlamaEntity extends WoollyLlamaEntity {
     }
 
     public static boolean canSpawn(@NotNull EntityType<MossyLlamaEntity> type, @NotNull ServerWorldAccess worldAccess, SpawnReason reason, @NotNull BlockPos pos, Random ignoredRandom) {
-        return worldAccess.getEntitiesByClass(
-            MossyLlamaEntity.class,
-            type.createSimpleBoundingBox(pos.getX(), pos.getY(), pos.getZ()).expand(512),
-            entity -> BuiltinRegistries.BIOME.getKey(worldAccess.getBiome(entity.getBlockPos()).value())
-                .orElse(BiomeKeys.THE_VOID) == BiomeKeys.LUSH_CAVES
-        ).isEmpty() || reason == SpawnReason.EVENT;
+        if (reason == SpawnReason.CHUNK_GENERATION) {
+            return false;
+        } else if (reason == SpawnReason.EVENT) {
+            return true;
+        } else {
+            return worldAccess.getNonSpectatingEntities(
+                MossyLlamaEntity.class,
+                type.createSimpleBoundingBox(pos.getX(), pos.getY(), pos.getZ()).expand(128)
+            ).isEmpty();
+        }
+    }
+
+    @Override
+    public boolean canSpawn(WorldAccess world, SpawnReason spawnReason) {
+        return !world.isClient() && canSpawn(
+            ModEntityTypes.MOSSY_LLAMA,
+            ((ServerWorldAccess) world),
+            spawnReason,
+            this.getBlockPos(),
+            this.getRandom()
+        );
     }
 
     @Nullable

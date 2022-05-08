@@ -13,43 +13,50 @@ import net.minecraft.entity.SpawnGroup;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.util.registry.Registry;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.function.Supplier;
 
 public final class ModEntityTypes {
 
+    private static final Map<String, EntityType<?>> REGISTRY = new HashMap<>();
+
     public static final EntityType<WoollyLlamaEntity> WOOLLY_LLAMA =
-        register(WoollyLlamaEntity::new, SpawnGroup.CREATURE, 0.9f, 1.87f, false, 10,
+        register(WoollyLlamaEntity::new, SpawnGroup.CREATURE, 0.9f, 1.87f, false,
             WoollyLlamaEntity::createLlamaAttributes, "woolly_llama");
     public static final EntityType<BumbleLlamaEntity> BUMBLE_LLAMA =
-        register(BumbleLlamaEntity::new, SpawnGroup.CREATURE, 0.9f, 1.87f, false, 10,
+        register(BumbleLlamaEntity::new, SpawnGroup.CREATURE, 0.9f, 1.87f, false,
             BumbleLlamaEntity::createLlamaAttributes, "bumble_llama");
     public static final EntityType<CaravanTraderEntity> CARAVAN_TRADER =
-        register(CaravanTraderEntity::new, SpawnGroup.MISC, 0.6f, 1.95f, true, 10,
+        register(CaravanTraderEntity::new, SpawnGroup.MISC, 0.6f, 1.95f, true,
             CaravanTraderEntity::createAttributes, "caravan_trader");
     public static final EntityType<MossyLlamaEntity> MOSSY_LLAMA =
-        register(MossyLlamaEntity::new, SpawnGroup.AXOLOTLS, 0.9f, 1.87f, false, 10,
-            WoollyLlamaEntity::createLlamaAttributes, "mossy_llama");
+        register(MossyLlamaEntity::new, SpawnGroup.CREATURE, 0.9f, 1.87f, false,
+            MossyLlamaEntity::createLlamaAttributes, "mossy_llama");
 
     private ModEntityTypes() {
 
     }
 
     @SuppressWarnings("SameParameterValue")
-    private static <T extends LivingEntity> EntityType<T> register(EntityType.EntityFactory<T> factory, SpawnGroup group, float width, float height, boolean fixed, int range, Supplier<DefaultAttributeContainer.Builder> attributes, String id) {
+    private static <T extends LivingEntity> EntityType<T> register(EntityType.EntityFactory<T> factory,
+                                                                   SpawnGroup group, float width, float height,
+                                                                   boolean fixed,
+                                                                   Supplier<DefaultAttributeContainer.Builder> attributes, String id) {
         EntityType<T> type =
             FabricEntityTypeBuilder.Living.createLiving()
                 .spawnGroup(group)
                 .entityFactory(factory)
                 .dimensions(new EntityDimensions(width, height, fixed))
-                .trackRangeBlocks(range)
                 .defaultAttributes(attributes)
                 .build();
-        return Registry.register(Registry.ENTITY_TYPE, IdBuilder.of(id), type);
+        REGISTRY.put(id, type);
+        return type;
     }
 
     @SuppressWarnings("EmptyMethod")
     public static void init() {
-
+        REGISTRY.forEach((s, entityType) -> Registry.register(Registry.ENTITY_TYPE, IdBuilder.of(s), entityType));
     }
 
 }

@@ -114,9 +114,9 @@ public final class EventHandler {
         );
         listener.addSpawns(
             BiomeSelectors.includeByKey(BiomeKeys.LUSH_CAVES),
-            SpawnGroup.AXOLOTLS,
+            SpawnGroup.CREATURE,
             ModEntityTypes.MOSSY_LLAMA,
-            3, 2, 4
+            100, 1, 2
         );
     }
 
@@ -141,7 +141,7 @@ public final class EventHandler {
         );
         SpawnRestrictionAccessor.callRegister(
             ModEntityTypes.MOSSY_LLAMA,
-            SpawnRestriction.Location.NO_RESTRICTIONS,
+            SpawnRestriction.Location.ON_GROUND,
             Heightmap.Type.MOTION_BLOCKING_NO_LEAVES,
             MossyLlamaEntity::canSpawn
         );
