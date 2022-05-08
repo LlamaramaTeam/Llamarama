@@ -39,6 +39,11 @@ public class CaravanTraderEntity extends MerchantEntity {
         return VillagerEntity.createVillagerAttributes();
     }
 
+    @Override
+    public boolean canImmediatelyDespawn(double distanceSquared) {
+        return false;
+    }
+
     @Nullable
     @Override
     public PassiveEntity createChild(ServerWorld world, PassiveEntity entity) {
