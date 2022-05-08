@@ -243,7 +243,8 @@ public final class TradeUtil {
 
     public static class RandomPotionTrade implements TradeOffers.Factory {
 
-        private static final List<Potion> POTIONS = Registry.POTION.stream().toList();
+        private static final List<Potion> POTIONS =
+            Registry.POTION.stream().filter(it -> !it.getEffects().isEmpty()).toList();
 
         @Nullable
         @Override
