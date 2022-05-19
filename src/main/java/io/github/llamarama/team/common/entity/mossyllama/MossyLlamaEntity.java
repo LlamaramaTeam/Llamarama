@@ -72,9 +72,9 @@ public class MossyLlamaEntity extends WoollyLlamaEntity {
     @Nullable
     @Override
     public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData, @Nullable NbtCompound entityNbt) {
-        if (spawnReason == SpawnReason.EVENT) {
-            this.deadly.set(false);
-        }
+        var isNotDeadly = spawnReason == SpawnReason.EVENT || (entityNbt != null && entityNbt.getBoolean(DEADLY_KEY));
+        // Changing this to checking the NBT because they may not be written and may be overwritten.
+        this.deadly.set(!isNotDeadly);
 
         return super.initialize(world, difficulty, spawnReason, entityData, entityNbt);
     }
