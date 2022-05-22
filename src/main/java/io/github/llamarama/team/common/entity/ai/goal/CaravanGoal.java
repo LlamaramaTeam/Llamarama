@@ -54,16 +54,16 @@ public class CaravanGoal<T extends LlamaEntity> extends Goal {
         if (this.entity.getFollowing() == null || !this.entity.getFollowing().isAlive())
             return;
 
-        Vec3d currentPos = this.entity.getPos();
         Vec3d followingPos = this.entity.getFollowing().getPos();
-        Vec3d crossProduct = followingPos
-            .add(currentPos.multiply(-1d))
-            .multiply(this.entity.distanceTo(this.entity.getFollowing()) - 2.0d);
+        Vec3d distanceVector = followingPos
+            .add(this.entity.getPos().multiply(-1d))
+            .normalize()
+            .multiply(Math.max(this.entity.distanceTo(this.entity.getFollowing()) - 2.0d, 0.0d));
 
         this.entity.getNavigation().startMovingTo(
-            currentPos.getX() + crossProduct.getX(),
-            currentPos.getY() + crossProduct.getY(),
-            currentPos.getZ() + crossProduct.getZ(), this.speed
+            this.entity.getX() + distanceVector.getX(),
+            this.entity.getY() + distanceVector.getY(),
+            this.entity.getZ() + distanceVector.getZ(), this.speed
         );
     }
 
