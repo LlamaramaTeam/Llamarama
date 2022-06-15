@@ -20,9 +20,8 @@ import io.github.llamarama.team.common.util.events.SpawnEventListener;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
-import net.fabricmc.fabric.api.loot.v1.FabricLootPoolBuilder;
-import net.fabricmc.fabric.api.loot.v1.FabricLootSupplierBuilder;
-import net.fabricmc.fabric.api.loot.v1.event.LootTableLoadingCallback;
+import net.fabricmc.fabric.api.loot.v2.FabricLootPoolBuilder;
+import net.fabricmc.fabric.api.loot.v2.LootTableSource;
 import net.fabricmc.fabric.mixin.object.builder.SpawnRestrictionAccessor;
 import net.minecraft.client.model.TexturedModelData;
 import net.minecraft.client.render.entity.model.VillagerResemblingModel;
@@ -31,6 +30,8 @@ import net.minecraft.entity.SpawnRestriction;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.loot.LootManager;
+import net.minecraft.loot.LootPool;
+import net.minecraft.loot.LootTable;
 import net.minecraft.loot.condition.EntityPropertiesLootCondition;
 import net.minecraft.loot.context.LootContext;
 import net.minecraft.loot.entry.ItemEntry;
@@ -76,26 +77,24 @@ public final class EventHandler {
         return eventHandler;
     }
 
-    public void lootTableListener(ResourceManager __, LootManager ___, Identifier identifier,
-                                  FabricLootSupplierBuilder fabricLootSupplierBuilder,
-                                  LootTableLoadingCallback.LootTableSetter ____) {
-        if (IdBuilder.vanillaOf("entities/llama").equals(identifier)) {
+    public void lootTableListener(ResourceManager resourceManager, LootManager lootManager, Identifier id, LootTable.Builder tableBuilder, LootTableSource source) {
+        if (IdBuilder.vanillaOf("entities/llama").equals(id)) {
 
-            FabricLootPoolBuilder pool =
-                FabricLootPoolBuilder.builder()
+            LootPool.Builder pool =
+                LootPool.builder()
                     .rolls(ConstantLootNumberProvider.create(1))
-                    .withEntry(ItemEntry.builder(ModItems.RAW_LLAMA_MEAT).build())
-                    .withFunction(FurnaceSmeltLootFunction.builder()
+                    .with(ItemEntry.builder(ModItems.RAW_LLAMA_MEAT).build())
+                    .apply(FurnaceSmeltLootFunction.builder()
                         .conditionally(EntityPropertiesLootCondition
                             .builder(LootContext.EntityTarget.THIS,
                                 EntityPredicate.Builder.create()
                                     .flags(EntityFlagsPredicate.Builder.create()
                                         .onFire(true).build())))
                         .build())
-                    .withFunction(LootingEnchantLootFunction.builder(UniformLootNumberProvider.create(1, 2))
+                    .apply(LootingEnchantLootFunction.builder(UniformLootNumberProvider.create(1, 2))
                         .build());
 
-            fabricLootSupplierBuilder.withPool(pool.build());
+            tableBuilder.pool(pool);
         }
     }
 

@@ -6,10 +6,7 @@ import io.github.llamarama.team.common.item.ModItems;
 import io.github.llamarama.team.common.tag.ModItemTags;
 import io.github.llamarama.team.common.util.TagUtil;
 import io.github.llamarama.team.common.util.annotation.InterfaceImplementation;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.ItemSteerable;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.SaddledComponent;
+import net.minecraft.entity.*;
 import net.minecraft.entity.ai.RangedAttackMob;
 import net.minecraft.entity.ai.goal.FormCaravanGoal;
 import net.minecraft.entity.attribute.EntityAttributes;
@@ -27,6 +24,8 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.LocalDifficulty;
+import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Implements;
@@ -38,6 +37,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+import java.util.Arrays;
 import java.util.stream.Stream;
 
 @Mixin(LlamaEntity.class)
@@ -53,6 +53,7 @@ public abstract class MixinLlamaEntity extends AbstractDonkeyEntity implements R
         super(entityType, world);
     }
 
+    @SuppressWarnings("WrongEntityDataParameterClass")
     @Inject(method = "<clinit>", at = @At("TAIL"))
     private static void onStaticInit(CallbackInfo ci) {
         BOOST_TIME = DataTracker.registerData(LlamaEntity.class, TrackedDataHandlerRegistry.INTEGER);
@@ -67,6 +68,9 @@ public abstract class MixinLlamaEntity extends AbstractDonkeyEntity implements R
     @Shadow
     @Nullable
     public abstract DyeColor getCarpetColor();
+
+    @Shadow
+    public abstract @Nullable EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData, @Nullable NbtCompound entityNbt);
 
     @Inject(method = "initGoals()V", at = @At("TAIL"))
     public void onInitGoals(CallbackInfo ci) {
@@ -126,12 +130,14 @@ public abstract class MixinLlamaEntity extends AbstractDonkeyEntity implements R
         return ((float) (EntityAttributes.GENERIC_MOVEMENT_SPEED.getDefaultValue()) * 2.5f);
     }
 
-    @Inject(method = "canBeControlledByRider()Z", at = @At("HEAD"), cancellable = true)
-    public void onCanBeControlledByRider(CallbackInfoReturnable<Boolean> returnValue) {
-        LivingEntity rider = (LivingEntity) this.getPrimaryPassenger();
-        boolean out = rider != null && this.isSaddled() && Stream.of(rider.getStackInHand(Hand.MAIN_HAND), rider.getStackInHand(Hand.OFF_HAND)).anyMatch((itemStack) -> itemStack.getItem() == ModItems.HAY_ON_A_STICK);
-
-        returnValue.setReturnValue(out);
+    @Inject(method = "getPrimaryPassenger()Lnet/minecraft/entity/LivingEntity;", at = @At("HEAD"), cancellable = true)
+    public void onCanBeControlledByRider(CallbackInfoReturnable<LivingEntity> cir) {
+        if (this.isSaddled()) {
+            Entity firstPassenger = this.getFirstPassenger();
+            if (firstPassenger instanceof LivingEntity living && Arrays.stream(Hand.values()).map(living::getStackInHand).anyMatch(it -> it.isOf(ModItems.HAY_ON_A_STICK))) {
+                cir.setReturnValue(living);
+            }
+        }
     }
 
     @Override

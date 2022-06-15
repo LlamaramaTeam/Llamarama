@@ -7,10 +7,10 @@ import io.github.llamarama.team.common.item.ModItems;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.fabricmc.fabric.api.client.rendereregistry.v1.BlockEntityRendererRegistry;
-import net.fabricmc.fabric.api.client.rendereregistry.v1.EntityModelLayerRegistry;
-import net.fabricmc.fabric.api.client.rendereregistry.v1.EntityRendererRegistry;
+import net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.BuiltinItemRendererRegistry;
+import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
+import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.util.math.BlockPos;
 
@@ -24,10 +24,10 @@ public class LlamaramaClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
         // Block Entity Renderers
-        EventHandler.getInstance().addBlockEntityRegisterListener(BlockEntityRendererRegistry.INSTANCE::register);
+        EventHandler.getInstance().addBlockEntityRegisterListener(BlockEntityRendererRegistry::register);
 
         // Entity Renderers
-        EventHandler.getInstance().addEntityRendererListener(EntityRendererRegistry.INSTANCE::register);
+        EventHandler.getInstance().addEntityRendererListener(EntityRendererRegistry::register);
         EventHandler.getInstance().addEntityModelLayers(EntityModelLayerRegistry::registerModelLayer);
 
         // Register the llama wool bed item custom rendering.
