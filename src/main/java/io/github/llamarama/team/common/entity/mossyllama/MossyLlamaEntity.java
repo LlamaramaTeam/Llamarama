@@ -45,7 +45,7 @@ public class MossyLlamaEntity extends WoollyLlamaEntity {
         this.setWoolTimer(this.getRandom().nextInt(20 * 60 * 10));
     }
 
-    public static boolean canSpawn(@NotNull EntityType<MossyLlamaEntity> type, @NotNull ServerWorldAccess worldAccess, SpawnReason reason, @NotNull BlockPos pos, Random ignoredRandom) {
+    public static boolean canSpawn(@NotNull EntityType<MossyLlamaEntity> type, @NotNull ServerWorldAccess worldAccess, SpawnReason reason, @NotNull BlockPos pos, Random ignored) {
         if (reason == SpawnReason.CHUNK_GENERATION) {
             return false;
         } else if (reason == SpawnReason.EVENT) {

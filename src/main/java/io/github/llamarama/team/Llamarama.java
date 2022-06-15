@@ -2,7 +2,6 @@ package io.github.llamarama.team;
 
 import io.github.llamarama.team.common.event.EventHandler;
 import io.github.llamarama.team.common.register.*;
-import io.github.llamarama.team.common.tag.ModEntityTags;
 import io.github.llamarama.team.common.util.IdBuilder;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
@@ -34,7 +33,6 @@ public class Llamarama implements ModInitializer {
         ModBlockEntityTypes.init();
         ModBlocks.init();
         ModEntityTypes.init();
-        ModEntityTags.init();
 
         // Biome Modifications
         ModBiomeModifications.init();

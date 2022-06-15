@@ -39,4 +39,5 @@ public class LlamaramaClient implements ClientModInitializer {
                 )
         );
     }
+
 }
