@@ -28,12 +28,4 @@ public abstract class MixinBeeEntity extends AnimalEntity implements Angerable, 
         this.goalSelector.add(3, new BeeFollowBumbleLlamaGoal(((BeeEntity) (Object) this)));
         this.goalSelector.add(1, new BeeHelpBumbleLlamaGoal(((BeeEntity) (Object) this)));
     }
-
-    @Override
-    public void setTarget(@Nullable LivingEntity target) {
-        if (!(target instanceof BumbleLlamaEntity)) {
-            super.setTarget(target);
-        }
-    }
-
 }

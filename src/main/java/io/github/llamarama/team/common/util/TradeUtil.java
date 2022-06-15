@@ -1,7 +1,7 @@
 package io.github.llamarama.team.common.util;
 
-import io.github.llamarama.team.common.block.ModBlocks;
-import io.github.llamarama.team.common.item.ModItems;
+import io.github.llamarama.team.common.register.ModBlocks;
+import io.github.llamarama.team.common.register.ModItems;
 import net.minecraft.block.Block;
 import net.minecraft.block.PlantBlock;
 import net.minecraft.enchantment.Enchantment;

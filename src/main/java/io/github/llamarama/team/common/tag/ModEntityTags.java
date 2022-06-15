@@ -1,4 +1,4 @@
-package io.github.llamarama.team.common.entity;
+package io.github.llamarama.team.common.tag;
 
 import io.github.llamarama.team.common.util.IdBuilder;
 import net.minecraft.entity.EntityType;

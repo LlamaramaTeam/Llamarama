@@ -1,8 +1,8 @@
 package io.github.llamarama.team.common.entity.bumbllama;
 
 import io.github.llamarama.team.Llamarama;
-import io.github.llamarama.team.common.entity.ModEntityTypes;
 import io.github.llamarama.team.common.entity.woolyllama.WoollyLlamaEntity;
+import io.github.llamarama.team.common.register.ModEntityTypes;
 import io.github.llamarama.team.common.util.Constants;
 import io.github.llamarama.team.common.util.PosUtilities;
 import net.minecraft.block.BlockState;

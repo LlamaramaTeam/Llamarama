@@ -1,20 +1,17 @@
 package io.github.llamarama.team.client;
 
-import io.github.llamarama.team.common.block.ModBlocks;
+import io.github.llamarama.team.client.register.ModBlockEntityRenderers;
+import io.github.llamarama.team.client.register.ModEntityRenderers;
 import io.github.llamarama.team.common.block.blockentity.LlamaWoolBedBlockEntity;
-import io.github.llamarama.team.common.event.EventHandler;
-import io.github.llamarama.team.common.item.ModItems;
+import io.github.llamarama.team.common.register.ModBlocks;
+import io.github.llamarama.team.common.register.ModItems;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.BuiltinItemRendererRegistry;
-import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
-import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.util.math.BlockPos;
 
-@SuppressWarnings("deprecation")
 @Environment(EnvType.CLIENT)
 public class LlamaramaClient implements ClientModInitializer {
 
@@ -24,17 +21,22 @@ public class LlamaramaClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
         // Block Entity Renderers
-        EventHandler.getInstance().addBlockEntityRegisterListener(BlockEntityRendererRegistry::register);
+        ModBlockEntityRenderers.init();
 
         // Entity Renderers
-        EventHandler.getInstance().addEntityRendererListener(EntityRendererRegistry::register);
-        EventHandler.getInstance().addEntityModelLayers(EntityModelLayerRegistry::registerModelLayer);
+        ModEntityRenderers.init();
+        ModEntityRenderers.registerLayers();
 
         // Register the llama wool bed item custom rendering.
         BuiltinItemRendererRegistry.INSTANCE.register(ModItems.LLAMA_WOOL_BED,
             (stack, mode, matrices, vertexConsumers, light, overlay) ->
-                MinecraftClient.getInstance().getBlockEntityRenderDispatcher()
-                    .renderEntity(LLAMA_WOOL_BED_RENDERER_BE, matrices, vertexConsumers, light, overlay));
+                MinecraftClient.getInstance().getBlockEntityRenderDispatcher().renderEntity(
+                    LLAMA_WOOL_BED_RENDERER_BE,
+                    matrices,
+                    vertexConsumers,
+                    light,
+                    overlay
+                )
+        );
     }
-
 }

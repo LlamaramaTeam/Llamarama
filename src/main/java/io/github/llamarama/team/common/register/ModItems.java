@@ -1,9 +1,9 @@
-package io.github.llamarama.team.common.item;
+package io.github.llamarama.team.common.register;
 
 import io.github.llamarama.team.Llamarama;
-import io.github.llamarama.team.client.ModSoundEvents;
-import io.github.llamarama.team.common.block.ModBlocks;
-import io.github.llamarama.team.common.entity.ModEntityTypes;
+import io.github.llamarama.team.common.item.HayOnAStickItem;
+import io.github.llamarama.team.common.item.LlamaMilkItem;
+import io.github.llamarama.team.common.item.MusicDiscItem;
 import io.github.llamarama.team.common.item.food.ModFoodComponents;
 import io.github.llamarama.team.common.util.IdBuilder;
 import net.minecraft.item.BedItem;

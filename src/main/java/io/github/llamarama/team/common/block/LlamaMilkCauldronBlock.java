@@ -1,6 +1,7 @@
 package io.github.llamarama.team.common.block;
 
-import io.github.llamarama.team.common.item.ModItems;
+import io.github.llamarama.team.common.register.ModBlocks;
+import io.github.llamarama.team.common.register.ModItems;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import net.minecraft.block.AbstractCauldronBlock;
 import net.minecraft.block.Block;

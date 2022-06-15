@@ -1,8 +1,8 @@
 package io.github.llamarama.team.common.entity.spawn;
 
-import io.github.llamarama.team.common.entity.ModEntityTags;
-import io.github.llamarama.team.common.entity.ModEntityTypes;
 import io.github.llamarama.team.common.entity.caravantrader.CaravanTraderEntity;
+import io.github.llamarama.team.common.register.ModEntityTypes;
+import io.github.llamarama.team.common.tag.ModEntityTags;
 import io.github.llamarama.team.common.util.PosUtilities;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnReason;

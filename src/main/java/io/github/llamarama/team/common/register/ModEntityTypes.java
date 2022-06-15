@@ -1,4 +1,4 @@
-package io.github.llamarama.team.common.entity;
+package io.github.llamarama.team.common.register;
 
 import io.github.llamarama.team.common.entity.bumbllama.BumbleLlamaEntity;
 import io.github.llamarama.team.common.entity.caravantrader.CaravanTraderEntity;
@@ -38,7 +38,6 @@ public final class ModEntityTypes {
 
     }
 
-    @SuppressWarnings("SameParameterValue")
     private static <T extends LivingEntity> EntityType<T> register(EntityType.EntityFactory<T> factory,
                                                                    SpawnGroup group, float width, float height,
                                                                    boolean fixed,

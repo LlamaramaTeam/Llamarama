@@ -1,7 +1,7 @@
 package io.github.llamarama.team.common.entity.mossyllama;
 
-import io.github.llamarama.team.common.entity.ModEntityTypes;
 import io.github.llamarama.team.common.entity.woolyllama.WoollyLlamaEntity;
+import io.github.llamarama.team.common.register.ModEntityTypes;
 import io.github.llamarama.team.common.tag.ModBlockTags;
 import io.github.llamarama.team.common.util.Constants;
 import net.minecraft.block.BlockState;
