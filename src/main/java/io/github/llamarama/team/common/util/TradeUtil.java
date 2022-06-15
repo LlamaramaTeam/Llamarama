@@ -87,7 +87,11 @@ public final class TradeUtil {
                 Enchantment selectedEnchantment = null;
 
                 if (ENCHANTMENTS.size() > 0) {
-                    selectedEnchantment = ENCHANTMENTS.get(random.nextInt(ENCHANTMENTS.size()));
+                    try {
+                        selectedEnchantment = ENCHANTMENTS.get(random.nextInt(ENCHANTMENTS.size()));
+                    } catch (IllegalArgumentException ignored) {
+                        return new TradeOffer(new ItemStack(Items.BOOKSHELF, 6), ItemStack.EMPTY, 8, 3, 1.0f);
+                    }
                 }
 
                 if (selectedEnchantment != null) {
@@ -183,8 +187,12 @@ public final class TradeUtil {
             int amountOfEnchants = random.nextInt(6) + 1;
 
             for (int i = amountOfEnchants; i > 0; i--) {
-                Enchantment current = ENCHANTMENTS.get(random.nextInt(ENCHANTMENTS.size()));
-                appliedEnchantments.add(current);
+                try { // There is a chance ENCHANTMENTS.size() == 0 so we just catch in that rare case
+                    Enchantment current = ENCHANTMENTS.get(random.nextInt(ENCHANTMENTS.size()));
+                    appliedEnchantments.add(current);
+                } catch (IllegalArgumentException ignored) {
+                    return new TradeOffer(new ItemStack(Items.BOOKSHELF, 6), ItemStack.EMPTY, 8, 3, 1.0f);
+                }
             }
 
             List<EnchantmentLevelEntry> finalEnchants = appliedEnchantments.stream()
