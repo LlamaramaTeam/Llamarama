@@ -1,8 +1,8 @@
 package io.github.llamarama.team.common.entity.woolyllama;
 
-import io.github.llamarama.team.common.block.ModBlocks;
-import io.github.llamarama.team.common.entity.ModEntityTypes;
 import io.github.llamarama.team.common.entity.ai.goal.*;
+import io.github.llamarama.team.common.register.ModBlocks;
+import io.github.llamarama.team.common.register.ModEntityTypes;
 import io.github.llamarama.team.mixin.AccessorLlamaEntity;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.EntityType;
@@ -16,11 +16,9 @@ import net.minecraft.entity.passive.LlamaEntity;
 import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.entity.passive.WolfEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.particle.ParticleTypes;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
@@ -179,57 +177,6 @@ public class WoollyLlamaEntity extends LlamaEntity implements Shearable {
     @Nullable
     protected WoollyLlamaEntity getChild() {
         return ModEntityTypes.WOOLLY_LLAMA.create(this.world);
-    }
-
-    @Override
-    protected boolean receiveFood(PlayerEntity player, ItemStack itemStack) {
-        // Copied directly from llama. Changed names a bit.
-        int growBoost = 0;
-        int temper = 0;
-        float healHealth = 0.0F;
-        boolean loves = false;
-        Item itemInHand = itemStack.getItem();
-
-        if (itemInHand == Items.WHEAT) {
-            growBoost = 10;
-            temper = 3;
-            healHealth = 2.0F;
-        } else if (itemInHand == Items.HAY_BLOCK) {
-            growBoost = 90;
-            temper = 6;
-            healHealth = 10.0F;
-            if (this.isTame() && this.getBreedingAge() == 0 && this.canEat()) {
-                loves = true;
-                this.lovePlayer(player);
-            }
-        }
-
-        if (this.getHealth() < this.getMaxHealth() && healHealth > 0.0F) {
-            this.heal(healHealth);
-            loves = true;
-        }
-
-        if (this.isBaby() && growBoost > 0) {
-            this.world.addParticle(ParticleTypes.HAPPY_VILLAGER, this.getParticleX(1.0D), this.getRandomBodyY() + 0.5D, this.getParticleZ(1.0D), 0.0D, 0.0D, 0.0D);
-            if (!this.world.isClient) {
-                this.growUp(growBoost);
-            }
-
-            loves = true;
-        }
-
-        if (temper > 0 && (loves || !this.isTame()) && this.getTemper() < this.getMaxTemper()) {
-            loves = true;
-            if (!this.world.isClient) {
-                this.addTemper(temper);
-            }
-        }
-
-        if (loves && !this.isSilent() && this.world.isClient) {
-            this.world.playSound(null, this.getX(), this.getY(), this.getZ(), this.getEatSound(), this.getSoundCategory(), 1.0F, 1.0F);
-        }
-
-        return loves;
     }
 
     protected void shearedTick() {

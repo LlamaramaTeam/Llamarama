@@ -21,8 +21,8 @@ public class CaravanTraderRenderer extends MobEntityRenderer<CaravanTraderEntity
 
     public CaravanTraderRenderer(EntityRendererFactory.Context context) {
         super(context, new VillagerResemblingModel<>(context.getPart(CARAVAN_TRADER)), 0.5f);
-        this.addFeature(new HeadFeatureRenderer<>(this, context.getModelLoader()));
-        this.addFeature(new VillagerHeldItemFeatureRenderer<>(this));
+        this.addFeature(new HeadFeatureRenderer<>(this, context.getModelLoader(), context.getHeldItemRenderer()));
+        this.addFeature(new VillagerHeldItemFeatureRenderer<>(this, context.getHeldItemRenderer()));
     }
 
     @Override

@@ -1,6 +1,9 @@
-package io.github.llamarama.team.common.block;
+package io.github.llamarama.team.common.register;
 
 import io.github.llamarama.team.Llamarama;
+import io.github.llamarama.team.common.block.LlamaMilkCauldronBlock;
+import io.github.llamarama.team.common.block.LlamaWoolBedBlock;
+import io.github.llamarama.team.common.block.RugBlock;
 import io.github.llamarama.team.common.util.IdBuilder;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;

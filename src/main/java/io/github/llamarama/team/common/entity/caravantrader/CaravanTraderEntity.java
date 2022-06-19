@@ -1,6 +1,6 @@
 package io.github.llamarama.team.common.entity.caravantrader;
 
-import io.github.llamarama.team.common.item.ModItems;
+import io.github.llamarama.team.common.register.ModItems;
 import io.github.llamarama.team.common.util.TradeUtil;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ExperienceOrbEntity;

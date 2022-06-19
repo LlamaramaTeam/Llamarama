@@ -1,5 +1,6 @@
 package io.github.llamarama.team.common.block.blockentity;
 
+import io.github.llamarama.team.common.register.ModBlockEntityTypes;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;

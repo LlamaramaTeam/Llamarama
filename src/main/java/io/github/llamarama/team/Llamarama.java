@@ -1,17 +1,11 @@
 package io.github.llamarama.team;
 
-import io.github.llamarama.team.client.ModSoundEvents;
-import io.github.llamarama.team.common.block.ModBlocks;
-import io.github.llamarama.team.common.block.blockentity.ModBlockEntityTypes;
-import io.github.llamarama.team.common.entity.ModEntityTags;
-import io.github.llamarama.team.common.entity.ModEntityTypes;
 import io.github.llamarama.team.common.event.EventHandler;
-import io.github.llamarama.team.common.item.ModItems;
+import io.github.llamarama.team.common.register.*;
 import io.github.llamarama.team.common.util.IdBuilder;
 import net.fabricmc.api.ModInitializer;
-import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
-import net.fabricmc.fabric.api.loot.v1.event.LootTableLoadingCallback;
+import net.fabricmc.fabric.api.loot.v2.LootTableEvents;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
@@ -33,18 +27,21 @@ public class Llamarama implements ModInitializer {
 
     @Override
     public void onInitialize() {
+        // Content Registration
         ModSoundEvents.init();
         ModItems.init();
         ModBlockEntityTypes.init();
         ModBlocks.init();
         ModEntityTypes.init();
-        ModEntityTags.init();
+
+        // Biome Modifications
+        ModBiomeModifications.init();
+        ModBiomeModifications.registerSpawnRestrictions();
 
         // Callback registers.
-        EventHandler.getInstance().addSpawnsListener(BiomeModifications::addSpawn);
-        EventHandler.getInstance().registerSpawnRestrictions();
-        LootTableLoadingCallback.EVENT.register(EventHandler.getInstance()::lootTableListener);
+        LootTableEvents.MODIFY.register(EventHandler::lootTableListener);
+
+        // Done
         Llamarama.getLogger().info("Welcome to the world of Llamas!");
     }
-
 }

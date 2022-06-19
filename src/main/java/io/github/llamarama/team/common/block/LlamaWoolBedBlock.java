@@ -1,6 +1,6 @@
 package io.github.llamarama.team.common.block;
 
-import io.github.llamarama.team.common.block.blockentity.ModBlockEntityTypes;
+import io.github.llamarama.team.common.register.ModBlockEntityTypes;
 import net.minecraft.block.BedBlock;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;

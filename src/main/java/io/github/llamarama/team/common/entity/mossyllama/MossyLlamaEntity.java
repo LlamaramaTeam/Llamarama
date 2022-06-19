@@ -1,7 +1,7 @@
 package io.github.llamarama.team.common.entity.mossyllama;
 
-import io.github.llamarama.team.common.entity.ModEntityTypes;
 import io.github.llamarama.team.common.entity.woolyllama.WoollyLlamaEntity;
+import io.github.llamarama.team.common.register.ModEntityTypes;
 import io.github.llamarama.team.common.tag.ModBlockTags;
 import io.github.llamarama.team.common.util.Constants;
 import net.minecraft.block.BlockState;
@@ -22,6 +22,7 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.random.Random;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryEntry;
 import net.minecraft.world.*;
@@ -29,7 +30,6 @@ import net.minecraft.world.gen.feature.UndergroundConfiguredFeatures;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Random;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class MossyLlamaEntity extends WoollyLlamaEntity {
@@ -45,7 +45,7 @@ public class MossyLlamaEntity extends WoollyLlamaEntity {
         this.setWoolTimer(this.getRandom().nextInt(20 * 60 * 10));
     }
 
-    public static boolean canSpawn(@NotNull EntityType<MossyLlamaEntity> type, @NotNull ServerWorldAccess worldAccess, SpawnReason reason, @NotNull BlockPos pos, Random ignoredRandom) {
+    public static boolean canSpawn(@NotNull EntityType<MossyLlamaEntity> type, @NotNull ServerWorldAccess worldAccess, SpawnReason reason, @NotNull BlockPos pos, Random ignored) {
         if (reason == SpawnReason.CHUNK_GENERATION) {
             return false;
         } else if (reason == SpawnReason.EVENT) {

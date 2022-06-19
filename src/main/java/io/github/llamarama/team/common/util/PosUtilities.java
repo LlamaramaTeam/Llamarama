@@ -2,11 +2,10 @@ package io.github.llamarama.team.common.util;
 
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.random.Random;
 import net.minecraft.world.Heightmap;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
-
-import java.util.Random;
 
 public interface PosUtilities {
 

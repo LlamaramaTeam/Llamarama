@@ -1,7 +1,7 @@
 package io.github.llamarama.team.common.util;
 
-import io.github.llamarama.team.common.block.ModBlocks;
-import io.github.llamarama.team.common.item.ModItems;
+import io.github.llamarama.team.common.register.ModBlocks;
+import io.github.llamarama.team.common.register.ModItems;
 import net.minecraft.block.Block;
 import net.minecraft.block.PlantBlock;
 import net.minecraft.enchantment.Enchantment;
@@ -13,10 +13,10 @@ import net.minecraft.item.map.MapState;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionUtil;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.tag.ConfiguredStructureFeatureTags;
-import net.minecraft.text.TranslatableText;
+import net.minecraft.tag.StructureTags;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.random.Random;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.village.TradeOffer;
 import net.minecraft.village.TradeOffers;
@@ -25,7 +25,6 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -131,7 +130,7 @@ public final class TradeUtil {
             World world = entity.getEntityWorld();
             if (!world.isClient() && world instanceof ServerWorld && random.nextInt(4) == 0) {
                 BlockPos structurePos = ((ServerWorld) world).locateStructure(
-                    ConfiguredStructureFeatureTags.VILLAGE,
+                    StructureTags.VILLAGE,
                     entity.getBlockPos(),
                     100,
                     false
@@ -142,7 +141,7 @@ public final class TradeUtil {
 
                     FilledMapItem.fillExplorationMap((ServerWorld) world, out);
                     MapState.addDecorationsNbt(out, structurePos, "+", MapIcon.Type.RED_X);
-                    out.setCustomName(new TranslatableText("llamarama.text.village_map"));
+                    out.setCustomName(Constants.VILLAGE_MAP);
 
                     return new TradeOffer(new ItemStack(Items.EMERALD, 4 + random.nextInt(10)), out, 1, 3, 4.0f);
                 }

@@ -1,6 +1,7 @@
 package io.github.llamarama.team.common.block;
 
-import io.github.llamarama.team.common.item.ModItems;
+import io.github.llamarama.team.common.register.ModBlocks;
+import io.github.llamarama.team.common.register.ModItems;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import net.minecraft.block.AbstractCauldronBlock;
 import net.minecraft.block.Block;
@@ -19,11 +20,11 @@ import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Util;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
 import net.minecraft.world.event.GameEvent;
 
 import java.util.Map;
-import java.util.Random;
 
 public class LlamaMilkCauldronBlock extends AbstractCauldronBlock {
 
@@ -50,7 +51,7 @@ public class LlamaMilkCauldronBlock extends AbstractCauldronBlock {
                 player.incrementStat(Stats.USE_CAULDRON);
                 world.setBlockState(pos, Blocks.CAULDRON.getDefaultState());
                 world.playSound(null, pos, SoundEvents.ENTITY_ITEM_PICKUP, SoundCategory.BLOCKS, 1.0F, 1.0F);
-                world.emitGameEvent(player, GameEvent.MOB_INTERACT, pos);
+                world.emitGameEvent(player, GameEvent.ENTITY_INTERACT, pos);
                 return ActionResult.success(true);
             }
 
