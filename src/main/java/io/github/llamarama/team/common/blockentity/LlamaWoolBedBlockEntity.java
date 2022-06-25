@@ -1,4 +1,4 @@
-package io.github.llamarama.team.common.block.blockentity;
+package io.github.llamarama.team.common.blockentity;
 
 import io.github.llamarama.team.common.register.ModBlockEntityTypes;
 import net.minecraft.block.BlockState;

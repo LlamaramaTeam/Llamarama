@@ -1,6 +1,7 @@
 package io.github.llamarama.team.common.register;
 
 import io.github.llamarama.team.Llamarama;
+import io.github.llamarama.team.common.entity.sandyllama.SandyLlamaEntity;
 import io.github.llamarama.team.common.item.HayOnAStickItem;
 import io.github.llamarama.team.common.item.LlamaMilkItem;
 import io.github.llamarama.team.common.item.MusicDiscItem;
@@ -15,6 +16,7 @@ import net.minecraft.util.registry.Registry;
 @SuppressWarnings("unused")
 public final class ModItems {
 
+    // TODO: Move other llamas to use our spawn egg inteface.
     public static final Item RAW_LLAMA_MEAT = register("raw_llama_meat",
         new Item(getBaseSettings().food(ModFoodComponents.RAW_LLAMA_MEAT)));
     public static final Item ROASTED_LLAMA_MEAT = register("roasted_llama_meat",
@@ -43,6 +45,8 @@ public final class ModItems {
         new SpawnEggItem(ModEntityTypes.MOSSY_LLAMA, 0x5F833F, 0xBA62CE, getBaseSettings()));
     public static final Item MOSSED_UP = register("mossed_up_disc",
         new MusicDiscItem(11, ModSoundEvents.MOSSED_UP_DISC, getDiscSettings()));
+    public static final Item SANDY_LLAMA = register("sandy_llama_spawn_egg",
+        SandyLlamaEntity.createSpawnEggData().create(ModEntityTypes.SANDY_LLAMA, getBaseSettings()));
 
     private ModItems() {
     }

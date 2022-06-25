@@ -1,6 +1,7 @@
 package io.github.llamarama.team.common.register;
 
-import io.github.llamarama.team.common.block.blockentity.LlamaWoolBedBlockEntity;
+import io.github.llamarama.team.common.blockentity.LlamaWoolBedBlockEntity;
+import io.github.llamarama.team.common.blockentity.StatueBlockEntity;
 import io.github.llamarama.team.common.util.IdBuilder;
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
 import net.minecraft.block.Block;
@@ -22,8 +23,12 @@ public final class ModBlockEntityTypes {
                                                                      FabricBlockEntityTypeBuilder.Factory<T> factory,
                                                                      Block... blocks) {
         return register(id, FabricBlockEntityTypeBuilder.create(factory, blocks).build());
-    }    public static final BlockEntityType<LlamaWoolBedBlockEntity> LLAMA_WOOL_BED =
+    }
+
+    public static final BlockEntityType<LlamaWoolBedBlockEntity> LLAMA_WOOL_BED =
         create("llama_wool_bed", LlamaWoolBedBlockEntity::new, ModBlocks.LLAMA_WOOL_BED);
+    public static final BlockEntityType<StatueBlockEntity> STATUE =
+        create("statue", StatueBlockEntity::new, ModBlocks.STATUE);
 
     private static <T extends BlockEntity> BlockEntityType<T> register(String id, BlockEntityType<T> blockEntityType) {
         return Registry.register(Registry.BLOCK_ENTITY_TYPE, IdBuilder.of(id), blockEntityType);

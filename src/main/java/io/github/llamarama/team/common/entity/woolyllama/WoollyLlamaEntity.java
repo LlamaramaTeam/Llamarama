@@ -31,7 +31,6 @@ import org.jetbrains.annotations.Nullable;
 
 public class WoollyLlamaEntity extends LlamaEntity implements Shearable {
 
-    @NotNull
     private static final TrackedData<Boolean> SHEARED =
         DataTracker.registerData(WoollyLlamaEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
     protected int woolTimer;
@@ -71,7 +70,7 @@ public class WoollyLlamaEntity extends LlamaEntity implements Shearable {
 
     @Override
     public boolean isShearable() {
-        return !this.getSheared() && !this.isBaby();
+        return !this.getSheared() && !this.isBaby() && !this.getShearedItem().isEmpty();
     }
 
     @Override

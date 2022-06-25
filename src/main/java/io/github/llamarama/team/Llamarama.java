@@ -29,9 +29,9 @@ public class Llamarama implements ModInitializer {
     public void onInitialize() {
         // Content Registration
         ModSoundEvents.init();
+        ModBlocks.init();
         ModItems.init();
         ModBlockEntityTypes.init();
-        ModBlocks.init();
         ModEntityTypes.init();
 
         // Biome Modifications

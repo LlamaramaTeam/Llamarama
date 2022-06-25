@@ -2,7 +2,7 @@ package io.github.llamarama.team.client;
 
 import io.github.llamarama.team.client.register.ModBlockEntityRenderers;
 import io.github.llamarama.team.client.register.ModEntityRenderers;
-import io.github.llamarama.team.common.block.blockentity.LlamaWoolBedBlockEntity;
+import io.github.llamarama.team.common.blockentity.LlamaWoolBedBlockEntity;
 import io.github.llamarama.team.common.register.ModBlocks;
 import io.github.llamarama.team.common.register.ModItems;
 import net.fabricmc.api.ClientModInitializer;
