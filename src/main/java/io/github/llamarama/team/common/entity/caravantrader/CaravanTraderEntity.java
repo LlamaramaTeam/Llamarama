@@ -14,6 +14,7 @@ import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.entity.passive.VillagerEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
@@ -176,11 +177,23 @@ public class CaravanTraderEntity extends MerchantEntity {
     }
 
     @Override
+    public void writeCustomDataToNbt(NbtCompound nbt) {
+        super.writeCustomDataToNbt(nbt);
+        nbt.putInt("lifespan", lifespan);
+    }
+
+    @Override
+    public void readCustomDataFromNbt(NbtCompound nbt) {
+        super.readCustomDataFromNbt(nbt);
+        if (nbt.contains("lifespan")) {
+            lifespan = nbt.getInt("lifespan");
+        }
+    }
+
+    @Override
     public void tickMovement() {
-        if (lifespan > 0) {
-            lifespan--;
-        } else {
-            this.remove(RemovalReason.UNLOADED_TO_CHUNK);
+        if (!this.hasCustomer() && this.lifespan-- == 0) {
+            this.discard();
         }
         super.tickMovement();
     }
