@@ -29,6 +29,7 @@ import org.jetbrains.annotations.Nullable;
 public class CaravanTraderEntity extends MerchantEntity {
 
     private boolean hasLlama;
+    private int lifespan = 36000;
 
     public CaravanTraderEntity(EntityType<? extends MerchantEntity> entityType, World world) {
         super(entityType, world);
@@ -174,4 +175,13 @@ public class CaravanTraderEntity extends MerchantEntity {
         return SoundEvents.ENTITY_GENERIC_SPLASH;
     }
 
+    @Override
+    public void tickMovement() {
+        if (lifespan > 0) {
+            lifespan--;
+        } else {
+            this.remove(RemovalReason.UNLOADED_TO_CHUNK);
+        }
+        super.tickMovement();
+    }
 }
