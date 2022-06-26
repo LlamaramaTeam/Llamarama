@@ -33,6 +33,9 @@ public class Llamarama implements ModInitializer {
         ModItems.init();
         ModBlockEntityTypes.init();
         ModEntityTypes.init();
+        ModPointOfInterestTypes.init();
+        ModMemoryModules.init();
+        ModSensorTypes.init();
 
         // Biome Modifications
         ModBiomeModifications.init();

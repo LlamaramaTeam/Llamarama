@@ -11,22 +11,26 @@ import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.block.entity.BlockEntityRenderer;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactory;
 import net.minecraft.client.render.entity.LivingEntityRenderer;
+import net.minecraft.client.render.entity.model.EntityModel;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Quaternion;
+import net.minecraft.util.math.Vec3f;
 
 import java.util.IdentityHashMap;
 
 @Environment(EnvType.CLIENT)
 public class StatueBlockEntityRenderer implements BlockEntityRenderer<StatueBlockEntity> {
-    private final IdentityHashMap<EntityType<? extends LivingEntity>, LivingEntity> cache =
-        new IdentityHashMap<>();
+    private final IdentityHashMap<EntityType<? extends LivingEntity>, LivingEntity> cache = new IdentityHashMap<>();
 
     public StatueBlockEntityRenderer(BlockEntityRendererFactory.Context ignored) {
     }
 
-    private static final Identifier CONTINOUS_SAND = IdBuilder.of("textures/misc/continous_sand.png");
+    private static final Identifier SAND = IdBuilder.vanillaOf("textures/block/sand.png");
 
     @Override
     public void render(StatueBlockEntity entity, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
@@ -44,9 +48,14 @@ public class StatueBlockEntityRenderer implements BlockEntityRenderer<StatueBloc
             (LivingEntityRenderer<? super LivingEntity, ?>) MinecraftClient.getInstance().getEntityRenderDispatcher().getRenderer(dummy);
         matrices.push();
         matrices.translate(0.5f, 0, 0.5f);
-        renderer.getModel().render(
+        matrices.multiply(new Quaternion(Vec3f.POSITIVE_Z, MathHelper.PI, false));
+        matrices.translate(0, -1.6, 0);
+        EntityModel<? super LivingEntity> model = renderer.getModel();
+        model.child = false;
+        model.setAngles(dummy, 0, 0, 0, 0, 0);
+        model.render(
             matrices,
-            vertexConsumers.getBuffer(RenderLayer.getEntityCutoutNoCull(CONTINOUS_SAND)),
+            vertexConsumers.getBuffer(RenderLayer.getEntityCutoutNoCull(SAND)),
             light,
             OverlayTexture.DEFAULT_UV, 1, 1, 1, 1
         );
