@@ -1,5 +1,6 @@
 package io.github.llamarama.team.common.blockentity;
 
+import io.github.llamarama.team.common.block.StatueBlock;
 import io.github.llamarama.team.common.register.ModBlockEntityTypes;
 import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
 import net.minecraft.block.BlockState;
@@ -25,19 +26,18 @@ public class StatueBlockEntity extends BlockEntity {
         this.imitatedType = EntityType.PIG;
     }
 
-    public void setImitatedType(EntityType<? extends LivingEntity> imitatedType) {
-        this.imitatedType = imitatedType;
-        PlayerLookup.tracking(this).forEach(serverPlayer -> serverPlayer.networkHandler.sendPacket(this.toUpdatePacket()));
-    }
-
     public EntityType<? extends LivingEntity> getImitatedType() {
         return this.imitatedType;
     }
 
-    @Override
-    protected void writeNbt(NbtCompound nbt) {
-        super.writeNbt(nbt);
-        nbt.putString(IMITATED_TYPE, Registry.ENTITY_TYPE.getId(this.imitatedType).toString());
+    public void setImitatedType(EntityType<? extends LivingEntity> imitatedType) {
+        this.imitatedType = imitatedType;
+        PlayerLookup.tracking(this)
+            .forEach(serverPlayer -> serverPlayer.networkHandler.sendPacket(this.toUpdatePacket()));
+    }
+
+    public boolean isHardened() {
+        return this.getCachedState().get(StatueBlock.HARDENED);
     }
 
     @Override
@@ -61,6 +61,12 @@ public class StatueBlockEntity extends BlockEntity {
     @Override
     public Packet<ClientPlayPacketListener> toUpdatePacket() {
         return BlockEntityUpdateS2CPacket.create(this);
+    }
+
+    @Override
+    protected void writeNbt(NbtCompound nbt) {
+        super.writeNbt(nbt);
+        nbt.putString(IMITATED_TYPE, Registry.ENTITY_TYPE.getId(this.imitatedType).toString());
     }
 
 }

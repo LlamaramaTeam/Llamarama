@@ -17,6 +17,7 @@ import static net.minecraft.util.math.MathHelper.sin;
 
 @Environment(EnvType.CLIENT)
 public class SandyLlamaEntityModel extends EntityModel<SandyLlamaEntity> {
+
     private static final float DEGREE = (float) Math.PI / 180;
 
     private final ModelPart head;
@@ -25,6 +26,7 @@ public class SandyLlamaEntityModel extends EntityModel<SandyLlamaEntity> {
     private final ModelPart hindLeftLeg;
     private final ModelPart fronLeftLeg;
     private final ModelPart fronRightLeg;
+    private final ModelPart[] chests;
 
     public SandyLlamaEntityModel(ModelPart root) {
         this.head = root.getChild(EntityModelPartNames.HEAD);
@@ -33,24 +35,10 @@ public class SandyLlamaEntityModel extends EntityModel<SandyLlamaEntity> {
         this.hindLeftLeg = root.getChild(EntityModelPartNames.LEFT_HIND_LEG);
         this.fronRightLeg = root.getChild(EntityModelPartNames.RIGHT_FRONT_LEG);
         this.fronLeftLeg = root.getChild(EntityModelPartNames.LEFT_FRONT_LEG);
-    }
-
-    @Override
-    public void setAngles(SandyLlamaEntity entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch) {
-        this.head.pitch = headPitch * DEGREE;
-        this.head.yaw = headYaw * DEGREE;
-        // TODO: Chests
-        this.hindRightLeg.pitch = cos(limbAngle * 2 / 3) * limbDistance;
-        this.hindLeftLeg.pitch = sin(limbAngle * 2 / 3 - 90 * DEGREE) * limbDistance;
-        this.fronRightLeg.pitch = sin(limbAngle * 2 / 3 - 90 * DEGREE) * limbDistance;
-        this.fronLeftLeg.pitch = cos(limbAngle * 2 / 3) * limbDistance;
-    }
-
-    @Override
-    public void render(MatrixStack matrices, VertexConsumer vertices, int light, int overlay, float red, float green, float blue, float alpha) {
-        // TODO: Handle babies
-        Stream.of(this.head, this.body, this.hindRightLeg, this.hindLeftLeg, this.fronLeftLeg, this.fronRightLeg)
-            .forEach(part -> part.render(matrices, vertices, light, overlay, red, green, blue, alpha));
+        this.chests = new ModelPart[]{
+            this.body.getChild(EntityModelPartNames.LEFT_CHEST),
+            this.body.getChild(EntityModelPartNames.RIGHT_CHEST)
+        };
     }
 
     public static @NotNull TexturedModelData getTexturedModelData() {
@@ -70,59 +58,107 @@ public class SandyLlamaEntityModel extends EntityModel<SandyLlamaEntity> {
         ModelPartData body = modelPartData.addChild(EntityModelPartNames.BODY, ModelPartBuilder.create()
             .uv(29, 0).cuboid(-6.0F, -10.0F, -7.0F, 12.0F, 18.0F, 10.0F, new Dilation(0.0F)), ModelTransform.of(0.0F, 5.0F, 2.0F, 1.5708F, 0.0F, 0.0F));
 
-        ModelPartData left_grass = body.addChild("left_grass",
+        body.addChild(EntityModelPartNames.LEFT_CHEST, ModelPartBuilder.create()
+            .uv(45, 41).cuboid(-5.5F, -4.0F, 6.0F, 8.0F, 8.0F, 3.0F, new Dilation(0.0F)), ModelTransform.of(0.0F, 0.0F, -2.0F, -1.5708F, 0.0F, -1.5708F));
+
+        body.addChild(EntityModelPartNames.RIGHT_CHEST, ModelPartBuilder.create()
+            .uv(45, 28).cuboid(-5.5F, -4.0F, -9.0F, 8.0F, 8.0F, 3.0F, new Dilation(0.0F)), ModelTransform.of(0.0F, 0.0F, -2.0F, -1.5708F, 0.0F, -1.5708F));
+
+        ModelPartData leftGrass = body.addChild("left_grass",
             ModelPartBuilder.create(),
             ModelTransform.pivot(6.0F, -1.0F, -6.0F)
         );
 
-        left_grass.addChild("frond_r1", ModelPartBuilder.create()
-            .uv(95, 56).cuboid(0.0F, 0.0F, -4.0F, 10.0F, 0.0F, 8.0F, new Dilation(0.0F))
-            .uv(95, 56).cuboid(0.0F, 0.0F, -13.0F, 10.0F, 0.0F, 8.0F, new Dilation(0.0F)),
+        leftGrass.addChild("frond_r1", ModelPartBuilder.create()
+                .uv(95, 56).cuboid(0.0F, 0.0F, -4.0F, 10.0F, 0.0F, 8.0F, new Dilation(0.0F))
+                .uv(95, 56).cuboid(0.0F, 0.0F, -13.0F, 10.0F, 0.0F, 8.0F, new Dilation(0.0F)),
             ModelTransform.of(-0.5F, 5.0F, 0.0F, -1.5708F, 0.829F, 0.0F)
         );
 
-        left_grass.addChild("frond_r2", ModelPartBuilder.create()
-            .uv(95, 56).cuboid(0.0F, 0.0F, -13.0F, 10.0F, 0.0F, 8.0F, new Dilation(0.0F))
-            .uv(95, 56).cuboid(0.0F, 0.0F, -4.0F, 10.0F, 0.0F, 8.0F, new Dilation(0.0F)),
+        leftGrass.addChild("frond_r2", ModelPartBuilder.create()
+                .uv(95, 56).cuboid(0.0F, 0.0F, -13.0F, 10.0F, 0.0F, 8.0F, new Dilation(0.0F))
+                .uv(95, 56).cuboid(0.0F, 0.0F, -4.0F, 10.0F, 0.0F, 8.0F, new Dilation(0.0F)),
             ModelTransform.of(-0.5F, 5.0F, 0.0F, -1.5708F, 0.3927F, 0.0F)
         );
 
-        ModelPartData right_grass = body.addChild("right_grass",
+        ModelPartData rightGrass = body.addChild("right_grass",
             ModelPartBuilder.create(),
             ModelTransform.pivot(-6.0F, -1.0F, -7.0F)
         );
 
-        right_grass.addChild("frond_r3", ModelPartBuilder.create()
-            .uv(95, 56).cuboid(0.0F, 0.0F, -13.0F, 10.0F, 0.0F, 8.0F, new Dilation(0.0F))
-            .uv(95, 56).cuboid(0.0F, 0.0F, -4.0F, 10.0F, 0.0F, 8.0F, new Dilation(0.0F)),
+        rightGrass.addChild("frond_r3", ModelPartBuilder.create()
+                .uv(95, 56).cuboid(0.0F, 0.0F, -13.0F, 10.0F, 0.0F, 8.0F, new Dilation(0.0F))
+                .uv(95, 56).cuboid(0.0F, 0.0F, -4.0F, 10.0F, 0.0F, 8.0F, new Dilation(0.0F)),
             ModelTransform.of(0.5F, -4.0F, 1.0F, -1.5708F, 0.3927F, -3.1416F)
         );
 
-        right_grass.addChild("frond_r4", ModelPartBuilder.create()
-            .uv(95, 56).cuboid(0.0F, 0.0F, -4.0F, 10.0F, 0.0F, 8.0F, new Dilation(0.0F))
-            .uv(95, 56).cuboid(0.0F, 0.0F, -13.0F, 10.0F, 0.0F, 8.0F, new Dilation(0.0F)),
+        rightGrass.addChild("frond_r4", ModelPartBuilder.create()
+                .uv(95, 56).cuboid(0.0F, 0.0F, -4.0F, 10.0F, 0.0F, 8.0F, new Dilation(0.0F))
+                .uv(95, 56).cuboid(0.0F, 0.0F, -13.0F, 10.0F, 0.0F, 8.0F, new Dilation(0.0F)),
             ModelTransform.of(0.5F, -4.0F, 1.0F, -1.5708F, 0.829F, -3.1416F)
         );
 
         modelPartData.addChild(EntityModelPartNames.RIGHT_HIND_LEG, ModelPartBuilder.create()
-            .uv(29, 29).cuboid(-9.0F, 0.0F, -2.0F, 4.0F, 14.0F, 4.0F, new Dilation(0.0F)),
+                .uv(29, 29).cuboid(-9.0F, 0.0F, -2.0F, 4.0F, 14.0F, 4.0F, new Dilation(0.0F)),
             ModelTransform.pivot(3.5F, 10.0F, 6.0F)
         );
 
         modelPartData.addChild(EntityModelPartNames.LEFT_HIND_LEG, ModelPartBuilder.create()
-            .uv(29, 29).cuboid(5.0F, 0.0F, -2.0F, 4.0F, 14.0F, 4.0F, new Dilation(0.0F)),
+                .uv(29, 29).cuboid(5.0F, 0.0F, -2.0F, 4.0F, 14.0F, 4.0F, new Dilation(0.0F)),
             ModelTransform.pivot(-3.5F, 10.0F, 6.0F)
         );
 
         modelPartData.addChild(EntityModelPartNames.RIGHT_FRONT_LEG, ModelPartBuilder.create()
-            .uv(29, 29).cuboid(-9.0F, 0.0F, -2.0F, 4.0F, 14.0F, 4.0F, new Dilation(0.0F)),
+                .uv(29, 29).cuboid(-9.0F, 0.0F, -2.0F, 4.0F, 14.0F, 4.0F, new Dilation(0.0F)),
             ModelTransform.pivot(3.5F, 10.0F, -5.0F)
         );
 
         modelPartData.addChild(EntityModelPartNames.LEFT_FRONT_LEG, ModelPartBuilder.create()
-            .uv(29, 29).cuboid(5.0F, 0.0F, -2.0F, 4.0F, 14.0F, 4.0F, new Dilation(0.0F)),
+                .uv(29, 29).cuboid(5.0F, 0.0F, -2.0F, 4.0F, 14.0F, 4.0F, new Dilation(0.0F)),
             ModelTransform.pivot(-3.5F, 10.0F, -5.0F)
         );
+
         return TexturedModelData.of(modelData, 128, 64);
     }
+
+    @Override
+    public void setAngles(SandyLlamaEntity entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch) {
+        this.head.pitch = headPitch * DEGREE;
+        this.head.yaw = headYaw * DEGREE;
+        this.hindRightLeg.pitch = cos(limbAngle * 2 / 3) * limbDistance;
+        this.hindLeftLeg.pitch = sin(limbAngle * 2 / 3 - 90 * DEGREE) * limbDistance;
+        this.fronRightLeg.pitch = sin(limbAngle * 2 / 3 - 90 * DEGREE) * limbDistance;
+        this.fronLeftLeg.pitch = cos(limbAngle * 2 / 3) * limbDistance;
+
+        for (var chest : this.chests) {
+            chest.visible = !entity.isBaby() && entity.hasChest();
+        }
+    }
+
+    @SuppressWarnings("DuplicatedCode")
+    @Override
+    public void render(MatrixStack matrices, VertexConsumer vertices, int light, int overlay, float red, float green, float blue, float alpha) {
+        if (this.child) {
+            matrices.push();
+            matrices.scale(0.71428573F, 0.64935064F, 0.7936508F);
+            matrices.translate(0.0D, 1.3125D, 0.2199999988079071D);
+            this.head.render(matrices, vertices, light, overlay, red, green, blue, alpha);
+            matrices.pop();
+            matrices.push();
+            matrices.scale(0.625F, 0.45454544F, 0.45454544F);
+            matrices.translate(0.0D, 2.0625D, 0.0D);
+            this.body.render(matrices, vertices, light, overlay, red, green, blue, alpha);
+            matrices.pop();
+            matrices.push();
+            matrices.scale(0.45454544F, 0.41322312F, 0.45454544F);
+            matrices.translate(0.0D, 2.0625D, 0.0D);
+            Stream.of(this.fronLeftLeg, this.fronRightLeg, this.hindLeftLeg, this.hindRightLeg)
+                .forEach(modelPart -> modelPart.render(matrices, vertices, light, overlay, red, green, blue, alpha));
+            matrices.pop();
+        } else {
+            Stream.of(this.head, this.body, this.fronRightLeg, this.fronLeftLeg, this.hindLeftLeg, this.hindRightLeg)
+                .forEach((modelPart) -> modelPart.render(matrices, vertices, light, overlay));
+        }
+    }
+
 }

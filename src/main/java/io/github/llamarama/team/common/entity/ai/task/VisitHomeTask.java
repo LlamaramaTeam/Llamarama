@@ -29,8 +29,8 @@ public class VisitHomeTask extends Task<SandyLlamaEntity> {
             .map(pos -> entity.getNavigation().findPathTo(pos, 4))
             .ifPresent(path -> {
                 entity.getBrain().remember(MemoryModuleType.PATH, path);
-                entity.getNavigation().startMovingAlong(path, 2);
-            }); // TODO: Fix this speed
+                entity.getNavigation().startMovingAlong(path, 1.5f);
+            });
     }
 
     @Override
@@ -63,5 +63,4 @@ public class VisitHomeTask extends Task<SandyLlamaEntity> {
         Optional<Long> optionalLastVisisted = entity.getBrain().getOptionalMemory(ModMemoryModules.LAST_VISITED_HOME);
         return optionalLastVisisted.isEmpty() || world.getTime() - optionalLastVisisted.get() >= 600;
     }
-
 }

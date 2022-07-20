@@ -1,5 +1,7 @@
 package io.github.llamarama.team.client;
 
+import io.github.llamarama.team.client.item.LlamaWoolBedBlockEntityItemRenderer;
+import io.github.llamarama.team.client.item.StatueItemRenderer;
 import io.github.llamarama.team.client.register.ModBlockEntityRenderers;
 import io.github.llamarama.team.client.register.ModEntityRenderers;
 import io.github.llamarama.team.common.blockentity.LlamaWoolBedBlockEntity;
@@ -15,9 +17,6 @@ import net.minecraft.util.math.BlockPos;
 @Environment(EnvType.CLIENT)
 public class LlamaramaClient implements ClientModInitializer {
 
-    private static final LlamaWoolBedBlockEntity LLAMA_WOOL_BED_RENDERER_BE =
-        new LlamaWoolBedBlockEntity(BlockPos.ORIGIN, ModBlocks.LLAMA_WOOL_BED.getDefaultState());
-
     @Override
     public void onInitializeClient() {
         // Block Entity Renderers
@@ -28,16 +27,8 @@ public class LlamaramaClient implements ClientModInitializer {
         ModEntityRenderers.registerLayers();
 
         // Register the llama wool bed item custom rendering.
-        BuiltinItemRendererRegistry.INSTANCE.register(ModItems.LLAMA_WOOL_BED,
-            (stack, mode, matrices, vertexConsumers, light, overlay) ->
-                MinecraftClient.getInstance().getBlockEntityRenderDispatcher().renderEntity(
-                    LLAMA_WOOL_BED_RENDERER_BE,
-                    matrices,
-                    vertexConsumers,
-                    light,
-                    overlay
-                )
-        );
+        BuiltinItemRendererRegistry.INSTANCE.register(ModItems.LLAMA_WOOL_BED, new LlamaWoolBedBlockEntityItemRenderer());
+        BuiltinItemRendererRegistry.INSTANCE.register(ModBlocks.STATUE.asItem(), new StatueItemRenderer());
     }
 
 }

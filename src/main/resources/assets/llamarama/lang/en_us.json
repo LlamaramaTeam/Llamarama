@@ -29,5 +29,6 @@
   "subtitle.llamarama.mossed_up": "Mossed Up playing...",
   "item.llamarama.mossed_up_disc": "Music Disc",
   "item.llamarama.mossed_up_disc.desc": "Mossed Up - Calypso Robobobert",
-  "message.llamarama.cannot_ride": "Thine shall not ride such rare and beautiful creature"
+  "message.llamarama.cannot_ride": "Thou shall not ride such rare and beautiful creature",
+  "entity.llamarama.sandy_llama": "Sandy Llama"
 }
