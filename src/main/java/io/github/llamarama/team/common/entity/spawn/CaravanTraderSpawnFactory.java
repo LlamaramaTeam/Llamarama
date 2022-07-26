@@ -1,9 +1,13 @@
 package io.github.llamarama.team.common.entity.spawn;
 
+import java.util.Optional;
+
 import io.github.llamarama.team.common.entity.caravantrader.CaravanTraderEntity;
 import io.github.llamarama.team.common.register.ModEntityTypes;
 import io.github.llamarama.team.common.tag.ModEntityTags;
 import io.github.llamarama.team.common.util.PosUtilities;
+import org.jetbrains.annotations.NotNull;
+
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.passive.LlamaEntity;
@@ -18,9 +22,6 @@ import net.minecraft.util.registry.RegistryEntry;
 import net.minecraft.world.GameRules;
 import net.minecraft.world.SpawnHelper;
 import net.minecraft.world.spawner.Spawner;
-import org.jetbrains.annotations.NotNull;
-
-import java.util.Optional;
 
 public class CaravanTraderSpawnFactory implements Spawner {
 
@@ -63,24 +64,22 @@ public class CaravanTraderSpawnFactory implements Spawner {
                 }
             }
         }
-        return 0;
-    }
 
-    private int nextSpawnDelay(@NotNull Random random) {
-        // return MathHelper.nextInt(random, 40, 60); // USED FOR TESTING PURPOSES
-        return MathHelper.nextInt(random, 40 * 60 * 20, 60 * 60 * 20);
+        return 0;
     }
 
     protected Optional<BlockPos> getRandomValidPos(@NotNull ServerWorld world) {
         PlayerEntity player = world.getRandomAlivePlayer();
 
         if (player != null) {
-            BlockPos alteredPos = PosUtilities.getRandomPosInArea(world, player.getBlockPos(), 128, false);
-            return Optional.of(alteredPos).filter(pos -> SpawnHelper.isClearForSpawn(
-                world, pos,
-                world.getBlockState(pos), world.getFluidState(pos),
-                ModEntityTypes.CARAVAN_TRADER)
-            );
+            BlockPos alteredPos = PosUtilities.getRandomPosInArea(world, player.getBlockPos(), 128, true);
+            return Optional.of(alteredPos)
+                .filter(pos -> !world.isAir(pos.down()))
+                .filter(pos -> SpawnHelper.isClearForSpawn(
+                    world, pos,
+                    world.getBlockState(pos), world.getFluidState(pos),
+                    ModEntityTypes.CARAVAN_TRADER
+                ));
         }
 
         return Optional.empty();
@@ -123,6 +122,11 @@ public class CaravanTraderSpawnFactory implements Spawner {
             return amountOfLlamas;
         }
         return 0;
+    }
+
+    private int nextSpawnDelay(@NotNull Random random) {
+//        return MathHelper.nextInt(random, 40, 60); // USED FOR TESTING PURPOSES
+        return MathHelper.nextInt(random, 40 * 60 * 20, 60 * 60 * 20);
     }
 
 }
