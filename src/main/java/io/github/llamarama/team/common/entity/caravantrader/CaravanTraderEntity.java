@@ -14,6 +14,7 @@ import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.entity.passive.VillagerEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
@@ -29,6 +30,8 @@ import org.jetbrains.annotations.Nullable;
 public class CaravanTraderEntity extends MerchantEntity {
 
     private boolean hasLlama;
+    private int lifespan = 36000;
+    private boolean traded;
 
     public CaravanTraderEntity(EntityType<? extends MerchantEntity> entityType, World world) {
         super(entityType, world);
@@ -89,6 +92,8 @@ public class CaravanTraderEntity extends MerchantEntity {
                 this.getZ(),
                 spawn)
             );
+
+            traded = true;
         }
     }
 
@@ -174,4 +179,33 @@ public class CaravanTraderEntity extends MerchantEntity {
         return SoundEvents.ENTITY_GENERIC_SPLASH;
     }
 
+    @Override
+    public void writeCustomDataToNbt(NbtCompound nbt) {
+        super.writeCustomDataToNbt(nbt);
+        if (!nbt.contains("Lifespan")) {
+            nbt.putInt("Lifespan", lifespan);
+        }
+        if (!nbt.contains("Traded")) {
+            nbt.putBoolean("Traded", traded);
+        }
+    }
+
+    @Override
+    public void readCustomDataFromNbt(NbtCompound nbt) {
+        super.readCustomDataFromNbt(nbt);
+        if (nbt.contains("Lifespan")) {
+            lifespan = nbt.getInt("Lifespan");
+        }
+        if (nbt.contains("Traded")) {
+            traded = nbt.getBoolean("Traded");
+        }
+    }
+
+    @Override
+    public void tickMovement() {
+        if (!this.hasCustomer() && this.lifespan-- == 0 && !this.traded) {
+            this.discard();
+        }
+        super.tickMovement();
+    }
 }
