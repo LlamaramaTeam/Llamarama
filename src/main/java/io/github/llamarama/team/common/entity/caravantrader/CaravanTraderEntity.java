@@ -1,5 +1,7 @@
 package io.github.llamarama.team.common.entity.caravantrader;
 
+import io.github.llamarama.team.common.item.ModSpawnEggItem;
+import io.github.llamarama.team.common.register.ModEntityTypes;
 import io.github.llamarama.team.common.register.ModItems;
 import io.github.llamarama.team.common.util.TradeUtil;
 import net.minecraft.entity.EntityType;
@@ -33,6 +35,10 @@ public class CaravanTraderEntity extends MerchantEntity {
     public CaravanTraderEntity(EntityType<? extends MerchantEntity> entityType, World world) {
         super(entityType, world);
         this.hasLlama = false;
+    }
+
+    public static ModSpawnEggItem.SpawnEggData createSpawnEggData() {
+        return new ModSpawnEggItem.SpawnEggData(ModEntityTypes.CARAVAN_TRADER, 0x7B857F, 0x6E3302);
     }
 
     public static DefaultAttributeContainer.Builder createAttributes() {

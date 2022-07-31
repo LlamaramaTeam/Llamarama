@@ -6,6 +6,7 @@ import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsage;
 import net.minecraft.item.Items;
@@ -17,10 +18,13 @@ import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
+import net.minecraft.state.property.DirectionProperty;
+import net.minecraft.state.property.Properties;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
@@ -29,18 +33,22 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-// TODO: Item rendering
 // TODO: Avoid Goal Mixins (FleeEntityGoal and GoToNearestPositionTask)
+// FIXME: Feature rendering!
 public class StatueBlock extends BlockWithEntity {
 
+    public static final BooleanProperty HARDENED = BooleanProperty.of("hardened");
+    public static final DirectionProperty HORIZONTAL_FACING = Properties.HORIZONTAL_FACING;
+    public static final String BLOCK_ENTITY_DATA = "BlockEntityNbt";
     private static final VoxelShape SHAPE =
         Block.createCuboidShape(0, 0, 0, 16, 2, 16);
-    public static final BooleanProperty HARDENED = BooleanProperty.of("hardened");
-    public static final String BLOCK_ENTITY_DATA = "BlockEntityNbt";
 
     public StatueBlock(Settings settings) {
         super(settings);
-        this.setDefaultState(this.getStateManager().getDefaultState().with(HARDENED, true));
+        this.setDefaultState(this.getStateManager().getDefaultState()
+            .with(HARDENED, true)
+            .with(HORIZONTAL_FACING, Direction.NORTH)
+        );
     }
 
     @Nullable
@@ -61,6 +69,12 @@ public class StatueBlock extends BlockWithEntity {
 
             blockEntity.readNbt(blockEntityNbt);
         }
+    }
+
+    @Nullable
+    @Override
+    public BlockState getPlacementState(ItemPlacementContext ctx) {
+        return this.getDefaultState().with(HORIZONTAL_FACING, ctx.getPlayerFacing());
     }
 
     @SuppressWarnings("deprecation")
@@ -107,13 +121,13 @@ public class StatueBlock extends BlockWithEntity {
     }
 
     @Override
-    protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-        builder.add(HARDENED);
+    public BlockRenderType getRenderType(BlockState state) {
+        return BlockRenderType.MODEL;
     }
 
     @Override
-    public BlockRenderType getRenderType(BlockState state) {
-        return BlockRenderType.MODEL;
+    protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
+        builder.add(HARDENED, HORIZONTAL_FACING);
     }
 
 }

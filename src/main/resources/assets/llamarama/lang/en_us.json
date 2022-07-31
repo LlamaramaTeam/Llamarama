@@ -30,5 +30,7 @@
   "item.llamarama.mossed_up_disc": "Music Disc",
   "item.llamarama.mossed_up_disc.desc": "Mossed Up - Calypso Robobobert",
   "message.llamarama.cannot_ride": "Thou shall not ride such rare and beautiful creature",
-  "entity.llamarama.sandy_llama": "Sandy Llama"
+  "entity.llamarama.sandy_llama": "Sandy Llama",
+  "block.llamarama.statue": "Statue",
+  "item.llamarama.sandy_llama_spawn_egg": "Sandy Llama Spawn Egg"
 }

@@ -6,14 +6,16 @@ import net.minecraft.item.SpawnEggItem;
 
 public class ModSpawnEggItem extends SpawnEggItem {
 
-    public ModSpawnEggItem(EntityType<? extends MobEntity> type, SpawnEggData data, Settings settings) {
-        super(type, data.primaryColor(), data.secondaryColor(), settings);
+    public ModSpawnEggItem(SpawnEggData data, Settings settings) {
+        super(data.type(), data.primaryColor(), data.secondaryColor(), settings);
     }
 
-    public record SpawnEggData(int primaryColor, int secondaryColor) {
-        public ModSpawnEggItem create(EntityType<? extends MobEntity> type, Settings settings) {
-            return new ModSpawnEggItem(type, this, settings);
+    public record SpawnEggData(EntityType<? extends MobEntity> type, int primaryColor, int secondaryColor) {
+
+        public ModSpawnEggItem create(Settings settings) {
+            return new ModSpawnEggItem(this, settings);
         }
+
     }
 
 }
