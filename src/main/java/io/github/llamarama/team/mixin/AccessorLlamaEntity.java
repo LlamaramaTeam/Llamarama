@@ -20,4 +20,7 @@ public interface AccessorLlamaEntity {
     @Invoker
     void invokeSetSpit(boolean bool);
 
+    @Accessor
+    LlamaEntity getFollower();
+
 }
