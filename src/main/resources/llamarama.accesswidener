@@ -1,4 +1,4 @@
-accessWidener v1 named
+accessWidener v2 named
 
 # Using this because of conflicts with Charm in 1.16. Nothing except this seemed to fix the issue.
-accessible method net/minecraft/entity/passive/BeeEntity setHasNectar (Z)V
+transitive-accessible method net/minecraft/entity/passive/BeeEntity setHasNectar (Z)V

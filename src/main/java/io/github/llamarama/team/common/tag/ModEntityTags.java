@@ -7,6 +7,8 @@ import net.minecraft.util.registry.Registry;
 
 public final class ModEntityTags {
 
-    public static final TagKey<EntityType<?>> LLAMAS = TagKey.of(Registry.ENTITY_TYPE_KEY, IdBuilder.of("llamas"));
-
+    public static final TagKey<EntityType<?>> LLAMAS =
+        TagKey.of(Registry.ENTITY_TYPE_KEY, IdBuilder.of("llamas"));
+    public static final TagKey<EntityType<?>> NOT_SANDABLE =
+        TagKey.of(Registry.ENTITY_TYPE_KEY, IdBuilder.of("non_sandable"));
 }

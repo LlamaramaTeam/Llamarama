@@ -6,6 +6,8 @@ import io.github.llamarama.team.client.entity.bumblellama.BumbleLlamaEntityRende
 import io.github.llamarama.team.client.entity.caravantrader.CaravanTraderRenderer;
 import io.github.llamarama.team.client.entity.mossyllama.MossyLlamaEntityModel;
 import io.github.llamarama.team.client.entity.mossyllama.MossyLlamaEntityRenderer;
+import io.github.llamarama.team.client.entity.sandyllama.SandyLlamaEntityModel;
+import io.github.llamarama.team.client.entity.sandyllama.SandyLlamaEntityRenderer;
 import io.github.llamarama.team.client.entity.woollyllama.WoollyLlamaEntityModel;
 import io.github.llamarama.team.client.entity.woollyllama.WoollyLlamaEntityRenderer;
 import io.github.llamarama.team.common.register.ModEntityTypes;
@@ -24,6 +26,7 @@ public class ModEntityRenderers {
         EntityRendererRegistry.register(ModEntityTypes.BUMBLE_LLAMA, BumbleLlamaEntityRenderer::new);
         EntityRendererRegistry.register(ModEntityTypes.CARAVAN_TRADER, CaravanTraderRenderer::new);
         EntityRendererRegistry.register(ModEntityTypes.MOSSY_LLAMA, MossyLlamaEntityRenderer::new);
+        EntityRendererRegistry.register(ModEntityTypes.SANDY_LLAMA, SandyLlamaEntityRenderer::new);
     }
 
     public static void registerLayers() {
@@ -34,7 +37,7 @@ public class ModEntityRenderers {
 
         EntityModelLayerRegistry.registerModelLayer(WoollyLlamaEntityRenderer.WOOLLY_LLAMA,
             WoollyLlamaEntityModel::getTexturedModelData);
-        EntityModelLayerRegistry.registerModelLayer(WoollyLlamaEntityRenderer.WoollyLlamaDecorRenderer.WOOLLY_LLAMA_DECOR,
+        EntityModelLayerRegistry.registerModelLayer(WoollyLlamaEntityRenderer.WOOLLY_LLAMA_DECOR,
             WoollyLlamaEntityModel::getTexturedModelData);
 
         EntityModelLayerRegistry.registerModelLayer(BumbleLlamaEntityRenderer.BUMBLE_LLAMA,
@@ -45,6 +48,11 @@ public class ModEntityRenderers {
 
         EntityModelLayerRegistry.registerModelLayer(MossyLlamaEntityRenderer.MOSSY_LLAMA,
             MossyLlamaEntityModel::getTexturedModelData);
+
+        EntityModelLayerRegistry.registerModelLayer(SandyLlamaEntityRenderer.SANDY_LLAMA,
+            SandyLlamaEntityModel::getTexturedModelData);
+        EntityModelLayerRegistry.registerModelLayer(SandyLlamaEntityRenderer.SANDY_LLAMA_DECOR,
+            SandyLlamaEntityModel::getTexturedModelData);
     }
 
 }

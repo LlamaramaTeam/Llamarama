@@ -67,6 +67,7 @@ public class WoollyLlamaEntityModel extends EntityModel<WoollyLlamaEntity> {
         this.hair.visible = !entity.getSheared();
     }
 
+    @SuppressWarnings("DuplicatedCode")
     @Override
     public void render(MatrixStack matrices, VertexConsumer vertices, int light, int overlay, float red, float green, float blue, float alpha) {
         if (this.child) {

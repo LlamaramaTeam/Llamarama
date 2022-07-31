@@ -1,6 +1,7 @@
 package io.github.llamarama.team.common.entity.woolyllama;
 
 import io.github.llamarama.team.common.entity.ai.goal.*;
+import io.github.llamarama.team.common.item.ModSpawnEggItem;
 import io.github.llamarama.team.common.register.ModBlocks;
 import io.github.llamarama.team.common.register.ModEntityTypes;
 import io.github.llamarama.team.mixin.AccessorLlamaEntity;
@@ -31,7 +32,6 @@ import org.jetbrains.annotations.Nullable;
 
 public class WoollyLlamaEntity extends LlamaEntity implements Shearable {
 
-    @NotNull
     private static final TrackedData<Boolean> SHEARED =
         DataTracker.registerData(WoollyLlamaEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
     protected int woolTimer;
@@ -39,6 +39,10 @@ public class WoollyLlamaEntity extends LlamaEntity implements Shearable {
     public WoollyLlamaEntity(EntityType<? extends WoollyLlamaEntity> entityType, World world) {
         super(entityType, world);
         this.woolTimer = 20 * 60 * 10;
+    }
+
+    public static ModSpawnEggItem.SpawnEggData createSpawnEggData() {
+        return new ModSpawnEggItem.SpawnEggData(ModEntityTypes.WOOLLY_LLAMA, 0xFDD185, 0xE9AE48);
     }
 
     @Override
@@ -71,7 +75,7 @@ public class WoollyLlamaEntity extends LlamaEntity implements Shearable {
 
     @Override
     public boolean isShearable() {
-        return !this.getSheared() && !this.isBaby();
+        return !this.getSheared() && !this.isBaby() && !this.getShearedItem().isEmpty();
     }
 
     @Override

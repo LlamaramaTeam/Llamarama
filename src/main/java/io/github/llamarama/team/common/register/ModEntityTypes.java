@@ -3,6 +3,7 @@ package io.github.llamarama.team.common.register;
 import io.github.llamarama.team.common.entity.bumbllama.BumbleLlamaEntity;
 import io.github.llamarama.team.common.entity.caravantrader.CaravanTraderEntity;
 import io.github.llamarama.team.common.entity.mossyllama.MossyLlamaEntity;
+import io.github.llamarama.team.common.entity.sandyllama.SandyLlamaEntity;
 import io.github.llamarama.team.common.entity.woolyllama.WoollyLlamaEntity;
 import io.github.llamarama.team.common.util.IdBuilder;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
@@ -33,6 +34,9 @@ public final class ModEntityTypes {
     public static final EntityType<MossyLlamaEntity> MOSSY_LLAMA =
         register(MossyLlamaEntity::new, SpawnGroup.CREATURE, 0.9f, 1.87f, false,
             MossyLlamaEntity::createLlamaAttributes, "mossy_llama");
+    public static final EntityType<SandyLlamaEntity> SANDY_LLAMA =
+        register(SandyLlamaEntity::new, SpawnGroup.CREATURE, 0.9f, 1.87f, false,
+            SandyLlamaEntity::createLlamaAttributes, "sandy_llama");
 
     private ModEntityTypes() {
 
@@ -53,7 +57,6 @@ public final class ModEntityTypes {
         return type;
     }
 
-    @SuppressWarnings("EmptyMethod")
     public static void init() {
         REGISTRY.forEach((s, entityType) -> Registry.register(Registry.ENTITY_TYPE, IdBuilder.of(s), entityType));
     }

@@ -4,6 +4,7 @@ import io.github.llamarama.team.Llamarama;
 import io.github.llamarama.team.common.block.LlamaMilkCauldronBlock;
 import io.github.llamarama.team.common.block.LlamaWoolBedBlock;
 import io.github.llamarama.team.common.block.RugBlock;
+import io.github.llamarama.team.common.block.StatueBlock;
 import io.github.llamarama.team.common.util.IdBuilder;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
@@ -25,6 +26,8 @@ public final class ModBlocks {
         registerNoItem(new LlamaWoolBedBlock(AbstractBlock.Settings.copy(Blocks.WHITE_BED)), "llama_wool_bed");
     public static final Block LLAMA_MILK_CAULDRON =
         registerNoItem(new LlamaMilkCauldronBlock(AbstractBlock.Settings.copy(Blocks.CAULDRON).ticksRandomly()), "llama_milk_cauldron");
+    public static final Block STATUE =
+        register(new StatueBlock(AbstractBlock.Settings.copy(Blocks.SAND)), "statue");
 
 
     private ModBlocks() {

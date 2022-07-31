@@ -1,6 +1,7 @@
 package io.github.llamarama.team.common.entity.mossyllama;
 
 import io.github.llamarama.team.common.entity.woolyllama.WoollyLlamaEntity;
+import io.github.llamarama.team.common.item.ModSpawnEggItem;
 import io.github.llamarama.team.common.register.ModEntityTypes;
 import io.github.llamarama.team.common.tag.ModBlockTags;
 import io.github.llamarama.team.common.util.Constants;
@@ -34,7 +35,6 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 public class MossyLlamaEntity extends WoollyLlamaEntity {
 
-    @NotNull
     private static final TrackedData<Integer> MOSSY_LLAMA_TIMER =
         DataTracker.registerData(MossyLlamaEntity.class, TrackedDataHandlerRegistry.INTEGER);
     private static final String DEADLY_KEY = "Deadly";
@@ -43,6 +43,10 @@ public class MossyLlamaEntity extends WoollyLlamaEntity {
     public MossyLlamaEntity(EntityType<? extends WoollyLlamaEntity> entityType, World world) {
         super(entityType, world);
         this.setWoolTimer(this.getRandom().nextInt(20 * 60 * 10));
+    }
+
+    public static ModSpawnEggItem.SpawnEggData createSpawnEggData() {
+        return new ModSpawnEggItem.SpawnEggData(ModEntityTypes.MOSSY_LLAMA, 0x5F833F, 0xBA62CE);
     }
 
     public static boolean canSpawn(@NotNull EntityType<MossyLlamaEntity> type, @NotNull ServerWorldAccess worldAccess, SpawnReason reason, @NotNull BlockPos pos, Random ignored) {
@@ -122,6 +126,11 @@ public class MossyLlamaEntity extends WoollyLlamaEntity {
     }
 
     @Override
+    public boolean isBaby() {
+        return false;
+    }
+
+    @Override
     protected void shearedTick() {
         if (this.getWoolTimer() != 0) {
             this.setWoolTimer(this.getWoolTimer() - 1);
@@ -139,11 +148,6 @@ public class MossyLlamaEntity extends WoollyLlamaEntity {
     }
 
     @Override
-    public boolean isBaby() {
-        return false;
-    }
-
-    @Override
     protected @NotNull ItemStack getShearedItem() {
         return Registry.BLOCK.getOrCreateEntryList(ModBlockTags.LUSH_GROWTH)
             .getRandom(this.random)
@@ -157,6 +161,16 @@ public class MossyLlamaEntity extends WoollyLlamaEntity {
     protected void initDataTracker() {
         super.initDataTracker();
         this.dataTracker.startTracking(MOSSY_LLAMA_TIMER, 20 * 60 * 10);
+    }
+
+    @Override
+    protected boolean canStartRiding(Entity entity) {
+        return false;
+    }
+
+    @Override
+    protected void putPlayerOnBack(PlayerEntity player) {
+        player.sendMessage(Constants.CANNOT_RIDE_TEXT, true);
     }
 
     private void tryGrowAzalea(@NotNull Random random) {
@@ -208,16 +222,6 @@ public class MossyLlamaEntity extends WoollyLlamaEntity {
                 );
             }
         }
-    }
-
-    @Override
-    protected boolean canStartRiding(Entity entity) {
-        return false;
-    }
-
-    @Override
-    protected void putPlayerOnBack(PlayerEntity player) {
-        player.sendMessage(Constants.CANNOT_RIDE_TEXT, true);
     }
 
 }

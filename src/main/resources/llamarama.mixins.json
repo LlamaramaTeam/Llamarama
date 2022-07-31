@@ -5,6 +5,8 @@
   "compatibilityLevel": "JAVA_17",
   "mixins": [
     "AccessorLlamaEntity",
+    "InvokerPointOfInterestTypes",
+    "InvokerSensorType",
     "MixinAbstractDonkeyEntity",
     "MixinAbstractHorseEntity",
     "MixinBeeEntity",
@@ -15,5 +17,8 @@
   ],
   "injectors": {
     "defaultRequire": 1
-  }
+  },
+  "client": [
+    "client.AccessorEntityRenderDispatcher"
+  ]
 }

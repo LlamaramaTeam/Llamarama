@@ -2,6 +2,7 @@ package io.github.llamarama.team.common.entity.bumbllama;
 
 import io.github.llamarama.team.Llamarama;
 import io.github.llamarama.team.common.entity.woolyllama.WoollyLlamaEntity;
+import io.github.llamarama.team.common.item.ModSpawnEggItem;
 import io.github.llamarama.team.common.register.ModEntityTypes;
 import io.github.llamarama.team.common.util.Constants;
 import io.github.llamarama.team.common.util.PosUtilities;
@@ -42,6 +43,10 @@ public class BumbleLlamaEntity extends WoollyLlamaEntity {
     public BumbleLlamaEntity(EntityType<? extends WoollyLlamaEntity> entityType, World world) {
         super(entityType, world);
         this.setSheared(true);
+    }
+
+    public static ModSpawnEggItem.SpawnEggData createSpawnEggData() {
+        return new ModSpawnEggItem.SpawnEggData(ModEntityTypes.BUMBLE_LLAMA, 0xEDEDED, 0x4A6424);
     }
 
     @Override
