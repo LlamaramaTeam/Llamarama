@@ -33,11 +33,11 @@ public final class ModItems {
     public static final Item LLAMA_CHEESE = register("llama_cheese",
         new Item(getBaseSettings().food(ModFoodComponents.LLAMA_CHEESE)));
     public static final Item LLAMARAMA = register("llamarama_disc",
-        new MusicDiscItem(5, ModSoundEvents.LLAMARAMA_DISC, getDiscSettings()));
+        new MusicDiscItem(5, ModSoundEvents.LLAMARAMA_DISC, getDiscSettings(), 142));
     public static final Item LLAMAJAMA = register("llamajama_disc",
-        new MusicDiscItem(5, ModSoundEvents.LLAMAJAMA_DISC, getDiscSettings()));
+        new MusicDiscItem(5, ModSoundEvents.LLAMAJAMA_DISC, getDiscSettings(), 132));
     public static final Item FLIGHT_OF_THE_BUMBLE_LLAMA = register("flight_of_the_bumble_llama",
-        new MusicDiscItem(5, ModSoundEvents.BUMBLLAMA_DISC, getDiscSettings()));
+        new MusicDiscItem(5, ModSoundEvents.BUMBLLAMA_DISC, getDiscSettings(), 82));
     public static final Item BUMBLE_LLAMA_SPAWN_EGG = register("bumble_llama_spawn_egg",
         BumbleLlamaEntity.createSpawnEggData().create(getBaseSettings()));
     public static final Item CARAVAN_TRADER_SPAWN_EGG = register("caravan_trader_spawn_egg",
@@ -47,7 +47,7 @@ public final class ModItems {
     public static final Item MOSSY_LLAMA_SPAWN_EGG = register("mossy_llama_spawn_egg",
         MossyLlamaEntity.createSpawnEggData().create(getBaseSettings()));
     public static final Item MOSSED_UP = register("mossed_up_disc",
-        new MusicDiscItem(11, ModSoundEvents.MOSSED_UP_DISC, getDiscSettings()));
+        new MusicDiscItem(11, ModSoundEvents.MOSSED_UP_DISC, getDiscSettings(), 134));
     public static final Item SANDY_LLAMA = register("sandy_llama_spawn_egg",
         SandyLlamaEntity.createSpawnEggData().create(getBaseSettings()));
 

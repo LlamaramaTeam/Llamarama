@@ -8,7 +8,6 @@ import io.github.llamarama.team.mixin.AccessorLlamaEntity;
 import io.github.llamarama.team.common.item.ModSpawnEggItem;
 import io.github.llamarama.team.common.register.ModEntityTypes;
 import org.jetbrains.annotations.Nullable;
-
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ExperienceOrbEntity;
 import net.minecraft.entity.ai.goal.EscapeDangerGoal;

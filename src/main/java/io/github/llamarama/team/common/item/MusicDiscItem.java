@@ -5,8 +5,8 @@ import net.minecraft.util.Rarity;
 
 public class MusicDiscItem extends net.minecraft.item.MusicDiscItem {
 
-    public MusicDiscItem(int comparatorOutput, SoundEvent sound, Settings settings) {
-        super(comparatorOutput, sound, settings.rarity(Rarity.RARE));
+    public MusicDiscItem(int comparatorOutput, SoundEvent sound, Settings settings, int lengthInSeconds) {
+        super(comparatorOutput, sound, settings.rarity(Rarity.RARE), lengthInSeconds);
     }
 
     @Override
