@@ -63,7 +63,7 @@ public class ModBiomeModifications {
         );
         SpawnRestrictionAccessor.callRegister(
             ModEntityTypes.CARAVAN_TRADER,
-            SpawnRestriction.Location.NO_RESTRICTIONS,
+            SpawnRestriction.Location.ON_GROUND,
             Heightmap.Type.MOTION_BLOCKING_NO_LEAVES,
             MobEntity::canMobSpawn
         );
