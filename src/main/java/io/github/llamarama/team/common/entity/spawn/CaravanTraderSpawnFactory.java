@@ -36,7 +36,7 @@ public class CaravanTraderSpawnFactory implements Spawner {
     public int spawn(ServerWorld world, boolean spawnMonsters, boolean spawnAnimals) {
         if (!world.isClient) {
             if (this.spawnDelay < 0) {
-                this.spawnDelay = nextSpawnDelay(world.getRandom());
+                this.spawnDelay = this.nextSpawnDelay(world.getRandom());
                 return 0;
             }
 
@@ -60,7 +60,7 @@ public class CaravanTraderSpawnFactory implements Spawner {
                 );
 
                 if (spawnedEntity != null) {
-                    this.spawnDelay = nextSpawnDelay(world.getRandom());
+                    this.spawnDelay = this.nextSpawnDelay(world.getRandom());
                     return 1 + this.spawnLlamas(world, spawnedEntity);
                 }
             }

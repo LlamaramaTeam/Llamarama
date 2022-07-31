@@ -127,7 +127,7 @@ public class CaravanTraderEntity extends MerchantEntity {
 
     @Override
     public void tickMovement() {
-        if (!world.isClient && !this.hasCustomer() && !this.traded) {
+        if (!this.world.isClient && !this.hasCustomer() && !this.traded) {
             if (this.lifespan-- <= 0) {
                 this.killCaravan();
             }
