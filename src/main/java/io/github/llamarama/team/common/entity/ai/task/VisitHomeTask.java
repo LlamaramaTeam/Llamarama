@@ -59,8 +59,9 @@ public class VisitHomeTask extends Task<SandyLlamaEntity> {
             );
     }
 
+    // This task is able to run every 30 minutes!
     private static boolean isSuitableTime(ServerWorld world, SandyLlamaEntity entity) {
         Optional<Long> optionalLastVisisted = entity.getBrain().getOptionalMemory(ModMemoryModules.LAST_VISITED_HOME);
-        return optionalLastVisisted.isEmpty() || world.getTime() - optionalLastVisisted.get() >= 600;
+        return optionalLastVisisted.isEmpty() || world.getTime() - optionalLastVisisted.get() >= 20 * 60 * 30;
     }
 }

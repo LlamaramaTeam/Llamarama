@@ -24,9 +24,10 @@ public class SandyLlamaEntity extends WoollyLlamaEntity {
 
     @Override
     public SandyLlamaEntity createChild(ServerWorld serverWorld, PassiveEntity mate) {
-        return ModEntityTypes.SANDY_LLAMA.create(world);
+        return ModEntityTypes.SANDY_LLAMA.create(serverWorld);
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public Brain<SandyLlamaEntity> getBrain() {
         return (Brain<SandyLlamaEntity>) super.getBrain();
@@ -51,7 +52,7 @@ public class SandyLlamaEntity extends WoollyLlamaEntity {
     protected void mobTick() {
         super.mobTick();
         if (!this.world.isClient) {
-            this.getBrain().resetPossibleActivities();
+            this.getBrain().resetPossibleActivities(); // hmm?!
             this.getBrain().tick((ServerWorld) this.world, this);
         }
     }
