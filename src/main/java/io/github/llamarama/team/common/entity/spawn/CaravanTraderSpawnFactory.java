@@ -1,12 +1,9 @@
 package io.github.llamarama.team.common.entity.spawn;
 
-import java.util.Optional;
-
 import io.github.llamarama.team.common.entity.caravantrader.CaravanTraderEntity;
 import io.github.llamarama.team.common.register.ModEntityTypes;
 import io.github.llamarama.team.common.tag.ModEntityTags;
 import io.github.llamarama.team.common.util.PosUtilities;
-import org.jetbrains.annotations.NotNull;
 
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnReason;
@@ -22,6 +19,10 @@ import net.minecraft.util.registry.RegistryEntry;
 import net.minecraft.world.GameRules;
 import net.minecraft.world.SpawnHelper;
 import net.minecraft.world.spawner.Spawner;
+
+import org.jetbrains.annotations.NotNull;
+
+import java.util.Optional;
 
 public class CaravanTraderSpawnFactory implements Spawner {
 
