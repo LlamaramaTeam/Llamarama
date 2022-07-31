@@ -1,21 +1,44 @@
 package io.github.llamarama.team.common.entity.caravantrader;
 
-import io.github.llamarama.team.common.item.ModSpawnEggItem;
-import io.github.llamarama.team.common.register.ModEntityTypes;
+import java.util.UUID;
+
 import io.github.llamarama.team.common.register.ModItems;
 import io.github.llamarama.team.common.util.TradeUtil;
+import io.github.llamarama.team.mixin.AccessorLlamaEntity;
+import io.github.llamarama.team.common.item.ModSpawnEggItem;
+import io.github.llamarama.team.common.register.ModEntityTypes;
+import org.jetbrains.annotations.Nullable;
+
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ExperienceOrbEntity;
-import net.minecraft.entity.ai.goal.*;
+import net.minecraft.entity.ai.goal.EscapeDangerGoal;
+import net.minecraft.entity.ai.goal.FleeEntityGoal;
+import net.minecraft.entity.ai.goal.GoToWalkTargetGoal;
+import net.minecraft.entity.ai.goal.LookAtCustomerGoal;
+import net.minecraft.entity.ai.goal.LookAtEntityGoal;
+import net.minecraft.entity.ai.goal.StopAndLookAtEntityGoal;
+import net.minecraft.entity.ai.goal.StopFollowingCustomerGoal;
+import net.minecraft.entity.ai.goal.SwimGoal;
+import net.minecraft.entity.ai.goal.WanderAroundFarGoal;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.mob.*;
+import net.minecraft.entity.mob.EvokerEntity;
+import net.minecraft.entity.mob.IllusionerEntity;
+import net.minecraft.entity.mob.MobEntity;
+import net.minecraft.entity.mob.PillagerEntity;
+import net.minecraft.entity.mob.RavagerEntity;
+import net.minecraft.entity.mob.VexEntity;
+import net.minecraft.entity.mob.VindicatorEntity;
+import net.minecraft.entity.mob.ZoglinEntity;
+import net.minecraft.entity.mob.ZombieEntity;
 import net.minecraft.entity.passive.LlamaEntity;
 import net.minecraft.entity.passive.MerchantEntity;
 import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.entity.passive.VillagerEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NbtCompound;
+import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
@@ -26,11 +49,13 @@ import net.minecraft.village.TradeOffer;
 import net.minecraft.village.TradeOfferList;
 import net.minecraft.village.TradeOffers;
 import net.minecraft.world.World;
-import org.jetbrains.annotations.Nullable;
 
 public class CaravanTraderEntity extends MerchantEntity {
 
     private boolean hasLlama;
+    private int lifespan = 1000;
+    private boolean traded = false;
+    private UUID attachedLlama;
 
     public CaravanTraderEntity(EntityType<? extends MerchantEntity> entityType, World world) {
         super(entityType, world);
@@ -80,7 +105,35 @@ public class CaravanTraderEntity extends MerchantEntity {
         if (!this.hasLlama) {
             this.hasLlama = true;
             llama.attachLeash(this, true);
+            this.attachedLlama = llama.getUuid();
         }
+    }
+
+    @Override
+    public void writeCustomDataToNbt(NbtCompound nbt) {
+        super.writeCustomDataToNbt(nbt);
+        nbt.putInt("Lifespan", this.lifespan);
+        nbt.putBoolean("Traded", this.traded);
+        nbt.putUuid("Attached", this.attachedLlama);
+    }
+
+    @Override
+    public void readCustomDataFromNbt(NbtCompound nbt) {
+        super.readCustomDataFromNbt(nbt);
+        this.lifespan = nbt.getInt("Lifespan");
+        this.traded = nbt.getBoolean("Traded");
+        this.attachedLlama = nbt.getUuid("Attached");
+    }
+
+    @Override
+    public void tickMovement() {
+        if (!world.isClient && !this.hasCustomer() && !this.traded) {
+            if (this.lifespan-- <= 0) {
+                this.killCaravan();
+            }
+        }
+
+        super.tickMovement();
     }
 
     @Override
@@ -96,6 +149,14 @@ public class CaravanTraderEntity extends MerchantEntity {
                 spawn)
             );
         }
+
+        this.world.addParticle(
+            ParticleTypes.HAPPY_VILLAGER,
+            this.getX(), this.getY(), this.getZ(),
+            0.2f, 0.2f, 0.2f
+        );
+
+        this.traded = true;
     }
 
     @Override
@@ -125,6 +186,7 @@ public class CaravanTraderEntity extends MerchantEntity {
             this.setCustomer(player);
             this.sendOffers(player, this.getName(), 1);
         }
+
         return ActionResult.SUCCESS;
     }
 
@@ -178,6 +240,20 @@ public class CaravanTraderEntity extends MerchantEntity {
     @Override
     protected SoundEvent getSplashSound() {
         return SoundEvents.ENTITY_GENERIC_SPLASH;
+    }
+
+    private void killCaravan() {
+        if (this.attachedLlama != null) {
+            var currentLlama = ((ServerWorld) this.world).getEntity(this.attachedLlama);
+
+            while (currentLlama != null) {
+                var tmp = ((AccessorLlamaEntity) currentLlama).getFollower();
+                currentLlama.discard();
+                currentLlama = tmp;
+            }
+        }
+
+        this.discard();
     }
 
 }
