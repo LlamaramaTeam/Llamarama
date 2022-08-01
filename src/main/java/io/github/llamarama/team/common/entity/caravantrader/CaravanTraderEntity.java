@@ -52,13 +52,16 @@ import net.minecraft.world.World;
 public class CaravanTraderEntity extends MerchantEntity {
 
     private boolean hasLlama;
-    private int lifespan = 1000;
-    private boolean traded = false;
+    private int lifespan;
+    private boolean traded;
     private UUID attachedLlama;
 
     public CaravanTraderEntity(EntityType<? extends MerchantEntity> entityType, World world) {
         super(entityType, world);
         this.hasLlama = false;
+        this.traded = false;
+        this.lifespan = 20 * 60 * 40;
+        // this.lifespan = 1000; // WARNING: THIS IS MEANT TO BE USED ONLY WHILE TESTING
     }
 
     public static ModSpawnEggItem.SpawnEggData createSpawnEggData() {
@@ -111,23 +114,34 @@ public class CaravanTraderEntity extends MerchantEntity {
     @Override
     public void writeCustomDataToNbt(NbtCompound nbt) {
         super.writeCustomDataToNbt(nbt);
-        nbt.putInt("Lifespan", this.lifespan);
         nbt.putBoolean("Traded", this.traded);
-        nbt.putUuid("Attached", this.attachedLlama);
+        if (!this.traded) {
+            nbt.putInt("Lifespan", this.lifespan);
+        }
+
+        if (this.attachedLlama != null) {
+            nbt.putUuid("Attached", this.attachedLlama);
+        }
     }
 
     @Override
     public void readCustomDataFromNbt(NbtCompound nbt) {
         super.readCustomDataFromNbt(nbt);
-        this.lifespan = nbt.getInt("Lifespan");
         this.traded = nbt.getBoolean("Traded");
-        this.attachedLlama = nbt.getUuid("Attached");
+
+        if (nbt.contains("Lifespan")) {
+            this.lifespan = nbt.getInt("Lifespan");
+        }
+
+        if (nbt.contains("Attached")) {
+            this.attachedLlama = nbt.getUuid("Attached");
+        }
     }
 
     @Override
     public void tickMovement() {
         if (!this.world.isClient && !this.hasCustomer() && !this.traded) {
-            if (this.lifespan-- <= 0) {
+           if (this.lifespan-- <= 0) {
                 this.killCaravan();
             }
         }

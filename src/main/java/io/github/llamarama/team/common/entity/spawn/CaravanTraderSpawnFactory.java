@@ -126,7 +126,7 @@ public class CaravanTraderSpawnFactory implements Spawner {
     }
 
     private int nextSpawnDelay(@NotNull Random random) {
-//        return MathHelper.nextInt(random, 40, 60); // USED FOR TESTING PURPOSES
+        // return MathHelper.nextInt(random, 40, 60); // USED FOR TESTING PURPOSES
         return MathHelper.nextInt(random, 40 * 60 * 20, 60 * 60 * 20);
     }
 
