@@ -2,6 +2,7 @@ package io.github.llamarama.team.common.event;
 
 import io.github.llamarama.team.common.register.ModItems;
 import io.github.llamarama.team.common.util.IdBuilder;
+import net.fabricmc.fabric.api.loot.v2.LootTableEvents;
 import net.fabricmc.fabric.api.loot.v2.LootTableSource;
 import net.minecraft.loot.LootManager;
 import net.minecraft.loot.LootPool;
@@ -18,11 +19,9 @@ import net.minecraft.predicate.entity.EntityPredicate;
 import net.minecraft.resource.ResourceManager;
 import net.minecraft.util.Identifier;
 
-
-@SuppressWarnings("unused")
-public final class EventHandler {
-
-    public static void lootTableListener(ResourceManager resourceManager, LootManager lootManager, Identifier id, LootTable.Builder tableBuilder, LootTableSource source) {
+public final class EventHandler implements LootTableEvents.Modify {
+    @Override
+    public void modifyLootTable(ResourceManager resourceManager, LootManager lootManager, Identifier id, LootTable.Builder tableBuilder, LootTableSource source) {
         if (IdBuilder.vanillaOf("entities/llama").equals(id)) {
             LootPool.Builder pool =
                 LootPool.builder()
@@ -41,5 +40,4 @@ public final class EventHandler {
             tableBuilder.pool(pool);
         }
     }
-
 }

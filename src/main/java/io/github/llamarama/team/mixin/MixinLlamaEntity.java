@@ -34,7 +34,7 @@ import java.util.Arrays;
     @Interface(iface = SaddledComponentProvider.class, prefix = "saddle$"),
     @Interface(iface = BoostTimeProvider.class, prefix = "boost$")
 })
-public abstract class MixinLlamaEntity extends AbstractDonkeyEntity implements RangedAttackMob, ItemSteerable {
+public abstract class MixinLlamaEntity extends AbstractDonkeyEntity implements RangedAttackMob {
 
     private static TrackedData<Boolean> LLAMARAMA$CARPETED;
     private static TrackedData<Integer> LLAMARAMA$BOOST_TIME;
@@ -71,12 +71,12 @@ public abstract class MixinLlamaEntity extends AbstractDonkeyEntity implements R
 
     @Inject(method = "writeCustomDataToNbt", at = @At("RETURN"))
     public void onWriteCustomDataToTag(NbtCompound tag, CallbackInfo ci) {
-        llamarama$saddledComponent.writeNbt(tag);
+        this.llamarama$saddledComponent.writeNbt(tag);
     }
 
     @Inject(method = "readCustomDataFromNbt", at = @At("RETURN"))
     public void onReadCustomDataFromTag(NbtCompound tag, CallbackInfo ci) {
-        llamarama$saddledComponent.readNbt(tag);
+        this.llamarama$saddledComponent.readNbt(tag);
     }
 
     @Inject(method = "getPrimaryPassenger()Lnet/minecraft/entity/LivingEntity;", at = @At("HEAD"), cancellable = true)
@@ -91,7 +91,7 @@ public abstract class MixinLlamaEntity extends AbstractDonkeyEntity implements R
 
     @Override // We have to use override here even though it's not good because we use both this$travel and super$travel
     public void travel(Vec3d movementInput) {
-        this.travel(this, this.llamarama$saddledComponent, movementInput);
+        ((ItemSteerable) this).travel(this, this.llamarama$saddledComponent, movementInput);
     }
 
     public boolean impl$consumeOnAStickItem() {
