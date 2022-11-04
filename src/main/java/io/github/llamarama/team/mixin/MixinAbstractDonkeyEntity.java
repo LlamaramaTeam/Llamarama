@@ -34,7 +34,7 @@ public abstract class MixinAbstractDonkeyEntity extends AbstractHorseEntity {
         var this$ = (AbstractDonkeyEntity) (Object) this;
         if (this$ instanceof LlamaEntity) {
             ItemStack stackInHand = player.getStackInHand(hand);
-            if (stackInHand.isOf(Items.BUCKET) && !this$.isBaby()) {
+            if (stackInHand.isOf(Items.BOWL) && !this$.isBaby()) {
                 var stack = ItemUsage.exchangeStack(stackInHand, player, ModItems.LLAMA_MILK.getDefaultStack());
                 player.setStackInHand(hand, stack);
                 world.playSound(
@@ -43,7 +43,7 @@ public abstract class MixinAbstractDonkeyEntity extends AbstractHorseEntity {
                     SoundEvents.ENTITY_COW_MILK,
                     SoundCategory.NEUTRAL, 1.0f, 1.0f
                 );
-                player.incrementStat(Stats.USED.getOrCreateStat(Items.BUCKET));
+                player.incrementStat(Stats.USED.getOrCreateStat(Items.BOWL));
                 cir.setReturnValue(ActionResult.SUCCESS);
             } else if (stackInHand.getItem() == Items.NETHERITE_INGOT && !this.world.isClient) {
                 player.giveItemStack(TagUtil.getRandomItem(ModItemTags.LLAMA_DISCS, this.random)
