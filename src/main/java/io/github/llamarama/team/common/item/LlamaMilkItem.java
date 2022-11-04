@@ -17,16 +17,15 @@ public class LlamaMilkItem extends MilkBucketItem {
         super(settings);
     }
 
+    @Override
     public ItemStack finishUsing(ItemStack stack, World world, LivingEntity user) {
         if (user instanceof ServerPlayerEntity serverPlayerEntity) {
             Criteria.CONSUME_ITEM.trigger(serverPlayerEntity, stack);
             serverPlayerEntity.incrementStat(Stats.USED.getOrCreateStat(this));
         }
-
-        if (user instanceof PlayerEntity && !((PlayerEntity)user).getAbilities().creativeMode) {
+        if (user instanceof PlayerEntity player && !player.getAbilities().creativeMode) {
             stack.decrement(1);
         }
-
         if (!world.isClient) {
             user.clearStatusEffects();
         } return stack.isEmpty() ? new ItemStack(Items.BOWL) : stack;
