@@ -11,9 +11,10 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.Packet;
 import net.minecraft.network.listener.ClientPlayPacketListener;
 import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
+import net.minecraft.registry.Registries;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.registry.Registry;
+import net.minecraft.registry.Registry;
 import org.jetbrains.annotations.Nullable;
 
 public class StatueBlockEntity extends BlockEntity {
@@ -45,9 +46,9 @@ public class StatueBlockEntity extends BlockEntity {
         super.readNbt(nbt);
         String storedString = nbt.getString(IMITATED_TYPE);
         Identifier id = Identifier.tryParse(storedString);
-        id = id != null ? id : Registry.ENTITY_TYPE.getId(EntityType.PIG);
+        id = id != null ? id : Registries.ENTITY_TYPE.getId(EntityType.PIG);
         //noinspection unchecked
-        this.imitatedType = Registry.ENTITY_TYPE.getOrEmpty(id)
+        this.imitatedType = Registries.ENTITY_TYPE.getOrEmpty(id)
             .map(it -> (EntityType<? extends LivingEntity>) it)
             .orElseThrow();
     }
@@ -66,7 +67,7 @@ public class StatueBlockEntity extends BlockEntity {
     @Override
     protected void writeNbt(NbtCompound nbt) {
         super.writeNbt(nbt);
-        nbt.putString(IMITATED_TYPE, Registry.ENTITY_TYPE.getId(this.imitatedType).toString());
+        nbt.putString(IMITATED_TYPE, Registries.ENTITY_TYPE.getId(this.imitatedType).toString());
     }
 
 }

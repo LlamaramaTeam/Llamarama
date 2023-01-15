@@ -4,17 +4,19 @@ import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 
 import net.minecraft.entity.SpawnGroup;
+import net.minecraft.registry.RegistryKeys;
+import net.minecraft.registry.tag.BiomeTags;
 import net.minecraft.tag.BiomeTags;
-import net.minecraft.tag.TagKey;
+import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
+import net.minecraft.registry.Registry;
 import net.minecraft.world.biome.BiomeKeys;
 
 public class ModBiomeModifications {
     public static void init() {
         BiomeModifications.addSpawn(
             ctx -> ctx.hasTag(BiomeTags.IS_MOUNTAIN) ||
-                ctx.hasTag(TagKey.of(Registry.BIOME_KEY, new Identifier("c", "mountains"))),
+                ctx.hasTag(TagKey.of(RegistryKeys.BIOME, new Identifier("c", "mountains"))),
             SpawnGroup.CREATURE,
             ModEntityTypes.WOOLLY_LLAMA,
             5, 3, 6
@@ -33,7 +35,7 @@ public class ModBiomeModifications {
         );
         BiomeModifications.addSpawn(
             ctx -> ctx.hasTag(BiomeTags.DESERT_PYRAMID_HAS_STRUCTURE) ||
-                ctx.hasTag(TagKey.of(Registry.BIOME_KEY, new Identifier("c", "desert"))),
+                ctx.hasTag(TagKey.of(RegistryKeys.BIOME, new Identifier("c", "desert"))),
             SpawnGroup.CREATURE,
             ModEntityTypes.SANDY_LLAMA,
             3, 2, 6

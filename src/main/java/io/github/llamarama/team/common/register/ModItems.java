@@ -14,7 +14,8 @@ import io.github.llamarama.team.common.util.IdBuilder;
 
 import net.minecraft.item.BedItem;
 import net.minecraft.item.Item;
-import net.minecraft.util.registry.Registry;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
 
 
 @SuppressWarnings("unused")
@@ -58,6 +59,7 @@ public final class ModItems {
     public static void init() {
     }
 
+    // https://fabricmc.net/2022/11/24/1193.html for ItemGroups
     private static Item.Settings getBaseSettings() {
         return new Item.Settings().group(Llamarama.LLAMA_ITEM_GROUP);
     }
@@ -71,7 +73,7 @@ public final class ModItems {
     }
 
     private static Item register(String id, Item item) {
-        return Registry.register(Registry.ITEM, IdBuilder.of(id), item);
+        return Registry.register(Registries.ITEM, IdBuilder.of(id), item);
     }
 
 }

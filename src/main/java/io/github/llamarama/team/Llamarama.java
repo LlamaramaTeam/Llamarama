@@ -12,7 +12,7 @@ import io.github.llamarama.team.common.register.ModSensorTypes;
 import io.github.llamarama.team.common.register.ModSoundEvents;
 import io.github.llamarama.team.common.util.IdBuilder;
 import net.fabricmc.api.ModInitializer;
-import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
+import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.fabricmc.fabric.api.loot.v2.LootTableEvents;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
@@ -24,7 +24,7 @@ import net.minecraft.item.ItemStack;
 public class Llamarama implements ModInitializer {
     public static final String MOD_ID = "llamarama";
     public static final ItemGroup LLAMA_ITEM_GROUP =
-        FabricItemGroupBuilder.create(IdBuilder.of("llama_item_group"))
+        FabricItemGroup.builder(IdBuilder.of("llama_item_group"))
             .icon(() -> new ItemStack(ModItems.WOOLLY_LLAMA_SPAWN_EGG))
             .build();
     private static final Logger LOGGER = LoggerFactory.getLogger("Llamarama");

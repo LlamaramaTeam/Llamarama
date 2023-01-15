@@ -11,8 +11,9 @@ import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
+import net.minecraft.registry.Registries;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
+import net.minecraft.registry.Registry;
 import org.jetbrains.annotations.NotNull;
 
 @SuppressWarnings("unused")
@@ -40,13 +41,15 @@ public final class ModBlocks {
     @NotNull
     private static Block register(Block block, String id) {
         Identifier identifier = IdBuilder.of(id);
-        Registry.register(Registry.ITEM, identifier, new BlockItem(block, new Item.Settings().group(Llamarama.LLAMA_ITEM_GROUP)));
+        Registry.register(Registries.ITEM, identifier, new BlockItem(block,
+            // See https://fabricmc.net/2022/11/24/1193.html for ItemGroups
+            new Item.Settings().group(Llamarama.LLAMA_ITEM_GROUP)));
         return registerNoItem(block, id);
     }
 
     @NotNull
     private static Block registerNoItem(Block block, String id) {
-        return Registry.register(Registry.BLOCK, IdBuilder.of(id), block);
+        return Registry.register(Registries.BLOCK, IdBuilder.of(id), block);
     }
 
 }

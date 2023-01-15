@@ -19,7 +19,8 @@ import net.minecraft.entity.SpawnRestriction;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.passive.AnimalEntity;
-import net.minecraft.util.registry.Registry;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
 import net.minecraft.world.Heightmap;
 
 public final class ModEntityTypes {
@@ -107,7 +108,7 @@ public final class ModEntityTypes {
     }
 
     public static void init() {
-        REGISTRY.forEach((s, entityType) -> Registry.register(Registry.ENTITY_TYPE, IdBuilder.of(s), entityType));
+        REGISTRY.forEach((s, entityType) -> Registry.register(Registries.ENTITY_TYPE, IdBuilder.of(s), entityType));
     }
 
     public record SpawnRestrictionData<T extends MobEntity>(SpawnRestriction.Location location,

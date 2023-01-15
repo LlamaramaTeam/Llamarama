@@ -7,7 +7,8 @@ import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityT
 import net.minecraft.block.Block;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.util.registry.Registry;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
 
 @SuppressWarnings("SameParameterValue")
 public final class ModBlockEntityTypes {
@@ -31,7 +32,7 @@ public final class ModBlockEntityTypes {
         create("statue", StatueBlockEntity::new, ModBlocks.STATUE);
 
     private static <T extends BlockEntity> BlockEntityType<T> register(String id, BlockEntityType<T> blockEntityType) {
-        return Registry.register(Registry.BLOCK_ENTITY_TYPE, IdBuilder.of(id), blockEntityType);
+        return Registry.register(Registries.BLOCK_ENTITY_TYPE, IdBuilder.of(id), blockEntityType);
     }
 
 

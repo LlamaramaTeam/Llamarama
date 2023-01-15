@@ -5,6 +5,8 @@ Have you ever felt like minecraft [llamas](https://minecraft.fandom.com/wiki/Lla
 Well, so did we, and we decided to fix them.  
 Not only that, but add even more llamas, because you can never have enough llamas, am I right?  
 
+[There is a Wiki](https://llamaramateam.github.io/docs/)
+
 # Getting Started
 There is no special preparation for you to do. You just need to explore the world,  
 until you find one of our mobs.

@@ -2,13 +2,14 @@ package io.github.llamarama.team.common.tag;
 
 import io.github.llamarama.team.common.util.IdBuilder;
 import net.minecraft.entity.EntityType;
-import net.minecraft.tag.TagKey;
-import net.minecraft.util.registry.Registry;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.tag.TagKey;
+import net.minecraft.registry.Registry;
 
 public final class ModEntityTags {
 
     public static final TagKey<EntityType<?>> LLAMAS =
-        TagKey.of(Registry.ENTITY_TYPE_KEY, IdBuilder.of("llamas"));
+        TagKey.of(Registries.ENTITY_TYPE.getKey(), IdBuilder.of("llamas"));
     public static final TagKey<EntityType<?>> NOT_SANDABLE =
-        TagKey.of(Registry.ENTITY_TYPE_KEY, IdBuilder.of("non_sandable"));
+        TagKey.of(Registries.ENTITY_TYPE.getKey(), IdBuilder.of("non_sandable"));
 }

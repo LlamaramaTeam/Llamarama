@@ -1,9 +1,10 @@
 package io.github.llamarama.team.common.register;
 
 import io.github.llamarama.team.common.util.IdBuilder;
+import net.minecraft.registry.Registries;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
+import net.minecraft.registry.Registry;
 
 public final class ModSoundEvents {
 
@@ -24,7 +25,7 @@ public final class ModSoundEvents {
     }
 
     private static SoundEvent register(Identifier id) {
-        return Registry.register(Registry.SOUND_EVENT, id, new SoundEvent(id));
+        return Registry.register(Registries.SOUND_EVENT, id, SoundEvent.of(id));
     }
 
 }

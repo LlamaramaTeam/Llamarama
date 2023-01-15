@@ -1,7 +1,7 @@
 package io.github.llamarama.team.mixin;
 
 import net.minecraft.block.BlockState;
-import net.minecraft.util.registry.Registry;
+import net.minecraft.registry.Registry;
 import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.poi.PointOfInterestType;
 import net.minecraft.world.poi.PointOfInterestTypes;

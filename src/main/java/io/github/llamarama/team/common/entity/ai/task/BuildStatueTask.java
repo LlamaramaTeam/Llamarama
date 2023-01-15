@@ -20,6 +20,7 @@ import net.minecraft.world.event.GameEvent;
 
 import java.util.Map;
 
+// was tasks a class beforehand?
 public class BuildStatueTask extends Task<SandyLlamaEntity> {
 
     public static final Map<MemoryModuleType<?>, MemoryModuleState> REQUIRED = Map.of(

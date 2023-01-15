@@ -19,8 +19,8 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.Quaternion;
-import net.minecraft.util.math.Vec3f;
+import org.joml.Quaternionf;
+import org.joml.Vector3f;
 
 import java.util.IdentityHashMap;
 import java.util.Map;
@@ -45,10 +45,11 @@ public class StatueBlockEntityRenderer implements BlockEntityRenderer<StatueBloc
 
         matrices.push();
         matrices.translate(0.5f, 0, 0.5f);
-        matrices.multiply(new Quaternion(Vec3f.POSITIVE_Z, MathHelper.PI, false));
+        // ???
+        matrices.multiply(new Quaternionf(Vector3f.POSITIVE_Z, MathHelper.PI, false));
         matrices.translate(0, -1.6, 0);
-        matrices.multiply(new Quaternion(
-            Vec3f.POSITIVE_Y,
+        matrices.multiply(new Quaternionf(
+            Vector3f.POSITIVE_Y,
             90 * this.getHorizontalFacingIndex(entity),
             true
         ));
