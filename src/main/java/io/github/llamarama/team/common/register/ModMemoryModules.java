@@ -6,8 +6,8 @@ import io.github.llamarama.team.common.util.IdBuilder;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ai.brain.MemoryModuleType;
 import net.minecraft.registry.Registries;
-import net.minecraft.util.math.GlobalPos;
 import net.minecraft.registry.Registry;
+import net.minecraft.util.math.GlobalPos;
 
 import java.util.Optional;
 

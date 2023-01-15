@@ -1,25 +1,16 @@
 package io.github.llamarama.team;
 
 import io.github.llamarama.team.common.event.EventHandler;
-import io.github.llamarama.team.common.register.ModBiomeModifications;
-import io.github.llamarama.team.common.register.ModBlockEntityTypes;
-import io.github.llamarama.team.common.register.ModBlocks;
-import io.github.llamarama.team.common.register.ModEntityTypes;
-import io.github.llamarama.team.common.register.ModItems;
-import io.github.llamarama.team.common.register.ModMemoryModules;
-import io.github.llamarama.team.common.register.ModPointOfInterestTypes;
-import io.github.llamarama.team.common.register.ModSensorTypes;
-import io.github.llamarama.team.common.register.ModSoundEvents;
+import io.github.llamarama.team.common.register.*;
 import io.github.llamarama.team.common.util.IdBuilder;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.fabricmc.fabric.api.loot.v2.LootTableEvents;
+import net.minecraft.item.ItemGroup;
+import net.minecraft.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemStack;
 
 public class Llamarama implements ModInitializer {
     public static final String MOD_ID = "llamarama";

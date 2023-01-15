@@ -2,14 +2,11 @@ package io.github.llamarama.team.common.register;
 
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
-
 import net.minecraft.entity.SpawnGroup;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.BiomeTags;
-import net.minecraft.tag.BiomeTags;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Identifier;
-import net.minecraft.registry.Registry;
 import net.minecraft.world.biome.BiomeKeys;
 
 public class ModBiomeModifications {

@@ -4,23 +4,20 @@ import io.github.llamarama.team.common.entity.caravantrader.CaravanTraderEntity;
 import io.github.llamarama.team.common.register.ModEntityTypes;
 import io.github.llamarama.team.common.tag.ModEntityTags;
 import io.github.llamarama.team.common.util.PosUtilities;
-
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.passive.LlamaEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.registry.Registries;
+import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.random.Random;
-import net.minecraft.registry.Registry;
-import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.world.GameRules;
 import net.minecraft.world.SpawnHelper;
 import net.minecraft.world.spawner.Spawner;
-
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Optional;

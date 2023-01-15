@@ -14,7 +14,6 @@ import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
 import net.minecraft.registry.Registries;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.registry.Registry;
 import org.jetbrains.annotations.Nullable;
 
 public class StatueBlockEntity extends BlockEntity {

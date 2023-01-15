@@ -2,10 +2,10 @@ package io.github.llamarama.team.mixin;
 
 import io.github.llamarama.team.common.entity.spawn.CaravanTraderSpawnFactory;
 import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.profiler.Profiler;
-import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.world.MutableWorldProperties;
 import net.minecraft.world.StructureWorldAccess;
 import net.minecraft.world.World;

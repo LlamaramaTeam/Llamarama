@@ -11,7 +11,6 @@ import io.github.llamarama.team.common.item.LlamaMilkItem;
 import io.github.llamarama.team.common.item.MusicDiscItem;
 import io.github.llamarama.team.common.item.food.ModFoodComponents;
 import io.github.llamarama.team.common.util.IdBuilder;
-
 import net.minecraft.item.BedItem;
 import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;

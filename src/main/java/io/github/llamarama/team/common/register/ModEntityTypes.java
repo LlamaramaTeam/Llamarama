@@ -1,9 +1,5 @@
 package io.github.llamarama.team.common.register;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.function.Supplier;
-
 import io.github.llamarama.team.common.entity.bumbllama.BumbleLlamaEntity;
 import io.github.llamarama.team.common.entity.caravantrader.CaravanTraderEntity;
 import io.github.llamarama.team.common.entity.mossyllama.MossyLlamaEntity;
@@ -11,7 +7,6 @@ import io.github.llamarama.team.common.entity.sandyllama.SandyLlamaEntity;
 import io.github.llamarama.team.common.entity.woolyllama.WoollyLlamaEntity;
 import io.github.llamarama.team.common.util.IdBuilder;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
-
 import net.minecraft.entity.EntityDimensions;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;
@@ -22,6 +17,10 @@ import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.world.Heightmap;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.function.Supplier;
 
 public final class ModEntityTypes {
 

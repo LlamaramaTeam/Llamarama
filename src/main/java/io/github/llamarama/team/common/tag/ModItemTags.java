@@ -4,7 +4,6 @@ import io.github.llamarama.team.common.util.IdBuilder;
 import net.minecraft.item.Item;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.TagKey;
-import net.minecraft.registry.Registry;
 
 public final class ModItemTags {
 
