@@ -11,10 +11,15 @@ import io.github.llamarama.team.common.item.LlamaMilkItem;
 import io.github.llamarama.team.common.item.MusicDiscItem;
 import io.github.llamarama.team.common.item.food.ModFoodComponents;
 import io.github.llamarama.team.common.util.IdBuilder;
+import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.item.BedItem;
 import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
+import net.minecraft.util.Identifier;
+
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
 
 
 @SuppressWarnings("unused")
@@ -58,9 +63,8 @@ public final class ModItems {
     public static void init() {
     }
 
-    // https://fabricmc.net/2022/11/24/1193.html for ItemGroups
     private static Item.Settings getBaseSettings() {
-        return new Item.Settings().group(Llamarama.LLAMA_ITEM_GROUP);
+        return new Item.Settings(); //.group(Llamarama.LLAMA_ITEM_GROUP);
     }
 
     private static Item.Settings getUnstackableSettings() {
@@ -72,6 +76,9 @@ public final class ModItems {
     }
 
     private static Item register(String id, Item item) {
+        // injected that here for now
+        ItemGroupEvents.modifyEntriesEvent(Llamarama.LLAMA_ITEM_GROUP)
+            .register(entries -> entries.add(item));
         return Registry.register(Registries.ITEM, IdBuilder.of(id), item);
     }
 

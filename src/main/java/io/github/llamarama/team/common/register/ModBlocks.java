@@ -6,6 +6,7 @@ import io.github.llamarama.team.common.block.LlamaWoolBedBlock;
 import io.github.llamarama.team.common.block.RugBlock;
 import io.github.llamarama.team.common.block.StatueBlock;
 import io.github.llamarama.team.common.util.IdBuilder;
+import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
@@ -41,9 +42,11 @@ public final class ModBlocks {
     @NotNull
     private static Block register(Block block, String id) {
         Identifier identifier = IdBuilder.of(id);
-        Registry.register(Registries.ITEM, identifier, new BlockItem(block,
-            // See https://fabricmc.net/2022/11/24/1193.html for ItemGroups
-            new Item.Settings().group(Llamarama.LLAMA_ITEM_GROUP)));
+        BlockItem blockItem = new BlockItem(block, new Item.Settings());
+        Registry.register(Registries.ITEM, identifier,
+            blockItem);
+        ItemGroupEvents.modifyEntriesEvent(Llamarama.LLAMA_ITEM_GROUP)
+            .register(entries -> entries.add(blockItem));
         return registerNoItem(block, id);
     }
 
