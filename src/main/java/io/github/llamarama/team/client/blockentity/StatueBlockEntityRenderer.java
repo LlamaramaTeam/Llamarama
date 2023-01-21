@@ -2,6 +2,7 @@ package io.github.llamarama.team.client.blockentity;
 
 import io.github.llamarama.team.client.layer.ModRenderLayer;
 import io.github.llamarama.team.common.blockentity.StatueBlockEntity;
+import io.github.llamarama.team.common.util.VectorUtil;
 import io.github.llamarama.team.mixin.client.AccessorEntityRenderDispatcher;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -19,6 +20,7 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.math.MathHelper;
+import org.joml.AxisAngle4f;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
 
@@ -46,13 +48,18 @@ public class StatueBlockEntityRenderer implements BlockEntityRenderer<StatueBloc
         matrices.push();
         matrices.translate(0.5f, 0, 0.5f);
         // ???
-        matrices.multiply(new Quaternionf(Vector3f.POSITIVE_Z, MathHelper.PI, false));
+//        matrices.multiply(new Quaternionf(VectorUtil.POSITIVE_Z, MathHelper.PI, false));
+        matrices.multiply(new Quaternionf(new AxisAngle4f(MathHelper.PI, VectorUtil.POSITIVE_Z)));
         matrices.translate(0, -1.6, 0);
-        matrices.multiply(new Quaternionf(
-            Vector3f.POSITIVE_Y,
+        matrices.multiply(new Quaternionf(new AxisAngle4f(
             90 * this.getHorizontalFacingIndex(entity),
-            true
-        ));
+            VectorUtil.POSITIVE_Y
+        )));
+//        matrices.multiply(new Quaternionf(
+//            VectorUtil.POSITIVE_Y,
+//            90 * this.getHorizontalFacingIndex(entity),
+//            true
+//        ));
 
         var model = livingRenderer.getModel();
 

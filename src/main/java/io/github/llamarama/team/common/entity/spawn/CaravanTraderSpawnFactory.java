@@ -50,7 +50,6 @@ public class CaravanTraderSpawnFactory implements Spawner {
                     world,
                     null,
                     null,
-                    null,
                     validPos.get(),
                     SpawnReason.EVENT,
                     true,
@@ -102,7 +101,6 @@ public class CaravanTraderSpawnFactory implements Spawner {
                             .value()
                             .create(
                                 world,
-                                null,
                                 null,
                                 null,
                                 randomLlamaPos,

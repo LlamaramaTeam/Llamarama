@@ -40,7 +40,7 @@ public class ModRenderLayer extends RenderLayer {
                 MinecraftClient.getInstance().gameRenderer.getLightmapTextureManager().enable();
                 //RenderSystem.setShader(GameRenderer::getRenderTypeEntityCutoutNoNullShader);
                 // TODO idk if this is the same
-                int x = "make compile error here to I don't forget to check if this lambda is the same";
+                // int x = "make compile error here to I don't forget to check if this lambda is the same";
                 RenderSystem.setShader(GameRenderer::getRenderTypeEntityShadowProgram);
             },
             () -> {
