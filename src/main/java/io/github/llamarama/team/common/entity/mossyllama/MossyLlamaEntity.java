@@ -19,14 +19,17 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.particle.ParticleTypes;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.entry.RegistryEntry;
+import net.minecraft.registry.entry.RegistryEntryList;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.random.Random;
-import net.minecraft.util.registry.Registry;
-import net.minecraft.util.registry.RegistryEntry;
 import net.minecraft.world.*;
+import net.minecraft.world.gen.feature.ConfiguredFeatures;
 import net.minecraft.world.gen.feature.UndergroundConfiguredFeatures;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -149,7 +152,7 @@ public class MossyLlamaEntity extends WoollyLlamaEntity {
 
     @Override
     protected @NotNull ItemStack getShearedItem() {
-        return Registry.BLOCK.getOrCreateEntryList(ModBlockTags.LUSH_GROWTH)
+        return Registries.BLOCK.getOrCreateEntryList(ModBlockTags.LUSH_GROWTH)
             .getRandom(this.random)
             .map(RegistryEntry::value)
             .orElse(Blocks.FLOWERING_AZALEA)
@@ -199,7 +202,8 @@ public class MossyLlamaEntity extends WoollyLlamaEntity {
         if (this.getMovementSpeed() > 0 && !isInPushGrowth && random.nextInt(100) == 0) {
             ServerWorld sw = (ServerWorld) this.world;
             // Use the vanilla method for better mod integration
-            UndergroundConfiguredFeatures.MOSS_PATCH_BONEMEAL.value().generate(sw,
+            // idk what value corresponds to.. getValue is just an Identifier
+            UndergroundConfiguredFeatures.MOSS_PATCH_BONEMEAL.getValue().generate(sw,
                 sw.getChunkManager().getChunkGenerator(), random, this.getBlockPos().down());
         }
     }

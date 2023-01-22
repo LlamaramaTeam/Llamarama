@@ -20,7 +20,8 @@ import net.minecraft.world.event.GameEvent;
 
 import java.util.Map;
 
-public class BuildStatueTask extends Task<SandyLlamaEntity> {
+// was tasks a class beforehand?
+public class BuildStatueTask implements Task<SandyLlamaEntity> {
 
     public static final Map<MemoryModuleType<?>, MemoryModuleState> REQUIRED = Map.of(
         ModMemoryModules.LAST_VISITED_HOME, MemoryModuleState.REGISTERED,

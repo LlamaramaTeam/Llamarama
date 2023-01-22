@@ -29,6 +29,7 @@ public class StatueSensor extends Sensor<SandyLlamaEntity> {
         Optional<GlobalPos> memory = entity.getBrain().getOptionalMemory(ModMemoryModules.PERSONAL_HOME);
         if (memory.isEmpty()) {
             Optional<BlockPos> nearStatue = world.getPointOfInterestStorage().getNearestPosition(
+//                entry -> entry.matchesKey(ModPointOfInterestTypes.STATUE),
                 entry -> entry.matchesKey(ModPointOfInterestTypes.STATUE),
                 entity.getBlockPos(),
                 32,

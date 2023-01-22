@@ -1,35 +1,16 @@
 package io.github.llamarama.team.common.entity.caravantrader;
 
-import java.util.UUID;
-
+import io.github.llamarama.team.common.item.ModSpawnEggItem;
+import io.github.llamarama.team.common.register.ModEntityTypes;
 import io.github.llamarama.team.common.register.ModItems;
 import io.github.llamarama.team.common.util.TradeUtil;
 import io.github.llamarama.team.mixin.AccessorLlamaEntity;
-import io.github.llamarama.team.common.item.ModSpawnEggItem;
-import io.github.llamarama.team.common.register.ModEntityTypes;
-import org.jetbrains.annotations.Nullable;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ExperienceOrbEntity;
-import net.minecraft.entity.ai.goal.EscapeDangerGoal;
-import net.minecraft.entity.ai.goal.FleeEntityGoal;
-import net.minecraft.entity.ai.goal.GoToWalkTargetGoal;
-import net.minecraft.entity.ai.goal.LookAtCustomerGoal;
-import net.minecraft.entity.ai.goal.LookAtEntityGoal;
-import net.minecraft.entity.ai.goal.StopAndLookAtEntityGoal;
-import net.minecraft.entity.ai.goal.StopFollowingCustomerGoal;
-import net.minecraft.entity.ai.goal.SwimGoal;
-import net.minecraft.entity.ai.goal.WanderAroundFarGoal;
+import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.mob.EvokerEntity;
-import net.minecraft.entity.mob.IllusionerEntity;
-import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.entity.mob.PillagerEntity;
-import net.minecraft.entity.mob.RavagerEntity;
-import net.minecraft.entity.mob.VexEntity;
-import net.minecraft.entity.mob.VindicatorEntity;
-import net.minecraft.entity.mob.ZoglinEntity;
-import net.minecraft.entity.mob.ZombieEntity;
+import net.minecraft.entity.mob.*;
 import net.minecraft.entity.passive.LlamaEntity;
 import net.minecraft.entity.passive.MerchantEntity;
 import net.minecraft.entity.passive.PassiveEntity;
@@ -48,6 +29,9 @@ import net.minecraft.village.TradeOffer;
 import net.minecraft.village.TradeOfferList;
 import net.minecraft.village.TradeOffers;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.UUID;
 
 public class CaravanTraderEntity extends MerchantEntity {
 

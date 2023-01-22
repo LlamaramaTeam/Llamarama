@@ -2,6 +2,7 @@ package io.github.llamarama.team.client.blockentity;
 
 import io.github.llamarama.team.common.blockentity.LlamaWoolBedBlockEntity;
 import io.github.llamarama.team.common.util.IdBuilder;
+import io.github.llamarama.team.common.util.VectorUtil;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.BedBlock;
@@ -23,8 +24,8 @@ import net.minecraft.client.render.entity.model.EntityModelPartNames;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.Vec3f;
 import net.minecraft.world.World;
+import org.joml.Vector3f;
 
 @Environment(EnvType.CLIENT)
 public class LlamaWoolBedBlockEntityRenderer implements BlockEntityRenderer<LlamaWoolBedBlockEntity> {
@@ -80,9 +81,11 @@ public class LlamaWoolBedBlockEntityRenderer implements BlockEntityRenderer<Llam
                            Direction direction, Identifier texture, int light, int overlay, boolean isFoot) {
         matrices.push();
         matrices.translate(0.0D, 0.5625D, isFoot ? -1.0D : 0.0D);
-        matrices.multiply(Vec3f.POSITIVE_X.getDegreesQuaternion(90.0F));
+        // not sure if this is a good match
+        matrices.multiply(VectorUtil.getDegreesQuaternion(VectorUtil.POSITIVE_X ,90.0F));
         matrices.translate(0.5D, 0.5D, 0.5D);
-        matrices.multiply(Vec3f.POSITIVE_Z.getDegreesQuaternion(180.0F + direction.asRotation()));
+        // same here
+        matrices.multiply(VectorUtil.getDegreesQuaternion(VectorUtil.POSITIVE_Z, 180.0F + direction.asRotation()));
         matrices.translate(-0.5D, -0.5D, -0.5D);
         VertexConsumer vertexConsumer = vertexConsumers.getBuffer(RenderLayer.getEntitySolid(texture));
         part.render(matrices, vertexConsumer, light, overlay);

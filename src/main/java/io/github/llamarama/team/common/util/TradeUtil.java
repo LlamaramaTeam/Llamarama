@@ -12,12 +12,12 @@ import net.minecraft.item.map.MapIcon;
 import net.minecraft.item.map.MapState;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionUtil;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.tag.StructureTags;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.tag.StructureTags;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.random.Random;
-import net.minecraft.util.registry.Registry;
 import net.minecraft.village.TradeOffer;
 import net.minecraft.village.TradeOffers;
 import net.minecraft.world.World;
@@ -62,7 +62,7 @@ public final class TradeUtil {
     // Look here: https://github.com/StrikerRockers-Mods/VanillaTweaks/issues/164
     // And here: https://github.com/LlamaramaTeam/Llamarama/issues/15
     private static final List<Enchantment> ENCHANTMENTS =
-        Registry.ENCHANTMENT.stream().filter(it -> it.getMaxLevel() > 0).toList();
+        Registries.ENCHANTMENT.stream().filter(it -> it.getMaxLevel() > 0).toList();
 
     public record SellItemForEmeralds(ItemStack sell, int maxEmeralds, int mixEmeralds) implements TradeOffers.Factory {
 
@@ -227,7 +227,7 @@ public final class TradeUtil {
 
     public static class RandomPlantOrNameTagTrade implements TradeOffers.Factory {
 
-        private static final Set<Block> PLANTS = Registry.BLOCK.stream()
+        private static final Set<Block> PLANTS = Registries.BLOCK.stream()
             .filter((block) -> block instanceof PlantBlock)
             .collect(Collectors.toSet());
 
@@ -251,7 +251,7 @@ public final class TradeUtil {
     public static class RandomPotionTrade implements TradeOffers.Factory {
 
         private static final List<Potion> POTIONS =
-            Registry.POTION.stream().filter(it -> !it.getEffects().isEmpty()).toList();
+            Registries.POTION.stream().filter(it -> !it.getEffects().isEmpty()).toList();
 
         @Nullable
         @Override

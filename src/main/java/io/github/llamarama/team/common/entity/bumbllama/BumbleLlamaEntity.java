@@ -17,15 +17,15 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsage;
 import net.minecraft.item.Items;
 import net.minecraft.particle.ParticleTypes;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.entry.RegistryEntry;
+import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
-import net.minecraft.tag.ItemTags;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.registry.Registry;
-import net.minecraft.util.registry.RegistryEntry;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -34,7 +34,7 @@ import java.util.List;
 
 public class BumbleLlamaEntity extends WoollyLlamaEntity {
 
-    private static final List<Item> FLOWER_LIST = Registry.ITEM.getOrCreateEntryList(ItemTags.FLOWERS)
+    private static final List<Item> FLOWER_LIST = Registries.ITEM.getOrCreateEntryList(ItemTags.FLOWERS)
         .stream()
         .map(RegistryEntry::value)
         .filter(it -> it != Items.WITHER_ROSE)
